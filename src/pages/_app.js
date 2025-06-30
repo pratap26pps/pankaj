@@ -3,11 +3,13 @@
 import '../styles/globals.css';
 import Navbaar from '../componets/Navbaar';
 import Footer from '../componets/Footer';
+import AboutPage from '@/componets/Aboutpage';
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Navbaar />
+      {/* <Navbaar /> */}
+      <AboutPage/>
       <Component {...pageProps} />
       <Footer />
     </>

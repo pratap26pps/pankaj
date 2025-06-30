@@ -21,8 +21,8 @@ const Navbaar = () => {
           <Image
             src="/images/logo.png"
             alt="EV Service Center"
-            width={120}
-            height={40}
+            width={180}
+            height={80}
             className="object-contain"
           />
         </div>
@@ -31,7 +31,7 @@ const Navbaar = () => {
         <div className="hidden md:flex items-center space-x-10 font-bold">
 
           <Link href="/" className="hover:text-green-700 transition">Home</Link>
-
+          <Link href="/Contact " className="hover:text-green-700 transition">Abouts</Link>
           {/* Services Dropdown (Desktop Hover) */}
           <div className="relative group">
             <button className="hover:text-green-700 transition">Services</button>
