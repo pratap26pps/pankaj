@@ -79,7 +79,7 @@ const Footer = () => {
         {/* About */}
         <div className='flex flex-col gap-3.5'>
           <Image
-            src="/images/logo1.jpg"
+            src="/images/logo.png"
             alt="EV Service Center Logo"
             width={120}
             height={40}

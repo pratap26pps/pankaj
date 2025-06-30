@@ -1,12 +1,17 @@
-import "../styles/globals.css";
+'use client';
 
+import '../styles/globals.css';
+import Navbaar from '../componets/Navbaar';
+import Footer from '../componets/Footer';
 
-import Footer from "../componets/Footer";
-
-export default function App() {
+function MyApp({ Component, pageProps }) {
   return (
-  
-        <Footer />
-
+    <>
+      <Navbaar />
+      <Component {...pageProps} />
+      <Footer />
+    </>
   );
 }
+
+export default MyApp;
