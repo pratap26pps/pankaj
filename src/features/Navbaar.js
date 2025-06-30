@@ -59,7 +59,7 @@ const Navbaar = () => {
           </div>
 
           {/* Login Button */}
-          <Link href="/login">
+          <Link href="/Login">
             <button className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-md transition">
               Login / Sign Up
             </button>
