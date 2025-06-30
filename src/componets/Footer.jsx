@@ -77,7 +77,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 relative z-10">
 
         {/* About */}
-        <div>
+        <div className='flex flex-col gap-3.5'>
           <Image
             src="/images/logo1.jpg"
             alt="EV Service Center Logo"
@@ -85,6 +85,7 @@ const Footer = () => {
             height={40}
             className="mb-3"
           />
+          <p>© 2025 EV Service Center </p>
           <p className="leading-relaxed">
             Fast, affordable, and reliable EV maintenance and repair services.
             Trusted by thousands across Lucknow and beyond.
