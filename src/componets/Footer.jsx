@@ -1,46 +1,132 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import Link from 'next/link';
+import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedin, FaYoutube, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="relative bg-green-700 text-white w-full overflow-hidden text-sm">
+    <footer className="bg-green-700 text-white text-sm relative w-full overflow-hidden">
 
       {/* Top Wave SVG */}
       <div className="w-full">
         <Image
           src="/images/Wave.svg"
           alt="Wave Background"
-          width={1920}
-          height={100}
-          className="w-full h-auto object-cover"
+          width={120}
+          height={10}
+          className="w-full h-[320px] object-cover"
           priority
         />
       </div>
 
-      {/* Footer Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* App Download Promo Section */}
+      <div className="max-w-7xl mx-auto  flex flex-col md:flex-row items-center  gap-11   text-white rounded-lg  mb-6 mt-4">
+        {/* Text */}
+        <h3 className="text-base md:text-lg font-semibold mb-4 md:mb-0">
+          For a better experience, download our EV Service Center App now
+        </h3>
 
-        {/* Company About */}
-        <div>
-          <div className="mb-2">
+        {/* Buttons */}
+        <div className="flex space-x-4">
+          <a href="#" target="_blank" rel="noopener noreferrer">
             <Image
-              src="/images/logo.png"
-              alt="EV Service Center Logo"
-              width={100}
-              height={30}
-              className="object-contain"
+              src="/images/playstore.avif"
+              alt="Get it on Google Play"
+              width={150}
+              height={50}
+              className="hover:scale-105 transition-transform duration-300"
             />
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer">
+            <Image
+              src="/images/appstore.avif"
+              alt="Download on the App Store"
+              width={150}
+              height={50}
+              className="hover:scale-105 transition-transform duration-300"
+            />
+          </a>
+        </div>
+         <div className='flex flex-col gap-3.5'>
+          <h4 className="font-semibold mt-4 text-lg">Follow Us</h4>
+          <div className="flex space-x-4">
+            {[
+              { icon: <FaFacebookF />, link: 'https://www.facebook.com/' },
+              { icon: <FaInstagram />, link: 'https://www.instagram.com/' },
+              { icon: <FaTwitter />, link: 'https://twitter.com/' },
+              { icon: <FaLinkedin />, link: 'https://www.linkedin.com/' },
+              { icon: <FaYoutube />, link: 'https://www.youtube.com/' },
+            ].map((social, index) => (
+              <a
+                key={index}
+                href={social.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full bg-green-800 hover:bg-green-600 transform hover:scale-110 transition-all duration-300"
+              >
+                {social.icon}
+              </a>
+            ))}
           </div>
-          <p className="leading-snug">
-            Your trusted EV service partner. Quick repairs, genuine parts, and expert support.
+        </div>
+
+      </div>
+
+      {/* Footer Main Content */}
+      <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 relative z-10">
+
+        {/* About */}
+        <div>
+          <Image
+            src="/images/logo1.jpg"
+            alt="EV Service Center Logo"
+            width={120}
+            height={40}
+            className="mb-3"
+          />
+          <p className="leading-relaxed">
+            Fast, affordable, and reliable EV maintenance and repair services.
+            Trusted by thousands across Lucknow and beyond.
           </p>
         </div>
 
-        {/* Contact Info */}
+        {/* Company */}
         <div>
-          <h3 className="text-base font-semibold mb-2">Contact</h3>
+          <h4 className="font-semibold mb-3 text-lg">Company</h4>
+          <ul className="space-y-2">
+            <li><Link href="/about" className="hover:underline">About Us</Link></li>
+            <li><Link href="/services" className="hover:underline">Our Services</Link></li>
+            <li><Link href="/careers" className="hover:underline">Careers</Link></li>
+            <li><Link href="/franchise" className="hover:underline">Franchise</Link></li>
+            <li><Link href="/contact" className="hover:underline">Contact</Link></li>
+          </ul>
+        </div>
+   {/** Avlibable on */}
+   <div className="">
+      <h4 className="font-semibold text-lg mb-3">Available in:</h4>
+      <ul className="space-y- text-gray-200">
+        <li>Bangalore</li>
+        <li>Gurgaon</li>
+        <li>Hyderabad</li>
+        <li>Delhi</li>
+        <li>Mumbai</li>
+        <li>Pune</li>
+      </ul>
+
+      {/* Dropdown */}
+      <div className="mt-3">
+        <button
+          className="w-full px-1 py-2 text-start pl-2.5 bg-green-800 text-white rounded-md border border-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+        >
+          69 cities
+          {/* You can later map your full cities list here */}
+        </button>
+      </div>
+    </div>
+        {/* Contact */}
+        <div>
+          <h4 className="font-semibold mb-3 text-lg">Contact Us</h4>
           <ul className="space-y-2">
             <li className="flex items-start">
               <FaMapMarkerAlt className="mr-2 mt-1" />
@@ -57,37 +143,15 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* App Download */}
-        <div>
-          <h3 className="text-base font-semibold mb-2">Get Our App</h3>
-          <div className="flex flex-col space-y-2">
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              <Image
-                src="/images/playstore.png"
-                alt="Download from Playstore"
-                width={120}
-                height={40}
-                className="hover:opacity-90 transition duration-300"
-              />
-            </a>
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              <Image
-                src="/images/appstore.png"
-                alt="Download from App Store"
-                width={120}
-                height={40}
-                className="hover:opacity-90 transition duration-300"
-              />
-            </a>
-          </div>
-        </div>
+        {/* Social Links */}
 
       </div>
 
-      {/* Footer Bottom */}
-      <div className="bg-green-800 text-center py-2 text-xs">
-        © 2025 EV Service Center | All Rights Reserved.
+      {/* Bottom Bar */}
+      <div className="border-t border-green-600 py-3 px-4 bg-green-800 text-xs text-center">
+        <p>© 2025 EV Service Center. All rights reserved.</p>
       </div>
+
     </footer>
   );
 };
