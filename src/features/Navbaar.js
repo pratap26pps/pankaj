@@ -68,7 +68,7 @@ const Navbaar = () => {
 
         {/* Mobile Menu Icon */}
         <div className="md:hidden flex items-center space-x-3">
-          <Link href="/user/login">
+          <Link href="/user/Login">
             <button className="bg-green-600 hover:bg-green-500 text-white px-3 py-1.5 rounded-md text-sm transition">
               Login / Sign Up
             </button>

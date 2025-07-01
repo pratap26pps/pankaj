@@ -16,7 +16,7 @@ const Signup = () => {
     vehicle: '',
     password: '',
     confirmPassword: '',
-    types:""
+    usetype:""
   });
 
   const [animationData, setAnimationData] = useState(null);
@@ -49,10 +49,10 @@ const Signup = () => {
   };
 
   return (
-    <div className=" bg-green-700 flex flex-col-reverse overflow-hidden h-[900px]  lg:flex-row items-center justify-around px-4 pt-44  lg:-mb-34">
+    <div className=" bg-green-700 flex flex-col-reverse overflow-hidden  lg:flex-row items-center justify-around px-4 pt-44  lg:-mb-34 ">
 
       {/* Signup Card */}
-      <div className="bg-gray-300 shadow-xl lg:mb-24  sm:mb-0 rounded-2xl px-6 py-2 sm:py-8 sm:pb-12 w-full max-w-md">
+      <div className="bg-gray-300 shadow-xl lg:mb-54 pb-4  w-full rounded-2xl px-4 py-6  max-w-md ">
         {/* Top: Logo + Heading */}
         <div className="flex items-center justify-between -mt-6 mb-4">
           <Image src="/images/logo.png" alt="Signup Logo" width={70} height={70} />
@@ -163,11 +163,20 @@ const Signup = () => {
           </div>
           </div>
 
-                 <select className="px-4 py-3 rounded-md w-72 text-black">
-  <option selected disabled>Select Type</option>
+                 <select
+  name="userType"
+  value={formData.userType}
+  onChange={handleChange}
+  required
+  className="w-full px-4 py-2 border rounded-lg bg-gray-300 text-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+>
+  <option value="" disabled selected>
+    Select Type
+  </option>
   <option value="partner">Partner</option>
   <option value="service-center">Service Center</option>
-                 </select>
+</select>
+
 
           {/* Create Account Button */}
           <button
@@ -190,14 +199,14 @@ const Signup = () => {
         {/* Login Link */}
         <p className="text-sm text-center text-gray-700 mt-4">
           Already have an account?{' '}
-          <a href="/Login" className="text-blue-600 font-medium hover:underline">
+          <a href='/user/Login' className="text-blue-600 font-medium hover:underline">
             Login
           </a>
         </p>
       </div>
        {/* Left Side Animation */}
       {animationData && (
-        <div className="w-full max-w-sm mb-6 lg:mb-0 lg:mr-10">
+        <div className="w-auto  h-[800px] max-w-sm sm:mb-1 lg:mb-0 lg:mr-10">
           <Lottie animationData={animationData} loop={true} />
         </div>
       )}

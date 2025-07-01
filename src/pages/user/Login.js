@@ -1,9 +1,11 @@
 'use client';
-import React, { useState ,useEffect } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Eye, EyeOff } from 'lucide-react';
 import { FaGoogle } from 'react-icons/fa';
 import Lottie from 'lottie-react';
+
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -12,14 +14,16 @@ const Login = () => {
   });
 
   const [animationData, setAnimationData] = useState(null);
- const [animationData1 ,setAnimationData1] =useState(null);
+  const [animationData1, setAnimationData1] = useState(null);
+
   useEffect(() => {
     fetch('/Animations/hello.json')
       .then((response) => response.json())
       .then((data) => setAnimationData(data))
       .catch((error) => console.error(error));
   }, []);
-    useEffect(() => {
+
+  useEffect(() => {
     fetch('/Animations/Login.json')
       .then((response) => response.json())
       .then((data) => setAnimationData1(data))
@@ -27,20 +31,16 @@ const Login = () => {
   }, []);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form Data:', formData);
     // Login logic here
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
   };
 
   const handleGoogleLogin = () => {
@@ -49,29 +49,40 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-row items-center justify-around  s mx-auto    bg-green-700 lg:pt-44 pb-7  px-4 pt-34 ">
+    <div className="min-h-screen flex flex-col pt-54   lg:flex-row-reverse items-center justify-center bg-green-700 px-4 py-10 gap-10">
+
+      {/* Left Side Animation */}
+      {animationData1 && (
+        <div className="w-full max-w-sm lg:max-w-md">
+          <Lottie animationData={animationData1} loop={true} />
+        </div>
+      )}
+
       {/* Login Card */}
-      <div className="bg-gray-300 shadow-xl rounded-2xl px-5 py-3.5 w-full max-w-md">
+      <div className="bg-gray-300 shadow-xl rounded-2xl px-6 py-6 w-full max-w-md">
+
         {/* Top Logo + Welcome */}
-        <div className="flex justify-between items-center mb-1">
-          <Image src="/images/logo.png" alt="GNB Logo" width={130} height={100} />
-          <h2 className="text-2xl flex flex-col mt-1 pt-2.5 items-center justify-center font-extrabold text-gray-700">Welcome Back !
-   {animationData && (
-              <div className="w-32 h-32">
+        <div className="flex justify-between items-center mb-4">
+          <Image src="/images/logo.png" alt="GNB Logo" width={100} height={80} />
+          <div className="flex flex-col items-center">
+            <h2 className="text-2xl font-extrabold text-gray-700">Welcome Back!</h2>
+            {animationData && (
+              <div className="w-24 h-24">
                 <Lottie animationData={animationData} loop={true} />
               </div>
             )}
-
-          </h2>
+          </div>
         </div>
 
         {/* Heading */}
-        <h3 className="text-2xl font-bold text-center mb-6">Login to Your Account</h3>
+        <h3 className="text-xl font-bold text-center mb-6">Login to Your Account</h3>
 
+        {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
+
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-600">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-600 mb-1">
               Email
             </label>
             <input
@@ -81,15 +92,15 @@ const Login = () => {
               value={formData.email}
               onChange={handleChange}
               required
-               autoComplete="off"
+              autoComplete="off"
               placeholder="Enter your email"
-              className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
 
           {/* Password */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-600">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-600 mb-1">
               Password
             </label>
             <div className="relative">
@@ -100,9 +111,9 @@ const Login = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                 autoComplete="off"x
+                autoComplete="off"
                 placeholder="Enter your password"
-                className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
               />
               <button
                 type="button"
@@ -126,9 +137,9 @@ const Login = () => {
         {/* Google Login */}
         <button
           onClick={handleGoogleLogin}
-          className="w-full mt-4 flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-lg bg-gray-50 transition"
+          className="w-full mt-4 flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition"
         >
-          <FaGoogle size={18} className="blue" />
+          <FaGoogle size={18} />
           Login with Google
         </button>
 
@@ -140,16 +151,6 @@ const Login = () => {
           </a>
         </p>
       </div>
-
-
-
-       {/* Left Side Animation */}
-      {animationData && (
-        <div className="w-full max-w-sm mb-6 lg:mb-0 lg:mr-10">
-          <Lottie animationData={animationData1} loop={true} />
-        </div>
-      )}
-
     </div>
   );
 };
