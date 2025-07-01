@@ -1,5 +1,6 @@
 import Image from "next/image";
 import SearchBar from "@/features/searchbar";
+import Dashboard from "./user/Dashboard";
 export const metadata = {
   title: "EV Services - Home",
   description: "Book EV Repairs, Services, & Batteries.",
@@ -15,7 +16,7 @@ export default function Home() {
         className="absolute inset-0 bg-[url('https://focus.hidubai.com/content/images/2024/08/ev--3-.jpg')] bg-cover bg-center bg-fixed"
         style={{ zIndex: -2 }}
       />
-   
+
 
       <main className="max-w-6xl w-full mx-auto text-center">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-8 leading-tight drop-shadow-lg">
@@ -48,8 +49,8 @@ export default function Home() {
           />
         </div>
       </main>
+
     </div>
-    
   </>
   );
 }
