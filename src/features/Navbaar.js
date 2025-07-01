@@ -16,17 +16,20 @@ const Navbaar = () => {
 
   // Dynamic Link Colors Based on Page
   let linkBaseColor = 'text-black';
-  let linkHoverColor = 'hover:text-blue-600';
-
+  let linkHoverColor = 'hover:text-white';
+ let  linkHoverColor2 = 'hover:text-blue-500';
   if (pathname === '/') {
     linkBaseColor = 'text-white';
     linkHoverColor = 'hover:text-blue-500';
-  } else if (pathname === '/user/login' || pathname === '/user/signup') {
+
+
+  }
+  else if (pathname === '/user/login' || pathname === '/user/signup') {
     linkBaseColor = 'text-black';
     linkHoverColor = 'hover:text-white';
   }
 
-  const desktopLinkClass = `${linkBaseColor} ${linkHoverColor} transition`;
+  const desktopLinkClass = `${linkBaseColor} ${linkHoverColor2} transition`;
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-transparent font-extrabold text-xl">
