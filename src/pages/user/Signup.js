@@ -49,13 +49,13 @@ const Signup = () => {
   };
 
   return (
-    <div className=" bg-green-700 flex flex-col-reverse overflow-hidden  lg:flex-row items-center justify-around px-4 pt-44  lg:-mb-34 ">
+    <div className=" bg-green-700 flex flex-col-reverse overflow-hidden   lg:flex-row items-center justify-around px-4 pt-44  lg:-mb-34 ">
 
       {/* Signup Card */}
       <div className="bg-gray-300 shadow-xl lg:mb-54 pb-4  w-full rounded-2xl px-4 py-6  max-w-md ">
         {/* Top: Logo + Heading */}
         <div className="flex items-center justify-between -mt-6 mb-4">
-          <Image src="/images/logo.png" alt="Signup Logo" width={70} height={70} />
+          <Image src="/images/logo (3).png" alt="Signup Logo" width={70} height={70} />
           <h2 className="text-2xl font-extrabold text-gray-800">Create Account</h2>
         </div>
 

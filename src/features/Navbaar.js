@@ -19,10 +19,10 @@ const Navbaar = () => {
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
-            src="/images/logo.png"
+            src="/images/logo (3).png"
             alt="EV Service Center"
-            width={180}
-            height={80}
+            width={150}
+            height={50}
             className="object-contain"
           />
         </Link>
