@@ -17,7 +17,7 @@ const Navbaar = () => {
       <div className="max-w-7xl mx-auto px-4  flex items-center justify-between">
 
         {/* Logo */}
-        <div className="flex items-center">
+        <Link href="/" className="flex items-center">
           <Image
             src="/images/logo.png"
             alt="EV Service Center"
@@ -25,7 +25,7 @@ const Navbaar = () => {
             height={80}
             className="object-contain"
           />
-        </div>
+        </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-10 font-bold">
@@ -59,7 +59,7 @@ const Navbaar = () => {
           </div>
 
           {/* Login Button */}
-          <Link href="/Login">
+          <Link href="/user/Login">
             <button className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-md transition">
               Login / Sign Up
             </button>
@@ -68,7 +68,7 @@ const Navbaar = () => {
 
         {/* Mobile Menu Icon */}
         <div className="md:hidden flex items-center space-x-3">
-          <Link href="/login">
+          <Link href="/user/login">
             <button className="bg-green-600 hover:bg-green-500 text-white px-3 py-1.5 rounded-md text-sm transition">
               Login / Sign Up
             </button>
