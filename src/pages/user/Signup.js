@@ -22,7 +22,7 @@ const Signup = () => {
   const [animationData, setAnimationData] = useState(null);
 
   useEffect(() => {
-    fetch('/Animations/signup.json')  // ✅ Correct animation path
+    fetch('/Animations/signup.json')  
       .then((response) => response.json())
       .then((data) => setAnimationData(data))
       .catch((error) => console.error('Animation load error:', error));
