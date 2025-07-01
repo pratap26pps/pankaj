@@ -1,46 +1,32 @@
-import Head from 'next/head';
-import Image from 'next/image';
+import Page2 from "@/features/Page2";
+
+export const metadata = {
+  title: "EV Services - Home",
+  description: "Book EV Repairs, Services, & Batteries.",
+};
 
 export default function Home() {
   return (
-  <div
-  className="min-h-screen px-4 py-35 bg-cover bg-center"
-  style={{
-    backgroundImage:
-      "url('https://efuel.like-themes.com/wp-content/uploads/2018/08/slider-car-full.jpg')",
-     backgroundPosition: '0% ',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      backgroundAttachment: 'fixed',
-      backgroundColor: '#f0f0f0',
-      backgroundBlendMode: 'overlay',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      color: '#fff',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
-      height: '100vh',
-      padding: '20px',
-      fontFamily: 'Arial, sans-serif',
-      transition: 'background-color 0.3s ease',
-      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-      borderRadius: '10px',
-      backdropFilter: 'blur(10px)',
-      WebkitBackdropFilter: 'blur(10px)',
-      border: '1px solid rgba(255, 255, 255, 0.1)',
-      overflow: 'hidden',
-      position: 'relative',
-  }}
->
-
-
-      <Head>
-        <title>EV Services - Home</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
-
+    <div
+      className="min-h-screen px-4 py-10 bg-cover bg-center"
+      style={{
+        backgroundImage:
+          "url('https://efuel.like-themes.com/wp-content/uploads/2018/08/slider-car-full.jpg')",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        color: "#fff",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        fontFamily: "Arial, sans-serif",
+        overflow: "hidden",
+        position: "relative",
+      }}
+    >
       <main className="max-w-6xl mx-auto text-center">
         <h1 className="text-4xl md:text-5xl font-bold mb-8 leading-tight">
           Book EV Repairs, Services, & Batteries.
@@ -49,7 +35,7 @@ export default function Home() {
         </h1>
 
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12">
-          <select className="px-4 py-7 rounded-md w-72 text-black">
+          <select className="px-4 py-3 rounded-md w-72 text-black">
             <option selected disabled>Enter Location</option>
             <option>Ballabhgarh</option>
             <option>Faridabad</option>
@@ -58,7 +44,7 @@ export default function Home() {
           <input
             type="text"
             placeholder="Search service or EV issue..."
-            className="px-4 py-3 border-2  rounded-md w-72 text-black"
+            className="px-4 py-3 border-2 rounded-md w-72 text-black"
           />
         </div>
 
@@ -83,6 +69,8 @@ export default function Home() {
           />
         </div>
       </main>
+
+      <Page2 />
     </div>
   );
 }
@@ -93,6 +81,7 @@ function Card({ title, desc, offer, img }) {
       <h2 className="text-xl font-semibold mb-1">{title}</h2>
       <p className="text-gray-600 text-sm mb-2">{desc}</p>
       <div className="text-orange-500 font-bold mb-4">{offer}</div>
+      {/* Uncomment this if you want image */}
       {/* <Image src={img} alt={title} width={100} height={100} className="mx-auto" /> */}
     </div>
   );

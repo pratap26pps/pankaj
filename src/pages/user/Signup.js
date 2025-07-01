@@ -16,6 +16,7 @@ const Signup = () => {
     vehicle: '',
     password: '',
     confirmPassword: '',
+    types:""
   });
 
   const [animationData, setAnimationData] = useState(null);
@@ -162,6 +163,11 @@ const Signup = () => {
           </div>
           </div>
 
+                 <select className="px-4 py-3 rounded-md w-72 text-black">
+  <option selected disabled>Select Type</option>
+  <option value="partner">Partner</option>
+  <option value="service-center">Service Center</option>
+                 </select>
 
           {/* Create Account Button */}
           <button
