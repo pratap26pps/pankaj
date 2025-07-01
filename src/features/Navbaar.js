@@ -58,6 +58,7 @@ const Navbaar = () => {
             width={150}
             height={50}
             className="object-contain"
+            style={{ width: 'auto', height: 'auto' }}
           />
         </Link>
 

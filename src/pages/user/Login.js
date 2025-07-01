@@ -59,26 +59,16 @@ const Login = () => {
       )}
 
       {/* Login Card */}
-      <div className="bg-gray-300 shadow-xl rounded-2xl px-6 py-6 w-full max-w-md">
+      <div className="bg-gray-300 shadow-xl rounded-2xl px-4 py-4 w-full max-w-md">
 
         {/* Top Logo + Welcome */}
-        <div className="flex justify-between items-center mb-4">
-          <Image src="/images/logo (3).png" alt="GNB Logo" width={100} height={80} />
-          <div className="flex flex-col items-center">
-            <h2 className="text-2xl font-extrabold text-gray-700">Welcome Back!</h2>
-            {animationData && (
-              <div className="w-24 h-24">
-                <Lottie animationData={animationData} loop={true} />
-              </div>
-            )}
-          </div>
+        <div className="flex justify-between items-center mb-3">
+          <Image src="/images/logo (3).png" alt="GNB Logo" width={80} height={60} />
+          <h2 className="text-xl font-extrabold text-gray-800 tracking-tight drop-shadow-lg">Login to Your Account</h2>
         </div>
 
-        {/* Heading */}
-        <h3 className="text-xl font-bold text-center mb-6">Login to Your Account</h3>
-
         {/* Login Form */}
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-3">
 
           {/* Email */}
           <div>
@@ -94,7 +84,7 @@ const Login = () => {
               required
               autoComplete="off"
               placeholder="Enter your email"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
 
@@ -113,22 +103,27 @@ const Login = () => {
                 required
                 autoComplete="off"
                 placeholder="Enter your password"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
               />
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
                 className="absolute inset-y-0 right-3 flex items-center text-gray-500"
               >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
+          </div>
+
+          {/* Forgot Password */}
+          <div className="flex justify-end -mt-1">
+            <a href="/user/forgot-password" className="text-xs text-green-600 hover:underline font-medium">Forgot Password?</a>
           </div>
 
           {/* Login Button */}
           <button
             type="submit"
-            className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold transition duration-200"
+            className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold transition duration-200 mt-2"
           >
             Login
           </button>
@@ -137,15 +132,15 @@ const Login = () => {
         {/* Google Login */}
         <button
           onClick={handleGoogleLogin}
-          className="w-full mt-4 flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition"
+          className="w-full mt-3 flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition"
         >
-          <FaGoogle size={18} />
+          <FaGoogle size={16} />
           Login with Google
         </button>
 
         {/* Signup Link */}
-        <p className="text-sm text-center text-gray-600 mt-4">
-          Don’t have an account?{' '}
+        <p className="text-sm text-center text-gray-600 mt-3">
+          Don't have an account?{' '}
           <a href="/user/Signup" className="text-green-600 font-medium hover:underline">
             Sign Up
           </a>
