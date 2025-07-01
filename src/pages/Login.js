@@ -49,7 +49,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-around overflow-y-hidden bg-green-700 lg:pt-44 pb-7 sm:mx-auto px-4  ">
+    <div className="min-h-screen flex flex-row items-center justify-around  s mx-auto    bg-green-700 lg:pt-44 pb-7  px-4 pt-34 ">
       {/* Login Card */}
       <div className="bg-gray-300 shadow-xl rounded-2xl px-5 py-3.5 w-full max-w-md">
         {/* Top Logo + Welcome */}
@@ -100,7 +100,7 @@ const Login = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                 autoComplete="off"
+                 autoComplete="off"x
                 placeholder="Enter your password"
                 className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
               />

@@ -13,29 +13,31 @@ const Navbaar = () => {
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50  ">
+    <nav className="fixed text-white font-extrabold text-xl top-0 left-0 w-full z-50  ">
       <div className="max-w-7xl mx-auto px-4  flex items-center justify-between">
 
         {/* Logo */}
         <div className="flex items-center">
-          <Image
-            src="/images/logo.png"
-            alt="EV Service Center"
-            width={180}
-            height={80}
-            className="object-contain"
-          />
-        </div>
+           <Link href="/">
+        <Image
+          src="/images/logo.png"
+          alt="EV Service Center"
+          width={180}
+          height={80}
+          className="object-contain"
+        />
+      </Link>
+      </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-10 font-bold">
+        <div className="hidden   md:flex items-center space-x-10 font-bold">
 
           <Link href="/" className="hover:text-green-700 transition">Home</Link>
           <Link href="/Aboutpage" className="hover:text-green-700 transition">Abouts</Link>
           {/* Services Dropdown (Desktop Hover) */}
           <div className="relative group">
             <button className="hover:text-green-700 transition">Services</button>
-            <div className="absolute top-full mt-2 left-0 w-56 bg-white shadow-lg rounded-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition duration-300 space-y-1 py-2 px-3">
+            <div className="absolute font-semibold   text-black top-full mt-2 left-0 w-56 bg-white shadow-lg rounded-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition duration-300 space-y-1 py-2 px-3">
               {[
                 'EV Car Repair', 'Battery Replacement', 'Charging Station', 'Paint Job',
                 'Tyre Service', 'Diagnostics', 'AC Repair', 'General Maintenance', 'Insurance Claim', 'Pick & Drop'
@@ -48,7 +50,7 @@ const Navbaar = () => {
           {/* Stores Dropdown (Desktop Hover) */}
           <div className="relative group">
             <button className="hover:text-green-700 transition">Stores</button>
-            <div className="absolute top-full mt-2 left-0 w-56 bg-white shadow-lg rounded-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition duration-300 space-y-1 py-2 px-3">
+            <div className="absolute text-black font-semibold top-full mt-2 left-0 w-56 bg-white shadow-lg rounded-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition duration-300 space-y-1 py-2 px-3">
               {[
                 'Delhi Store', 'Mumbai Store', 'Bangalore Store', 'Hyderabad Store', 'Pune Store',
                 'Jaipur Store', 'Lucknow Store', 'Kolkata Store', 'Chennai Store', 'Ahmedabad Store'

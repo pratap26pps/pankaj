@@ -48,18 +48,18 @@ const Signup = () => {
   };
 
   return (
-    <div className=" bg-green-700 flex flex-col-reverse overflow-hidden  lg:flex-row items-center justify-around px-4 pt-44 0 lg:mb-14">
+    <div className=" bg-green-700 flex flex-col-reverse overflow-hidden h-[900px]  lg:flex-row items-center justify-around px-4 pt-44  lg:-mb-34">
 
       {/* Signup Card */}
-      <div className="bg-gray-300 shadow-xl lg:mb-8 sm:mb-0 rounded-2xl px-6 py-2 sm:py-8 sm:pb-12 w-full max-w-md">
+      <div className="bg-gray-300 shadow-xl lg:mb-24  sm:mb-0 rounded-2xl px-6 py-2 sm:py-8 sm:pb-12 w-full max-w-md">
         {/* Top: Logo + Heading */}
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between -mt-6 mb-4">
           <Image src="/images/logo.png" alt="Signup Logo" width={70} height={70} />
           <h2 className="text-2xl font-extrabold text-gray-800">Create Account</h2>
         </div>
 
         {/* Signup Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3 -mt-6 mb-0">
           {/* First & Last Name */}
           <div className="flex gap-2.5">
             <input
@@ -120,7 +120,8 @@ const Signup = () => {
           />
 
           {/* Password */}
-          <div className="relative">
+          <div className=" gap-2.5 flex flex-row">
+            <div  className='flex flex-col items-end relative justify-center '>
             <input
               type={showPassword ? 'text' : 'password'}
               name="password"
@@ -134,12 +135,11 @@ const Signup = () => {
             <button
               type="button"
               onClick={togglePasswordVisibility}
-              className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+              className="absolute right-1.5  flex items-center text-gray-500"
             >
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
-          </div>
-
+                  </div>
           {/* Confirm Password */}
           <div className="relative">
             <input
@@ -150,7 +150,7 @@ const Signup = () => {
               onChange={handleChange}
               required
               autoComplete="new-password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <button
               type="button"
@@ -160,6 +160,8 @@ const Signup = () => {
               {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
           </div>
+          </div>
+
 
           {/* Create Account Button */}
           <button
