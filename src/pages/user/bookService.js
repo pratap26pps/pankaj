@@ -62,11 +62,11 @@ export default function BookService() {
           Book a Service
         </h2>
         <div className="w-16 h-1 bg-gradient-to-r from-green-400 to-green-700 rounded-full mb-4"></div>
-        <p className="text-green-700 text-base md:text-lg mb-6 text-center font-medium">
+        <p className="text-green-700 text-base md:text-lg mb-2 text-center font-medium">
           Fill out the form below and our team will get in touch with you soon!
         </p>
 
-        <form className="w-full flex flex-col gap-4 md:gap-6" onSubmit={handleSubmit}>
+        <form className="w-full flex flex-col gap-2 md:gap-2" onSubmit={handleSubmit}>
           {error && (
             <div className="bg-red-100 text-red-700 p-2 rounded text-center text-sm md:text-base font-semibold shadow">
               {error}
