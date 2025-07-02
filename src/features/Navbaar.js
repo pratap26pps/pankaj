@@ -65,7 +65,7 @@ const Navbaar = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">
           <Link href="/" className={desktopLinkClass}>Home</Link>
-          <Link href="/Aboutpage" className={desktopLinkClass}>About</Link>
+          <Link href="/about" className={desktopLinkClass}>About</Link>
 
           {/* Services Dropdown */}
           <div className="relative group">

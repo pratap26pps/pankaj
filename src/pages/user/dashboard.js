@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Dashboard = () => {
   const [showServiceHistory, setShowServiceHistory] = useState(true);
@@ -124,7 +124,7 @@ const Dashboard = () => {
         {/* Action Buttons Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <Link
-            href="/service-booking"
+            href="/user/bookService"
             className="text-center bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition text-base font-semibold shadow"
           >
             🚗 Book a Service
