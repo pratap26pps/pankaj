@@ -49,12 +49,12 @@ const Signup = () => {
   const handleGoogleSignup = () => console.log('Google Signup Clicked');
 
   return (
-    <div className="bg-green-700 flex items-center justify-center px-2 sm:px-4 py-24 sm:py-54  overflow-hidden min-h-screen">
-      <div className="flex flex-col-reverse lg:flex-row items-center justify-around gap-4 w-full max-w-xs sm:max-w-2xl lg:max-w-6xl">
+    <div className="bg-green-700 flex items-center justify-center px-4 sm:px-8 lg:px-20 py-8 sm:py-12 lg:py-24 pt-20 sm:pt-24 lg:pt-32 overflow-hidden min-h-screen">
+      <div className="flex flex-col-reverse lg:flex-row items-center justify-center gap-6 sm:gap-8 lg:gap-12 w-full max-w-xs sm:max-w-2xl lg:max-w-6xl">
         {/* Signup Card */}
-        <div className="bg-gray-300 shadow-xl rounded-2xl px-3 sm:px-6 py-4 w-full max-w-xs sm:max-w-md mt-10 sm:mt-16 lg:mt-24">
+        <div className="bg-gray-300 shadow-xl rounded-2xl px-4 sm:px-6 py-6 w-full max-w-xs sm:max-w-md lg:max-w-lg mt-8 sm:mt-12 lg:mt-16">
           {/* Top: Logo + Heading */}
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-4">
             <Image src="/images/logo (3).png" alt="Signup Logo" width={60} height={60} className="sm:w-[80px] sm:h-[80px]" style={{ height: 'auto', width: 'auto' }} />
             <h2 className="text-2xl sm:text-3xl font-extrabold text-green-800 tracking-tight drop-shadow-xl">Create Account</h2>
           </div>
@@ -223,12 +223,12 @@ const Signup = () => {
           </p>
         </div>
         {/* Lottie Animation */}
-        <div className="w-full flex items-center justify-center mb-20 sm:mb-28 md:mb-34 mt-16 sm:mt-20">
+        <div className="w-full flex items-center justify-center lg:items-start lg:pt-8 mt-24 sm:mt-32 lg:mt-0">
           {animationData && (
             <Lottie
               animationData={animationData}
               loop={true}
-              className="w-[320px] h-[320px] sm:w-[380px] sm:h-[380px] md:w-[440px] md:h-[440px] lg:w-[500px] lg:h-[500px] max-w-full max-h-[500px]"
+              className="w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px] lg:w-[420px] lg:h-[420px] xl:w-[480px] xl:h-[480px] max-w-full"
             />
           )}
         </div>
