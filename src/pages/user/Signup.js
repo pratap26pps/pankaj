@@ -198,12 +198,12 @@ const Signup = () => {
                 className="hidden"
               />
             </div>
-            {/* Create Account Button */}
+            {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold transition mt-2"
+              className="w-full bg-gradient-to-r from-green-500 to-green-700 text-white px-4 py-3 rounded-2xl font-bold hover:from-green-600 hover:to-green-800 shadow-xl transition text-lg tracking-wide transform hover:scale-105 focus:scale-105 duration-200"
             >
-              Create Account
+              Signup
             </button>
           </form>
           {/* Google Signup */}
@@ -222,14 +222,10 @@ const Signup = () => {
             </a>
           </p>
         </div>
-        {/* Lottie Animation */}
-        <div className="w-full flex items-center justify-center lg:items-start lg:pt-8 mt-24 sm:mt-32 lg:mt-0">
+        {/* Animation Side */}
+        <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl flex flex-col items-center justify-center">
           {animationData && (
-            <Lottie
-              animationData={animationData}
-              loop={true}
-              className="w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px] lg:w-[420px] lg:h-[420px] xl:w-[480px] xl:h-[480px] max-w-full"
-            />
+            <Lottie animationData={animationData} loop={true} className="w-full h-auto" />
           )}
         </div>
       </div>

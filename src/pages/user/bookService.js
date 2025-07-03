@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-
+import { toast } from 'sonner';
 export default function BookService() {
   const [form, setForm] = useState({
     name: '',
@@ -23,7 +23,7 @@ export default function BookService() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    toast.success('Service booked successfully!', { duration: 2000 });
     const { name, email, issue, location, date, message } = form;
 
     if (!name || !email || !issue || !location || !date || !message) {
