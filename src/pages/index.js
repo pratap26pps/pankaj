@@ -1,6 +1,5 @@
 import Image from "next/image";
 import SearchBar from "@/features/searchbar";
-import Dashboard from "./user/Dashboard";
 export const metadata = {
   title: "EV Services - Home",
   description: "Book EV Repairs, Services, & Batteries.",
