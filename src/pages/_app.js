@@ -3,7 +3,7 @@
 import "../styles/globals.css";
 import Navbaar from "../features/Navbaar";
 import Footer from "../features/Footer";
-import dashboard from "./user/Dashboard";
+import Dashboard from "./user/Dashboard";
 import { Toaster } from 'sonner';
 
 // import Otp from "../features/otp";
