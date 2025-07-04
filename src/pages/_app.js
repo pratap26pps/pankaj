@@ -5,11 +5,11 @@ import Navbaar from "../features/Navbaar";
 import Footer from "../features/Footer";
 import dashboard from "./user/Dashboard";
 import { Toaster } from 'sonner';
-import Otp from "../features/otp";
+
+// import Otp from "../features/otp";
 function MyApp({ Component, pageProps }) {
   return (
     <>
-    <Otp/>
       <Navbaar />
       <Component {...pageProps} />
       <Toaster position="top-center" />
