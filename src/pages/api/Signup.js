@@ -1,7 +1,6 @@
-import { transporter } from "@/lib/mail";
-import tempUserStore from "@/lib/tempUserStore";
+import tempUserStore from "@/lib/tempUseStore";
 import { connectDB } from "@/lib/db";
-import User from "@/lib/models/User";
+import User from "@/Model/User";
 import bcrypt from "bcryptjs";
 
 export async function POST(req) {
