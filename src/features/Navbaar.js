@@ -34,7 +34,7 @@ const Navbaar = () => {
 
   const navigateDashboard = () => {
     setAccountDropdownOpen(false);
-    router.push('/user/Dashboard');
+    router.push('/user/dashboard');
   };
 
   const services = [
