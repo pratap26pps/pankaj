@@ -70,8 +70,8 @@ const ServicePage = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-green-50 to-white px-4 sm:px-6 md:px-10 py-10">
-      <div className="max-w-6xl mx-auto space-y-10">
+    <section className="min-h-screen  bg-gradient-to-br from-green-50 to-white px-4 sm:px-6 md:px-10 py-10">
+      <div className="max-w-6xl mt-20 mx-auto space-y-10">
         {/* ✅ Heading */}
         <div className="text-center">
           <h1 className="text-4xl font-bold text-green-800 mb-2">
