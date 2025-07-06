@@ -3,49 +3,132 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { toast } from 'sonner';
+
 export default function BookService() {
   const [form, setForm] = useState({
     name: '',
     email: '',
-    issue: '',
-    location: '',
+    phone: '',
+    issues: [],
+    village: '',
+    city: '',
+    homeNo: '',
     date: '',
     message: '',
   });
 
-  const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const issueOptions = [
+    'Battery Problem',
+    'Engine Issue',
+    'Brake Failure',
+    'AC Not Working',
+    'General Service',
+  ];
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setError('');
   };
 
+  const handleCheckboxChange = (issue) => {
+    const updated = form.issues.includes(issue)
+      ? form.issues.filter((i) => i !== issue)
+      : [...form.issues, issue];
+    setForm({ ...form, issues: updated });
+  };
+
+  const handleLocationFetch = () => {
+    if (!navigator.geolocation) {
+      toast.error('Geolocation not supported');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        try {
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+          );
+          const data = await res.json();
+          const address = data?.address;
+
+          const village =
+            address?.suburb ||
+            address?.neighbourhood ||
+            address?.state_district ||
+            '';
+          const city =
+            address?.city || address?.town || address?.village || '';
+          const fullAddress = data?.display_name || '';
+
+          setForm((prev) => ({
+            ...prev,
+            village,
+            city,
+            homeNo: fullAddress,
+          }));
+          toast.success('Address fetched successfully');
+        } catch {
+          toast.error('Failed to fetch address');
+        }
+      },
+      () => {
+        toast.error('Unable to fetch location');
+      }
+    );
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    toast.success('Service booked successfully!', { duration: 2000 });
-    const { name, email, issue, location, date, message } = form;
+    const { name, email, phone, issues, village, city, homeNo, date, message } = form;
 
-    if (!name || !email || !issue || !location || !date || !message) {
+    if (
+      !name ||
+      !email ||
+      !phone ||
+      issues.length === 0 ||
+      !village ||
+      !city ||
+      !homeNo ||
+      !date ||
+      !message
+    ) {
       setError('Please fill in all fields.');
       return;
     }
 
-    setSubmitted(true);
+    toast.success('Service booked successfully!', { duration: 2000 });
+
     setForm({
       name: '',
       email: '',
-      issue: '',
-      location: '',
+      phone: '',
+      issues: [],
+      village: '',
+      city: '',
+      homeNo: '',
       date: '',
       message: '',
     });
+    setError('');
+    setShowDropdown(false);
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:ml-[20%] md:flex-row-reverse items-center justify-between gap-10 md:gap-24 py-10 px-4 bg-white mt-20 sm:mt-54  md:mt-44">
-      {/* Image Side */}
-      <div className="flex justify-center  w-full md:w-1/2 mb-6 md:mb-0">
+    <div
+      className="min-h-screen w-full flex flex-col md:flex-row-reverse items-center justify-between py-10 px-6 md:px-20 lg:px-32 xl:px-48 mt-16
+      bg-no-repeat bg-center bg-cover transition-all duration-500 ease-in-out
+      sm:bg-none"
+      style={{
+        backgroundImage: "url('/images/book.jpg')",
+      }}
+    >
+      {/* Right Side Image */}
+      <div className="hidden md:flex justify-center w-full md:w-1/2 mb-6 md:mb-0">
         <Image
           src="/images/Appointment.webp"
           alt="Service Banner"
@@ -57,128 +140,163 @@ export default function BookService() {
       </div>
 
       {/* Form Side */}
-      <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl bg-gradient-to-br from-green-50 via-white to-green-100 border border-green-200 rounded-3xl shadow-2xl px-4  lg:px-6 md:p-10 flex flex-col items-center mx-auto">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-green-800 mb-2 text-center drop-shadow">
-          Book a Service
-        </h2>
-        <div className="w-16 h-1 bg-gradient-to-r from-green-400 to-green-700 rounded-full mb-4"></div>
-        <p className="text-green-700 text-base md:text-lg mb-2 text-center font-medium">
-          Fill out the form below and our team will get in touch with you soon!
-        </p>
+      <div className="w-full md:w-1/2 bg-white bg-opacity-80 p-6 rounded-2xl shadow-xl">
+        <h2 className="text-4xl text-center  font-extrabold text-green-700 mb-4">Book a Service</h2>
 
-        <form className="w-full flex flex-col gap-2 md:gap-2" onSubmit={handleSubmit}>
-          {error && (
-            <div className="bg-red-100 text-red-700 p-2 rounded text-center text-sm md:text-base font-semibold shadow">
-              {error}
-            </div>
-          )}
-          {submitted && (
-            <div className="bg-green-100 text-green-700 p-2 rounded text-center text-sm md:text-base font-semibold shadow">
-              Thank you! Your request has been submitted.
-            </div>
-          )}
+        {error && (
+          <div className="bg-red-100 text-red-700 p-2 rounded text-center text-sm font-semibold shadow mb-2">
+            {error}
+          </div>
+        )}
 
+        <form className="space-y-4" onSubmit={handleSubmit}>
           {/* Name */}
           <div>
-            <label htmlFor="name" className="block mb-1 font-semibold text-green-800">Name</label>
+            <label className="block text-sm font-medium text-green-900 mb-1">Name</label>
             <input
-              id="name"
-              name="name"
               type="text"
+              name="name"
               value={form.name}
               onChange={handleChange}
               placeholder="Your Name"
-              className="w-full p-3 rounded-2xl bg-green-50 text-black focus:ring-2 focus:ring-green-400 border border-green-200 shadow-sm"
+              className="w-full p-2 rounded-lg bg-green-50 border border-green-300 focus:ring-2 focus:ring-green-400"
               required
             />
           </div>
 
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block mb-1 font-semibold text-green-800">Email</label>
+            <label className="block text-sm font-medium text-green-900 mb-1">Email</label>
             <input
-              id="email"
-              name="email"
               type="email"
+              name="email"
               value={form.email}
               onChange={handleChange}
               placeholder="you@example.com"
-              className="w-full p-3 rounded-2xl bg-green-50 text-black focus:ring-2 focus:ring-green-400 border border-green-200 shadow-sm"
+              className="w-full p-2 rounded-lg bg-green-50 border border-green-300 focus:ring-2 focus:ring-green-400"
               required
             />
           </div>
 
-          {/* Select Issue */}
+          {/* Phone */}
           <div>
-            <label htmlFor="issue" className="block mb-1 font-semibold text-green-800">Select Issue</label>
-            <select
-              id="issue"
-              name="issue"
-              value={form.issue}
+            <label className="block text-sm font-medium text-green-900 mb-1">Mobile Number</label>
+            <input
+              type="tel"
+              name="phone"
+              value={form.phone}
               onChange={handleChange}
-              className="w-full p-3 rounded-2xl bg-green-50 text-black focus:ring-2 focus:ring-green-400 border border-green-200 shadow-sm"
+              placeholder="10-digit number"
+              pattern="[0-9]{10}"
+              className="w-full p-2 rounded-lg bg-green-50 border border-green-300 focus:ring-2 focus:ring-green-400"
               required
-            >
-              <option value="">-- Select an Issue --</option>
-              <option>Battery Problem</option>
-              <option>Engine Issue</option>
-              <option>Brake Failure</option>
-              <option>AC Not Working</option>
-              <option>General Service</option>
-              <option>Other</option>
-            </select>
+            />
           </div>
 
-          {/* Location */}
-          <div>
-            <label htmlFor="location" className="block mb-1 font-semibold text-green-800">Location for Service</label>
+          {/* Multi Issue Dropdown */}
+          <div className="relative">
+            <label className="block text-sm font-medium text-green-900 mb-1">Select Issues</label>
+            <div
+              onClick={() => setShowDropdown(!showDropdown)}
+              className="w-full bg-green-50 border border-green-300 rounded p-2 text-sm cursor-pointer"
+            >
+              {form.issues.length > 0 ? form.issues.join(', ') : 'Select one or more issues'}
+            </div>
+            {showDropdown && (
+              <div className="absolute bg-white border rounded shadow w-full z-10 mt-1 max-h-40 overflow-y-auto">
+                {['Battery Problem', 'Engine Issue', 'Brake Failure', 'AC Not Working', 'General Service'].map(
+                  (issue) => (
+                    <label key={issue} className="flex items-center p-2 text-sm gap-2 hover:bg-green-50">
+                      <input
+                        type="checkbox"
+                        checked={form.issues.includes(issue)}
+                        onChange={() => handleCheckboxChange(issue)}
+                      />
+                      {issue}
+                    </label>
+                  )
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Location Fields */}
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <label className="block text-sm font-medium text-green-900">Location</label>
+              <button
+                type="button"
+                onClick={handleLocationFetch}
+                className="text-xs text-blue-600  font-bold underline"
+              >
+                Auto Detect Address
+              </button>
+            </div>
+
             <input
-              id="location"
-              name="location"
               type="text"
-              value={form.location}
+              name="village"
+              value={form.village}
               onChange={handleChange}
-              placeholder="Service Location"
-              className="w-full p-3 rounded-2xl bg-green-50 text-black focus:ring-2 focus:ring-green-400 border border-green-200 shadow-sm"
+              placeholder="Village / Ward No."
+              className="w-full p-2 rounded-lg bg-green-50 border border-green-300 focus:ring-2 focus:ring-green-400"
+              required
+            />
+
+            <input
+              type="text"
+              name="city"
+              value={form.city}
+              onChange={handleChange}
+              placeholder="City"
+              className="w-full p-2 rounded-lg bg-green-50 border border-green-300 focus:ring-2 focus:ring-green-400"
+              required
+            />
+
+            <input
+              type="text"
+              name="homeNo"
+              value={form.homeNo}
+              onChange={handleChange}
+              placeholder="Full Address / Home No. / Street"
+              className="w-full p-2 rounded-lg bg-green-50 border border-green-300 focus:ring-2 focus:ring-green-400"
               required
             />
           </div>
 
           {/* Date */}
           <div>
-            <label htmlFor="date" className="block mb-1 font-semibold text-green-800">Preferred Service Date</label>
+            <label className="block text-sm font-medium text-green-900 mb-1">Preferred Date</label>
             <input
-              id="date"
-              name="date"
               type="date"
+              name="date"
               value={form.date}
               onChange={handleChange}
-              className="w-full p-3 rounded-2xl bg-green-50 text-black focus:ring-2 focus:ring-green-400 border border-green-200 shadow-sm"
+              className="w-full p-2 rounded-lg bg-green-50 border border-green-300 focus:ring-2 focus:ring-green-400"
               required
             />
           </div>
 
           {/* Message */}
           <div>
-            <label htmlFor="message" className="block mb-1 font-semibold text-green-800">Message</label>
+            <label className="block text-sm font-medium text-green-900 mb-1">Describe the Problem</label>
             <textarea
-              id="message"
               name="message"
-              rows={4}
               value={form.message}
               onChange={handleChange}
-              placeholder="Tell us more details..."
-              className="w-full p-3 rounded-2xl bg-green-50 text-black focus:ring-2 focus:ring-green-400 border border-green-200 shadow-sm"
+              placeholder="Explain the problem..."
+              rows={3}
+              className="w-full p-2 rounded-lg bg-green-50 border border-green-300 focus:ring-2 focus:ring-green-400"
               required
-            ></textarea>
+            />
           </div>
 
-          {/* Submit Button */}
+          {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-green-500 to-green-700 text-white px-4 py-3 rounded-2xl font-bold hover:from-green-600 hover:to-green-800 shadow-xl transition text-lg tracking-wide transform hover:scale-105 focus:scale-105 duration-200"
+            className="w-full bg-gradient-to-r from-green-500 to-green-700 text-white py-2 rounded-lg font-semibold hover:scale-105 transition-all"
           >
-            Submit Request
+            Submit
           </button>
         </form>
       </div>

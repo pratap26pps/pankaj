@@ -11,8 +11,9 @@ import {
 } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import ServicePage from './Servicepage';
-import { useRouter } from 'next/navigation'; // ✅ Correct import
-import BookService from '@/pages/bookService';
+import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
+
 const Index = () => {
   const router = useRouter();
 
@@ -56,8 +57,6 @@ const Index = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-
-            {/* Navigation buttons */}
             <CarouselPrevious className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-black border-0 shadow-lg rounded-full w-12 h-12" />
             <CarouselNext className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-black border-0 shadow-lg rounded-full w-12 h-12" />
           </Carousel>
@@ -81,30 +80,67 @@ const Index = () => {
             <span className="text-black font-semibold drop-shadow-lg">Electric 3-Wheelers</span>
           </p>
 
-          {/* ✅ Book Service Button */}
-          <div className="mt-6">
-            <button
-              onClick={handleClick}
-              className="bg-blue-600 text-white px-12 py-4 rounded-full text-xl font-bold hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-xl"
-            >
-              Book Service
-            </button>
-          </div>
+
         </div>
       </div>
 
-      {/* ✅ About Section */}
-      <div className="w-full bg-white py-16">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
-            Welcome to EV Repair Services
-          </h2>
-          <p className="text-lg text-gray-600 text-center max-w-3xl mx-auto">
-            We provide comprehensive electric vehicle repair and maintenance services.
-            Our expert technicians ensure your EV runs smoothly and efficiently.
+ {/* ✅ Animated About Section Replaced with Card */}
+<div className="w-full bg-gradient-to-ur from-green-200 via-green-500 to-green-700 py-12">
+  <div className="max-w-7xl mx-auto px-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 items-center bg-white rounded-3xl shadow-2xl overflow-hidden">
+
+      {/* ✅ Left: Image slide-in */}
+      <motion.div
+        initial={{ x: -100, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        viewport={{ once: true }}
+        className="w-full h-72 md:h-full relative"
+      >
+        <img
+          src="/images/image.png"
+          alt="EV Repair"
+          className="w-full h-full object-fill"
+        />
+      </motion.div>
+
+      {/* ✅ Right: Text & Button slide-in */}
+      <motion.div
+        initial={{ x: 100, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        viewport={{ once: true }}
+        className="relative h-full flex flex-col justify-center items-end px-6 md:px-12 py-10 text-right bg-no-repeat bg-center bg-cover"
+        style={{ backgroundImage: "url('/images/service%20bannner.jpg')" }}
+      >
+        {/* Dark overlay if needed:
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm z-0 rounded-tr-3xl" /> */}
+
+        {/* ✅ Content */}
+        <div className="relative z-10 space-y-4 w-full">
+          <h3 className="text-3xl md:text-4xl font-extrabold text-emerald-700">
+            Expert EV Repair <br /> Services Just At ₹199
+          </h3>
+
+          <p className="text-black  text-sm md:text-base leading-relaxed">
+            For electric bikes  our certified  <br/>  professionals
+            provide reliable, fast, and <br/>affordable service to keep you moving.
           </p>
+
+         <div className="w-full flex justify-center mt-6 ml-4 sm:ml-10 md:ml-20 lg:ml-28 xl:ml-36 2xl:ml-40">
+
+            <button
+              onClick={handleClick}
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-full text-base font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
+            >
+              Book a Service
+            </button>
+          </div>
         </div>
-      </div>
+      </motion.div>
+    </div>
+  </div>
+</div>
 
       {/* ✅ Services Section */}
       <ServicePage />
