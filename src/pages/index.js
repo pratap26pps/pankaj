@@ -13,7 +13,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import ServicePage from './Servicepage';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-
 const Index = () => {
   const router = useRouter();
 
@@ -144,6 +143,7 @@ const Index = () => {
 
       {/* ✅ Services Section */}
       <ServicePage />
+      <services/>
     </div>
   );
 };

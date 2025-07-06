@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import SearchBar from '@/features/searchbar';
 import { GiScooter } from 'react-icons/gi';
 import { MdElectricRickshaw } from 'react-icons/md';
 import {
@@ -11,39 +11,39 @@ import {
   Wrench,
   PackageCheck,
 } from 'lucide-react';
-
-const services = [
-  {
-    name: 'Electric Bike',
-    icon: <GiScooter className="h-10 w-10 text-green-700" />,
-    description: 'Repair & maintenance for e-bikes',
-  },
-  {
-    name: 'Erickshaw',
-    icon: <MdElectricRickshaw className="h-10 w-10 text-green-700" />,
-    description: 'Services for electric 3-wheelers',
-  },
-  {
-    name: 'Lithium Batteries',
-    icon: <BatteryCharging className="h-10 w-10 text-green-700" />,
-    description: 'Battery checkup & replacement',
-  },
-  {
-    name: 'Chargers',
-    icon: <PlugZap className="h-10 w-10 text-green-700" />,
-    description: 'Fast charging solutions',
-  },
-  {
-    name: 'Accessories',
-    icon: <Wrench className="h-10 w-10 text-green-700" />,
-    description: 'All EV-related add-ons',
-  },
-  {
-    name: 'Others',
-    icon: <PackageCheck className="h-10 w-10 text-green-700" />,
-    description: 'Miscellaneous EV support',
-  },
-];
+import EVServiceSelector from './servicesmake'
+  const services = [
+    {
+      name: 'Electric Bike',
+      icon: <GiScooter className="h-10 w-10 text-green-700" />,
+      description: 'Repair & maintenance for e-bikes',
+    },
+    {
+      name: 'Erickshaw',
+      icon: <MdElectricRickshaw className="h-10 w-10 text-green-700" />,
+      description: 'Services for electric 3-wheelers',
+    },
+    {
+      name: 'Lithium Batteries',
+      icon: <BatteryCharging className="h-10 w-10 text-green-700" />,
+      description: 'Battery checkup & replacement',
+    },
+    {
+      name: 'Chargers',
+      icon: <PlugZap className="h-10 w-10 text-green-700" />,
+      description: 'Fast charging solutions',
+    },
+    {
+      name: 'Accessories',
+      icon: <Wrench className="h-10 w-10 text-green-700" />,
+      description: 'All EV-related add-ons',
+    },
+    {
+      name: 'Others',
+      icon: <PackageCheck className="h-10 w-10 text-green-700" />,
+      description: 'Miscellaneous EV support',
+    },
+  ];
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -59,10 +59,10 @@ const cardVariants = {
 };
 
 const ServicePage = () => {
+  const router = useRouter();
   const [search, setSearch] = useState('');
   const [location, setLocation] = useState(null);
 
-  // ✅ Get city name using reverse geocoding
   useEffect(() => {
     if (typeof window !== 'undefined' && 'geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -80,7 +80,6 @@ const ServicePage = () => {
               data?.address?.village ||
               data?.address?.state ||
               'Unknown';
-
             setLocation(city);
           } catch (err) {
             console.error('Reverse geocoding error:', err);
@@ -98,7 +97,8 @@ const ServicePage = () => {
   );
 
   const handleCardClick = (serviceName) => {
-    alert(`You selected: ${serviceName}`);
+    const slug = serviceName.toLowerCase().replace(/\s+/g, '-');
+    router.push(`/services/${slug}`);
   };
 
   return (
@@ -107,20 +107,15 @@ const ServicePage = () => {
         {/* ✅ Heading */}
         <div className="text-center">
           <h1 className="text-4xl font-bold text-green-800 mb-2">
-            Welcome to <span className="text-green-600">GNB EV  Service Center  {location}</span>
+            Welcome to <span className="text-green-600">GNB EV Service Center {location}</span>
           </h1>
-          <p className="text-gray-600 text-lg">
-            Select the service you’re looking for
-          </p>
-
-
+          <p className="text-gray-600 text-lg">Select the service you’re looking for</p>
         </div>
 
-   
         {/* ✅ Services Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-6">
           {filteredServices.map((service, index) => (
-            <motion.div
+            <motion.button
               key={index}
               custom={index}
               initial="hidden"
@@ -129,15 +124,16 @@ const ServicePage = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => handleCardClick(service.name)}
-              className="cursor-pointer bg-white border-2 border-green-200 hover:border-green-400 text-green-800 font-medium rounded-2xl shadow-md flex flex-col items-center justify-center text-center p-6 w-full h-44 sm:h-48 md:h-52 transition-all duration-300"
+              className="cursor-pointer bg-white border-2 border-green-200 hover:border-green-400 text-green-800 font-medium rounded-2xl shadow-md flex flex-col items-center justify-center text-center p-6 w-full h-44 sm:h-48 md:h-52 transition-all duration-300 focus:outline-none"
             >
               {service.icon}
               <h3 className="text-md font-bold mt-2">{service.name}</h3>
               <p className="text-sm text-gray-600 mt-1 px-2">{service.description}</p>
-            </motion.div>
+            </motion.button>
           ))}
         </div>
       </div>
+      <EVServiceSelector />
     </section>
   );
 };
