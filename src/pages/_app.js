@@ -4,7 +4,7 @@ import "../styles/globals.css";
 import Navbaar from "../features/Navbaar";
 import Footer from "../features/Footer";
 import { Toaster } from 'sonner';
-
+import GeneralQuestions from "./GeneralQuestions";
 // import Otp from "../features/otp";
 function MyApp({ Component, pageProps }) {
   return (
@@ -12,6 +12,7 @@ function MyApp({ Component, pageProps }) {
       <Navbaar />
       <Component {...pageProps} />
       <Toaster position="top-center" />
+       <GeneralQuestions />
 
       <Footer />
     </>

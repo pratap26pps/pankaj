@@ -1,72 +1,109 @@
-import Image from "next/image";
-import SearchBar from "@/features/searchbar";
-export const metadata = {
-  title: "EV Services - Home",
-  description: "Book EV Repairs, Services, & Batteries.",
-};
+"use client";
 
-export default function Home() {
-  return (
-    <>
-      <div className="relative min-h-screen flex items-center justify-center px-4 py-10 bg-black/70 text-white">
-        {/* Blurred Overlay */}
-        <div
-          className="absolute inset-0 bg-[url('https://focus.hidubai.com/content/images/2024/08/ev--3-.jpg')] bg-cover bg-center bg-fixed"
-          style={{ zIndex: -2 }}
-        />
+import * as React from "react";
+import Autoplay from "embla-carousel-autoplay";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
+import Navbaar from "@/features/Navbaar";
 
-        <main className="max-w-6xl w-full mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-8 leading-tight drop-shadow-lg">
-            Book EV Repairs, Services, & Batteries.
-            <br />
-            <span className="text-orange-400">
-              Discover trusted service partners near you!
-            </span>
-          </h1>
-
-          <SearchBar />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center">
-            <Card
-              title="EV REPAIR"
-              desc="From nearby authorized centers"
-              offer="UP TO 20% OFF"
-              img="https://content.jdmagicbox.com/comp/def_content_category/car-repair-and-services-nissan/car-repair-and-services-15-car-repair-and-services-nissan-1-x0ejq.jpg"
-            />
-            <Card
-              title="BATTERY REPLACEMENT"
-              desc="Instant delivery and installation"
-              offer="UP TO ₹2000 OFF"
-              img="https://natnavi.com/wp-content/uploads/2024/01/battery-pack-assembly-for-2015-chevrolet-spark-ev-electric-car-at-gms-brownstown-michigan-plant_100466967_h-987723330-scaled.jpeg"
-            />
-            <Card
-              title="EMERGENCY SUPPORT"
-              desc="24x7 breakdown assistance"
-              offer="QUICK RESPONSE"
-              img="https://www.wise-it.com.hk/it-services/wp-content/uploads/2021/01/emergency.jpg"
-            />
-          </div>
-        </main>
-      </div>
-    </>
+const Index = () => {
+  const plugin = React.useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: false })
   );
-}
 
-function Card({ title, desc, offer, img }) {
+  // Poster images array
+  const posterImages = [
+    "/images/banner/1.jpg",
+    "/images/banner/2.jpg",
+    "/images/banner/3.jpg",
+      "/images/banner/4.jpg",
+    "/images/banner/5.jpg",
+  ];
+
   return (
-    <div className="bg-white/10 backdrop-blur-xs border border-white/20 p-6 rounded-2xl shadow-lg text-white hover:scale-105 hover:shadow-xl transition-all duration-300 transform group">
-      <h2 className="text-2xl font-semibold mb-2 group-hover:text-orange-400 transition-colors duration-200">
-        {title}
-      </h2>
-      <p className="text-gray-300 text-sm mb-2">{desc}</p>
-      <div className="text-orange-400 font-bold mb-4">{offer}</div>
-      <Image
-        src={img}
-        alt={title}
-        width={120}
-        height={120}
-        className="mx-auto rounded-lg shadow-md"
-      />
+    <div className="min-h-screen w-full bg-gradient-to-br from-green-400 via-green-500 to-green-600">
+
+
+      {/* Main Content with padding for navbar */}
+      <div className="-mt-[99px] w-full flex items-center justify-center min-h-screen">
+        <div className="w-full ">
+          <Carousel plugins={[plugin.current]} className="w-full">
+            <CarouselContent>
+              {posterImages.map((image, index) => (
+                <CarouselItem key={index} className="basis-full">
+                  <div className="relative w-full h-[60vh] rounded-2xl overflow-hidden shadow-2xl">
+                    <Card className="w-full h-full border-0 shadow-2xl">
+                      <CardContent className="p-0 h-full flex items-center justify-center">
+                        <img
+                          src={image}
+                          alt={`Poster ${index + 1}`}
+                          className="w-full h-full object-cover object-center"
+                        />
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+            {/* Navigation buttons positioned on sides */}
+            <CarouselPrevious className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-black border-0 shadow-lg rounded-full w-12 h-12" />
+            <CarouselNext className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-black border-0 shadow-lg rounded-full w-12 h-12" />
+          </Carousel>
+        </div>
+      </div>
+
+      {/* Welcome Section - Clean Design */}
+      <div className="w-full -mt-32 mb-7">
+        <div className="max-w-7xl mx-auto text-center">
+          {/* Welcome Emoji and Main Title */}
+          <div className="">
+             <h1 className="text-5xl md:text-7xl font-bold text-white  leading-tight drop-shadow-2xl">
+              Welcome to{' '}
+              <span className="bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">
+                GNB EV Service Center
+              </span>
+            </h1>
+          </div>
+
+          {/* Subtitle */}
+          <p className="text-2xl md:text-3xl text-white font-medium  leading-relaxed drop-shadow-xl">
+            Your Trusted Partner for{' '}
+            <span className="text-black font-semibold drop-shadow-lg">E-Bikes</span >{' '}
+            &{' '}
+            <span className="text-black font-semibold drop-shadow-lg">Electric 3-Wheelers</span>
+          </p>
+
+          {/* Call to Action Button */}
+          <div className="mt-1">
+            <button className="bg-gray-500 text-white px-12 py-4 rounded-full text-xl font-bold hover:from-yellow-500 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl">
+              Get Started Today
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Additional content below carousel */}
+      <div className="w-full bg-white py-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
+            Welcome to EV Repair Services
+          </h2>
+          <p className="text-lg text-gray-600 text-center max-w-3xl mx-auto">
+            We provide comprehensive electric vehicle repair and maintenance
+            services. Our expert technicians ensure your EV runs smoothly and
+            efficiently.
+          </p>
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+export default Index;

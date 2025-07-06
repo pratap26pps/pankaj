@@ -5,175 +5,122 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { usePathname, useRouter } from 'next/navigation';
-
+import about from '@/pages/about';
 const Navbaar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const [storesOpen, setStoresOpen] = useState(false);
-  const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);  // 🔴 Keep true or false based on your login logic
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // toggle for auth
 
   const pathname = usePathname();
   const router = useRouter();
 
   const isHomePage = pathname === '/';
-  const desktopLinkClass = isHomePage
-    ? 'text-white hover:text-blue-400 transition'
-    : 'text-black hover:text-green-600 transition';
-
-  const toggleMenu = () => setMenuOpen(!menuOpen);
-  const toggleAccountDropdown = () => setAccountDropdownOpen(!accountDropdownOpen);
+  const linkClass = isHomePage
+    ? 'text-white hover:text-emerald-200 transition-colors duration-300 font-medium'
+    : 'text-gray-800 hover:text-emerald-600 transition-colors duration-300 font-medium';
 
   const handleLogin = () => router.push('/user/Login');
-
   const handleLogout = () => {
     setIsLoggedIn(false);
-    setAccountDropdownOpen(false);
     router.push('/');
   };
+  const handleDashboard = () => router.push('/user/dashboard');
 
-  const navigateDashboard = () => {
-    setAccountDropdownOpen(false);
-    router.push('/user/dashboard');
-  };
-
-  const services = [
-    'EV Car Repair', 'Battery Replacement', 'Charging Station', 'Paint Job', 'Tyre Service',
-    'Diagnostics', 'AC Repair', 'General Maintenance', 'Insurance Claim', 'Pick & Drop',
-  ];
-
-  const stores = [
-    'Delhi Store', 'Mumbai Store', 'Bangalore Store', 'Hyderabad Store', 'Pune Store',
-    'Jaipur Store', 'Lucknow Store', 'Kolkata Store', 'Chennai Store', 'Ahmedabad Store',
-  ];
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-transparent font-extrabold text-xl">
-      <div className="max-w-7xl mx-auto px-4 flex items-center justify-between py-2">
+    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-gradient-to-r from-emerald-900/95 via-teal-800/95 to-emerald-900/95 border-b border-emerald-300/20 shadow-2xl">
+      <div className="w-full px-6 flex items-center justify-between h-18">
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
             src="/images/logo (3).png"
-            alt="EV Service Center"
-            width={150}
-            height={50}
+            alt="EV Repair"
+            width={90}
+            height={36}
             className="object-contain"
-            style={{ width: 'auto', height: 'auto' }}
           />
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-8">
-          <Link href="/" className={desktopLinkClass}>Home</Link>
-          <Link href="/about" className={desktopLinkClass}>About</Link>
+        <div className="hidden md:flex items-center space-x-10 font-medium text-lg">
+          <Link href="/" className={linkClass}>Home</Link>
+          <Link href="/about" className={linkClass}>About</Link>
+          <Link href="/services" className={linkClass}>Services</Link>
+          <Link href="/stores" className={linkClass}>Stores</Link>
 
-          {/* Services Dropdown */}
-          <div className="relative group">
-            <button className={desktopLinkClass}>Services</button>
-            <div className="absolute top-full mt-2 left-0 w-56 bg-white shadow-lg rounded-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition duration-300 space-y-1 py-2 px-3 text-black font-semibold">
-              {services.map((item, index) => (
-                <Link key={index} href={`/services/${item.toLowerCase().replace(/\s+/g, '-')}`} className="block hover:bg-green-100 rounded px-2 py-1">
-                  {item}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Stores Dropdown */}
-          <div className="relative group">
-            <button className={desktopLinkClass}>Stores</button>
-            <div className="absolute top-full mt-2 left-0 w-56 bg-white shadow-lg rounded-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition duration-300 space-y-1 py-2 px-3 text-black font-semibold">
-              {stores.map((item, index) => (
-                <Link key={index} href={`/stores/${item.toLowerCase().replace(/\s+/g, '-')}`} className="block hover:bg-green-100 rounded px-2 py-1">
-                  {item}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Login / Account */}
           {!isLoggedIn ? (
             <button
               onClick={handleLogin}
-              className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-md transition"
+              className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-8 py-2.5 rounded-full hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 font-semibold"
             >
-              Login / Sign Up
+              Login
             </button>
           ) : (
-            <div className="relative">
-              <button onClick={toggleAccountDropdown} className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-md transition">
-                Account ▼
+            <>
+              <button
+                onClick={handleDashboard}
+                className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-8 py-2.5 rounded-full hover:from-blue-600 hover:to-indigo-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 font-semibold"
+              >
+                Dashboard
               </button>
-              {accountDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-40 bg-white text-black shadow-lg rounded-md py-2 text-sm font-semibold">
-                  <button onClick={navigateDashboard} className="block w-full text-left px-4 py-2 hover:bg-green-100">Dashboard</button>
-                  <button onClick={handleLogout} className="block w-full text-left px-4 py-2 hover:bg-green-100">Logout</button>
-                </div>
-              )}
-            </div>
+              <button
+                onClick={handleLogout}
+                className="ml-3 text-red-300 hover:text-red-100 transition-colors duration-300 font-medium"
+              >
+                Logout
+              </button>
+            </>
           )}
         </div>
 
-        {/* Mobile Menu Icon */}
-        <div className="md:hidden flex items-center space-x-3">
-          {!isLoggedIn ? (
-            <button
-              onClick={handleLogin}
-              className="bg-green-600 hover:bg-green-500 text-white px-3 py-1.5 rounded-md text-sm transition"
-            >
-              Login / Sign Up
-            </button>
-          ) : (
-            <div className="relative">
-              <button onClick={toggleAccountDropdown} className="bg-green-600 hover:bg-green-500 text-white px-3 py-1.5 rounded-md text-sm transition">
-                Account ▼
-              </button>
-              {accountDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-40 bg-white text-black shadow-lg rounded-md py-2 text-sm font-semibold">
-                  <button onClick={navigateDashboard} className="block w-full text-left px-4 py-2 hover:bg-green-100">Dashboard</button>
-                  <button onClick={handleLogout} className="block w-full text-left px-4 py-2 hover:bg-green-100">Logout</button>
-                </div>
-              )}
-            </div>
-          )}
-          <button onClick={toggleMenu} className="text-2xl">
+        {/* Mobile Menu Button */}
+        <div className="md:hidden flex items-center">
+          <button onClick={toggleMenu} className="text-2xl text-white hover:text-emerald-300 transition-colors duration-300">
             {menuOpen ? <FaTimes /> : <FaBars />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Full Menu */}
+      {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white shadow-md text-black px-4 py-4 space-y-4 transition-all duration-300">
-          <Link href="/" onClick={toggleMenu} className="block hover:text-green-700">Home</Link>
+        <div className="md:hidden bg-gradient-to-b from-emerald-900/98 to-teal-800/98 backdrop-blur-xl px-6 py-5 space-y-4 font-medium text-white text-lg border-t border-emerald-300/20">
+          <Link href="/" onClick={toggleMenu} className="block hover:text-emerald-300 transition-colors duration-300">Home</Link>
+          <Link href="/about" onClick={toggleMenu} className="block hover:text-emerald-300 transition-colors duration-300">About</Link>
+          <Link href="/services" onClick={toggleMenu} className="block hover:text-emerald-300 transition-colors duration-300">Services</Link>
+          <Link href="/stores" onClick={toggleMenu} className="block hover:text-emerald-300 transition-colors duration-300">Stores</Link>
 
-          {/* Mobile Services */}
-          <div>
-            <button onClick={() => setServicesOpen(!servicesOpen)} className="w-full text-left hover:text-green-700">Services</button>
-            {servicesOpen && (
-              <div className="mt-2 pl-3 space-y-1">
-                {services.map((item, index) => (
-                  <Link key={index} href={`/services/${item.toLowerCase().replace(/\s+/g, '-')}`} onClick={toggleMenu} className="block hover:text-green-700">
-                    {item}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Mobile Stores */}
-          <div>
-            <button onClick={() => setStoresOpen(!storesOpen)} className="w-full text-left hover:text-green-700">Stores</button>
-            {storesOpen && (
-              <div className="mt-2 pl-3 space-y-1">
-                {stores.map((item, index) => (
-                  <Link key={index} href={`/stores/${item.toLowerCase().replace(/\s+/g, '-')}`} onClick={toggleMenu} className="block hover:text-green-700">
-                    {item}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
+          {!isLoggedIn ? (
+            <button
+              onClick={() => {
+                handleLogin();
+                toggleMenu();
+              }}
+              className="block w-full text-left bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-5 py-3 rounded-lg mt-4 hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 font-semibold"
+            >
+              Login
+            </button>
+          ) : (
+            <>
+              <button
+                onClick={() => {
+                  handleDashboard();
+                  toggleMenu();
+                }}
+                className="block w-full text-left bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-3 rounded-lg hover:from-blue-600 hover:to-indigo-600 transition-all duration-300 font-semibold"
+              >
+                Dashboard
+              </button>
+              <button
+                onClick={() => {
+                  handleLogout();
+                  toggleMenu();
+                }}
+                className="block w-full text-left text-red-300 mt-3 hover:text-red-100 transition-colors duration-300"
+              >
+                Logout
+              </button>
+            </>
+          )}
         </div>
       )}
     </nav>
