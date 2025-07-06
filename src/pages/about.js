@@ -1,8 +1,8 @@
-'use client';
-import React from 'react';
-import { MapPin, Phone, Mail } from 'lucide-react';
-import Image from 'next/image';
-import GeneralQuestions from './GeneralQuestions';
+"use client";
+import React from "react";
+import { MapPin, Phone, Mail } from "lucide-react";
+import Image from "next/image";
+import GeneralQuestions from "../features/GeneralQuestions";
 
 const AboutGNBSection = () => {
   return (
@@ -21,14 +21,18 @@ const AboutGNBSection = () => {
             About GNB EV Service Center
           </h1>
           <p className="lg:text-lg sm:text-sm text-gray-100 leading-relaxed">
-            GNB (Green N' Bold) EV Service Center is your trusted destination for electric vehicle
-            sales and service. Specializing in electric bikes and 3-wheelers, we offer expert servicing,
-            repairs, and genuine part replacements — ensuring a smooth and sustainable journey ahead.
+            GNB (Green N' Bold) EV Service Center is your trusted destination
+            for electric vehicle sales and service. Specializing in electric
+            bikes and 3-wheelers, we offer expert servicing, repairs, and
+            genuine part replacements — ensuring a smooth and sustainable
+            journey ahead.
           </p>
           <div className="space-y-4 text-md text-gray-200">
             <div className="flex items-start gap-3">
               <MapPin className="text-green-400 mt-1" />
-              <span>Near Main Road, Sector 15, GNB Nagar, Lucknow, UP - 226010</span>
+              <span>
+                Near Main Road, Sector 15, GNB Nagar, Lucknow, UP - 226010
+              </span>
             </div>
             <div className="flex items-start gap-3">
               <Phone className="text-green-400 mt-1" />
@@ -43,8 +47,6 @@ const AboutGNBSection = () => {
 
         {/* Right - Logo & Map */}
         <div className="w-full md:w-1/2 flex flex-col items-center justify-center gap-6">
-
-
           <div className="w-full h-[500px] md:h-[400px] rounded-2xl overflow-hidden  shadow-lg">
             <iframe
               title="GNB EV Service Center Map"
@@ -60,8 +62,6 @@ const AboutGNBSection = () => {
         </div>
       </div>
     </section>
-
-
   );
 };
 

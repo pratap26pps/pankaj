@@ -39,7 +39,7 @@ const GeneralQuestions = () => {
 
   return (
  <section className="bg-green-50 w-full min-h-[600px] py-10 px-4 sm:px-6 md:px-12">
-  <div className="  text-center">
+  <div className="text-center">
     <h2 className="text-4xl font-extrabold text-green-800 mb-4">
       Frequently Asked Questions
     </h2>

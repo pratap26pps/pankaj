@@ -45,7 +45,7 @@ const Navbaar = () => {
         <div className="hidden md:flex items-center space-x-10 font-medium text-lg">
           <Link href="/" className={linkClass}>Home</Link>
           <Link href="/about" className={linkClass}>About</Link>
-          <Link href="/services" className={linkClass}>Services</Link>
+          <Link href="/Servicepage" className={linkClass}>Services</Link>
           <Link href="/stores" className={linkClass}>Stores</Link>
 
           {!isLoggedIn ? (
