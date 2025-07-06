@@ -1,48 +1,50 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import SearchBar from '@/features/searchbar';
-import { GiScooter } from "react-icons/gi";
+import { GiScooter } from 'react-icons/gi';
+import { MdElectricRickshaw } from 'react-icons/md';
 import {
-    Truck, BatteryCharging, PlugZap, Wrench, PackageCheck
-} from 'lucide-react'; // Realistic icons
+  BatteryCharging,
+  PlugZap,
+  Wrench,
+  PackageCheck,
+} from 'lucide-react';
 
-// ✅ Service data
 const services = [
   {
-    name: "Electric Bike",
-    icon: < GiScooter className="h-10 w-10 text-green-700" />,
-    description: "Repair & maintenance for e-bikes",
+    name: 'Electric Bike',
+    icon: <GiScooter className="h-10 w-10 text-green-700" />,
+    description: 'Repair & maintenance for e-bikes',
   },
   {
-    name: "Erickshaw",
-    icon: <Truck className="h-10 w-10 text-green-700" />,
-    description: "Services for electric 3-wheelers",
+    name: 'Erickshaw',
+    icon: <MdElectricRickshaw className="h-10 w-10 text-green-700" />,
+    description: 'Services for electric 3-wheelers',
   },
   {
-    name: "Lithium Batteries",
+    name: 'Lithium Batteries',
     icon: <BatteryCharging className="h-10 w-10 text-green-700" />,
-    description: "Battery checkup & replacement",
+    description: 'Battery checkup & replacement',
   },
   {
-    name: "Chargers",
+    name: 'Chargers',
     icon: <PlugZap className="h-10 w-10 text-green-700" />,
-    description: "Fast charging solutions",
+    description: 'Fast charging solutions',
   },
   {
-    name: "Accessories",
+    name: 'Accessories',
     icon: <Wrench className="h-10 w-10 text-green-700" />,
-    description: "All EV-related add-ons",
+    description: 'All EV-related add-ons',
   },
   {
-    name: "Others",
+    name: 'Others',
     icon: <PackageCheck className="h-10 w-10 text-green-700" />,
-    description: "Miscellaneous EV support",
+    description: 'Miscellaneous EV support',
   },
 ];
 
-// ✅ Animation variants
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
   visible: (i) => ({
@@ -51,38 +53,70 @@ const cardVariants = {
     transition: {
       delay: i * 0.1,
       duration: 0.5,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   }),
 };
 
 const ServicePage = () => {
   const [search, setSearch] = useState('');
+  const [location, setLocation] = useState(null);
 
-  const filteredServices = services.filter(service =>
+  // ✅ Get city name using reverse geocoding
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+
+          try {
+            const res = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+            );
+            const data = await res.json();
+            const city =
+              data?.address?.city ||
+              data?.address?.town ||
+              data?.address?.village ||
+              data?.address?.state ||
+              'Unknown';
+
+            setLocation(city);
+          } catch (err) {
+            console.error('Reverse geocoding error:', err);
+          }
+        },
+        (err) => {
+          console.error('Geolocation error:', err.message);
+        }
+      );
+    }
+  }, []);
+
+  const filteredServices = services.filter((service) =>
     service.name.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleCardClick = (serviceName) => {
     alert(`You selected: ${serviceName}`);
-    // ✅ Replace with router push if needed
-    // router.push(`/service/${serviceName.toLowerCase()}`);
   };
 
   return (
-    <section className="min-h-screen  bg-gradient-to-br from-green-50 to-white px-4 sm:px-6 md:px-10 py-10">
-      <div className="max-w-6xl mt-20 sm:mt-26 mx-auto space-y-10">
+    <section className="min-h-screen bg-gradient-to-br from-green-50 to-white px-4 sm:px-6 md:px-10 py-10">
+      <div className="max-w-6xl mt-20 sm:mt-32 mx-auto space-y-10">
         {/* ✅ Heading */}
         <div className="text-center">
           <h1 className="text-4xl font-bold text-green-800 mb-2">
-            Welcome to <span className="text-green-600">GNB EV Service Center</span>
+            Welcome to <span className="text-green-600">GNB EV  Service Center  {location}</span>
           </h1>
-          <p className="text-gray-600 text-lg">Select the service you’re looking for</p>
+          <p className="text-gray-600 text-lg">
+            Select the service you’re looking for
+          </p>
+
+
         </div>
 
-        {/* ✅ Search Bar */}
-        <SearchBar />
-
+   
         {/* ✅ Services Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-6">
           {filteredServices.map((service, index) => (

@@ -27,7 +27,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-green-400 via-green-500 to-green-600">
+    <div className="min-h-screen w-full bg-gradient-to-br from-green-200 via-green-500 to-green-900">
 
 
       {/* Main Content with padding for navbar */}
@@ -82,8 +82,8 @@ const Index = () => {
 
           {/* Call to Action Button */}
           <div className="mt-1">
-            <button className="bg-gray-500 text-white px-12 py-4 rounded-full text-xl font-bold hover:from-yellow-500 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl">
-              Get Started Today
+            <button className="bg-blue-600 mt-3 *:text-white px-12 py-4 rounded-full text-xl font-bold hover:from-yellow-500 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl">
+              Book Service
             </button>
           </div>
         </div>
