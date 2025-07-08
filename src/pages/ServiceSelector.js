@@ -17,7 +17,7 @@ export default function ServiceSelector() {
   };
 
   return (
-    <div className="px-4 sm:px-10 md:px-20 py-10 max-w-7xl mx-auto mt-20 space-y-16">
+    <div className="px-4 sm:px-10 md:px-20 py-10 max-w-7xl  mt-20 space-y-16">
 
       {/* 🔹 Scrollable Service Cards */}
       <div className="flex overflow-x-auto gap-4 pb-4 px-1 scrollbar-thin scrollbar-thumb-green-500 scrollbar-track-gray-200 scroll-smooth">
@@ -53,7 +53,7 @@ export default function ServiceSelector() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="p-6 rounded-xl bg-gray-100 border shadow-md"
+            className=""
           >
             {/* ✅ Render the actual component dynamically */}
             <selectedService.Component />
