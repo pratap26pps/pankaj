@@ -29,7 +29,7 @@ const Index = () => {
   ];
 
   const handleClick = () => {
-    router.push('/BookService');
+    router.push('/ServiceForm');
   };
 
   return (
@@ -143,7 +143,6 @@ const Index = () => {
 
       {/* ✅ Services Section */}
       <ServicePage />
-      <services/>
     </div>
   );
 };

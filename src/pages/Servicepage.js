@@ -3,48 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { GiScooter } from 'react-icons/gi';
-import { MdElectricRickshaw } from 'react-icons/md';
-import {
-  BatteryCharging,
-  PlugZap,
-  Wrench,
-  PackageCheck,
-} from 'lucide-react';
-import EVServiceSelector from './servicesmake'
-  const services = [
-    {
-      name: 'Electric Bike',
-      icon: <GiScooter className="h-10 w-10 text-green-700" />,
-      description: 'Repair & maintenance for e-bikes',
-    },
-    {
-      name: 'Erickshaw',
-      icon: <MdElectricRickshaw className="h-10 w-10 text-green-700" />,
-      description: 'Services for electric 3-wheelers',
-    },
-    {
-      name: 'Lithium Batteries',
-      icon: <BatteryCharging className="h-10 w-10 text-green-700" />,
-      description: 'Battery checkup & replacement',
-    },
-    {
-      name: 'Chargers',
-      icon: <PlugZap className="h-10 w-10 text-green-700" />,
-      description: 'Fast charging solutions',
-    },
-    {
-      name: 'Accessories',
-      icon: <Wrench className="h-10 w-10 text-green-700" />,
-      description: 'All EV-related add-ons',
-    },
-    {
-      name: 'Others',
-      icon: <PackageCheck className="h-10 w-10 text-green-700" />,
-      description: 'Miscellaneous EV support',
-    },
-  ];
 
+
+import services from '../features/Data'
+ 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
   visible: (i) => ({
@@ -98,7 +60,7 @@ const ServicePage = () => {
 
   const handleCardClick = (serviceName) => {
     const slug = serviceName.toLowerCase().replace(/\s+/g, '-');
-    router.push(`/services/${slug}`);
+    router.push(`/ServiceSelector`);
   };
 
   return (
@@ -133,7 +95,6 @@ const ServicePage = () => {
           ))}
         </div>
       </div>
-      <EVServiceSelector />
     </section>
   );
 };
