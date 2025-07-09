@@ -52,8 +52,9 @@ export default function ServiceSelector() {
 
   return (
     <div className="px-4 sm:px-10 md:px-20 py-10 max-w-7xl mx-auto mt-20 ">
-      {/* 🔹 Service Icon Buttons - Responsive Layout */}
-      <div className="rounded-2xl p-4">
+
+      {/* 🔹 Sticky Service Selector */}
+      <div className="sticky top-[90px] z-10 bg-white rounded-2xl p-4 shadow-md">
         <motion.div
           className="grid grid-cols-2 sm:flex sm:overflow-x-auto gap-4 sm:gap-5 py-2 sm:px-1 scrollbar-thin scrollbar-thumb-green-500 scrollbar-track-gray-200 scroll-smooth"
           variants={containerVariants}
@@ -85,9 +86,9 @@ export default function ServiceSelector() {
         </motion.div>
       </div>
 
-      {/* 🔻 Dynamic Component Render */}
+      {/* 🔻 Dynamic Component Render - Scrolls Just Below Selector */}
       {selectedService?.Component && (
-        <div ref={scrollRef}>
+        <div ref={scrollRef} className="scroll-mt-[420px]">
           <motion.div
             key={selectedService.name}
             initial={{ opacity: 0, y: 30 }}
