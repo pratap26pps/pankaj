@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { services } from '../features/Data';
 
@@ -22,7 +23,26 @@ const itemVariants = {
 export default function ServiceSelector() {
   const [selectedService, setSelectedService] = useState(null);
   const scrollRef = useRef(null);
+  const searchParams = useSearchParams();
+  const selectedSlug = searchParams.get('service');
 
+  // 🔸 Auto-select service on page load based on slug in URL
+  useEffect(() => {
+    if (selectedSlug) {
+      const matchedService = services.find((s) => {
+        const slug = s.name.toLowerCase().replace(/\s+/g, '-');
+        return slug === selectedSlug;
+      });
+      if (matchedService) {
+        setSelectedService(matchedService);
+        setTimeout(() => {
+          scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 200);
+      }
+    }
+  }, [selectedSlug]);
+
+  // 🔹 On click from this page
   const handleCardClick = (service) => {
     setSelectedService(service);
     setTimeout(() => {
@@ -31,9 +51,9 @@ export default function ServiceSelector() {
   };
 
   return (
-    <div className="px-4 sm:px-10 md:px-20 py-10 max-w-7xl mx-auto mt-20 space-y-16">
+    <div className="px-4 sm:px-10 md:px-20 py-10 max-w-7xl mx-auto mt-20 ">
       {/* 🔹 Service Icon Buttons - Responsive Layout */}
-      <div className=" rounded-2xl p-4 ">
+      <div className="rounded-2xl p-4">
         <motion.div
           className="grid grid-cols-2 sm:flex sm:overflow-x-auto gap-4 sm:gap-5 py-2 sm:px-1 scrollbar-thin scrollbar-thumb-green-500 scrollbar-track-gray-200 scroll-smooth"
           variants={containerVariants}
@@ -48,7 +68,7 @@ export default function ServiceSelector() {
                 onClick={() => handleCardClick(service)}
                 className={`flex flex-col items-center justify-center
                   min-w-[100px] min-h-[100px] sm:min-w-[90px] sm:min-h-[90px]
-                  rounded-xl  text-center px-2
+                  rounded-xl text-center px-2
                   transition-all duration-300 ease-in-out
                   ${
                     selectedService?.name === service.name

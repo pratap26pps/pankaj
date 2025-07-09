@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {services} from '../features/Data'
 
+
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
   visible: (i) => ({
@@ -20,9 +21,8 @@ const cardVariants = {
 
 const ServicePage = () => {
   const router = useRouter();
-  const [search, setSearch] = useState('');
   const [location, setLocation] = useState(null);
-
+  const [search, setSearch] = useState(''); 
   useEffect(() => {
     if (typeof window !== 'undefined' && 'geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -56,10 +56,14 @@ const ServicePage = () => {
     service.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const handleCardClick = (serviceName) => {
-    const slug = serviceName.toLowerCase().replace(/\s+/g, '-');
-    router.push(`/ServiceSelector`);
-  };
+const handleCardClick = (serviceName) => {
+  const slug = serviceName.toLowerCase().replace(/\s+/g, '-');
+  router.push({
+    pathname: '/ServiceSelector',
+    query: { service: slug },
+  });
+};
+
 
   return (
     <section className="min-h-screen bg-gradient-to-br from-green-50 to-white px-4 sm:px-6 md:px-10 py-10">
