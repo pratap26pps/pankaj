@@ -3,10 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import {services} from '../features/Data'
 
-
-import services from '../features/Data'
- 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
   visible: (i) => ({
