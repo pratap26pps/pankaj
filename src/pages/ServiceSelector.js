@@ -56,7 +56,7 @@ export default function ServiceSelector() {
      >
 
       {/* 🔹 Sticky Service Selector */}
-      <div className="sticky 2xl:w-[1000px] top-[90px] z-20 2xl:ml-19 bg-white/30 backdrop-blur-md rounded-2xl p-4 shadow-lg border border-white/40">
+      <div className=" 2xl:w-[1000px]  top-[90px] z-20 2xl:ml-19 bg-white/30 backdrop-blur-md rounded-2xl p-4 shadow-lg border border-white/40">
         <motion.div
           className="grid grid-cols-2 sm:flex sm:overflow-x-auto gap-4 sm:gap-5 py-2 sm:px-1 scrollbar-thin scrollbar-thumb-green-500  scrollbar-track-gray-200 scroll-smooth"
           variants={containerVariants}
@@ -90,7 +90,7 @@ export default function ServiceSelector() {
 
       {/* 🔻 Dynamic Component Render - Scrolls Just Below Selector */}
       {selectedService?.Component && (
-        <div ref={scrollRef} className="scroll-mt-[520px]   ">
+        <div ref={scrollRef} className="scroll-mt-[520px] mx-auto   ">
           <motion.div
             key={selectedService.name}
             initial={{ opacity: 0, y: 30 }}
