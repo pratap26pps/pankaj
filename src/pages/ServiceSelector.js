@@ -51,10 +51,12 @@ export default function ServiceSelector() {
   };
 
   return (
-    <div className="px-4 sm:px-10 md:px-20 py-10 max-w-7xl mx-auto mt-20 ">
+    <div className="px-10 sm:px-10 md:px-20   max-w-10xl mx-auto  mt-18 pt-20  bg-no-repeat bg-center bg-cover "
+     style={{ backgroundImage: "url('/images/book.jpg')" }}
+     >
 
       {/* 🔹 Sticky Service Selector */}
-      <div className="sticky top-[90px] z-10 bg-white rounded-2xl p-4 shadow-md">
+      <div className="sticky 2xl:w-[1000px] top-[90px] z-20 2xl:ml-19 bg-white/30 backdrop-blur-md rounded-2xl p-4 shadow-lg border border-white/40">
         <motion.div
           className="grid grid-cols-2 sm:flex sm:overflow-x-auto gap-4 sm:gap-5 py-2 sm:px-1 scrollbar-thin scrollbar-thumb-green-500  scrollbar-track-gray-200 scroll-smooth"
           variants={containerVariants}
@@ -88,13 +90,13 @@ export default function ServiceSelector() {
 
       {/* 🔻 Dynamic Component Render - Scrolls Just Below Selector */}
       {selectedService?.Component && (
-        <div ref={scrollRef} className="scroll-mt-[520px]">
+        <div ref={scrollRef} className="scroll-mt-[520px]   ">
           <motion.div
             key={selectedService.name}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="mt-10"
+            className="mt-10  "
           >
             <selectedService.Component />
           </motion.div>
