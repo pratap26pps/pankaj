@@ -178,7 +178,7 @@ export default function ElectricBike() {
                       className="cursor-pointer rounded-2xl hover:shadow-md flex flex-col items-center p-2 transition-all hover:scale-105"
                     >
                       <img src={model.image} alt={model.name} className="w-14 h-12 object-contain" />
-                      <span className="text-sm mt-1 text-center">{model.name}</span>
+                           <span className="text-sm mt-1 text-center">{model.name}</span>
                     </div>
                   ))}
                 </div>
