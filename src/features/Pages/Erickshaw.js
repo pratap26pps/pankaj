@@ -91,6 +91,18 @@ export default function Erickshaw() {
     setActiveSubmodelModal(null);
   };
 
+  // 💡 Extract price from string like "Service – ₹599"
+  const extractPrice = (problem) => {
+    const match = problem.match(/₹(\d+)/);
+    return match ? parseInt(match[1]) : 0;
+  };
+
+  // 💰 Calculate total selected price per package
+  const getTotalPrice = (pkgId) => {
+    const selected = selectedProblems[pkgId] || [];
+    return selected.reduce((total, problem) => total + extractPrice(problem), 0);
+  };
+
   return (
     <div className="flex flex-col gap-18 px-2 sm:px-4 md:px-8 lg:px-16 py-4">
       {packagesData.map((pkg) => (
@@ -148,8 +160,11 @@ export default function Erickshaw() {
                 ))}
               </div>
 
-              {/* Add to Cart */}
-              <div className="mt-4 text-right">
+              {/* Final Price + Add to Cart */}
+              <div className="mt-4 flex justify-between items-center">
+                <span className="text-md font-semibold text-gray-700">
+                  Final Price: ₹{getTotalPrice(pkg.id)}
+                </span>
                 <Button className="bg-blue-600 text-white hover:bg-blue-700">
                   Add to Cart
                 </Button>
