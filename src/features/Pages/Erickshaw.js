@@ -104,7 +104,7 @@ export default function Erickshaw() {
   };
 
   return (
-    <div className="flex flex-col gap-18 px-2 sm:px-4 md:px-8 lg:px-16 py-4">
+    <div className="flex flex-col gap-18 pb-20 px-2 sm:px-4 md:px-8 lg:px-16 py-4">
       {packagesData.map((pkg) => (
         <div key={pkg.id}>
           <Card className="flex flex-col md:flex-row gap-6 max-w-5xl  p-5 shadow-xl w-full bg-white/30 backdrop-blur-md rounded-2xl border border-white/40">

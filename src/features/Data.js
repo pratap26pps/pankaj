@@ -161,46 +161,46 @@ export const bikemodels = [
   {
     id: 1,
     name: "Bajaj Auto",
-    image: "/images/model/bajaj auto.png",
+    image: "/images/logobike/bazaz auto.png",
     submodels: [
-      { name: "Chetak 35 Series", image: "/images/submodel/chetak-35-series.png" },
-      { name: "Chetak 3001", image: "/images/submodel/chetak-3001.png" },
+      { name: "Chetak 35 Series", image: "/images/submodel/chetak35series.png" },
+      { name: "Chetak 3001", image: "/images/submodel/chetak3001.png" },
     ],
   },
   {
     id: 2,
     name: "TVS Motor",
-    image: "/images/model/tvs motor.png",
+    image: "/images/logobike/tvs.png",
     submodels: [
-      { name: "iQube 2.2", image: "/images/submodel/iqube-2.2.png" },
-      { name: "iQube 3.5", image: "/images/submodel/iqube-3.5.png" },
-      { name: "iQube ST", image: "/images/submodel/iqube-st.png" },
+      { name: "iQube 2.2", image: "/images/submodel/iqube2.2.png" },
+      { name: "iQube 3.5", image: "/images/submodel/iqube3.5.png" },
+      { name: "iQube ST", image: "/images/submodel/iqubest.png" },
     ],
   },
   {
     id: 3,
     name: "Ather Energy",
-    image: "/images/model/ather energy.png",
+    image: "/images/logobike/anther.png",
     submodels: [
       { name: "450X", image: "/images/submodel/450x.png" },
-      { name: "450 Apex", image: "/images/submodel/450-apex.png" },
+      { name: "450 Apex", image: "/images/submodel/450apex.png" },
       { name: "450S", image: "/images/submodel/450s.png" },
-      { name: "Rizta / Rizta S", image: "/images/submodel/rizta.png" },
+      { name: "Rizta / Rizta S", image: "/images/submodel/ritza.png" },
     ],
   },
   {
     id: 4,
     name: "Ola Electric",
-    image: "/images/model/ola electric.png",
+    image: "/images/logobike/ola.png",
     submodels: [
-      { name: "S1 (Pro / Air / X / Gig)", image: "/images/submodel/s1.png" },
-      { name: "Roadster / Roadster X", image: "/images/submodel/roadster.png" },
+      { name: "S1 (Pro / Air / X / Gig)", image: "/images/submodel/s1pro.png" },
+      { name: "Roadster / Roadster X", image: "/images/submodel/roadstarx.png" },
     ],
   },
   {
     id: 5,
     name: "Hero MotoCorp (Vida)",
-    image: "/images/model/hero motocomp vida.png",
+    image: "/images/logobike/vida.png",
     submodels: [
       { name: "Vida V2", image: "/images/submodel/vida-v2.png" },
       { name: "Vida VX2", image: "/images/submodel/vida-vx2.png" },
@@ -209,49 +209,49 @@ export const bikemodels = [
   {
     id: 6,
     name: "Okinawa Autotech",
-    image: "/images/model/okinawa autotech.png",
+    image: "/images/logobike/okinawa.png",
     submodels: [
-      { name: "Ridge+, iPraise+, Praise Pro", image: "/images/submodel/ridge-series.png" },
-      { name: "Lite, R30, Okhi-90", image: "/images/submodel/lite-series.png" },
+      { name: "Ridge+, iPraise+, Praise Pro", image: "/images/submodel/ridge.png" },
+      { name: "Lite, R30, Okhi-90", image: "/images/submodel/okinawalite.png" },
     ],
   },
   {
     id: 7,
     name: "BGauss",
-    image: "/images/model/bgauss.png",
+    image: "/images/logobike/bgauss.png",
     submodels: [
-      { name: "C12 / Max C12", image: "/images/submodel/c12.png" },
+      { name: "C12 / Max C12", image: "/images/submodel/bgaussc12.png" },
     ],
   },
   {
     id: 8,
     name: "Honda",
-    image: "/images/model/honda.png",
+    image: "/images/logobike/honda.png",
     submodels: [
-      { name: "Activa e", image: "/images/submodel/activa-e.png" },
+      { name: "Activa e", image: "/images/submodel/hondaactivae.png" },
     ],
   },
   {
     id: 9,
     name: "Ultraviolette Automotive",
-    image: "/images/model/ultraviolette automotive.png",
+    image: "/images/logobike/ultra.png",
     submodels: [
-      { name: "Tesseract", image: "/images/submodel/tesseract.png" },
+      { name: "Tesseract", image: "/images/submodel/terracact.png" },
       { name: "F77 / F77 Recon / Space Ed.", image: "/images/submodel/f77.png" },
     ],
   },
   {
     id: 10,
     name: "Greta Electric",
-    image: "/images/model/greta electric.png",
+    image: "/images/logobike/greta.png",
     submodels: [
-      { name: "Harper ZX Series, Others", image: "/images/submodel/harper-zx.png" },
+      { name: "Harper ZX Series, Others", image: "/images/submodel/grteaa.png" },
     ],
   },
   {
     id: 11,
     name: "Revolt Motors",
-    image: "/images/model/revolt motors.png",
+    image: "/images/logobike/rovoalt.png",
     submodels: [
       { name: "RV400", image: "/images/submodel/rv400.png" },
     ],
@@ -259,31 +259,31 @@ export const bikemodels = [
   {
     id: 12,
     name: "Simple Energy",
-    image: "/images/model/simple energy.png",
+    image: "/images/logobike/simple.png",
     submodels: [
-      { name: "Simple One / One S", image: "/images/submodel/simple-one.png" },
+      { name: "Simple One / One S", image: "/images/submodel/simpleone.png" },
     ],
   },
   {
     id: 13,
     name: "Kinetic Green",
-    image: "/images/model/kinetic green.png",
+    image: "/images/logobike/kinetic.png",
     submodels: [
-      { name: "E-Luna", image: "/images/submodel/e-luna.png" },
+      { name: "E-Luna", image: "/images/submodel/eluna.png" },
     ],
   },
   {
     id: 14,
     name: "Okaya EV",
-    image: "/images/model/okaya ev.png",
+    image: "/images/logobike/okawa.png",
     submodels: [
-      { name: "Faast F2F / Defy 22", image: "/images/submodel/faast.png" },
+      { name: "Faast F2F / Defy 22", image: "/images/submodel/f2f.png" },
     ],
   },
   {
     id: 15,
     name: "Tork Motors",
-    image: "/images/model/tork motors.png",
+    image: "/images/logobike/tork.png",
     submodels: [
       { name: "Kratos", image: "/images/submodel/kratos.png" },
     ],
@@ -291,9 +291,10 @@ export const bikemodels = [
   {
     id: 16,
     name: "Oben Electric",
-    image: "/images/model/oben electric.png",
+    image: "/images/logobike/oben.png",
     submodels: [
       { name: "Rorr", image: "/images/submodel/rorr.png" },
     ],
   },
 ];
+
