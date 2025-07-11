@@ -28,7 +28,7 @@ const Navbaar = () => {
     : 'text-gray-800 hover:text-emerald-600 transition-colors duration-300 font-medium';
 
   const handleLogin = () => router.push('/user/Login');
-  const handleDashboard = () => router.push('/user/dashboard');
+  const handleDashboard = () => router.push('/user/Dashboard');
   const handleLogout = () => {
     setIsLoggedIn(false);
     router.push('/');

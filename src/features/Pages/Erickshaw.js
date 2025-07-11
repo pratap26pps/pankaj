@@ -91,24 +91,41 @@ export default function Erickshaw() {
     setActiveSubmodelModal(null);
   };
 
-  // 💡 Extract price from string like "Service – ₹599"
   const extractPrice = (problem) => {
     const match = problem.match(/₹(\d+)/);
     return match ? parseInt(match[1]) : 0;
   };
 
-  // 💰 Calculate total selected price per package
   const getTotalPrice = (pkgId) => {
     const selected = selectedProblems[pkgId] || [];
     return selected.reduce((total, problem) => total + extractPrice(problem), 0);
+  };
+
+  const getOfferPrice = (pkgId) => {
+    const selected = selectedProblems[pkgId] || [];
+    const count = selected.length;
+
+    if (pkgId === 1) {
+      if (count === 6) return 2599;
+      if (count === 3) return 1499;
+      if (count === 2) return 1099;
+    }
+
+    if (pkgId === 2) {
+      if (count === 12) return 2999;
+      if (count === 5) return 1499;
+      if (count === 4) return 1299;
+      if (count === 2) return 349;
+    }
+
+    return null;
   };
 
   return (
     <div className="flex flex-col gap-18 pb-20 px-2 sm:px-4 md:px-8 lg:px-16 py-4">
       {packagesData.map((pkg) => (
         <div key={pkg.id}>
-          <Card className="flex flex-col md:flex-row gap-6 max-w-5xl  p-5 shadow-xl w-full bg-white/30 backdrop-blur-md rounded-2xl border border-white/40">
-            {/* Image */}
+          <Card className="flex flex-col md:flex-row gap-6 max-w-5xl p-5 shadow-xl w-full bg-white/30 backdrop-blur-md rounded-2xl border border-white/40">
             <div className="w-full md:w-1/3 h-40 md:h-auto">
               <img
                 src={pkg.image}
@@ -117,7 +134,6 @@ export default function Erickshaw() {
               />
             </div>
 
-            {/* Content */}
             <div className="flex-1">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                 <h3 className="text-xl font-bold">{pkg.title}</h3>
@@ -145,7 +161,6 @@ export default function Erickshaw() {
                 <Clock size={14} /> {pkg.duration}
               </p>
 
-              {/* Problems List */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4">
                 {pkg.problems.map((problem) => (
                   <label key={problem} className="flex items-center gap-2 text-sm">
@@ -160,10 +175,22 @@ export default function Erickshaw() {
                 ))}
               </div>
 
-              {/* Final Price + Add to Cart */}
               <div className="mt-4 flex justify-between items-center">
                 <span className="text-md font-semibold text-gray-700">
-                  Final Price: ₹{getTotalPrice(pkg.id)}
+                  {(() => {
+                    const offer = getOfferPrice(pkg.id);
+                    const total = getTotalPrice(pkg.id);
+                    if (offer) {
+                      return (
+                        <>
+                          <span className="text-green-600 font-bold">Offer Price:</span>{' '}
+                          <span className="line-through text-red-500 mr-2">₹{total}</span>
+                          <span className="text-green-600 font-bold">₹{offer}</span>
+                        </>
+                      );
+                    }
+                    return <>Final Price: ₹{total}</>;
+                  })()}
                 </span>
                 <Button className="bg-blue-600 text-white hover:bg-blue-700">
                   Add to Cart

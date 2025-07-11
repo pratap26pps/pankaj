@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
@@ -107,28 +107,31 @@ export default function ElectricBike() {
     );
   };
 
-const getOfferPrice = (pkgId) => {
-  if (pkgId !== 2) return null; // 💡 Offer applies only to Standard Service (id === 2)
+  const getOfferPrice = (pkgId) => {
+    const selected = selectedProblems[pkgId] || [];
+    const count = selected.length;
 
-  const selected = selectedProblems[pkgId] || [];
-  const selectedCount = selected.length;
+    if (pkgId === 1) {
+      if (count === 6) return 2599;
+      if (count === 3) return 1499;
+      if (count === 2) return 1099;
+    }
 
-  const totalSelectedPlans = Object.entries(selectedProblems)
-    .filter(([id, arr]) => parseInt(id) !== 2 && arr && arr.length > 0).length;
+    if (pkgId === 2) {
+      if (count === 12) return 2999;
+      if (count === 5) return 1499;
+      if (count === 4) return 1299;
+      if (count === 2) return 349;
+    }
 
-  if (totalSelectedPlans >= 2) return 1099;
-  if (selectedCount >= 5) return 2599;
-  if (selectedCount >= 3) return 1499;
-
-  return null;
-};
-
+    return null;
+  };
 
   return (
-    <div className="flex flex-col gap-18  pb-20 px-2 sm:px-4 md:px-8 lg:px-16 py-4">
+    <div className="flex flex-col gap-18 pb-20 px-2 sm:px-4 md:px-8 lg:px-16 py-4">
       {packagesData.map((pkg) => (
         <div key={pkg.id}>
-          <Card className="flex flex-col  md:flex-row gap-6 max-w-5xl  p-5 shadow-xl w-full bg-white/30 backdrop-blur-md rounded-2xl border border-white/40">
+          <Card className="flex flex-col md:flex-row gap-6 max-w-5xl p-5 shadow-xl w-full bg-white/30 backdrop-blur-md rounded-2xl border border-white/40">
             <div className="w-full md:w-1/3 h-40 md:h-auto">
               <img
                 src={pkg.image}
@@ -183,32 +186,31 @@ const getOfferPrice = (pkgId) => {
                 ))}
               </div>
 
-<div className="mt-4 flex justify-between items-center">
-  <div className="text-md font-semibold text-gray-700">
-    {(() => {
-      const offer = getOfferPrice(pkg.id);
-      const total = getTotalPrice(pkg.id);
-      if (offer) {
-        return (
-          <>
-            <span className="text-green-600 font-bold">Offer Price:</span>{" "}
-            <span className="line-through text-red-500 mr-2">₹{total}</span>
-            <span className="text-green-600 font-bold">₹{offer}</span>
-          </>
-        );
-      }
-      return <>Final Price: ₹{total}</>;
-    })()}
-  </div>
-  <Button className="bg-blue-600 text-white hover:bg-blue-700">
-    Add to Cart
-  </Button>
-</div>
-
-
+              <div className="mt-4 flex justify-between items-center">
+                <div className="text-md font-semibold text-gray-700">
+                  {(() => {
+                    const offer = getOfferPrice(pkg.id);
+                    const total = getTotalPrice(pkg.id);
+                    if (offer) {
+                      return (
+                        <>
+                          <span className="text-green-600 font-bold">Offer Price:</span>{" "}
+                          <span className="line-through text-red-500 mr-2">₹{total}</span>
+                          <span className="text-green-600 font-bold">₹{offer}</span>
+                        </>
+                      );
+                    }
+                    return <>Final Price: ₹{total}</>;
+                  })()}
+                </div>
+                <Button className="bg-blue-600 text-white hover:bg-blue-700">
+                  Add to Cart
+                </Button>
+              </div>
             </div>
           </Card>
 
+          {/* Model Modal */}
           {activeModelModal === pkg.id && (
             <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/30 px-2">
               <div className="bg-white shadow-xl max-w-[95%] w-[480px] max-h-[90vh] overflow-auto p-4 rounded-xl border mt-20">
@@ -242,6 +244,7 @@ const getOfferPrice = (pkgId) => {
             </div>
           )}
 
+          {/* Submodel Modal */}
           {activeSubmodelModal === pkg.id && carSelection[pkg.id]?.model && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-2">
               <div className="w-full max-w-[360px] bg-white shadow-2xl p-4 rounded-xl border max-h-[90vh] overflow-auto">
