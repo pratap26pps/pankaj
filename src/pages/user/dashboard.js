@@ -24,7 +24,8 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-blue-50 bg-no-repeat bg-center bg-cover "    style={{ backgroundImage: "url('/images/book.jpg')" }}
+     >
       {/* Header */}
       <header className="backdrop-blur-xl bg-gradient-to-r from-emerald-900/95 via-teal-800/95 to-emerald-900/95 border-b border-emerald-300/20 shadow-sm  sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-1 flex items-center justify-between">
