@@ -125,79 +125,81 @@ export default function Erickshaw() {
     <div className="flex flex-col gap-18 pb-20 px-2 sm:px-4 md:px-8 lg:px-16 py-4">
       {packagesData.map((pkg) => (
         <div key={pkg.id}>
-          <Card className="flex flex-col md:flex-row gap-6 max-w-5xl p-5 shadow-xl w-full bg-white/30 backdrop-blur-md rounded-2xl border border-white/40">
-            <div className="w-full md:w-1/3 h-40 md:h-auto">
-              <img
-                src={pkg.image}
-                alt={pkg.title}
-                className="rounded-xl w-full h-full object-contain"
-              />
-            </div>
+          <div className="flex justify-center">
+            <Card className="flex flex-col md:flex-row gap-6 w-full max-w-5xl p-5 shadow-xl bg-white/30 backdrop-blur-md rounded-2xl border border-white/40">
+              <div className="w-full md:w-1/3 h-40 md:h-auto">
+                <img
+                  src={pkg.image}
+                  alt={pkg.title}
+                  className="rounded-xl w-full h-full object-contain"
+                />
+              </div>
 
-            <div className="flex-1">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                <h3 className="text-xl font-bold">{pkg.title}</h3>
-                <div className="flex gap-2 flex-wrap">
-                  <Button
-                    variant="outline"
-                    onClick={() => setActiveModelModal(pkg.id)}
-                  >
-                    {carSelection[pkg.id]?.model?.name || 'Select Car'}
-                  </Button>
-                  {carSelection[pkg.id]?.model && (
+              <div className="flex-1">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                  <h3 className="text-xl font-bold">{pkg.title}</h3>
+                  <div className="flex gap-2 flex-wrap">
                     <Button
                       variant="outline"
-                      onClick={() => setActiveSubmodelModal(pkg.id)}
+                      onClick={() => setActiveModelModal(pkg.id)}
                     >
-                      {carSelection[pkg.id]?.submodel || 'Select Submodel'}
+                      {carSelection[pkg.id]?.model?.name || 'Select Car'}
                     </Button>
-                  )}
+                    {carSelection[pkg.id]?.model && (
+                      <Button
+                        variant="outline"
+                        onClick={() => setActiveSubmodelModal(pkg.id)}
+                      >
+                        {carSelection[pkg.id]?.submodel || 'Select Submodel'}
+                      </Button>
+                    )}
+                  </div>
+                </div>
+                <p className="text-sm text-gray-500">
+                  {pkg.warranty} • {pkg.recommended}
+                </p>
+                <p className="flex items-center gap-2 text-sm text-gray-600 mt-1">
+                  <Clock size={14} /> {pkg.duration}
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4">
+                  {pkg.problems.map((problem) => (
+                    <label key={problem} className="flex items-center gap-2 text-sm">
+                      <input
+                        type="checkbox"
+                        checked={selectedProblems[pkg.id]?.includes(problem) || false}
+                        onChange={() => toggleProblem(pkg.id, problem)}
+                        className="accent-blue-600"
+                      />
+                      {problem}
+                    </label>
+                  ))}
+                </div>
+
+                <div className="mt-4 flex justify-between items-center">
+                  <span className="text-md font-semibold text-gray-700">
+                    {(() => {
+                      const offer = getOfferPrice(pkg.id);
+                      const total = getTotalPrice(pkg.id);
+                      if (offer) {
+                        return (
+                          <>
+                            <span className="text-green-600 font-bold">Offer Price:</span>{' '}
+                            <span className="line-through text-red-500 mr-2">₹{total}</span>
+                            <span className="text-green-600 font-bold">₹{offer}</span>
+                          </>
+                        );
+                      }
+                      return <>Final Price: ₹{total}</>;
+                    })()}
+                  </span>
+                  <Button className="bg-blue-600 text-white hover:bg-blue-700">
+                    Add to Cart
+                  </Button>
                 </div>
               </div>
-              <p className="text-sm text-gray-500">
-                {pkg.warranty} • {pkg.recommended}
-              </p>
-              <p className="flex items-center gap-2 text-sm text-gray-600 mt-1">
-                <Clock size={14} /> {pkg.duration}
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4">
-                {pkg.problems.map((problem) => (
-                  <label key={problem} className="flex items-center gap-2 text-sm">
-                    <input
-                      type="checkbox"
-                      checked={selectedProblems[pkg.id]?.includes(problem) || false}
-                      onChange={() => toggleProblem(pkg.id, problem)}
-                      className="accent-blue-600"
-                    />
-                    {problem}
-                  </label>
-                ))}
-              </div>
-
-              <div className="mt-4 flex justify-between items-center">
-                <span className="text-md font-semibold text-gray-700">
-                  {(() => {
-                    const offer = getOfferPrice(pkg.id);
-                    const total = getTotalPrice(pkg.id);
-                    if (offer) {
-                      return (
-                        <>
-                          <span className="text-green-600 font-bold">Offer Price:</span>{' '}
-                          <span className="line-through text-red-500 mr-2">₹{total}</span>
-                          <span className="text-green-600 font-bold">₹{offer}</span>
-                        </>
-                      );
-                    }
-                    return <>Final Price: ₹{total}</>;
-                  })()}
-                </span>
-                <Button className="bg-blue-600 text-white hover:bg-blue-700">
-                  Add to Cart
-                </Button>
-              </div>
-            </div>
-          </Card>
+            </Card>
+          </div>
 
           {/* Model Modal */}
           {activeModelModal === pkg.id && (

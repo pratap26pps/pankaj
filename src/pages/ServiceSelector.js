@@ -51,52 +51,54 @@ export default function ServiceSelector() {
   };
 
   return (
-    <div className="px-10 sm:px-10 md:px-20   max-w-10xl mx-auto  mt-18 pt-20  bg-no-repeat bg-center bg-cover "
-     style={{ backgroundImage: "url('/images/book.jpg')" }}
-     >
-
-      {/* 🔹 Sticky Service Selector */}
-      <div className=" 2xl:w-[1000px]  top-[90px] z-20 2xl:ml-19 bg-white/30 backdrop-blur-md rounded-2xl p-4 shadow-lg border border-white/40">
-        <motion.div
-          className="grid grid-cols-2 sm:flex sm:overflow-x-auto gap-4 sm:gap-5 py-2 sm:px-1 scrollbar-thin scrollbar-thumb-green-500  scrollbar-track-gray-200 scroll-smooth"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {Array.isArray(services) &&
-            services.map((service, index) => (
-              <motion.button
-                key={index}
-                variants={itemVariants}
-                onClick={() => handleCardClick(service)}
-                className={`flex flex-col items-center justify-center
-                  min-w-[100px] min-h-[100px] sm:min-w-[90px] sm:min-h-[90px]
-                  rounded-xl text-center px-2
-                  transition-all duration-300 ease-in-out
-                  ${
-                    selectedService?.name === service.name
-                      ? 'border-green-600 ring-2 ring-green-300'
-                      : 'border-gray-300'
-                  } hover:border-green-500`}
-              >
-                <div className="text-[34px] text-green-600 mb-1">{service.icon}</div>
-                <div className="text-sm font-medium text-gray-800 leading-tight">
-                  {service.name}
-                </div>
-              </motion.button>
-            ))}
-        </motion.div>
+    <div
+      className="px-10 sm:px-10 md:px-20 max-w-10xl mx-auto mt-18 pt-20 bg-no-repeat bg-center bg-cover"
+      style={{ backgroundImage: "url('/images/book.jpg')" }}
+    >
+      {/* 🔹 Sticky Service Selector - Centered */}
+      <div className="flex justify-center">
+        <div className="2xl:w-[1000px] top-[90px] z-20 bg-white/30 backdrop-blur-md rounded-2xl p-4 shadow-lg border border-white/40">
+          <motion.div
+            className="grid grid-cols-2 sm:flex sm:overflow-x-auto gap-4 sm:gap-5 py-2 sm:px-1 scrollbar-thin scrollbar-thumb-green-500 scrollbar-track-gray-200 scroll-smooth"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {Array.isArray(services) &&
+              services.map((service, index) => (
+                <motion.button
+                  key={index}
+                  variants={itemVariants}
+                  onClick={() => handleCardClick(service)}
+                  className={`flex flex-col items-center justify-center
+                    min-w-[100px] min-h-[100px] sm:min-w-[90px] sm:min-h-[90px]
+                    rounded-xl text-center px-2
+                    transition-all duration-300 ease-in-out
+                    ${
+                      selectedService?.name === service.name
+                        ? 'border-green-600 ring-2 ring-green-300'
+                        : 'border-gray-300'
+                    } hover:border-green-500`}
+                >
+                  <div className="text-[34px] text-green-600 mb-1">{service.icon}</div>
+                  <div className="text-sm font-medium text-gray-800 leading-tight">
+                    {service.name}
+                  </div>
+                </motion.button>
+              ))}
+          </motion.div>
+        </div>
       </div>
 
       {/* 🔻 Dynamic Component Render - Scrolls Just Below Selector */}
       {selectedService?.Component && (
-        <div ref={scrollRef} className="scroll-mt-[520px] mx-auto   ">
+        <div ref={scrollRef} className="scroll-mt-[520px] mx-auto">
           <motion.div
             key={selectedService.name}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="mt-10  "
+            className="mt-10"
           >
             <selectedService.Component />
           </motion.div>

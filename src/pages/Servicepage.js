@@ -22,7 +22,7 @@ const cardVariants = {
 const ServicePage = () => {
   const router = useRouter();
   const [location, setLocation] = useState(null);
-  const [search, setSearch] = useState(''); 
+  const [search, setSearch] = useState('');
   useEffect(() => {
     if (typeof window !== 'undefined' && 'geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -66,15 +66,15 @@ const handleCardClick = (serviceName) => {
 
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-green-50 to-white px-4 sm:px-6 md:px-10 py-10">
+    <section className="min-h-screen bg-gradient-to-br from-green-50 to-white px-4 sm:px-6 md:px-10 py-10  bg-no-repeat bg-center bg-cover" style={{ backgroundImage: "url('/images/book.jpg')" }}>
       <div className="max-w-6xl mt-20 sm:mt-32 mx-auto space-y-10">
         {/* ✅ Heading */}
-        <div className="text-center">
+        {/* <div className="text-center -mt-30">
           <h1 className="text-4xl font-bold text-green-800 mb-2">
             Welcome to <span className="text-green-600">GNB EV Service Center {location}</span>
           </h1>
-          <p className="text-gray-600 text-lg">Select the service you’re looking for</p>
-        </div>
+          <p className="text-gray-800 font-bold bg-blue w-fulltext-lg">Select the service you’re looking for</p>
+        </div> */}
 
         {/* ✅ Services Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-6">

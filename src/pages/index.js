@@ -55,7 +55,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-green-200 via-green-500 to-green-900">
+    <div className="min-h-screen w-full bg-gradient-to-br from-green-200 via-green-500 to-green-900  bg-no-repeat bg-center bg-contain"   >
 
       {/* ✅ Hero Carousel Section */}
       <div className="-mt-[99px] w-full flex items-center justify-center min-h-screen">
@@ -105,7 +105,7 @@ const Index = () => {
       {/* ✅ Service Offer Section */}
       <div className="w-full bg-gradient-to-ur from-green-200 via-green-500 to-green-700 py-12">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 items-center bg-white rounded-3xl shadow-2xl overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 items-center border-2 gap-0.5 bg-black rounded-3xl shadow-2xl overflow-hidden">
             <motion.div
               initial={{ x: -100, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
@@ -116,7 +116,7 @@ const Index = () => {
               <img
                 src="/images/image.png"
                 alt="EV Repair"
-                className="w-full h-full object-fill"
+                className="w-full h-full object-fill "
               />
             </motion.div>
             <motion.div
