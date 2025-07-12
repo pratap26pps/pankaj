@@ -37,7 +37,7 @@ const Navbaar = () => {
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-[#4c3c3c ] shadow-2xl">
+    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-[#4c3c3c] shadow-2xl">
       <div className="w-full px-4 sm:px-6 md:px-10 lg:px-20 xl:px-28 mx-auto flex items-center justify-between h-20
 md:h-20 lg:h-15 xl:h-15 2xl:h-18">
 
