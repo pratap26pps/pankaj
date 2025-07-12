@@ -84,7 +84,7 @@ export default function LithiumBatteries() {
                   <img
                     src={battery.image}
                     alt={battery.name}
-                    className="rounded-xl w-full h-full object-contain"
+                    className=" w-full h-full rounded-3xl object-contain"
                   />
                 </div>
 

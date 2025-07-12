@@ -21,7 +21,7 @@ const chargers = [
     name: 'Tata Power EZ Charger',
     description: 'Heavy-duty 7.4kW EV charger with Wi-Fi and Bluetooth app control. Best for home and office use.',
     price: '₹19,999',
-    image: '/images/charger-tatapower.png',
+    image: '/images/charger/image.png',
     recommended: false,
   },
   {
@@ -29,7 +29,7 @@ const chargers = [
     name: 'Delta Wallbox Mini',
     description: 'Stylish 5kW charger with fast charging and auto cut-off feature. Smart LED indicators.',
     price: '₹15,799',
-    image: '/images/charger-delta.png',
+ image: '/images/charger/image.png',
     recommended: true,
   },
   {
@@ -37,7 +37,7 @@ const chargers = [
     name: 'Exicom SafeCharge',
     description: 'Robust 3kW charger for Indian EVs. Surge protection and overheat control. BIS certified.',
     price: '₹9,999',
-    image: '/images/charger-exicom.png',
+    image: '/images/charger/image.png',
     recommended: false,
   },
   {
@@ -45,7 +45,7 @@ const chargers = [
     name: 'Magenta ChargeGrid Lite',
     description: 'Smart app-controlled charger with voice alerts and load balancing. Best for 2-wheeler EVs.',
     price: '₹11,299',
-    image: '/images/charger-magenta.png',
+   image: '/images/charger/image.png',
     recommended: false,
   },
   {
@@ -53,7 +53,7 @@ const chargers = [
     name: 'EVeGO Smart Plug',
     description: 'Portable 3.3kW charger with auto power cut. Ideal for travel and backup usage.',
     price: '₹8,499',
-    image: '/images/charger-evego.png',
+   image: '/images/charger/image.png',
     recommended: true,
   },
 ]
@@ -83,7 +83,7 @@ export default function Chargers() {
                   <img
                     src={charger.image}
                     alt={charger.name}
-                    className="w-[250px] h-full object-contain"
+                    className="w-full rounded-2xl h-full object-contain"
                   />
                 </div>
 
@@ -97,8 +97,8 @@ export default function Chargers() {
                   className={clsx(
                     'mt-auto flex items-center justify-between pt-3 gap-2',
                     'flex-row',
-                    'sm:flex-row',
-                    'flex-wrap sm:flex-nowrap'
+                    'sm:flex-row-reverse',
+                    'flex-wrap sm:flex-wrap'
                   )}
                 >
                   <span className="text-sm font-bold text-gray-600 order-2 sm:order-none ml-auto sm:ml-0">

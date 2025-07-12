@@ -55,16 +55,16 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-green-200 via-green-500 to-green-900  bg-no-repeat bg-center bg-contain"   >
+    <div className="min-h-screen w-full bg-gradient-to-br from-green-200 via-green-500 to-green-900 bg-no-repeat bg-center bg-contain">
 
       {/* ✅ Hero Carousel Section */}
-      <div className="-mt-[99px] w-full flex items-center justify-center min-h-screen">
+      <div className="w-full flex items-center -mt-25 justify-center min-h-screen">
         <div className="w-full">
-          <Carousel plugins={[plugin.current]} className="w-full">
+          <Carousel plugins={[plugin.current]} className="w-full relative">
             <CarouselContent>
               {posterImages.map((image, index) => (
                 <CarouselItem key={index} className="basis-full">
-                  <div className="relative w-full h-[10vh] md:h-[60vh] rounded-xl overflow-hidden shadow-xl">
+                  <div className="relative w-full sm:h-[10vh] md:h-[60vh] rounded-xl overflow-hidden shadow-xl">
                     <Card className="w-full h-full border-0 shadow-none">
                       <CardContent className="p-0 h-full flex items-center justify-center">
                         <img
@@ -78,22 +78,23 @@ const Index = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="absolute left-4 -top-10.5 transform -translate-y-1/2 bg-white/90 hover:bg-white text-black border-0 shadow-lg rounded-full w-12 h-12" />
-            <CarouselNext className="absolute right-4 -top-10.5 transform -translate-y-1/2 bg-white/90 hover:bg-white text-black border-0 shadow-lg rounded-full w-12 h-12" />
+
+            <CarouselPrevious className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/90 hover:bg-white text-black border-0 shadow-lg rounded-full w-12 h-12 z-10" />
+            <CarouselNext className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/90 hover:bg-white text-black border-0 shadow-lg rounded-full w-12 h-12 z-10" />
           </Carousel>
         </div>
       </div>
 
       {/* ✅ Title Section */}
-      <div className="w-full -mt-72 2xl:-mt-30 mb-7">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight drop-shadow-2xl">
+      <div className="w-full  md:mt-0 mb-7 px-4">
+        <div className="max-w-7xl -mt-65  md:-mt-18 2xl:-mt-20 mx-auto text-center">
+          <h1 className="text-4xl md:text-7xl font-bold text-white leading-tight drop-shadow-2xl">
             Welcome to{' '}
             <span className="bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">
               GNB EV Service Center
             </span>
           </h1>
-          <p className="text-2xl md:text-3xl text-white font-medium leading-relaxed drop-shadow-xl">
+          <p className="text-xl md:text-3xl text-white font-medium leading-relaxed drop-shadow-xl">
             Your Trusted Partner for{' '}
             <span className="text-black font-semibold drop-shadow-lg">E-Bikes</span>{' '}
             &{' '}
@@ -116,7 +117,7 @@ const Index = () => {
               <img
                 src="/images/image.png"
                 alt="EV Repair"
-                className="w-full h-full object-fill "
+                className="w-full h-full object-fill"
               />
             </motion.div>
             <motion.div
@@ -150,6 +151,7 @@ const Index = () => {
         </div>
       </div>
 
+      {/* ✅ Service Component */}
       <ServicePage />
     </div>
   );

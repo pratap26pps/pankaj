@@ -131,7 +131,7 @@ export default function Erickshaw() {
                 <img
                   src={pkg.image}
                   alt={pkg.title}
-                  className="rounded-xl w-full h-full object-contain"
+                  className="rounded-2xl w-full h-full object-contain"
                 />
               </div>
 
