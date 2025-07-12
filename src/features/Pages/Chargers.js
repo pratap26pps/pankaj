@@ -97,7 +97,7 @@ export default function Chargers() {
                   className={clsx(
                     'mt-auto flex items-center justify-between pt-3 gap-2',
                     'flex-row',
-                    'sm:flex-row-reverse',
+                    'sm:flex-row',
                     'flex-wrap sm:flex-wrap'
                   )}
                 >
