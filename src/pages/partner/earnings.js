@@ -14,7 +14,7 @@ import {
   Calendar,
   Download,
   CreditCard,
-  Bank,
+  Building2,
   Smartphone,
   ArrowUpRight,
   ArrowDownRight,
@@ -261,8 +261,8 @@ export default function Earnings() {
                     <div key={method.id} className="p-4 border rounded-lg">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center">
-                          {method.type === "Bank Account" ? (
-                            <Bank className="w-5 h-5 text-blue-500 mr-2" />
+                                          {method.type === "Bank Account" ? (
+                  <Building2 className="w-5 h-5 text-blue-500 mr-2" />
                           ) : (
                             <Smartphone className="w-5 h-5 text-green-500 mr-2" />
                           )}
