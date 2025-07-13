@@ -1081,12 +1081,12 @@ const PartnerDashboard = () => {
           animate={{ x: 0 }}
           className="hidden lg:block w-64 bg-white/90 backdrop-blur-xl shadow-xl rounded-2xl mr-6 ml-4 mt-4 h-full sticky top-8 overflow-y-hidden"
         >
-          <div className="p-6">
+          <div className="p-6 ">
             <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center">
               <FaBars className="mr-3 text-emerald-600" />
               Navigation
             </h2>
-            <div className="space-y-3 max-h-[calc(100vh-200px)] overflow-y-auto">
+            <div className="space-y-3 max-h-[calc(100vh)] overflow-hidden">
               {navItems.map((item) => (
                 <motion.button
                   key={item.id}
