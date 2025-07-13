@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { Badge } from '../../components/ui/badge';
@@ -37,15 +37,16 @@ import {
   FaChevronDown,
   FaBell,
   FaSave,
-  FaHeart
+  FaHeart,
+  FaShoppingCart,
+  FaMapMarkerAlt,
+  FaBatteryHalf
 } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 
-// No global state needed - using localStorage instead
-
 const PartnerDashboard = () => {
   const [activeSection, setActiveSection] = useState('overview');
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentTime, setCurrentTime] = useState('');
   const router = useRouter();
@@ -70,15 +71,15 @@ const PartnerDashboard = () => {
   useEffect(() => {
     const checkLocalStorage = () => {
       const menuState = localStorage.getItem('partnerDashboardMobileMenu');
-      if (menuState === 'open' && !isMobileMenuOpen) {
-        setIsMobileMenuOpen(true);
+      if (menuState === 'open' && !isSidebarOpen) {
+        setIsSidebarOpen(true);
         localStorage.removeItem('partnerDashboardMobileMenu');
       }
     };
 
     const interval = setInterval(checkLocalStorage, 100);
     return () => clearInterval(interval);
-  }, [isMobileMenuOpen]);
+  }, [isSidebarOpen]);
 
   // Mock data
   const partnerData = {
@@ -205,11 +206,11 @@ const PartnerDashboard = () => {
     customer.vehicle.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Navigation items
+  // Navigation items - matching user dashboard structure
   const navItems = [
     { id: 'overview', label: 'Overview', icon: FaHome, type: 'section' },
     { id: 'bookings', label: 'Bookings', icon: FaCalendar, type: 'section' },
-    { id: 'customers', label: 'Customer Info', icon: FaUsers, type: 'section' },
+    { id: 'customers', label: 'Customers', icon: FaUsers, type: 'section' },
     { id: 'earnings', label: 'Earnings', icon: FaDollarSign, type: 'section' },
     { id: 'training', label: 'Training', icon: FaBookOpen, type: 'section' },
     { id: 'reviews', label: 'Reviews', icon: FaStar, type: 'section' },
@@ -220,7 +221,9 @@ const PartnerDashboard = () => {
   ];
 
   const handleLogout = () => {
-    router.push('/partner/login');
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userType');
+    router.push('/');
   };
 
   const renderSection = () => {
@@ -232,103 +235,204 @@ const PartnerDashboard = () => {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-6"
           >
-            {/* Simple Welcome Section */}
-            <div className="bg-blue-200 p-6 rounded-lg border border-gray-200 shadow-sm">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h1 className="text-2xl font-bold text-gray-800 mb-2">Welcome back, {partnerData.name}!</h1>
-                  <p className="text-gray-600">Here's what's happening today</p>
-                  <div className="flex items-center mt-2 space-x-4 text-sm text-gray-500">
-                    <span>{new Date().toISOString().split('T')[0]}</span>
-                    <span>{currentTime || '--:--'}</span>
+            {/* Professional Welcome Section - Two Cards Aligned */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Welcome Card */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="bg-gradient-to-br from-emerald-50 to-teal-50 p-6 rounded-xl border border-emerald-200 shadow-lg"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h1 className="text-2xl font-bold text-gray-800 mb-2">
+                      Welcome back, {partnerData.name}! 👋
+                    </h1>
+                    <p className="text-gray-600 text-sm">
+                      Here's your dashboard overview for today
+                    </p>
+                  </div>
+                  <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
+                    <FaUser className="w-6 h-6 text-emerald-600" />
                   </div>
                 </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-blue-600">{partnerData.rating}⭐</div>
-                  <div className="text-sm text-gray-600">Rating</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Simple Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
                 <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600">Total Earnings</p>
-                    <p className="text-xl font-bold text-gray-800">₹{partnerData.totalEarnings.toLocaleString('en-US')}</p>
+                  <div className="space-y-1">
+                    <p className="text-sm text-gray-500">Current Time</p>
+                    <p className="text-lg font-semibold text-gray-800">{currentTime || '--:--'}</p>
                   </div>
-                  <FaDollarSign className="w-6 h-6 text-green-600" />
+                  <div className="space-y-1 text-right">
+                    <p className="text-sm text-gray-500">Today's Date</p>
+                    <p className="text-lg font-semibold text-gray-800">
+                      {new Date().toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                <div className="flex items-center justify-between">
+              {/* Quick Stats Card */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200 shadow-lg"
+              >
+                <div className="flex items-center justify-between mb-4">
                   <div>
+                    <h2 className="text-xl font-bold text-gray-800 mb-1">Quick Overview</h2>
+                    <p className="text-gray-600 text-sm">Your performance highlights</p>
+                  </div>
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <FaChartLine className="w-6 h-6 text-blue-600" />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-emerald-600 mb-1">
+                      {partnerData.rating}⭐
+                    </div>
+                    <p className="text-sm text-gray-600">Rating</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-blue-600 mb-1">
+                      {partnerData.totalBookings}
+                    </div>
                     <p className="text-sm text-gray-600">Total Bookings</p>
-                    <p className="text-xl font-bold text-gray-800">{partnerData.totalBookings}</p>
                   </div>
-                  <FaCalendar className="w-6 h-6 text-blue-600" />
                 </div>
-              </div>
-
-              <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600">Completed</p>
-                    <p className="text-xl font-bold text-gray-800">{partnerData.completedServices}</p>
-                  </div>
-                  <FaCheckCircle className="w-6 h-6 text-green-600" />
-                </div>
-              </div>
-
-              <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600">Pending</p>
-                    <p className="text-xl font-bold text-gray-800">{partnerData.pendingServices}</p>
-                  </div>
-                  <FaClock className="w-6 h-6 text-orange-600" />
-                </div>
-              </div>
+              </motion.div>
             </div>
+
+            {/* Stats Cards Grid */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            >
+              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                    <FaDollarSign className="w-6 h-6 text-green-600" />
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm text-gray-500">Total Earnings</p>
+                    <p className="text-2xl font-bold text-gray-800">₹{partnerData.totalEarnings.toLocaleString('en-US')}</p>
+                  </div>
+                </div>
+                <div className="flex items-center text-sm text-green-600">
+                  <FaChartLine className="w-4 h-4 mr-1" />
+                  <span>+12% from last month</span>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <FaCalendar className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm text-gray-500">Total Bookings</p>
+                    <p className="text-2xl font-bold text-gray-800">{partnerData.totalBookings}</p>
+                  </div>
+                </div>
+                <div className="flex items-center text-sm text-blue-600">
+                  <FaChartLine className="w-4 h-4 mr-1" />
+                  <span>+8% from last month</span>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
+                    <FaCheckCircle className="w-6 h-6 text-emerald-600" />
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm text-gray-500">Completed</p>
+                    <p className="text-2xl font-bold text-gray-800">{partnerData.completedServices}</p>
+                  </div>
+                </div>
+                <div className="flex items-center text-sm text-emerald-600">
+                  <FaChartLine className="w-4 h-4 mr-1" />
+                  <span>93% completion rate</span>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                    <FaClock className="w-6 h-6 text-orange-600" />
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm text-gray-500">Pending</p>
+                    <p className="text-2xl font-bold text-gray-800">{partnerData.pendingServices}</p>
+                  </div>
+                </div>
+                <div className="flex items-center text-sm text-orange-600">
+                  <FaClock className="w-4 h-4 mr-1" />
+                  <span>Requires attention</span>
+                </div>
+              </div>
+            </motion.div>
 
             {/* Today's Bookings */}
-            <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-              <div className="p-4 border-b border-gray-200">
-                <h2 className="text-lg font-semibold text-gray-800 flex items-center">
-                  <FaCalendar className="mr-2 text-blue-600" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden"
+            >
+              <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+                <h2 className="text-xl font-bold text-gray-800 flex items-center">
+                  <FaCalendar className="mr-3 text-emerald-600" />
                   Today's Bookings
                 </h2>
+                <p className="text-sm text-gray-600 mt-1">Manage your current service appointments</p>
               </div>
-              <div className="p-4">
-                <div className="space-y-3">
+              <div className="p-6">
+                <div className="space-y-4">
                   {bookingsData.slice(0, 3).map((booking, index) => (
-                    <div key={booking.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                      <div>
-                        <p className="font-medium text-gray-800">{booking.customerName}</p>
-                        <p className="text-sm text-gray-600">{booking.serviceType} • {booking.vehicleModel}</p>
+                    <motion.div
+                      key={booking.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 * index }}
+                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
+                          <FaUser className="w-5 h-5 text-emerald-600" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-800">{booking.customerName}</p>
+                          <p className="text-sm text-gray-600">{booking.serviceType} • {booking.vehicleModel}</p>
+                        </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-green-600">₹{booking.amount}</p>
-                        <Badge className={`${
-                          booking.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' :
-                          booking.status === 'In Progress' ? 'bg-blue-100 text-blue-800' :
-                          'bg-green-100 text-green-800'
+                        <p className="font-bold text-emerald-600 text-lg">₹{booking.amount}</p>
+                        <Badge className={`mt-1 ${
+                          booking.status === 'Pending' ? 'bg-yellow-100 text-yellow-800 border-yellow-200' :
+                          booking.status === 'In Progress' ? 'bg-blue-100 text-blue-800 border-blue-200' :
+                          'bg-emerald-100 text-emerald-800 border-emerald-200'
                         }`}>
                           {booking.status}
                         </Badge>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
-                <div className="mt-4 text-center">
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                <div className="mt-6 text-center">
+                  <Button className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-200">
+                    <FaCalendar className="mr-2" />
                     View All Bookings
                   </Button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         );
 
@@ -886,7 +990,7 @@ const PartnerDashboard = () => {
     if (item.type === 'section') {
       setActiveSection(item.id);
       if (window.innerWidth < 1024) {
-        setIsMobileMenuOpen(false);
+        setIsSidebarOpen(false);
       }
     } else if (item.type === 'button') {
       if (item.action === 'logout') {
@@ -896,202 +1000,174 @@ const PartnerDashboard = () => {
   };
 
   return (
-    <div className="min-h bg-center bg-cover bg-no-repeat" style={{ backgroundImage: "url('/images/book.jpg')" }}>
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-4 py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
-            >
-              <FaBars className="w-5 h-5 text-gray-600" />
-            </motion.button>
-            <h1 className="text-xl font-bold text-gray-800">Partner Dashboard</h1>
-          </div>
+    <div className="min-h-screen bg-no-repeat bg-cover "style={{ backgroundImage: "url('/images/book.jpg')" }}>
+      {/* Header - matching user dashboard structure */}
+      <motion.header
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-30"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Left Side - Logo and Navigation */}
+            <div className="flex items-center  space-x-8">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => router.push('/')}
+                className="text-gray-600 hover:text-emerald-600 transition-colors duration-200 font-medium flex items-center"
+              >
+                <FaHome className="mr-2" />
+                Home
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => router.push('/Servicepage')}
+                className="text-gray-600 hover:text-emerald-600 transition-colors duration-200 font-medium flex items-center"
+              >
+                <FaStar className="mr-2" />
+                Services
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => router.push('/about')}
+                className="text-gray-600 hover:text-emerald-600 transition-colors duration-200 font-medium flex items-center"
+              >
+                <FaHeart className="mr-2" />
+                About
+              </motion.button>
+            </div>
 
-          <div className="flex items-center space-x-4">
-            <div className="hidden lg:block">
-              <div className="flex items-center space-x-3 p-2 rounded-lg border-0 hover:bg-gray-200 transition-colors duration-200">
-                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
-                  {partnerData.name.charAt(0)}
-                </div>
-                <div className="text-left">
-                  <p className="text-sm font-medium text-gray-700">{partnerData.name}</p>
-                  <p className="text-xs text-gray-500">Partner Dashboard</p>
-                </div>
+            {/* Right Side - Menu Button and Profile */}
+            <div className="flex items-center space-x-3">
+              {/* Mobile Menu Button */}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setIsSidebarOpen(true)}
+                className="lg:hidden p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
+              >
+                <FaBars className="text-gray-600 text-lg" />
+              </motion.button>
+
+              {/* Profile - Desktop Only */}
+              <div className="hidden lg:block">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center space-x-3 p-2 rounded-lg border-0 hover:bg-gray-200 transition-colors duration-200"
+                >
+                  <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white font-semibold">
+                    {partnerData.name.charAt(0)}
+                  </div>
+                  <div className="text-left">
+                    <p className="text-sm font-medium text-gray-700">{partnerData.name}</p>
+                    <p className="text-xs text-gray-500">Partner Dashboard</p>
+                  </div>
+                  <FaChevronDown className="text-gray-400 text-xs" />
+                </motion.button>
               </div>
             </div>
           </div>
         </div>
-      </header>
+      </motion.header>
 
-      <div className="flex">
-        {/* Desktop Sidebar */}
-        <aside className="hidden lg:block w-64 bg-white border-r border-gray-200 min-h-screen sticky top-0">
-          <nav className="p-4 space-y-2">
-            {navItems.map((item) => (
-              <motion.button
-                key={item.id}
-                onClick={() => handleNavigation(item)}
-                whileHover={{ scale: 1.02, x: 5 }}
-                whileTap={{ scale: 0.98 }}
-                className={`w-full flex items-center space-x-3 p-3 rounded-lg transition-colors duration-200 ${
-                  activeSection === item.id
-                    ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm'
-                    : 'text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                <item.icon className="w-5 h-5" />
-                <span className="font-medium">{item.label}</span>
-              </motion.button>
-            ))}
-          </nav>
-        </aside>
-
-        {/* Mobile Sidebar Overlay */}
-        {isMobileMenuOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
-              onClick={() => setIsMobileMenuOpen(false)}
-            />
-            <motion.div
-              initial={{ x: -300 }}
-              animate={{ x: 0 }}
-              exit={{ x: -300 }}
-              className="lg:hidden fixed left-0 top-0 h-full w-80 bg-white border-r border-gray-200 z-50 shadow-2xl"
-            >
-              {/* Mobile Sidebar Header */}
-              <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
-                      {partnerData.name.charAt(0)}
-                    </div>
-                    <div>
-                      <h2 className="text-lg font-bold text-gray-800">Partner Dashboard</h2>
-                      <p className="text-sm text-gray-600">{partnerData.name}</p>
-                    </div>
-                  </div>
-                  <Button
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    variant="ghost"
-                    size="sm"
-                    className="p-2 hover:bg-gray-200"
-                  >
-                    <FaTimes className="w-5 h-5" />
-                  </Button>
-                </div>
-                <div className="text-sm text-gray-600">
-                  <p>Welcome back! Here's your dashboard overview.</p>
-                </div>
-              </div>
-
-              {/* Mobile Navigation */}
-              <div className="flex-1 overflow-y-auto">
-                <nav className="p-4 space-y-1">
-                  {navItems.map((item) => (
-                    <motion.button
-                      key={item.id}
-                      onClick={() => handleNavigation(item)}
-                      whileHover={{ scale: 1.02, x: 5 }}
-                      whileTap={{ scale: 0.98 }}
-                      className={`w-full flex items-center space-x-3 p-4 rounded-xl transition-all duration-200 ${
-                        activeSection === item.id
-                          ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm'
-                          : 'text-gray-700 hover:bg-gray-50'
-                      }`}
-                    >
-                      <div className={`p-2 rounded-lg ${
-                        activeSection === item.id
-                          ? 'bg-blue-100'
-                          : 'bg-gray-100'
-                      }`}>
-                        <item.icon className={`w-5 h-5 ${
-                          activeSection === item.id
-                            ? 'text-blue-600'
-                            : 'text-gray-600'
-                        }`} />
-                      </div>
-                      <div className="flex-1 text-left">
-                        <span className="font-medium">{item.label}</span>
-                        {item.id === 'overview' && (
-                          <p className="text-xs text-gray-500 mt-1">Dashboard overview and stats</p>
-                        )}
-                        {item.id === 'bookings' && (
-                          <p className="text-xs text-gray-500 mt-1">Manage service bookings</p>
-                        )}
-                        {item.id === 'customers' && (
-                          <p className="text-xs text-gray-500 mt-1">Customer information</p>
-                        )}
-                        {item.id === 'earnings' && (
-                          <p className="text-xs text-gray-500 mt-1">View earnings and reports</p>
-                        )}
-                        {item.id === 'training' && (
-                          <p className="text-xs text-gray-500 mt-1">Training modules</p>
-                        )}
-                        {item.id === 'reviews' && (
-                          <p className="text-xs text-gray-500 mt-1">Customer reviews</p>
-                        )}
-                        {item.id === 'documents' && (
-                          <p className="text-xs text-gray-500 mt-1">Manage documents</p>
-                        )}
-                        {item.id === 'profile' && (
-                          <p className="text-xs text-gray-500 mt-1">Profile information</p>
-                        )}
-                        {item.id === 'update-profile' && (
-                          <p className="text-xs text-gray-500 mt-1">Update profile details</p>
-                        )}
-                      </div>
-                      {activeSection === item.id && (
-                        <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      )}
-                    </motion.button>
-                  ))}
-                </nav>
-
-                {/* Mobile Quick Stats */}
-                <div className="p-4 border-t border-gray-200">
-                  <h3 className="text-sm font-semibold text-gray-700 mb-3">Quick Stats</h3>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-blue-50 p-3 rounded-lg">
-                      <p className="text-xs text-blue-600">Earnings</p>
-                      <p className="text-sm font-bold text-blue-700">₹{partnerData.totalEarnings.toLocaleString('en-US')}</p>
-                    </div>
-                    <div className="bg-green-50 p-3 rounded-lg">
-                      <p className="text-xs text-green-600">Bookings</p>
-                      <p className="text-sm font-bold text-green-700">{partnerData.totalBookings}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Mobile Footer */}
-              <div className="p-4 border-t border-gray-200 bg-gray-50">
-                <Button
-                  onClick={() => {
-                    handleLogout();
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="w-full bg-red-600 hover:bg-red-700 text-white"
+      <div className="flex pt-3 pb-10 overflow-x-hidden">
+        {/* Left Sidebar - Desktop - matching user dashboard exactly */}
+        <motion.div
+          initial={{ x: -300 }}
+          animate={{ x: 0 }}
+          className="hidden lg:block w-64 bg-white/90 backdrop-blur-xl shadow-xl rounded-2xl mr-6 ml-4 mt-4 h-full sticky top-8 overflow-y-hidden"
+        >
+          <div className="p-6">
+            <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center">
+              <FaBars className="mr-3 text-emerald-600" />
+              Navigation
+            </h2>
+            <div className="space-y-3 max-h-[calc(100vh-200px)] overflow-y-auto">
+              {navItems.map((item) => (
+                <motion.button
+                  key={item.id}
+                  onClick={() => handleNavigation(item)}
+                  whileHover={{ scale: 1.02, x: 5 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`w-full flex items-center p-3 rounded-xl transition-all duration-200 text-left ${
+                    activeSection === item.id && item.type === 'section'
+                      ? 'bg-emerald-100 text-emerald-700 border-2 border-emerald-200 shadow-md'
+                      : 'bg-gray-50/50 hover:bg-gray-100/80 text-gray-700 hover:text-gray-900'
+                  } ${item.id === 'logout' ? 'mt-6 bg-red-50 hover:bg-red-100 text-red-600' : ''}`}
                 >
-                  <FaSignOutAlt className="w-4 h-4 mr-2" />
-                  Logout
-                </Button>
-              </div>
-            </motion.div>
-          </>
-        )}
+                  <item.icon className="mr-3 text-lg flex-shrink-0" />
+                  <span className="font-medium text-sm">{item.label}</span>
+                </motion.button>
+              ))}
+            </div>
+          </div>
+        </motion.div>
 
-        {/* Main Content Area */}
-        <div className="flex-1 p-4 lg:p-8">
-          {renderSection()}
+        {/* Mobile Sidebar Overlay - matching user dashboard exactly */}
+        <AnimatePresence>
+          {isSidebarOpen && (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="lg:hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+                onClick={() => setIsSidebarOpen(false)}
+              />
+              <motion.div
+                initial={{ x: -300 }}
+                animate={{ x: 0 }}
+                exit={{ x: -300 }}
+                className="lg:hidden fixed left-0 top-0 h-full w-80 bg-white/95 backdrop-blur-xl shadow-2xl z-50"
+              >
+                <div className="p-6 h-full flex flex-col">
+                  {/* Mobile Sidebar Header */}
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-xl font-bold text-gray-800">Menu</h2>
+                    <Button
+                      onClick={() => setIsSidebarOpen(false)}
+                      variant="ghost"
+                      size="sm"
+                      className="p-2"
+                    >
+                      <FaTimes className="text-gray-600" />
+                    </Button>
+                  </div>
+
+                  {/* Mobile Navigation Items */}
+                  <div className="flex-1 space-y-3 overflow-y-auto">
+                    {navItems.map((item) => (
+                      <motion.button
+                        key={item.id}
+                        onClick={() => handleNavigation(item)}
+                        whileHover={{ scale: 1.02, x: 5 }}
+                        whileTap={{ scale: 0.98 }}
+                        className={`w-full flex items-center p-4 rounded-xl transition-all duration-200 text-left ${
+                          activeSection === item.id && item.type === 'section'
+                            ? 'bg-emerald-100 text-emerald-700 border-2 border-emerald-200 shadow-md'
+                            : 'bg-gray-50/50 hover:bg-gray-100/80 text-gray-700 hover:text-gray-900'
+                        } ${item.id === 'logout' ? 'mt-auto bg-red-50 hover:bg-red-100 text-red-600' : ''}`}
+                      >
+                        <item.icon className="mr-3 text-lg flex-shrink-0" />
+                        <span className="font-medium">{item.label}</span>
+                      </motion.button>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+
+        {/* Main Content Area - matching user dashboard layout */}
+        <div className="flex-1 p-4 lg:p-8 lg:pr-8">
+          <AnimatePresence mode="wait">
+            {renderSection()}
+          </AnimatePresence>
         </div>
       </div>
     </div>
