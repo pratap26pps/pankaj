@@ -55,7 +55,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-green-200 via-green-500 to-green-900 bg-no-repeat bg-center bg-contain">
+    <div className="min-h-screen w-full bg-gradient-to-br from-green-200 via-green-500 to-green-900 bg bg-no-repeat bg-center bg-contain">
       {/* ✅ Hero Carousel Section */}
       <div className="w-full flex items-start justify-center mt-2 pt-10">
         <div className="w-full">

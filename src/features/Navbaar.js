@@ -55,9 +55,9 @@ md:h-20 lg:h-15 xl:h-15 2xl:h-18">
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-10 font-medium text-lg">
-          <Link href="/" className={linkClass}>Home</Link>
-          <Link href="/about" className={linkClass}>About</Link>
-          <Link href="/Servicepage" className={linkClass}>Services</Link>
+          <button onClick={() => router.push('/')} className={linkClass}>Home</button>
+          <button onClick={() => router.push('/about')} className={linkClass}>About</button>
+          <button onClick={() => router.push('/Servicepage')} className={linkClass}>Services</button>
 
           {!isLoggedIn ? (
             <Button
@@ -100,10 +100,9 @@ md:h-20 lg:h-15 xl:h-15 2xl:h-18">
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden bg-gradient-to-b from-emerald-900/98 to-teal-800/98 backdrop-blur-xl px-6 py-5 space-y-4 font-medium text-white text-lg border-t border-emerald-300/20">
-          <Link href="/" onClick={toggleMenu} className="block hover:text-emerald-300 transition-colors duration-300">Home</Link>
-          <Link href="/about" onClick={toggleMenu} className="block hover:text-emerald-300 transition-colors duration-300">About</Link>
-          <Link href="/Servicepage" onClick={toggleMenu} className="block hover:text-emerald-300 transition-colors duration-300">Services</Link>
-          <Link href="/stores" onClick={toggleMenu} className="block hover:text-emerald-300 transition-colors duration-300">Stores</Link>
+          <button onClick={() => { router.push('/'); toggleMenu(); }} className="block w-full text-left hover:text-emerald-300 transition-colors duration-300">Home</button>
+          <button onClick={() => { router.push('/about'); toggleMenu(); }} className="block w-full text-left hover:text-emerald-300 transition-colors duration-300">About</button>
+          <button onClick={() => { router.push('/Servicepage'); toggleMenu(); }} className="block w-full text-left hover:text-emerald-300 transition-colors duration-300">Services</button>
 
           {!isLoggedIn ? (
             <button
@@ -131,7 +130,7 @@ md:h-20 lg:h-15 xl:h-15 2xl:h-18">
                   handleLogout();
                   toggleMenu();
                 }}
-                className=""
+                className="block w-full text-left text-red-300 hover:text-red-100 transition-colors duration-300"
               >
                 Logout
               </button>
