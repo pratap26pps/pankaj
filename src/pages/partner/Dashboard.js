@@ -1075,7 +1075,7 @@ const PartnerDashboard = () => {
       </motion.header>
 
       <div className="flex pt-3 pb-10 overflow-x-hidden">
-        {/* Left Sidebar - Desktop - matching user dashboard exactly */}
+        {/* Left Sidebar  Desktop - matching user dashboard exactly */}
         <motion.div
           initial={{ x: -300 }}
           animate={{ x: 0 }}
