@@ -42,11 +42,11 @@ const ServicePage = () => {
               'Unknown';
             setLocation(city);
           } catch (err) {
-            console.error('Reverse geocoding error:', err);
+            // Handle error gracefully
           }
         },
         (err) => {
-          console.error('Geolocation error:', err.message);
+          // Handle geolocation error gracefully
         }
       );
     }

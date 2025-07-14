@@ -76,7 +76,7 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Mock data
+  // Mock data for admin dashboard
   const adminData = {
     name: 'Admin Panel',
     totalUsers: 1247,
@@ -304,10 +304,9 @@ const Dashboard = () => {
     setSelectedImages(prev => prev.filter(img => img.id !== id));
   };
 
+  // Remove debug logs from navigation and section rendering
   const handleNavigation = (item) => {
-    console.log('Navigation clicked:', item); // Debug log
     if (item.type === 'section') {
-      console.log('Setting active section to:', item.id); // Debug log
       setActiveSection(item.id);
       if (window.innerWidth < 1024) {
         setIsSidebarOpen(false);
@@ -320,7 +319,6 @@ const Dashboard = () => {
   };
 
   const renderSection = () => {
-    console.log('Current active section:', activeSection); // Debug log
     switch (activeSection) {
       case 'overview':
         return (
@@ -997,29 +995,32 @@ const Dashboard = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Left Side - Admin Dashboard Navigation */}
-            <div className="flex items-center space-x-4 overflow-x-auto scrollbar-hide">
-              {navItems.filter(item => item.type === 'section' && item.id !== 'carousel').map((item) => (
-                <motion.button
-                  key={item.id}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setActiveSection(item.id)}
-                  className={`flex items-center px-3 py-2 rounded-lg font-medium transition-colors duration-200 text-sm whitespace-nowrap ${
-                    activeSection === item.id
-                      ? 'bg-emerald-100 text-emerald-700 border-2 border-emerald-200 shadow-md'
-                      : 'text-gray-600 hover:text-emerald-600 hover:bg-gray-100'
-                  }`}
-                >
-                  <item.icon className="mr-2 text-base" />
-                  {item.label}
-                </motion.button>
-              ))}
+            {/* Left Side - Logo and Hamburger */}
+            <div className="flex items-center space-x-4">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="flex items-center"
+              >
+                <img
+                  src="/images/logo (3).png"
+                  alt="Admin Logo"
+                  width={120}
+                  height={40}
+                  className="object-contain"
+                />
+              </motion.div>
+              {/* Hamburger for mobile */}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setIsSidebarOpen(true)}
+                className="lg:hidden p-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 transition-colors duration-200 text-white"
+              >
+                <FaBars className="text-white text-lg" />
+              </motion.button>
             </div>
-
-            {/* Right Side - Menu Button and Profile */}
+            {/* Right Side - Carousel Button and Profile */}
             <div className="flex items-center space-x-3">
-              {/* Carousel Button */}
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -1028,18 +1029,6 @@ const Dashboard = () => {
               >
                 <FaImage className="text-lg" />
               </motion.button>
-
-              {/* Mobile Menu Button */}
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setIsSidebarOpen(true)}
-                className="lg:hidden p-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 transition-all duration-200 text-white shadow-lg border border-emerald-400/30"
-              >
-                <FaBars className="text-white text-lg" />
-              </motion.button>
-
-              {/* Profile - Desktop Only */}
               <div className="hidden lg:block">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -1094,7 +1083,7 @@ const Dashboard = () => {
           </div>
         </motion.div>
 
-        {/* Mobile Sidebar Overlay - matching partner and user dashboard exactly */}
+        {/* Mobile Sidebar Overlay - now slides in from the right */}
         <AnimatePresence>
           {isSidebarOpen && (
             <>
@@ -1124,7 +1113,6 @@ const Dashboard = () => {
                       <FaTimes className="text-gray-600" />
                     </Button>
                   </div>
-
                   {/* Mobile Navigation Items */}
                   <div className="flex-1 space-y-3 overflow-y-auto max-h-[calc(100vh-120px)]">
                     {navItems.map((item) => (

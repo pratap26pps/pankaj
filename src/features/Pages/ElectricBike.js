@@ -94,16 +94,19 @@ export default function ElectricBike() {
     setActiveSubmodelModal(null);
   };
 
+  // Extract price from problem string
   const extractPrice = (problem) => {
     const match = problem.match(/₹(\d+)/);
     return match ? parseInt(match[1]) : 0;
   };
 
+  // Calculate total price for selected problems
   const getTotalPrice = (pkgId) => {
     const selected = selectedProblems[pkgId] || [];
     return selected.reduce((total, problem) => total + extractPrice(problem), 0);
   };
 
+  // Calculate offer price based on selected problems
   const getOfferPrice = (pkgId) => {
     const selected = selectedProblems[pkgId] || [];
     const count = selected.length;

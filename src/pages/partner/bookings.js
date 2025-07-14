@@ -121,8 +121,7 @@ export default function Bookings() {
   }, [searchTerm, statusFilter, priorityFilter]);
 
   const handleBookingAction = (bookingId, action) => {
-    console.log(`${action} booking ${bookingId}`);
-    // Here you would typically make an API call to update the booking status
+    // Implement booking action logic here (e.g., API call)
   };
 
   const getStatusColor = (status) => {

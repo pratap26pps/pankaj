@@ -81,7 +81,7 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, [isSidebarOpen]);
 
-  // Mock data
+  // Mock data for partner dashboard
   const partnerData = {
     name: 'AutoCare Center',
     center: 'AutoCare Service Center',

@@ -50,6 +50,7 @@ const ElectricBike = () => {
   const [subModelData, setSubModelData] = useState({})
   const [cart, setCart] = useState([])
 
+  // Toggle problem selection for a package
   const handleProblemToggle = (pkgId, problem) => {
     setSelectedProblems((prev) => {
       const prevArr = prev[pkgId] || []
@@ -62,6 +63,7 @@ const ElectricBike = () => {
     })
   }
 
+  // Add to cart logic with validation
   const handleAddToCart = (pkgId) => {
     const problems = selectedProblems[pkgId]
     const model = modelData[pkgId]

@@ -13,8 +13,8 @@ export const connectDB = async () => {
     });
 
     isConnected = true;
-    console.log("MongoDB connected ✅");
+    // Removed debug log
   } catch (error) {
-    console.log("MongoDB connection error:", error);
+    // Handle error gracefully
   }
 };

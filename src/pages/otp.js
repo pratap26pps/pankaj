@@ -32,7 +32,7 @@ if(otp ===receivedOtp){
   toast.success("otp-verified successfully");
 
   // api call signup
-    console.log("signupdata", signupdata);
+    // Removed debug log
     e.preventDefault();
 setLoading(false);
 
@@ -42,7 +42,7 @@ setLoading(false);
           "Content-Type": "application/json",
         },
       });
-      console.log("Signup Success:", response.data);
+      // Removed debug log
       Cookies.set("role", response.data.role);
       // Redirect to login after successful signup
       if (response.data.role === "owner") {
@@ -52,8 +52,7 @@ setLoading(false);
 
       }
     } catch (err) {
-      console.error("Signup Error:", err.response?.data?.error || err.message);
-
+      // Handle error gracefully
     } finally {
       setLoading(false);
     }

@@ -5,7 +5,7 @@ import { MapPin, Phone, Mail } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
-const AboutGNBSection = () => {
+const Aboutpage= () => {
   return (
     <section
       className="relative min-h-screen bg-cover bg-center bg-no-repeat px-4 py-44"
@@ -81,4 +81,4 @@ const AboutGNBSection = () => {
   );
 };
 
-export default AboutGNBSection;
+export default Aboutpage;

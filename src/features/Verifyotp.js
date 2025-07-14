@@ -67,6 +67,7 @@ const VerifyOtp = () => {
       toast.success("✅ OTP Verified Successfully!");
       router.push("/user/login");
     } catch (err) {
+      // Handle error gracefully
       setError("Something went wrong. Please try again.");
       setLoading(false);
     }

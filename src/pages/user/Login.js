@@ -25,31 +25,36 @@ const Login = () => {
     fetch('/Animations/hello.json')
       .then((response) => response.json())
       .then((data) => setAnimationData(data))
-      .catch((error) => console.error(error));
+      // Removed debug catch, handle error meaningfully
+      .catch(() => setAnimationData(null));
   }, []);
 
   useEffect(() => {
     fetch('/Animations/Login.json')
       .then((response) => response.json())
       .then((data) => setAnimationData1(data))
-      .catch((error) => console.error(error));
+      // Removed debug catch, handle error meaningfully
+      .catch(() => setAnimationData1(null));
   }, []);
 
+  // Handle input changes and clear error
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setError(''); // Clear error when user types
+    setError('');
   };
 
+  // Toggle password visibility
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
     try {
-      // Simulate API call - replace with your actual login API
+      // Replace with your actual login API
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
@@ -60,12 +65,10 @@ const Login = () => {
 
       if (response.ok) {
         const data = await response.json();
-
         // Store auth token and user info
         localStorage.setItem('authToken', data.token);
         localStorage.setItem('userType', data.userType || 'user');
         localStorage.setItem('userInfo', JSON.stringify(data.user));
-
         // Redirect based on user type
         if (data.userType === 'partner') {
           router.push('/partner/Dashboard');
@@ -77,33 +80,15 @@ const Login = () => {
         setError(errorData.message || 'Login failed. Please try again.');
       }
     } catch (error) {
-      console.error('Login error:', error);
-
-      // For demo purposes, simulate successful login
-      // Remove this in production and use actual API
-      if (formData.email && formData.password) {
-        // Simulate successful login
-        localStorage.setItem('authToken', 'demo-token-' + Date.now());
-        localStorage.setItem('userType', 'user');
-        localStorage.setItem('userInfo', JSON.stringify({
-          id: 1,
-          name: 'Demo User',
-          email: formData.email,
-          type: 'user'
-        }));
-
-        // Redirect to user dashboard
-        router.push('/user/Dashboard');
-      } else {
-        setError('Please enter both email and password.');
-      }
+      // Handle error gracefully
+      setError('An error occurred. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
 
+  // Placeholder for Google login (implement OAuth as needed)
   const handleGoogleLogin = () => {
-    console.log('Google Login Clicked');
     // Google OAuth logic here
   };
 

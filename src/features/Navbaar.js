@@ -12,8 +12,10 @@ const Navbaar = () => {
 
   const pathname = usePathname();
   const router = useRouter();
+
   const isHomePage = pathname === '/';
   const isPartnerDashboard = pathname.includes('/partner/Dashboard');
+  const isAdminDashboard = pathname.includes('/admin/dashboard');
 
   useEffect(() => {
     const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
@@ -72,85 +74,73 @@ const Navbaar = () => {
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  // Partner dashboard simplified navbar
+  // Partner Dashboard Navbar
   if (isPartnerDashboard) {
     return (
       <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-white/95 shadow-lg border-b border-gray-200">
         <div className="w-full px-4 sm:px-6 md:px-10 lg:px-20 xl:px-28 mx-auto flex items-center justify-between h-16">
           <Link href="/" className="flex items-center">
-            <Image
-              src="/images/logo (3).png"
-              alt="EV Repair"
-              width={90}
-              height={52}
-              className="object-contain mt-1.5"
-            />
+            <Image src="/images/logo (3).png" alt="EV Repair" width={90} height={52} className="object-contain mt-1.5" />
           </Link>
           <div className="hidden md:flex items-center space-x-4">
-            <button
-              onClick={() => router.push('/')}
-              className="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors"
-            >
-              Home
-            </button>
+            <button onClick={() => router.push('/')} className="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors">Home</button>
             <div className="relative group">
-              <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
-                Account
-              </button>
+              <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">Account</button>
               <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <div className="py-2">
-                  <div className="px-4 py-2 text-sm text-gray-700 border-b">Partner Account</div>
-                  <button
-                    onClick={() => router.push('/')}
-                    className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-50"
-                  >
-                    Back to Home
-                  </button>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50"
-                  >
-                    Logout
-                  </button>
+                  <button onClick={() => router.push('/')} className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-50">Back to Home</button>
+                  <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50">Logout</button>
                 </div>
               </div>
             </div>
           </div>
           <div className="md:hidden flex items-center">
-            <button
-              onClick={() => {
-                localStorage.setItem('partnerDashboardMobileMenu', 'open');
-                setMenuOpen(false);
-              }}
-              className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
-            >
-              Menu
-            </button>
+            <button onClick={() => { localStorage.setItem('partnerDashboardMobileMenu', 'open'); setMenuOpen(false); }} className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200">Menu</button>
           </div>
         </div>
       </nav>
     );
   }
 
-  // Full nav for all other pages
+  // Admin Dashboard Navbar
+  if (isAdminDashboard) {
+    return (
+      <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-white/95 shadow-lg border-b border-gray-200">
+        <div className="w-full px-4 sm:px-6 md:px-10 lg:px-20 xl:px-28 mx-auto flex items-center justify-between h-16">
+          <Link href="/" className="flex items-center">
+            <Image src="/images/logo (3).png" alt="EV Repair" width={90} height={52} className="object-contain mt-1.5" />
+          </Link>
+          <div className="hidden md:flex items-center space-x-4">
+            <button onClick={() => router.push('/')} className="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors">Home</button>
+            <div className="relative group">
+              <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">Account</button>
+              <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div className="py-2">
+                  <button onClick={() => router.push('/')} className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-50">Back to Home</button>
+                  <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50">Logout</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="md:hidden flex items-center">
+            <button onClick={() => { localStorage.setItem('adminDashboardMobileMenu', 'open'); setMenuOpen(true); }} className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200">Menu</button>
+          </div>
+        </div>
+      </nav>
+    );
+  }
+
+  // General Navbar
   return (
     <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-[#4c3c3c] shadow-2xl">
       <div className="w-full px-4 sm:px-6 md:px-10 lg:px-20 xl:px-28 mx-auto flex items-center justify-between h-20">
         <Link href="/" className="flex items-center">
-          <Image
-            src="/images/logo (3).png"
-            alt="EV Repair"
-            width={90}
-            height={36}
-            className="object-contain"
-          />
+          <Image src="/images/logo (3).png" alt="EV Repair" width={90} height={36} className="object-contain" />
         </Link>
-
         <div className="hidden md:flex items-center space-x-10 font-medium text-lg">
           <button onClick={() => router.push('/')} className={linkClass}>Home</button>
-          <button onClick={() => router.push('/about')} className={linkClass}>About</button>
+          <button onClick={()=>router.push("/Aboutpage")} className={linkClass}>About</button>
           <button onClick={() => router.push('/Servicepage')} className={linkClass}>Services</button>
-
           {!isLoggedIn ? (
             <div className="relative group">
               <button className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-5 py-2.5 rounded-full shadow-md hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 font-semibold">
@@ -165,7 +155,7 @@ const Navbaar = () => {
                   <div className="px-4 py-1 text-xs text-gray-500">Demo Login</div>
                   <button onClick={() => handleDemoLogin('user')} className="w-full text-left px-4 py-2 text-sm text-purple-600 hover:bg-purple-50">Demo User</button>
                   <button onClick={() => handleDemoLogin('partner')} className="w-full text-left px-4 py-2 text-sm text-orange-600 hover:bg-orange-50">Demo Partner</button>
-                  <button onClick={() => router.push('/admin/login')} className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">Admin Login</button>
+                  <button onClick={() => router.push('/admin/dashboard')} className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">Demo Admin</button>
                 </div>
               </div>
             </div>
@@ -186,6 +176,7 @@ const Navbaar = () => {
           )}
         </div>
 
+        {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center">
           <button onClick={toggleMenu} className="text-2xl text-white hover:text-emerald-300 transition-colors duration-300 p-2 rounded-lg hover:bg-white/10">
             {menuOpen ? '✕' : '☰'}
@@ -193,6 +184,7 @@ const Navbaar = () => {
         </div>
       </div>
 
+      {/* Mobile Dropdown */}
       {menuOpen && (
         <div className="md:hidden bg-gradient-to-b from-emerald-900/98 to-teal-800/98 backdrop-blur-xl px-6 py-5 space-y-4 font-medium text-white text-lg border-t border-emerald-300/20">
           <div className="flex items-center justify-between mb-4">
@@ -200,7 +192,7 @@ const Navbaar = () => {
             <button onClick={toggleMenu} className="p-1 rounded hover:bg-white/10">✕</button>
           </div>
           <button onClick={() => { router.push('/'); toggleMenu(); }} className="w-full text-left hover:text-emerald-300 py-2">Home</button>
-          <button onClick={() => { router.push('/about'); toggleMenu(); }} className="w-full text-left hover:text-emerald-300 py-2">About</button>
+          <Link href="/about" className="w-full text-left hover:text-emerald-300 py-2" onClick={toggleMenu}>About</Link>
           <button onClick={() => { router.push('/Servicepage'); toggleMenu(); }} className="w-full text-left hover:text-emerald-300 py-2">Services</button>
 
           {!isLoggedIn ? (

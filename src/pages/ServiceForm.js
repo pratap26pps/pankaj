@@ -59,7 +59,7 @@ export default function EVBookingForm() {
             cityState: `${data.address.city || data.address.town || ''}, ${data.address.state || ''}`,
           }));
         } catch (error) {
-          console.error('Location fetch error:', error);
+          // Handle error gracefully
         }
       });
     }

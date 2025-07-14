@@ -41,6 +41,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Password match validation
     if (formData.password !== formData.confirmPassword) {
       toast.error('Passwords do not match');
       return;
@@ -70,7 +71,7 @@ const Signup = () => {
       toast.success('Registered successfully! Please verify OTP.');
       router.push(`/verify-otp?email=${formData.email}`);
     } catch (err) {
-      console.error(err);
+      // Handle error gracefully
       toast.error('Signup failed');
     }
   };
