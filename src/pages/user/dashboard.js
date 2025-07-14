@@ -705,7 +705,7 @@ const Dashboard = () => {
                 initial={{ x: -300 }}
                 animate={{ x: 0 }}
                 exit={{ x: -300 }}
-                className="lg:hidden fixed left-0 top-0 h-full w-80 bg-white/95 backdrop-blur-xl shadow-2xl z-50"
+                className="lg:hidden fixed left-0 top-0 h-screen w-80 bg-white/95 backdrop-blur-xl shadow-2xl z-50"
               >
                 <div className="p-6 h-full flex flex-col">
                   {/* Mobile Sidebar Header */}
@@ -722,7 +722,7 @@ const Dashboard = () => {
                   </div>
 
                   {/* Mobile Navigation Items */}
-                  <div className="flex-1 space-y-3 overflow-y-auto">
+                  <div className="flex-1 space-y-3 overflow-y-auto max-h-[calc(100vh-120px)]">
                     {navItems.map((item) => (
                       <motion.button
                         key={item.id}
