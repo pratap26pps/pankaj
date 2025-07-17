@@ -69,7 +69,7 @@ const Index = () => {
                           src={image}
                           alt={`Poster ${index + 1}`}
                           fill
-                          className="object-contain md:object-fill 2xl:object-fill  my-2 transition-all duration-500 ease-in-out hover:scale-[1.02] "
+                          className=" w-full h-full   object-fill   my-2 transition-all duration-500 ease-in-out hover:scale-[1.02] "
                           priority={index === 0}
                         />
                       </CardContent>
