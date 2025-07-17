@@ -1,10 +1,9 @@
 import tempUserStore from "@/lib/tempUseStore";
-import { connectDB } from "@/lib/db";
+// import  connectDB  from "../../lib/db";
 import User from "@/Model/User";
 import bcrypt from "bcryptjs";
 
 export async function POST(req) {
-  await connectDB();
   const {
     firstName, lastName, email, phone, vehicleDetails,
     password, confirmPassword, role, profilePic

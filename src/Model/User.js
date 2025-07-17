@@ -6,8 +6,7 @@ const UserSchema = new mongoose.Schema({
   email:     { type: String, required: true, unique: true },
   phone:     { type: String, required: true },
   vehicleDetails: { type: String },
-  Role:      { type: String,  required: true },
-  profilePic:{ type: String, default: "" },
+  Role:      { type: String,  required: true, default : 'customer' },
   password:  { type: String, required: true },
 }, {
   timestamps: true,

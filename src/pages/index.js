@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import Autoplay from 'embla-carousel-autoplay';
+import connectDB  from '../lib/db';
 import {
   Carousel,
   CarouselContent,
@@ -13,28 +14,26 @@ import { Card, CardContent } from '@/components/ui/card';
 import ServicePage from './Servicepage';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const Index = () => {
   const router = useRouter();
-
   const plugin = React.useRef(
     Autoplay({ delay: 3000, stopOnInteraction: false })
   );
 
   const mobilePosterImages = [
-    '/images/banner/mobile1.jpg',
-    '/images/banner/mobile1.jpg',
-    '/images/banner/mobile1.jpg',
-    '/images/banner/mobile1.jpg',
-    '/images/banner/mobile1.jpg',
+    '/images/banner/1.jpg',
+    '/images/banner/2.jpg',
+    '/images/banner/2.jpg',
+    '/images/banner/4.jpg',
   ];
 
   const desktopPosterImages = [
-    '/images/banner/7.jpg',
-    '/images/banner/7.jpg',
-    '/images/banner/7.jpg',
-    '/images/banner/7.jpg',
-    '/images/banner/7.jpg',
+    '/images/banner/1.jpg',
+    '/images/banner/2.jpg',
+    '/images/banner/3.jpg',
+    '/images/banner/4.jpg',
   ];
 
   const [isMobile, setIsMobile] = React.useState(false);
@@ -55,7 +54,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-green-200 via-green-500 to-green-900 bg bg-no-repeat bg-center bg-contain">
+    <div className="min-h-screen w-full bg-gradient-to-br from-green-200 via-green-500 to-green-900 bg-contain bg-no-repeat    bg-center">
       {/* ✅ Hero Carousel Section */}
       <div className="w-full flex items-start justify-center mt-2 pt-10">
         <div className="w-full">
@@ -63,13 +62,15 @@ const Index = () => {
             <CarouselContent>
               {posterImages.map((image, index) => (
                 <CarouselItem key={index} className="basis-full">
-                  <div className="relative w-full h-[30vh] md:h-[60vh] rounded-xl overflow-hidden shadow-xl">
+                  <div className="relative w-full h-[30vh] sm:h-[40vh] md:h-[60vh] lg:h-[70vh] xl:h-[80vh] rounded-xl overflow-hidden shadow-xl">
                     <Card className="w-full h-full border-0 shadow-none">
                       <CardContent className="p-0 h-full flex items-center justify-center">
-                        <img
+                        <Image
                           src={image}
                           alt={`Poster ${index + 1}`}
-                          className="w-full h-full object-contain md:object-cover object-center sm:object-cover transition-all duration-500 ease-in-out hover:scale-[1.02] rounded-xl"
+                          fill
+                          className="object-contain md:object-fill 2xl:object-fill  my-2 transition-all duration-500 ease-in-out hover:scale-[1.02] "
+                          priority={index === 0}
                         />
                       </CardContent>
                     </Card>
