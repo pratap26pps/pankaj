@@ -2,16 +2,16 @@ import { BatteryCharging, PlugZap, Wrench, PackageCheck } from "lucide-react";
 import { GiScooter } from "react-icons/gi";
 import { MdElectricRickshaw } from "react-icons/md";
 
-// ✅ Import page components
+// Pages
 import ElectricBike from "../features/Pages/ElectricBike";
 import Erickshaw from "../features/Pages/Erickshaw";
 import LithiumBatteries from "../features/Pages/LithiumBatteries";
 import Chargers from "../features/Pages/Chargers";
 import Accessories from "../features/Pages/Accessories";
-import Others from "./Pages/Others";
+import Others from "../features/Pages/Others";
 
-
-export  const services = [
+// ✅ Services List
+export const services = [
   {
     name: "Electric Bike",
     icon: <GiScooter className="h-10 w-10 text-green-700" />,
@@ -50,8 +50,7 @@ export  const services = [
   },
 ];
 
-
-
+// ✅ Erickshaw Models
 export const models = [
   {
     id: 1,
@@ -60,12 +59,12 @@ export const models = [
     submodels: [
       { name: "Treo Yaari", image: "/images/submodel/treo-yari.png" },
       { name: "Treo Plus", image: "/images/submodel/treo-plus.png" },
-      { name: "E-Alfa Mini", image: "/images/submodel/e-alfa-super.png" }, // you don't have e-alfa-mini, replaced with available one
+      { name: "E-Alfa Mini", image: "/images/submodel/e-alfa-super.png" },
     ],
   },
   {
     id: 2,
-    name: "Bazaz Auto",
+    name: "Bajaj Auto",
     image: "/images/model/bazaz auto.png",
     submodels: [
       { name: "RE E-TEC 9.0", image: "/images/submodel/re-etech-09.png" },
@@ -73,7 +72,7 @@ export const models = [
   },
   {
     id: 3,
-    name: "Piaago Auto",
+    name: "Piaggio Auto",
     image: "/images/model/piaago auto.png",
     submodels: [
       { name: "Ape E-City", image: "/images/submodel/ape-ecity.png" },
@@ -84,9 +83,7 @@ export const models = [
     id: 4,
     name: "Atul Auto",
     image: "/images/model/atul auto logo.png",
-    submodels: [
-      { name: "Elite Plus", image: "/images/submodel/elite-plus.png" },
-    ],
+    submodels: [{ name: "Elite Plus", image: "/images/submodel/elite-plus.png" }],
   },
   {
     id: 5,
@@ -102,25 +99,19 @@ export const models = [
     id: 6,
     name: "Mayuri",
     image: "/images/model/Mayuri.png",
-    submodels: [
-      { name: "Mayuri Deluxe", image: "/images/submodel/mayuri-delux.png" },
-    ],
+    submodels: [{ name: "Mayuri Deluxe", image: "/images/submodel/mayuri-delux.png" }],
   },
   {
     id: 7,
-    name: "YC Elctriuc",
+    name: "YC Electric",
     image: "/images/model/yc elctriuc.png",
-    submodels: [
-      { name: "Yatri Super", image: "/images/submodel/yatri-super.png" },
-    ],
+    submodels: [{ name: "Yatri Super", image: "/images/submodel/yatri-super.png" }],
   },
   {
     id: 8,
     name: "Mini Metro",
     image: "/images/model/mini metro.png",
-    submodels: [
-      { name: "Butterfly", image: "/images/submodel/bttefly.png" },
-    ],
+    submodels: [{ name: "Butterfly", image: "/images/submodel/bttefly.png" }],
   },
   {
     id: 9,
@@ -135,9 +126,7 @@ export const models = [
     id: 10,
     name: "Kinetic Green",
     image: "/images/model/kinetic green.png",
-    submodels: [
-      { name: "Safar Smart", image: "/images/submodel/safar smart.png" },
-    ],
+    submodels: [{ name: "Safar Smart", image: "/images/submodel/safar smart.png" }],
   },
   {
     id: 11,
@@ -152,11 +141,11 @@ export const models = [
     id: 12,
     name: "Raft",
     image: "/images/model/raft.png",
-    submodels: [
-      { name: "Raft", image: "/images/submodel/raft.png" },
-    ],
+    submodels: [{ name: "Raft", image: "/images/submodel/raft.png" }],
   },
 ];
+
+// ✅ Bike Models
 export const bikemodels = [
   {
     id: 1,
@@ -219,17 +208,13 @@ export const bikemodels = [
     id: 7,
     name: "BGauss",
     image: "/images/logobike/bgauss.png",
-    submodels: [
-      { name: "C12 / Max C12", image: "/images/subbike/bgaussc12.png" },
-    ],
+    submodels: [{ name: "C12 / Max C12", image: "/images/subbike/bgaussc12.png" }],
   },
   {
     id: 8,
     name: "Honda",
     image: "/images/logobike/honda.png",
-    submodels: [
-      { name: "Activa e", image: "/images/subbike/hondaactivae.png" },
-    ],
+    submodels: [{ name: "Activa e", image: "/images/subbike/hondaactivae.png" }],
   },
   {
     id: 9,
@@ -252,49 +237,36 @@ export const bikemodels = [
     id: 11,
     name: "Revolt Motors",
     image: "/images/logobike/rovoalt.png",
-    submodels: [
-      { name: "RV400", image: "/images/subbike/rv400.png" },
-    ],
+    submodels: [{ name: "RV400", image: "/images/subbike/rv400.png" }],
   },
   {
     id: 12,
     name: "Simple Energy",
     image: "/images/logobike/simple.png",
-    submodels: [
-      { name: "Simple One / One S", image: "/images/subbike/simpleone.png" },
-    ],
+    submodels: [{ name: "Simple One / One S", image: "/images/subbike/simpleone.png" }],
   },
   {
     id: 13,
     name: "Kinetic Green",
     image: "/images/logobike/kinetic.png",
-    submodels: [
-      { name: "E-Luna", image: "/images/subbike/eluna.png" },
-    ],
+    submodels: [{ name: "E-Luna", image: "/images/subbike/eluna.png" }],
   },
   {
     id: 14,
     name: "Okaya EV",
     image: "/images/logobike/okawa.png",
-    submodels: [
-      { name: "Faast F2F / Defy 22", image: "/images/subbike/f2f.png" },
-    ],
+    submodels: [{ name: "Faast F2F / Defy 22", image: "/images/subbike/f2f.png" }],
   },
   {
     id: 15,
     name: "Tork Motors",
     image: "/images/logobike/tork.png",
-    submodels: [
-      { name: "Kratos", image: "/images/subbike/kratos.png" },
-    ],
+    submodels: [{ name: "Kratos", image: "/images/subbike/kratos.png" }],
   },
   {
     id: 16,
     name: "Oben Electric",
     image: "/images/logobike/oben.png",
-    submodels: [
-      { name: "Rorr", image: "/images/subbike/rorr.png" },
-    ],
+    submodels: [{ name: "Rorr", image: "/images/subbike/rorr.png" }],
   },
 ];
-
