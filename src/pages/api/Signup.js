@@ -7,7 +7,7 @@ export async function POST(req) {
   await connectDB();
   const {
     firstName, lastName, email, phone, vehicleDetails,
-    password, confirmPassword, type, profilePic
+    password, confirmPassword, role, profilePic
   } = await req.json();
 
   if (password !== confirmPassword) {

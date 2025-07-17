@@ -3,7 +3,7 @@ import React from 'react'
 const Accessories = () => {
   return (
     <div>
-      HELLP
+      HELLo my name is adarsh
     </div>
   )
 }

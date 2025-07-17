@@ -93,7 +93,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col pt-54   lg:flex-row-reverse items-center justify-around bg-green-700 px-4 py-10 gap-10">
+    <div className="min-h-screen flex flex-col pt-54   lg:flex-row-reverse items-center justify-around  bg-green-700 px-4 py-10 gap-10">
 
       {/* Left Side Animation */}
       {animationData1 && (
@@ -108,7 +108,7 @@ const Login = () => {
         {/* Top Logo + Welcome */}
         <div className="flex justify-between items-center mb-3">
           <Image src="/images/logo (3).png" alt="GNB Logo" width={80} height={60} />
-          <h2 className="text-xl font-extrabold text-gray-800 tracking-tight drop-shadow-lg">Login to Your Account</h2>
+          <h2 className="text-2xl uppercase font-extrabold text-gray-800 tracking-tight drop-shadow-lg">Login to Your Account</h2>
         </div>
 
         {/* Error Message */}

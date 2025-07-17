@@ -1,20 +1,24 @@
-import mongoose from "mongoose";
+// lib/mongoose.js
+import mongoose from 'mongoose';
 
 let isConnected = false;
 
 export const connectDB = async () => {
   if (isConnected) return;
 
+  if (!process.env.PROJECT_URL) {
+    console.error('❌ PROJECT_URL not defined');
+    return;
+  }
+
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      dbName: "nextjs_app",
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    await mongoose.connect(process.env.PROJECT_URL, {
+      dbName: 'nextjs_app',
     });
 
     isConnected = true;
-    // Removed debug log
+    console.log('✅ MongoDB connected');
   } catch (error) {
-    // Handle error gracefully
+    console.error('❌ MongoDB connection error:', error.message);
   }
 };
