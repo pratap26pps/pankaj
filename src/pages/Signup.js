@@ -6,7 +6,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import { FaGoogle } from 'react-icons/fa';
 import Lottie from 'lottie-react';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -21,7 +21,14 @@ const schema = yup.object().shape({
     .matches(/^[6-9]\d{9}$/, 'Enter valid 10-digit mobile')
     .required('Mobile number is required'),
   vehicle: yup.string(),
-  password: yup.string().min(6, 'Min 6 characters').required('Password is required'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password must be at least 8 characters')
+    .matches(/[A-Z]/, 'Must contain at least one uppercase letter')
+    .matches(/[a-z]/, 'Must contain at least one lowercase letter')
+    .matches(/\d/, 'Must contain at least one number')
+    .matches(/[@$!%*?&#^()_+\-=\[\]{};':"\\|,.<>\/?]/, 'Must contain at least one special character'),
   confirmPassword: yup
     .string()
     .oneOf([yup.ref('password')], 'Passwords do not match')
@@ -32,7 +39,6 @@ const schema = yup.object().shape({
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
   const [animationData, setAnimationData] = useState(null);
   const router = useRouter();
 
@@ -56,26 +62,13 @@ const Signup = () => {
   // ✅ Final form submit handler
   const onSubmit = async (formData) => {
     try {
-      const payload = new FormData();
-      Object.entries(formData).forEach(([key, value]) => {
-        if (key !== 'confirmPassword') {
-          payload.append(key, value?.toString() ?? '');
-        }
-      });
-
-      if (selectedFile) {
-        payload.append('document', selectedFile);
-      }
-
-      // ✅ Console log for debug
-      console.log('🟩 Submitted FormData values:');
-      for (let [key, value] of payload.entries()) {
-        console.log(`${key}:`, value);
-      }
-
-      const res = await fetch('http://localhost:5000/api/auth/register', {
+      const res = await fetch('/api/Auth/Signup', {
         method: 'POST',
-        body: payload,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          confirmPassword: undefined,
+        }),
       });
 
       const data = await res.json();
@@ -86,7 +79,7 @@ const Signup = () => {
       }
 
       toast.success('Signup successful! Verify OTP.');
-      router.push(`/verify-otp?email=${formData.email}`);
+      router.push(`?email=${formData.email}`);
     } catch (err) {
       toast.error('Signup failed');
     }
@@ -199,30 +192,6 @@ const Signup = () => {
               <option value="service-center">Service Center</option>
             </select>
             {errors.userType && <p className="text-xs text-red-600">{errors.userType.message}</p>}
-
-            {/* File Upload */}
-            <div className="flex flex-col">
-              <label className="text-xs mb-1">Upload Your Picture</label>
-              <div className="flex items-center space-x-2">
-                <button
-                  type="button"
-                  onClick={() => document.getElementById('fileInput').click()}
-                  className="px-3 py-2 bg-green-600 text-white rounded text-xs"
-                >
-                  Choose File
-                </button>
-                <span className="text-xs text-gray-600">
-                  {selectedFile ? selectedFile.name : 'No file chosen'}
-                </span>
-              </div>
-              <input
-                type="file"
-                id="fileInput"
-                accept="image/*"
-                onChange={(e) => setSelectedFile(e.target.files[0])}
-                className="hidden"
-              />
-            </div>
 
             {/* Submit Button */}
             <button

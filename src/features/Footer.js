@@ -77,12 +77,12 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 relative z-10">
 
         {/* About */}
-        <div className='flex flex-col gap-3.5'>
+        <div className='flex flex-col gap-3.5 -mt-18'>
           <Image
             src="/images/logo (3).png"
             alt="EV Service Center Logo"
-            width={120}
-            height={40}
+            width={220}
+            height={140}
             className="mb-3"
           />
           <p>© 2025 EV Service Center </p>
