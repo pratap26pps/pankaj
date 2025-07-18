@@ -3,8 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import {services} from '../features/Data'
-
+import { services, bikemodels } from '../features/Data';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -23,6 +22,7 @@ const ServicePage = () => {
   const router = useRouter();
   const [location, setLocation] = useState(null);
   const [search, setSearch] = useState('');
+
   useEffect(() => {
     if (typeof window !== 'undefined' && 'geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -34,21 +34,35 @@ const ServicePage = () => {
               `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
             );
             const data = await res.json();
+ 
             const city =
               data?.address?.city ||
               data?.address?.town ||
               data?.address?.village ||
+              data?.address?.county ||
+              data?.address?.state_district ||
               data?.address?.state ||
+              data?.address?.suburb ||
+              data?.address?.region ||
+              data?.display_name?.split(',')[0] ||
               'Unknown';
+
             setLocation(city);
-          } catch (err) {
-            // Handle error gracefully
+            console.log(city);
+          } catch (error) {
+            console.error("Failed to fetch location info:", error);
+            setLocation("Location fetch failed");
           }
         },
-        (err) => {
-          // Handle geolocation error gracefully
+        (error) => {
+          console.error("Geolocation error:", error.message);
+          if (error.code === 1) setLocation("Permission Denied");
+          else setLocation("Unable to fetch location");
         }
       );
+    } else {
+      console.warn("Geolocation not supported");
+      setLocation("Not Supported");
     }
   }, []);
 
@@ -56,27 +70,31 @@ const ServicePage = () => {
     service.name.toLowerCase().includes(search.toLowerCase())
   );
 
-const handleCardClick = (serviceName) => {
-  const slug = serviceName.toLowerCase().replace(/\s+/g, '-');
-  router.push({
-    pathname: '/ServiceSelector',
-    query: { service: slug },
-  });
-};
-
+  const handleCardClick = (serviceName) => {
+    const slug = serviceName.toLowerCase().replace(/\s+/g, '-');
+    router.push({
+      pathname: '/ServiceSelector',
+      query: { service: slug },
+    });
+  };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-green-50 to-white bg-w px-4 sm:px-6 md:px-10 py-10 bg-white  bg-no-repeat bg-center bg-cover" style={{ backgroundImage: "url('/images/book.jp')" }}>
+    <section
+      className="min-h-screen bg-white px-4 sm:px-6 md:px-10 py-10 bg-no-repeat bg-center bg-cover"
+      style={{ backgroundImage: "url('/images/book.jp')" }}
+    >
       <div className="max-w-6xl mt-20 sm:mt-32 mx-auto space-y-10">
-        {/* ✅ Heading */}
-         <div className="text-center -mt-14">
+        {/* Heading */}
+        <div className="text-center -mt-14">
           <h1 className="text-4xl font-bold text-green-800 mb-2">
             Welcome to <span className="text-green-600">GNB EV Service Center {location}</span>
           </h1>
-          <p className="text-gray-800 font-bold bg-blue w-fulltext-lg">Select the service you’re looking for</p>
+          <p className="text-gray-800 font-bold text-lg">
+            Select the service you’re looking for
+          </p>
         </div>
 
-        {/* ✅ Services Grid */}
+        {/* Services Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-6">
           {filteredServices.map((service, index) => (
             <motion.button
@@ -94,6 +112,28 @@ const handleCardClick = (serviceName) => {
               <h3 className="text-md font-bold mt-2">{service.name}</h3>
               <p className="text-sm text-gray-600 mt-1 px-2">{service.description}</p>
             </motion.button>
+          ))}
+        </div>
+      </div>
+
+      {/* Scrolling Bike Brand Logos */}
+      <div className="overflow-hidden w-full mt-16 ">
+        <div className="flex animate-scroll-left gap-x-6 sm:gap-x-10 w-max">
+          {bikemodels.concat(bikemodels).map((bike, index) => (
+            <div
+              key={index}
+              className="flex flex-col items-center justify-center"
+            >
+              <img
+                src={bike.image}
+                alt={bike.name}
+                title={bike.name}
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain"
+              />
+              <p className="text-xs text-gray-700 font-medium mt-1 text-center">
+                {bike.name}
+              </p>
+            </div>
           ))}
         </div>
       </div>

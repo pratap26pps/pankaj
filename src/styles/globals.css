@@ -1,1 +1,54 @@
 @import "tailwindcss";
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 30s linear infinite;
+}
+
+ant-steps-item-icon {
+  background-color: #dbeafe; /* blue-100 */
+  border-color: #3b82f6;     /* blue-500 */
+  border-radius: 9999px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ant-steps-item-process .ant-steps-item-icon {
+  background-color: #bbf7d0; /* green-100 */
+  border-color: #22c55e;     /* green-500 */
+}
+
+.ant-steps-item-finish .ant-steps-item-icon {
+  background-color: #fef9c3; /* yellow-100 */
+  border-color: #facc15;     /* yellow-500 */
+}
+
+.ant-steps-item-wait .ant-steps-item-icon {
+  background-color: #f1f5f9; /* slate-100 */
+  border-color: #94a3b8;     /* slate-400 */
+}
+
+.ant-steps-item-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #1e293b;
+}
+
+.ant-steps-item-description {
+  font-size: 0.875rem;
+  color: #475569;
+}
+
+.ant-steps-item-tail {
+  border-inline-start: 2px  #cbd5e1; /* light slate line */
+}

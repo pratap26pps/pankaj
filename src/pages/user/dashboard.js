@@ -33,6 +33,10 @@ import {
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import { Steps } from 'antd';
+import { CheckCircle, Loader, ClipboardCheck, PackageCheck } from "lucide-react"; // or use react-icons
+
+import { SettingOutlined } from '@ant-design/icons';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -91,10 +95,8 @@ const Dashboard = () => {
     { id: 'profile', label: 'Profile', icon: FaUser, type: 'section' },
     { id: 'service-history', label: 'Service History', icon: FaHistory, type: 'section' },
     { id: 'cart', label: 'Cart', icon: FaShoppingCart, type: 'section' },
-    { id: 'tracking', label: 'Live Tracking', icon: FaMapMarkerAlt, type: 'section' },
-    { id: 'rewards', label: 'Rewards', icon: FaBolt, type: 'section' },
     { id: 'book-service', label: 'Book Service', icon: FaTools, type: 'button', route: '/ServiceForm' },
-    { id: 'buy-battery', label: 'Buy Battery', icon: FaBatteryHalf, type: 'button', route: '/user/buyBattery' },
+    { id: 'buy-battery', label: 'Buy Battery', icon: FaBatteryHalf, type: 'button', route: "" },
     { id: 'update-profile', label: 'Update Profile', icon: FaEdit, type: 'section' },
     { id: 'logout', label: 'Logout', icon: FaSignOutAlt, type: 'button', action: 'logout' }
   ];
@@ -202,44 +204,43 @@ const Dashboard = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center">
-                  <FaMotorcycle className="mr-3 text-emerald-600" />
-                  Vehicle Status
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-4 rounded-xl border border-emerald-200"
-                  >
-                    <div className="text-2xl font-bold text-emerald-600">{userData.evDetails.batteryHealth}</div>
-                    <div className="text-sm text-gray-600">Battery Health</div>
-                  </motion.div>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200"
-                  >
-                    <div className="text-2xl font-bold text-blue-600">{userData.evDetails.totalDistance}</div>
-                    <div className="text-sm text-gray-600">Total Distance</div>
-                  </motion.div>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    className="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-xl border border-orange-200"
-                  >
-                    <div className="text-2xl font-bold text-orange-600">{userData.evDetails.lastService}</div>
-                    <div className="text-sm text-gray-600">Last Service</div>
-                  </motion.div>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl border border-purple-200"
-                  >
-                    <div className="text-2xl font-bold text-purple-600">{userData.evDetails.nextService}</div>
-                    <div className="text-sm text-gray-600">Next Service</div>
-                  </motion.div>
-                </div>
-              </CardContent>
-            </Card>
+    
+      <CardContent className="p-8">
+        <div className="flex items-center mb-6 gap-3">
+          <FaTools className="text-gray-800 text-3xl" />
+          <h3 className="sm:text-2xl 2xl:text-5xl  font-bold text-gray-800 tracking-wide">Service Progress</h3>
+        </div>
+
+        <div className="bg-white p-6 rounded-2xl border border-blue-100 shadow-inner">
+          <Steps
+            direction="vertical"
+            current={2}
+            items={[
+              {
+                title: <span className="font-semibold text-gray-800">Service Booked</span>,
+                description: <span className="text-sm text-slate-500">Your booking has been confirmed.</span>,
+                icon: <ClipboardCheck className="text-blue-500" />,
+              },
+              {
+                title: <span className="font-semibold text-gray-800">In Service</span>,
+                description: <span className="text-sm text-slate-500">Vehicle is currently being serviced.</span>,
+                icon: <Loader className="text-amber-500 animate-spin-slow" />,
+              },
+              {
+                title: <span className="font-semibold text-gray-800">Ready for Pickup</span>,
+                description: <span className="text-sm text-slate-500">Service completed and ready for delivery.</span>,
+                icon: <PackageCheck className="text-green-500" />,
+              },
+              {
+                title: <span className="font-semibold text-gray-800">Completed</span>,
+                description: <span className="text-sm text-slate-500">Vehicle handed over to the customer.</span>,
+                icon: <CheckCircle className="text-emerald-500" />,
+              },
+            ]}
+          />
+        </div>
+      </CardContent>
+   
           </motion.div>
         );
 
@@ -462,67 +463,6 @@ const Dashboard = () => {
           </motion.div>
         );
 
-      case 'tracking':
-        return (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
-              <CardContent className="p-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                  <FaMapMarkerAlt className="mr-3 text-emerald-600" />
-                  Live Tracking
-                </h2>
-                <div className="bg-gray-100 rounded-lg p-8 text-center">
-                  <FaMapMarkerAlt className="text-6xl text-emerald-400 mx-auto mb-4" />
-                  <p className="text-gray-600">Live tracking feature coming soon</p>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        );
-
-      case 'rewards':
-        return (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
-              <CardContent className="p-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                  <FaBolt className="mr-3 text-emerald-600" />
-                  Rewards & Points
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl text-center border border-yellow-200"
-                  >
-                    <div className="text-3xl font-bold text-yellow-600">250</div>
-                    <div className="text-gray-600">Total Points</div>
-                  </motion.div>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl text-center border border-green-200"
-                  >
-                    <div className="text-3xl font-bold text-green-600">₹50</div>
-                    <div className="text-gray-600">Available Credit</div>
-                  </motion.div>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl text-center border border-purple-200"
-                  >
-                    <div className="text-3xl font-bold text-purple-600">5</div>
-                    <div className="text-gray-600">Services Completed</div>
-                  </motion.div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        );
-
       default:
         return null;
     }
@@ -639,10 +579,6 @@ const Dashboard = () => {
                     <DropdownMenuItem onClick={() => setActiveSection('profile')} className="cursor-pointer">
                       <FaUser className="mr-2 h-4 w-4 text-emerald-600" />
                       Profile
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setActiveSection('rewards')} className="cursor-pointer">
-                      <FaBolt className="mr-2 h-4 w-4 text-emerald-600" />
-                      Rewards
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={() => router.push('/')} className="cursor-pointer text-red-600">
