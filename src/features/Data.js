@@ -8,7 +8,7 @@ import Erickshaw from "../features/Pages/Erickshaw";
 import LithiumBatteries from "../features/Pages/LithiumBatteries";
 import Chargers from "../features/Pages/Chargers";
 import Accessories from "../features/Pages/Accessories";
-import Others from "../features/Pages/Others";
+// import Others from "../features/Pages/Others";
 
 // ✅ Services List
 export const services = [
@@ -42,12 +42,12 @@ export const services = [
     description: "All EV-related add-ons",
     Component: Accessories,
   },
-  {
-    name: "Others",
-    icon: <PackageCheck className="h-10 w-10 text-green-700" />,
-    description: "Miscellaneous EV support",
-    Component: Others,
-  },
+  // {
+  //   name: "Others",
+  //   icon: <PackageCheck className="h-10 w-10 text-green-700" />,
+  //   description: "Miscellaneous EV support",
+  //   Component: ,
+  // },
 ];
 
 // ✅ Erickshaw Models
