@@ -13,7 +13,7 @@ import * as yup from 'yup';
 
 // ✅ Validation schema using Yup
 const schema = yup.object().shape({
-  firstname: yup.string().required('First name is required'),
+  firstName: yup.string().required('First name is required'),
   lastName: yup.string().required('Last name is required'),
   email: yup.string().email('Invalid email').required('Email is required'),
   mobile: yup
@@ -62,12 +62,12 @@ const Signup = () => {
   // ✅ Final form submit handler
   const onSubmit = async (formData) => {
     try {
-      const res = await fetch('/api/Auth/Signup', {
+      console.log("formData",formData.email)
+      const res = await fetch('/api/Signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          confirmPassword: undefined,
         }),
       });
 
@@ -100,11 +100,11 @@ const Signup = () => {
             <div className="flex gap-2 flex-col sm:flex-row">
               <div className="w-full sm:w-1/2">
                 <input
-                  {...register('firstname')}
+                  {...register('firstName')}
                   placeholder="First Name"
                   className="w-full px-3 py-2 border rounded-lg text-sm"
                 />
-                {errors.firstname && <p className="text-xs text-red-600">{errors.firstname.message}</p>}
+                {errors.firstName && <p className="text-xs text-red-600">{errors.firstName.message}</p>}
               </div>
               <div className="w-full sm:w-1/2">
                 <input

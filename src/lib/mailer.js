@@ -1,16 +1,19 @@
-// lib/mailer.js
+ 
+
 import nodemailer from "nodemailer";
 
-export const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,      // your Gmail address
-    pass: process.env.EMAIL_PASS,      // App password (not your Gmail login)
-  },
-});
+export const sendOTPEmail = async (email, otp) => {
+  const transporter = nodemailer.createTransport({
+      host: process.env.MAIL_HOST,
+      port: 587,
+      secure: false, 
+    auth: {
+     user: process.env.EMAIL_USER,       
+    pass: process.env.EMAIL_PASS,     
+    },
+  });
 
-export const sendOtpMail = async (email, otp) => {
-  const mailOptions = {
+  await transporter.sendMail({
     from: `"GNB Support" <${process.env.EMAIL_USER}>`,
     to: email,
     subject: "Your OTP Code for Verification",
@@ -22,7 +25,5 @@ export const sendOtpMail = async (email, otp) => {
         <p>This OTP will expire in 5 minutes.</p>
       </div>
     `,
-  };
-
-  await transporter.sendMail(mailOptions);
+  });
 };
