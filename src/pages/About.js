@@ -1,14 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { 
-  Card, 
-  Typography, 
-  Row, 
-  Col, 
-  Space,
-  Divider,
-  Button
-} from 'antd';
+import React from "react";
+import { motion } from "framer-motion";
+import { Card, Typography, Row, Col, Space, Divider, Button } from "antd";
 import {
   ThunderboltOutlined,
   CarOutlined,
@@ -19,9 +11,9 @@ import {
   RocketOutlined,
   CheckCircleOutlined,
   AudioOutlined,
-  ToolOutlined
-} from '@ant-design/icons';
-import Head from 'next/head';
+  ToolOutlined,
+} from "@ant-design/icons";
+import Head from "next/head";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -30,25 +22,30 @@ const About = () => {
     <>
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link 
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" 
-          rel="stylesheet" 
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="true"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
         />
       </Head>
-      
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-emerald-50 mt-24" style={{ fontFamily: 'Inter, sans-serif' }}>
+
+      <div
+        className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-emerald-50 mt-24"
+        style={{ fontFamily: "Inter, sans-serif" }}
+      >
         {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl animate-pulse" />
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-200/20 rounded-full blur-3xl animate-pulse" />
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-200/10 rounded-full blur-3xl" />
         </div>
-        
+
         <div className="relative z-10 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-
             {/* Company Introduction */}
             <motion.div
               initial={{ y: 50, opacity: 0 }}
@@ -60,17 +57,18 @@ const About = () => {
                 {/* Background Decorative Elements */}
                 <div className="absolute -top-4 -left-4 w-24 h-24 bg-gradient-to-br from-blue-400/20 to-emerald-400/20 rounded-full blur-xl" />
                 <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-to-br from-emerald-400/20 to-blue-400/20 rounded-full blur-xl" />
-                
-                <Card 
+
+                <Card
                   className="relative shadow-2xl bg-white/95 backdrop-blur-lg border-0 rounded-3xl overflow-hidden hover:shadow-3xl transition-all duration-700 group"
-                  style={{ 
-                    background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.95) 100%)',
-                    border: '1px solid rgba(59, 130, 246, 0.1)'
+                  style={{
+                    background:
+                      "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.95) 100%)",
+                    border: "1px solid rgba(59, 130, 246, 0.1)",
                   }}
                 >
                   {/* Animated Border Effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-emerald-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-3xl" />
-                  
+
                   <div className="relative p-8 sm:p-10 lg:p-16">
                     <div className="text-center mb-12">
                       <motion.div
@@ -78,45 +76,46 @@ const About = () => {
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ duration: 1, delay: 0.8 }}
                       >
-                        <Title 
-                          level={1} 
+                        <Title
+                          level={1}
                           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-blue-600 mb-4 leading-tight"
-                          style={{ 
-                            fontFamily: 'Playfair Display, serif',
-                            letterSpacing: '-0.02em'
+                          style={{
+                            fontFamily: "Playfair Display, serif",
+                            letterSpacing: "-0.02em",
                           }}
                         >
                           GridaNeo Bharat
                         </Title>
-                        
+
                         {/* Simple Decorative Line */}
                         <motion.div
                           initial={{ width: 0 }}
-                          animate={{ width: '100%' }}
+                          animate={{ width: "100%" }}
                           transition={{ duration: 1.2, delay: 1 }}
                           className="mx-auto mb-6"
-                          style={{ maxWidth: '200px' }}
+                          style={{ maxWidth: "200px" }}
                         >
                           <div className="h-1 bg-green-500 rounded-full" />
                         </motion.div>
-                        
+
                         <motion.div
                           initial={{ y: 20, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
                           transition={{ duration: 0.8, delay: 1.2 }}
                           className="mb-6"
                         >
-                          <Paragraph 
+                          <Paragraph
                             className="text-base sm:text-lg md:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed font-medium px-4"
-                            style={{ 
-                              fontFamily: 'Inter, sans-serif',
-                              lineHeight: '1.7'
+                            style={{
+                              fontFamily: "Inter, sans-serif",
+                              lineHeight: "1.7",
                             }}
                           >
-                            Leading India's clean energy revolution with smart, sustainable solutions
+                            Leading India's clean energy revolution with smart,
+                            sustainable solutions
                           </Paragraph>
                         </motion.div>
-                        
+
                         <motion.div
                           initial={{ y: 20, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
@@ -124,52 +123,61 @@ const About = () => {
                           className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-white rounded-full border border-green-200 shadow-sm"
                         >
                           <div className="w-3 h-3 bg-green-500 rounded-full" />
-                          <Text 
+                          <Text
                             className="text-xs sm:text-sm font-semibold text-gray-700"
-                            style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.5px' }}
+                            style={{
+                              fontFamily: "Inter, sans-serif",
+                              letterSpacing: "0.5px",
+                            }}
                           >
                             CLEAN ENERGY PIONEERS
                           </Text>
                         </motion.div>
                       </motion.div>
                     </div>
-                    
+
                     <motion.div
                       initial={{ y: 30, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: 0.8, delay: 1.6 }}
                       className="text-center mb-12"
                     >
-                      <Paragraph 
+                      <Paragraph
                         className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed max-w-4xl mx-auto font-medium px-4"
-                        style={{ 
-                          fontFamily: 'Inter, sans-serif', 
-                          fontWeight: '500',
-                          lineHeight: '1.7'
+                        style={{
+                          fontFamily: "Inter, sans-serif",
+                          fontWeight: "500",
+                          lineHeight: "1.7",
                         }}
                       >
-                        A <span className="text-blue-600 font-semibold">purpose-driven Indian clean-tech company</span> committed to transforming India's energy landscape through two revolutionary missions:
+                        A{" "}
+                        <span className="text-blue-600 font-semibold">
+                          purpose-driven Indian clean-tech company
+                        </span>{" "}
+                        committed to transforming India's energy landscape
+                        through two revolutionary missions:
                       </Paragraph>
                     </motion.div>
-                    
+
                     <Row gutter={[24, 24]} className="mb-12">
                       <Col xs={24} lg={12}>
                         <motion.div
                           initial={{ x: -50, opacity: 0 }}
                           animate={{ x: 0, opacity: 1 }}
                           transition={{ duration: 0.8, delay: 1.6 }}
-                          whileHover={{ 
-                            scale: 1.03, 
+                          whileHover={{
+                            scale: 1.03,
                             y: -8,
-                            transition: { duration: 0.3 }
+                            transition: { duration: 0.3 },
                           }}
                           className="h-full"
                         >
-                          <Card 
+                          <Card
                             className="h-full text-center border-0 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group/card"
                             style={{
-                              background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%)',
-                              border: '2px solid rgba(59, 130, 246, 0.2)'
+                              background:
+                                "linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%)",
+                              border: "2px solid rgba(59, 130, 246, 0.2)",
                             }}
                           >
                             <div className="relative p-8">
@@ -178,7 +186,7 @@ const About = () => {
                                 whileHover={{ rotate: 360 }}
                                 transition={{ duration: 0.8 }}
                                 className="relative mx-auto mb-6"
-                                style={{ width: 'fit-content' }}
+                                style={{ width: "fit-content" }}
                               >
                                 <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center shadow-xl group-hover/card:shadow-2xl transition-all duration-500">
                                   <ThunderboltOutlined className="text-4xl text-white" />
@@ -187,57 +195,69 @@ const About = () => {
                                   <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
                                 </div>
                               </motion.div>
-                              
-                              <Title 
-                                level={3} 
+
+                              <Title
+                                level={3}
                                 className="text-xl sm:text-2xl font-bold text-blue-900 mb-4"
-                                style={{ 
-                                  fontFamily: 'Poppins, sans-serif',
-                                  letterSpacing: '-0.01em'
+                                style={{
+                                  fontFamily: "Poppins, sans-serif",
+                                  letterSpacing: "-0.01em",
                                 }}
                               >
                                 Smart Battery Systems
                               </Title>
-                              
-                              <Paragraph 
+
+                              <Paragraph
                                 className="text-blue-800 leading-relaxed font-medium"
-                                style={{ 
-                                  fontFamily: 'Inter, sans-serif',
-                                  fontSize: '16px',
-                                  lineHeight: '1.6'
+                                style={{
+                                  fontFamily: "Inter, sans-serif",
+                                  fontSize: "16px",
+                                  lineHeight: "1.6",
                                 }}
                               >
-                                Providing <strong>smart, silent battery backup systems</strong> to replace diesel generators with clean, efficient energy solutions
+                                Providing{" "}
+                                <strong>
+                                  smart, silent battery backup systems
+                                </strong>{" "}
+                                to replace diesel generators with clean,
+                                efficient energy solutions
                               </Paragraph>
-                              
+
                               {/* Feature Tags */}
                               <div className="flex flex-wrap justify-center gap-2 mt-4">
-                                <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Silent</span>
-                                <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Efficient</span>
-                                <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Smart</span>
+                                <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
+                                  Silent
+                                </span>
+                                <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
+                                  Efficient
+                                </span>
+                                <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
+                                  Smart
+                                </span>
                               </div>
                             </div>
                           </Card>
                         </motion.div>
                       </Col>
-                      
+
                       <Col xs={24} lg={12}>
                         <motion.div
                           initial={{ x: 50, opacity: 0 }}
                           animate={{ x: 0, opacity: 1 }}
                           transition={{ duration: 0.8, delay: 1.8 }}
-                          whileHover={{ 
-                            scale: 1.03, 
+                          whileHover={{
+                            scale: 1.03,
                             y: -8,
-                            transition: { duration: 0.3 }
+                            transition: { duration: 0.3 },
                           }}
                           className="h-full"
                         >
-                          <Card 
+                          <Card
                             className="h-full text-center border-0 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group/card"
                             style={{
-                              background: 'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%)',
-                              border: '2px solid rgba(16, 185, 129, 0.2)'
+                              background:
+                                "linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%)",
+                              border: "2px solid rgba(16, 185, 129, 0.2)",
                             }}
                           >
                             <div className="relative p-8">
@@ -246,7 +266,7 @@ const About = () => {
                                 whileHover={{ rotate: 360 }}
                                 transition={{ duration: 0.8 }}
                                 className="relative mx-auto mb-6"
-                                style={{ width: 'fit-content' }}
+                                style={{ width: "fit-content" }}
                               >
                                 <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-2xl flex items-center justify-center shadow-xl group-hover/card:shadow-2xl transition-all duration-500">
                                   <CarOutlined className="text-4xl text-white" />
@@ -255,62 +275,84 @@ const About = () => {
                                   <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
                                 </div>
                               </motion.div>
-                              
-                              <Title 
-                                level={3} 
+
+                              <Title
+                                level={3}
                                 className="text-xl sm:text-2xl font-bold text-emerald-900 mb-4"
-                                style={{ 
-                                  fontFamily: 'Poppins, sans-serif',
-                                  letterSpacing: '-0.01em'
+                                style={{
+                                  fontFamily: "Poppins, sans-serif",
+                                  letterSpacing: "-0.01em",
                                 }}
                               >
                                 EV Services
                               </Title>
-                              
-                              <Paragraph 
+
+                              <Paragraph
                                 className="text-emerald-800 leading-relaxed font-medium"
-                                style={{ 
-                                  fontFamily: 'Inter, sans-serif',
-                                  fontSize: '16px',
-                                  lineHeight: '1.6'
+                                style={{
+                                  fontFamily: "Inter, sans-serif",
+                                  fontSize: "16px",
+                                  lineHeight: "1.6",
                                 }}
                               >
-                                Offering <strong>reliable EV servicing and maintenance</strong> to support India's electric mobility transformation
+                                Offering{" "}
+                                <strong>
+                                  reliable EV servicing and maintenance
+                                </strong>{" "}
+                                to support India's electric mobility
+                                transformation
                               </Paragraph>
-                              
+
                               {/* Feature Tags */}
                               <div className="flex flex-wrap justify-center gap-2 mt-4">
-                                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">Reliable</span>
-                                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">Expert</span>
-                                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">Future</span>
+                                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
+                                  Reliable
+                                </span>
+                                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
+                                  Expert
+                                </span>
+                                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
+                                  Future
+                                </span>
                               </div>
                             </div>
                           </Card>
                         </motion.div>
                       </Col>
                     </Row>
-                    
-                    <motion.div 
+
+                    <motion.div
                       initial={{ y: 30, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: 0.8, delay: 2.0 }}
                       className="text-center"
                     >
                       <div className="relative p-8 rounded-2xl bg-gradient-to-r from-gray-50 to-blue-50 border border-gray-200/50">
-                        <Paragraph 
+                        <Paragraph
                           className="text-lg sm:text-xl text-gray-800 leading-relaxed mb-0 font-medium"
-                          style={{ 
-                            fontFamily: 'Inter, sans-serif',
-                            lineHeight: '1.7'
+                          style={{
+                            fontFamily: "Inter, sans-serif",
+                            lineHeight: "1.7",
                           }}
                         >
-                          Our <span className="text-blue-600 font-semibold">clean-energy solutions</span> deliver long-term savings, zero emissions, and peace of mind — 
-                          built for <span className="text-emerald-600 font-semibold">homes, businesses, farms, and institutions</span>.
+                          Our{" "}
+                          <span className="text-blue-600 font-semibold">
+                            clean-energy solutions
+                          </span>{" "}
+                          deliver long-term savings, zero emissions, and peace
+                          of mind — built for{" "}
+                          <span className="text-emerald-600 font-semibold">
+                            homes, businesses, farms, and institutions
+                          </span>
+                          .
                         </Paragraph>
-                        
+
                         {/* Decorative Elements */}
                         <div className="absolute top-4 left-4 w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
-                        <div className="absolute bottom-4 right-4 w-2 h-2 bg-emerald-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+                        <div
+                          className="absolute bottom-4 right-4 w-2 h-2 bg-emerald-400 rounded-full animate-pulse"
+                          style={{ animationDelay: "0.5s" }}
+                        />
                       </div>
                     </motion.div>
                   </div>
@@ -325,22 +367,23 @@ const About = () => {
                   initial={{ x: -50, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ duration: 0.8, delay: 0.8 }}
-                  whileHover={{ 
-                    scale: 1.02, 
+                  whileHover={{
+                    scale: 1.02,
                     y: -5,
-                    transition: { duration: 0.3 }
+                    transition: { duration: 0.3 },
                   }}
                   className="h-full"
                 >
                   <div className="relative h-full">
                     {/* Background Glow Effect */}
                     <div className="absolute -inset-2 bg-gradient-to-r from-orange-400/20 to-red-400/20 rounded-3xl blur-xl opacity-70" />
-                    
-                    <Card 
+
+                    <Card
                       className="relative h-full border-0 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-700 group/mission"
                       style={{
-                        background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%)',
-                        border: '2px solid rgba(59, 130, 246, 0.2)'
+                        background:
+                          "linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%)",
+                        border: "2px solid rgba(59, 130, 246, 0.2)",
                       }}
                     >
                       {/* Animated Pattern Overlay */}
@@ -350,56 +393,60 @@ const About = () => {
                         <div className="absolute bottom-8 left-8 w-6 h-6 border border-white/30 rotate-45" />
                         <div className="absolute bottom-4 right-12 w-3 h-3 bg-white/30 rounded-full" />
                       </div>
-                      
+
                       <div className="relative p-8 sm:p-10">
                         <div className="text-center mb-8">
                           <motion.div
-                            whileHover={{ 
+                            whileHover={{
                               rotate: [0, -10, 10, -10, 0],
-                              scale: 1.1
+                              scale: 1.1,
                             }}
                             transition={{ duration: 0.6 }}
                             className="relative mx-auto mb-6"
-                            style={{ width: 'fit-content' }}
+                            style={{ width: "fit-content" }}
                           >
                             <div className="w-20 h-20 bg-gradient-to-br from-orange-600 to-red-600 rounded-2xl flex items-center justify-center shadow-2xl group-hover/mission:shadow-3xl transition-all duration-500">
                               <RocketOutlined className="text-4xl text-white" />
                             </div>
                             {/* Floating Particles */}
-                            <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }} />
+                            <div
+                              className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full animate-bounce"
+                              style={{ animationDelay: "0.5s" }}
+                            />
                             <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-gradient-to-r from-red-400 to-pink-400 rounded-full animate-pulse" />
                           </motion.div>
-                          
-                          <Title 
-                            level={2} 
+
+                          <Title
+                            level={2}
                             className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-4 drop-shadow-lg"
-                            style={{ 
-                              fontFamily: 'Playfair Display, serif',
-                              letterSpacing: '-0.01em',
+                            style={{
+                              fontFamily: "Playfair Display, serif",
+                              letterSpacing: "-0.01em",
                             }}
                           >
                             Our Mission
                           </Title>
-                          
+
                           <div className="w-16 h-1 bg-white/80 rounded-full mx-auto mb-6" />
                         </div>
-                        
+
                         <motion.div
                           initial={{ y: 20, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
                           transition={{ duration: 0.6, delay: 1.0 }}
                         >
-                          <Paragraph 
+                          <Paragraph
                             className="text-lg sm:text-xl text-white leading-relaxed text-center mb-8 font-medium drop-shadow-md"
-                            style={{ 
-                              fontFamily: 'Inter, sans-serif',
-                              lineHeight: '1.7',
+                            style={{
+                              fontFamily: "Inter, sans-serif",
+                              lineHeight: "1.7",
                             }}
                           >
-                            Deliver sustainable, noise-free power and dependable EV support that enhances lives and powers progress.
+                            Deliver sustainable, noise-free power and dependable
+                            EV support that enhances lives and powers progress.
                           </Paragraph>
                         </motion.div>
-                        
+
                         {/* Feature Pills */}
                         <div className="flex flex-wrap justify-center gap-3">
                           <motion.div
@@ -407,23 +454,38 @@ const About = () => {
                             className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30"
                           >
                             <AudioOutlined className="text-yellow-200" />
-                            <Text className="text-white font-semibold text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>Silent</Text>
+                            <Text
+                              className="text-white font-semibold text-sm"
+                              style={{ fontFamily: "Inter, sans-serif" }}
+                            >
+                              Silent
+                            </Text>
                           </motion.div>
-                          
+
                           <motion.div
                             whileHover={{ scale: 1.05 }}
                             className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30"
                           >
                             <CheckCircleOutlined className="text-green-200" />
-                            <Text className="text-white font-semibold text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>Sustainable</Text>
+                            <Text
+                              className="text-white font-semibold text-sm"
+                              style={{ fontFamily: "Inter, sans-serif" }}
+                            >
+                              Sustainable
+                            </Text>
                           </motion.div>
-                          
+
                           <motion.div
                             whileHover={{ scale: 1.05 }}
                             className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30"
                           >
                             <SafetyOutlined className="text-blue-200" />
-                            <Text className="text-white font-semibold text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>Reliable</Text>
+                            <Text
+                              className="text-white font-semibold text-sm"
+                              style={{ fontFamily: "Inter, sans-serif" }}
+                            >
+                              Reliable
+                            </Text>
                           </motion.div>
                         </div>
                       </div>
@@ -431,29 +493,30 @@ const About = () => {
                   </div>
                 </motion.div>
               </Col>
-              
+
               <Col xs={24} lg={12}>
                 <motion.div
                   initial={{ x: 50, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ duration: 0.8, delay: 1.0 }}
-                  whileHover={{ 
-                    scale: 1.02, 
+                  whileHover={{
+                    scale: 1.02,
                     y: -5,
-                    transition: { duration: 0.3 }
+                    transition: { duration: 0.3 },
                   }}
                   className="h-full"
                 >
                   <div className="relative h-full">
                     {/* Background Glow Effect */}
                     <div className="absolute -inset-2 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-3xl blur-xl opacity-70" />
-                    
-                    <Card 
+
+                    <Card
                       className="relative h-full border-0 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-700 group/vision"
-                       style={{
-                              background: 'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%)',
-                              border: '2px solid rgba(16, 185, 129, 0.2)'
-                            }}
+                      style={{
+                        background:
+                          "linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%)",
+                        border: "2px solid rgba(16, 185, 129, 0.2)",
+                      }}
                     >
                       {/* Animated Pattern Overlay */}
                       <div className="absolute inset-0 opacity-10 group-hover/vision:opacity-20 transition-opacity duration-700">
@@ -462,57 +525,65 @@ const About = () => {
                         <div className="absolute bottom-6 right-12 w-5 h-5 border border-white/30 rotate-45" />
                         <div className="absolute bottom-12 left-12 w-3 h-3 bg-white/30 rounded-full" />
                       </div>
-                      
+
                       <div className="relative p-8 sm:p-10">
                         <div className="text-center mb-8">
                           <motion.div
-                            whileHover={{ 
+                            whileHover={{
                               rotate: [0, 10, -10, 10, 0],
-                              scale: 1.1
+                              scale: 1.1,
                             }}
                             transition={{ duration: 0.6 }}
                             className="relative mx-auto mb-6"
-                            style={{ width: 'fit-content' }}
+                            style={{ width: "fit-content" }}
                           >
                             <div className="w-20 h-20 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-2xl group-hover/vision:shadow-3xl transition-all duration-500">
                               <BulbOutlined className="text-4xl text-white" />
                             </div>
                             {/* Floating Particles */}
-                            <div className="absolute -top-1 -left-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }} />
-                            <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-gradient-to-r from-purple-400 to-indigo-400 rounded-full animate-pulse" style={{ animationDelay: '0.7s' }} />
+                            <div
+                              className="absolute -top-1 -left-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-pink-400 rounded-full animate-bounce"
+                              style={{ animationDelay: "0.3s" }}
+                            />
+                            <div
+                              className="absolute -bottom-1 -right-1 w-3 h-3 bg-gradient-to-r from-purple-400 to-indigo-400 rounded-full animate-pulse"
+                              style={{ animationDelay: "0.7s" }}
+                            />
                           </motion.div>
-                          
-                          <Title 
-                            level={2} 
+
+                          <Title
+                            level={2}
                             className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-4 drop-shadow-lg"
-                            style={{ 
-                              fontFamily: 'Playfair Display, serif',
-                              letterSpacing: '-0.01em',
+                            style={{
+                              fontFamily: "Playfair Display, serif",
+                              letterSpacing: "-0.01em",
                             }}
                           >
                             Our Vision
                           </Title>
-                          
+
                           <div className="w-16 h-1 bg-white/80 rounded-full mx-auto mb-6" />
                         </div>
-                        
+
                         <motion.div
                           initial={{ y: 20, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
                           transition={{ duration: 0.6, delay: 1.2 }}
                         >
-                          <Paragraph 
+                          <Paragraph
                             className="text-lg sm:text-xl text-white leading-relaxed text-center mb-8 font-medium drop-shadow-md"
-                            style={{ 
-                              fontFamily: 'Inter, sans-serif',
-                              lineHeight: '1.7',
-                              textShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                            style={{
+                              fontFamily: "Inter, sans-serif",
+                              lineHeight: "1.7",
+                              textShadow: "0 2px 8px rgba(0,0,0,0.2)",
                             }}
                           >
-                            A smarter, quieter, greener Bharat — powered by clean energy solutions that transform communities and preserve our environment for future generations.
+                            A smarter, quieter, greener Bharat — powered by
+                            clean energy solutions that transform communities
+                            and preserve our environment for future generations.
                           </Paragraph>
                         </motion.div>
-                        
+
                         {/* Feature Pills */}
                         <div className="flex flex-wrap justify-center gap-3">
                           <motion.div
@@ -520,23 +591,38 @@ const About = () => {
                             className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30"
                           >
                             <BulbOutlined className="text-yellow-200" />
-                            <Text className="text-white font-semibold text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>Smart</Text>
+                            <Text
+                              className="text-white font-semibold text-sm"
+                              style={{ fontFamily: "Inter, sans-serif" }}
+                            >
+                              Smart
+                            </Text>
                           </motion.div>
-                          
+
                           <motion.div
                             whileHover={{ scale: 1.05 }}
                             className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30"
                           >
                             <EnvironmentOutlined className="text-green-200" />
-                            <Text className="text-white font-semibold text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>Green</Text>
+                            <Text
+                              className="text-white font-semibold text-sm"
+                              style={{ fontFamily: "Inter, sans-serif" }}
+                            >
+                              Green
+                            </Text>
                           </motion.div>
-                          
+
                           <motion.div
                             whileHover={{ scale: 1.05 }}
                             className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30"
                           >
                             <HeartOutlined className="text-red-200" />
-                            <Text className="text-white font-semibold text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>Future</Text>
+                            <Text
+                              className="text-white font-semibold text-sm"
+                              style={{ fontFamily: "Inter, sans-serif" }}
+                            >
+                              Future
+                            </Text>
                           </motion.div>
                         </div>
                       </div>
@@ -559,29 +645,29 @@ const About = () => {
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 1, delay: 1.4 }}
                 >
-                  <Title 
-                    level={1} 
+                  <Title
+                    level={1}
                     className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black bg-gradient-to-r from-blue-600 via-emerald-600 to-indigo-600 bg-clip-text text-transparent mb-6 leading-tight"
-                    style={{ 
-                      fontFamily: 'Playfair Display, serif',
-                      letterSpacing: '-0.02em'
+                    style={{
+                      fontFamily: "Playfair Display, serif",
+                      letterSpacing: "-0.02em",
                     }}
                   >
                     Get In Touch
                   </Title>
-                  
+
                   {/* Enhanced Decorative Line */}
                   <motion.div
                     initial={{ width: 0 }}
-                    animate={{ width: '100%' }}
+                    animate={{ width: "100%" }}
                     transition={{ duration: 1.2, delay: 1.6 }}
                     className="relative mx-auto mb-8"
-                    style={{ maxWidth: '200px' }}
+                    style={{ maxWidth: "200px" }}
                   >
                     <div className="h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent rounded-full" />
                     <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-gradient-to-r from-blue-400 to-emerald-400 rounded-full animate-pulse" />
                   </motion.div>
-                  
+
                   <motion.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -589,33 +675,44 @@ const About = () => {
                     className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-50 to-emerald-50 rounded-full border border-blue-200/50 shadow-lg"
                   >
                     <div className="w-4 h-4 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full animate-pulse" />
-                    <Text 
+                    <Text
                       className="text-base font-bold text-gray-700"
-                      style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.5px' }}
+                      style={{
+                        fontFamily: "Inter, sans-serif",
+                        letterSpacing: "0.5px",
+                      }}
                     >
                       CONNECT WITH US TODAY
                     </Text>
                   </motion.div>
                 </motion.div>
-                
+
                 <motion.div
                   initial={{ y: 30, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.8, delay: 2.0 }}
                   className="mt-8"
                 >
-                  <Paragraph 
+                  <Paragraph
                     className="text-xl sm:text-2xl text-gray-600 max-w-4xl mx-auto font-medium leading-relaxed"
-                    style={{ 
-                      fontFamily: 'Inter, sans-serif',
-                      lineHeight: '1.7'
+                    style={{
+                      fontFamily: "Inter, sans-serif",
+                      lineHeight: "1.7",
                     }}
                   >
-                    Ready to embrace <span className="text-blue-600 font-semibold">clean energy</span>? Contact us today for <span className="text-emerald-600 font-semibold">sustainable solutions</span>.
+                    Ready to embrace{" "}
+                    <span className="text-blue-600 font-semibold">
+                      clean energy
+                    </span>
+                    ? Contact us today for{" "}
+                    <span className="text-emerald-600 font-semibold">
+                      sustainable solutions
+                    </span>
+                    .
                   </Paragraph>
                 </motion.div>
               </div>
-              
+
               <Row gutter={[32, 32]}>
                 {/* Contact Information */}
                 <Col xs={24} lg={12}>
@@ -623,22 +720,23 @@ const About = () => {
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.8, delay: 1.4 }}
-                    whileHover={{ 
-                      scale: 1.02, 
+                    whileHover={{
+                      scale: 1.02,
                       y: -5,
-                      transition: { duration: 0.3 }
+                      transition: { duration: 0.3 },
                     }}
                     className="h-full"
                   >
                     <div className="relative h-full">
                       {/* Background Glow Effect */}
                       <div className="absolute -inset-2 bg-gradient-to-r from-blue-400/20 to-emerald-400/20 rounded-3xl blur-xl opacity-70" />
-                      
-                      <Card 
+
+                      <Card
                         className="relative h-full border-0 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-700 group/contact"
                         style={{
-                          background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%)',
-                          border: '2px solid rgba(59, 130, 246, 0.2)'
+                          background:
+                            "linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%)",
+                          border: "2px solid rgba(59, 130, 246, 0.2)",
                         }}
                       >
                         {/* Animated Pattern Overlay */}
@@ -648,50 +746,54 @@ const About = () => {
                           <div className="absolute bottom-8 left-8 w-6 h-6 border border-white/30 rotate-45" />
                           <div className="absolute bottom-4 right-12 w-3 h-3 bg-white/30 rounded-full" />
                         </div>
-                        
+
                         <div className="relative p-6 sm:p-8 lg:p-10">
                           <div className="text-center mb-8">
                             <motion.div
-                              whileHover={{ 
+                              whileHover={{
                                 rotate: [0, -10, 10, -10, 0],
-                                scale: 1.1
+                                scale: 1.1,
                               }}
                               transition={{ duration: 0.6 }}
                               className="relative mx-auto mb-6"
-                              style={{ width: 'fit-content' }}
+                              style={{ width: "fit-content" }}
                             >
                               <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-emerald-600 rounded-2xl flex items-center justify-center shadow-2xl group-hover/contact:shadow-3xl transition-all duration-500">
                                 <EnvironmentOutlined className="text-4xl text-white" />
                               </div>
                               {/* Floating Particles */}
-                              <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }} />
+                              <div
+                                className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full animate-bounce"
+                                style={{ animationDelay: "0.5s" }}
+                              />
                               <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full animate-pulse" />
                             </motion.div>
-                            
-                            <Title 
-                              level={2} 
+
+                            <Title
+                              level={2}
                               className="text-xl sm:text-2xl lg:text-3xl font-black text-white mb-3 drop-shadow-lg"
-                              style={{ 
-                                fontFamily: 'Playfair Display, serif',
-                                letterSpacing: '-0.01em',
+                              style={{
+                                fontFamily: "Playfair Display, serif",
+                                letterSpacing: "-0.01em",
                               }}
                             >
                               Contact Us
                             </Title>
-                            
-                            <Paragraph 
+
+                            <Paragraph
                               className="text-sm sm:text-base text-white/90 mb-6 font-medium"
-                              style={{ 
-                                fontFamily: 'Inter, sans-serif',
-                                lineHeight: '1.6'
+                              style={{
+                                fontFamily: "Inter, sans-serif",
+                                lineHeight: "1.6",
                               }}
                             >
-                              Power your home. Maintain your EV. Choose clean energy.
+                              Power your home. Maintain your EV. Choose clean
+                              energy.
                             </Paragraph>
-                            
+
                             <div className="w-16 h-1 bg-white/80 rounded-full mx-auto mb-6" />
                           </div>
-                        
+
                           {/* Contact Pills */}
                           <div className="space-y-3">
                             <motion.div
@@ -700,11 +802,21 @@ const About = () => {
                             >
                               <EnvironmentOutlined className="text-yellow-200 text-lg flex-shrink-0" />
                               <div className="flex-1 min-w-0">
-                                <Text className="text-white font-semibold text-sm block" style={{ fontFamily: 'Inter, sans-serif' }}>Office</Text>
-                                <Text className="text-white/90 text-xs truncate" style={{ fontFamily: 'Inter, sans-serif' }}>Safdarjung Enclave</Text>
+                                <Text
+                                  className="text-white font-semibold text-sm block"
+                                  style={{ fontFamily: "Inter, sans-serif" }}
+                                >
+                                  Office
+                                </Text>
+                                <Text
+                                  className="text-white/90 text-xs truncate"
+                                  style={{ fontFamily: "Inter, sans-serif" }}
+                                >
+                                  Safdarjung Enclave
+                                </Text>
                               </div>
                             </motion.div>
-                            
+
                             <motion.a
                               href="tel:+917982737801"
                               whileHover={{ scale: 1.05, x: 5 }}
@@ -712,11 +824,21 @@ const About = () => {
                             >
                               <ThunderboltOutlined className="text-green-200 text-lg flex-shrink-0" />
                               <div className="flex-1 min-w-0">
-                                <Text className="text-white font-semibold text-sm block" style={{ fontFamily: 'Inter, sans-serif' }}>Phone</Text>
-                                <Text className="text-white/90 text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>+91 79827 37801</Text>
+                                <Text
+                                  className="text-white font-semibold text-sm block"
+                                  style={{ fontFamily: "Inter, sans-serif" }}
+                                >
+                                  Phone
+                                </Text>
+                                <Text
+                                  className="text-white/90 text-xs"
+                                  style={{ fontFamily: "Inter, sans-serif" }}
+                                >
+                                  +91 79827 37801
+                                </Text>
                               </div>
                             </motion.a>
-                            
+
                             <motion.a
                               href="mailto:info@gridaneobharat.com"
                               whileHover={{ scale: 1.05, x: 5 }}
@@ -724,11 +846,21 @@ const About = () => {
                             >
                               <CarOutlined className="text-purple-200 text-lg flex-shrink-0" />
                               <div className="flex-1 min-w-0">
-                                <Text className="text-white font-semibold text-sm block" style={{ fontFamily: 'Inter, sans-serif' }}>Email</Text>
-                                <Text className="text-white/90 text-xs truncate" style={{ fontFamily: 'Inter, sans-serif' }}>info@gridaneobharat.com</Text>
+                                <Text
+                                  className="text-white font-semibold text-sm block"
+                                  style={{ fontFamily: "Inter, sans-serif" }}
+                                >
+                                  Email
+                                </Text>
+                                <Text
+                                  className="text-white/90 text-xs truncate"
+                                  style={{ fontFamily: "Inter, sans-serif" }}
+                                >
+                                  info@gridaneobharat.com
+                                </Text>
                               </div>
                             </motion.a>
-                            
+
                             <motion.a
                               href="https://www.gridaneobharat.com"
                               target="_blank"
@@ -738,11 +870,21 @@ const About = () => {
                             >
                               <SafetyOutlined className="text-blue-200 text-lg flex-shrink-0" />
                               <div className="flex-1 min-w-0">
-                                <Text className="text-white font-semibold text-sm block" style={{ fontFamily: 'Inter, sans-serif' }}>Website</Text>
-                                <Text className="text-white/90 text-xs truncate" style={{ fontFamily: 'Inter, sans-serif' }}>www.gridaneobharat.com</Text>
+                                <Text
+                                  className="text-white font-semibold text-sm block"
+                                  style={{ fontFamily: "Inter, sans-serif" }}
+                                >
+                                  Website
+                                </Text>
+                                <Text
+                                  className="text-white/90 text-xs truncate"
+                                  style={{ fontFamily: "Inter, sans-serif" }}
+                                >
+                                  www.gridaneobharat.com
+                                </Text>
                               </div>
                             </motion.a>
-                            
+
                             {/* Find My Location Button */}
                             <motion.button
                               whileHover={{ scale: 1.05, y: -2 }}
@@ -751,23 +893,43 @@ const About = () => {
                                 if (navigator.geolocation) {
                                   navigator.geolocation.getCurrentPosition(
                                     (position) => {
-                                      const { latitude, longitude } = position.coords;
-                                      window.open(`https://www.google.com/maps/dir/${latitude},${longitude}/Safdarjung+Enclave,+New+Delhi`, '_blank');
+                                      const { latitude, longitude } =
+                                        position.coords;
+                                      window.open(
+                                        `https://www.google.com/maps/dir/${latitude},${longitude}/Safdarjung+Enclave,+New+Delhi`,
+                                        "_blank"
+                                      );
                                     },
                                     () => {
-                                      window.open('https://www.google.com/maps/search/Safdarjung+Enclave,+New+Delhi', '_blank');
+                                      window.open(
+                                        "https://www.google.com/maps/search/Safdarjung+Enclave,+New+Delhi",
+                                        "_blank"
+                                      );
                                     }
                                   );
                                 } else {
-                                  window.open('https://www.google.com/maps/search/Safdarjung+Enclave,+New+Delhi', '_blank');
+                                  window.open(
+                                    "https://www.google.com/maps/search/Safdarjung+Enclave,+New+Delhi",
+                                    "_blank"
+                                  );
                                 }
                               }}
                               className="w-full flex items-center justify-center gap-3 px-4 py-4 bg-gradient-to-r from-emerald-500/30 to-blue-500/30 backdrop-blur-sm rounded-full border-2 border-emerald-300/50 hover:border-emerald-300 transition-all duration-300 mt-4"
                             >
                               <EnvironmentOutlined className="text-emerald-200 text-xl" />
                               <div className="text-center">
-                                <Text className="text-white font-bold text-sm block" style={{ fontFamily: 'Inter, sans-serif' }}>Find My Location</Text>
-                                <Text className="text-emerald-200 text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>Get directions to our office</Text>
+                                <Text
+                                  className="text-white font-bold text-sm block"
+                                  style={{ fontFamily: "Inter, sans-serif" }}
+                                >
+                                  Find My Location
+                                </Text>
+                                <Text
+                                  className="text-emerald-200 text-xs"
+                                  style={{ fontFamily: "Inter, sans-serif" }}
+                                >
+                                  Get directions to our office
+                                </Text>
                               </div>
                             </motion.button>
                           </div>
@@ -776,7 +938,7 @@ const About = () => {
                     </div>
                   </motion.div>
                 </Col>
-                
+
                 {/* Map */}
                 <Col xs={24} lg={12}>
                   <motion.div
@@ -785,19 +947,20 @@ const About = () => {
                     transition={{ duration: 0.8, delay: 1.6 }}
                     className="h-full"
                   >
-                    <Card 
+                    <Card
                       className="h-full shadow-2xl backdrop-blur-sm border-0 rounded-3xl overflow-hidden hover:shadow-3xl transition-all duration-500"
                       style={{
-                        background: 'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%)',
-                        border: '2px solid rgba(16, 185, 129, 0.2)'
+                        background:
+                          "linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%)",
+                        border: "2px solid rgba(16, 185, 129, 0.2)",
                       }}
                     >
                       <div className="p-6">
                         <div className="text-center mb-6">
-                          <Title 
-                            level={4} 
+                          <Title
+                            level={4}
                             className="text-xl font-bold text-gray-800 mb-4 flex items-center justify-center gap-3"
-                            style={{ fontFamily: 'Poppins, sans-serif' }}
+                            style={{ fontFamily: "Poppins, sans-serif" }}
                           >
                             <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-lg flex items-center justify-center">
                               <EnvironmentOutlined className="text-lg text-white" />
@@ -805,8 +968,8 @@ const About = () => {
                             Find Our Location
                           </Title>
                         </div>
-                        
-                        <motion.div 
+
+                        <motion.div
                           whileHover={{ scale: 1.02 }}
                           className="w-full h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-xl relative group"
                         >
@@ -823,7 +986,7 @@ const About = () => {
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl" />
                         </motion.div>
-                        
+
                         <div className="mt-6 text-center">
                           <motion.a
                             href="https://maps.google.com/?q=Safdarjung+Enclave,+New+Delhi"
@@ -832,10 +995,10 @@ const About = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >
-                            <Button 
-                              size="large" 
+                            <Button
+                              size="large"
                               className="bg-gradient-to-r from-blue-500 to-emerald-500 text-white border-none rounded-full px-8 py-6 h-auto font-semibold hover:shadow-lg transition-all duration-300"
-                              style={{ fontFamily: 'Inter, sans-serif' }}
+                              style={{ fontFamily: "Inter, sans-serif" }}
                             >
                               <EnvironmentOutlined className="mr-2" />
                               Open in Google Maps
@@ -848,7 +1011,6 @@ const About = () => {
                 </Col>
               </Row>
             </motion.div>
-
           </div>
         </div>
       </div>
