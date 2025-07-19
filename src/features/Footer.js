@@ -31,7 +31,6 @@ import {
 } from '@ant-design/icons';
 import Link from 'next/link';
 import Image from 'next/image';
-import Head from 'next/head';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -40,21 +39,11 @@ const Footer = () => {
     'Delhi', 'Mumbai', 'Bangalore', 'Hyderabad', 'Chennai', 'Kolkata',
     'Pune', 'Ahmedabad', 'Jaipur', 'Lucknow', 'Kanpur', 'Nagpur',
     'Indore', 'Thane', 'Bhopal', 'Visakhapatnam', 'Pimpri', 'Patna',
-  
+
   ];
 
   return (
-    <>
-      <Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
-
-      <footer className="relative bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 overflow-hidden" style={{ fontFamily: 'Inter, sans-serif' }}>
+    <footer className="relative bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 overflow-hidden" style={{ fontFamily: 'Inter, sans-serif' }}>
         {/* Beautiful Background Elements
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-10 left-10 w-96 h-96 bg-emerald-200/30 rounded-full blur-3xl animate-pulse" />
@@ -151,7 +140,7 @@ const Footer = () => {
                           whileHover={{ scale: 1.3, y: -3 }}
                           whileTap={{ scale: 0.9 }}
                           className="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-xl transition-all duration-300 text-xl"
-                       
+
                         >
                           {social.icon}
                         </motion.a>
@@ -337,7 +326,6 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-    </>
   );
 };
 
