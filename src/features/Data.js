@@ -45,7 +45,7 @@ export const services = [
     name: "Others",
     icon: <PackageCheck className="h-10 w-10 text-green-700" />,
     description: "Miscellaneous EV support",
-    Component: Others
+    Component: Others,
   },
 ];
 
