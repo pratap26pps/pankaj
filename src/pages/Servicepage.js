@@ -30,9 +30,26 @@ const ServicePage = () => {
           const { latitude, longitude } = position.coords;
 
           try {
+            // Add timeout and better error handling
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+            
             const res = await fetch(
-              `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+              `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
+              {
+                signal: controller.signal,
+                headers: {
+                  'User-Agent': 'GridaNeo-Bharat-App/1.0'
+                }
+              }
             );
+            
+            clearTimeout(timeoutId);
+            
+            if (!res.ok) {
+              throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            
             const data = await res.json();
  
             const city =
@@ -45,24 +62,30 @@ const ServicePage = () => {
               data?.address?.suburb ||
               data?.address?.region ||
               data?.display_name?.split(',')[0] ||
-              'Unknown';
+              'Delhi';
 
             setLocation(city);
-            console.log(city);
+            console.log('Location detected:', city);
           } catch (error) {
             console.error("Failed to fetch location info:", error);
-            setLocation("Location fetch failed");
+            // Set a default location instead of error message
+            setLocation("Delhi");
           }
         },
         (error) => {
           console.error("Geolocation error:", error.message);
-          if (error.code === 1) setLocation("Permission Denied");
-          else setLocation("Unable to fetch location");
+          // Set default location for all geolocation errors
+          setLocation("Delhi");
+        },
+        {
+          timeout: 10000, // 10 second timeout for geolocation
+          enableHighAccuracy: false,
+          maximumAge: 300000 // 5 minutes cache
         }
       );
     } else {
       console.warn("Geolocation not supported");
-      setLocation("Not Supported");
+      setLocation("Delhi");
     }
   }, []);
 

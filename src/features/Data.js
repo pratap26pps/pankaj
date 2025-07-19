@@ -9,6 +9,7 @@ import LithiumBatteries from "./Pages/LithiumBatteries";
 import Chargers from "./Pages/Chargers";
 import Accessories from "./Pages/Accessories";
 import Others from "./Pages/Others";
+console.log(Others)
 // ✅ Services List
 export const services = [
   {

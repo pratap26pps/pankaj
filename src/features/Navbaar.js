@@ -141,10 +141,11 @@ const Navbaar = () => {
         <Link href="/" className="flex items-center">
           <Image src="/images/logo (3).png" alt="EV Repair" width={190} height={90} className="object-contain" />
         </Link>
-        <div className="hidden md:flex items-center space-x-10 font-medium text-lg">
-          <button onClick={() => router.push('/')} className={linkClass}>Home</button>
-          <button onClick={()=>router.push("/About")} className={linkClass}>About</button>
-          <button onClick={() => router.push('/Servicepage')} className={linkClass}>Services</button>
+        <div className="hidden md:flex items-center space-x-8 font-medium text-lg">
+          <Link href="/" className={linkClass}>Home</Link>
+          <Link href="/About" className={linkClass}>About</Link>
+          <Link href="/Servicepage" className={linkClass}>Services</Link>
+          <Link href="/Blog" className={linkClass}>Blog</Link>
           {!isLoggedIn ? (
             <div className="relative group">
               <button className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-5 py-2.5 rounded-full shadow-md hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 font-semibold">
@@ -193,8 +194,9 @@ const Navbaar = () => {
             <button onClick={toggleMenu} className="p-1 rounded hover:bg-white/10">✕</button>
           </div>
           <button onClick={() => { router.push('/'); toggleMenu(); }} className="w-full text-left hover:text-emerald-300 py-2">Home</button>
-          <Link href="/about" className="w-full text-left hover:text-emerald-300 py-2" onClick={toggleMenu}>About</Link>
+          <Link href="/About" className="w-full text-left hover:text-emerald-300 py-2" onClick={toggleMenu}>About</Link>
           <button onClick={() => { router.push('/Servicepage'); toggleMenu(); }} className="w-full text-left hover:text-emerald-300 py-2">Services</button>
+          <Link href="/Blog" className="w-full text-left hover:text-emerald-300 py-2" onClick={toggleMenu}>Blog</Link>
 
           {!isLoggedIn ? (
             <div className="space-y-2 mt-4">
