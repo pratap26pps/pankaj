@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
-// import User from '@/models/User';
-import User from '@/Models/User';
-import Otp from '@/models/Otp';
+import User from '@/Model/User';
+import Otp from '@/Model/Otp';
 import { sendOtpMail } from '@/lib/mailer';
 import { writeFile } from 'fs/promises';
 

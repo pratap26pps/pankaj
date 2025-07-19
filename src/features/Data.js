@@ -3,12 +3,12 @@ import { GiScooter } from "react-icons/gi";
 import { MdElectricRickshaw } from "react-icons/md";
 
 // Pages
-import ElectricBike from "../features/Pages/ElectricBike";
-import Erickshaw from "../features/Pages/Erickshaw";
-import LithiumBatteries from "../features/Pages/LithiumBatteries";
-import Chargers from "../features/Pages/Chargers";
-import Accessories from "../features/Pages/Accessories";
-import Others from "../features/Pages/Others";
+import ElectricBike from "./Pages/ElectricBike";
+import Erickshaw from "./Pages/Erickshaw";
+import LithiumBatteries from "./Pages/LithiumBatteries";
+import Chargers from "./Pages/Chargers";
+import Accessories from "./Pages/Accessories";
+import Others from "./Pages/Others";
 
 // ✅ Services List
 export const services = [

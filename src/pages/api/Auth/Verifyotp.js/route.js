@@ -1,6 +1,6 @@
 import { connectDB } from "@/lib/db";
-import User from "@/models/User";
-import Otp from "@/models/Otp";
+import User from "@/Model/User";
+import Otp from "@/Model/Otp";
 
 export async function POST(req) {
   await connectDB();
