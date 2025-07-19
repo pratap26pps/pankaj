@@ -1,87 +1,151 @@
 "use client";
-
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { motion } from "framer-motion";
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { Eye, EyeOff } from "lucide-react";
+import { useSession } from "next-auth/react";
 const UpdatePassword = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const { data: session } = useSession();
+  const [form, setForm] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsVisible(true);
-    }, 100);
-  }, []);
+  console.log("Session in UpdatePassword:", session);
+  const [visible, setVisible] = useState({
+    current: false,
+    new: false,
+    confirm: false,
+  });
 
+
+
+
+  const [loading, setLoading] = useState(false);
+
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+  const toggleVisibility = (field) => {
+    setVisible((prev) => ({ ...prev, [field]: !prev[field] }));
+  };
+
+  const handleChange = (e) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!passwordRegex.test(form.newPassword)) {
+      return toast.error(
+        "Password must be 8+ characters with uppercase, lowercase, number & symbol."
+      );
+    }
+
+    if (form.newPassword !== form.confirmPassword) {
+      return toast.error("New password and confirm password do not match.");
+    }
+
+    try {
+      setLoading(true);
+      const res = await axios.put("/api/auth/update-password", {
+        currentPassword: form.currentPassword,
+        newPassword: form.newPassword,
+      });
+
+      toast.success(res.data.message || "Password updated successfully");
+      setForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to update password");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  if (session?.user?.role === "customer") {
+
+    return <p className="text-center text-blue-400 bg-blue-50 py-72">You signed in via Google. Password change is not applicable.</p>;
+  }
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-200 via-white to-gray-300 py-10 px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={isVisible ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+    <div className="min-h-screen flex items-center justify-center bg-blue-50 py-16 px-4">
+
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-md bg-blue-100 text-gray-700 shadow-lg rounded-xl p-8 space-y-6"
       >
-        <Card className="w-full max-w-lg rounded-3xl border border-gray-300 shadow-2xl bg-white/60 backdrop-blur-lg p-6">
-          {/* Top logo and heading */}
-          <div className="flex items-center space-x-4 mb-6">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-md">
-              <Image
-                src="/images/logo (3).png"
-                alt="EV Repair"
-                width={90}
-                height={36}
-                className="object-contain"
-              />
-            </div>
-            <h1 className="text-2xl font-bold text-gray-800">Update Password</h1>
-          </div>
+        <h2 className="text-2xl font-bold text-blue-700 text-center">Update Password</h2>
 
-          {/* Form content */}
-          <CardContent className="px-0">
-            <form className="flex flex-col space-y-5">
-              <div className="space-y-2">
-                <Label htmlFor="new-password" className="text-base font-medium">
-                  New Password
-                </Label>
-                <Input
-                  id="new-password"
-                  type="password"
-                  placeholder="Enter new password"
-                  className="focus-visible:ring-2 focus-visible:ring-primary"
-                />
-              </div>
+        {/* Current Password */}
+        <div className="relative">
+          <input
+            type={visible.current ? "text" : "password"}
+            name="currentPassword"
+            placeholder="Current Password"
+            required
+            value={form.currentPassword}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="button"
+            onClick={() => toggleVisibility("current")}
+            className="absolute top-2.5 right-3 text-gray-500"
+          >
+            {visible.current ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+        </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="confirm-password" className="text-base font-medium">
-                  Confirm Password
-                </Label>
-                <Input
-                  id="confirm-password"
-                  type="password"
-                  placeholder="Re-enter password"
-                  className="focus-visible:ring-2 focus-visible:ring-primary"
-                />
-              </div>
+        {/* New Password */}
+        <div className="relative">
+          <input
+            type={visible.new ? "text" : "password"}
+            name="newPassword"
+            placeholder="New Password"
+            required
+            value={form.newPassword}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="button"
+            onClick={() => toggleVisibility("new")}
+            className="absolute top-2.5 right-3 text-gray-500"
+          >
+            {visible.new ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+        </div>
 
-              <Button
-                type="submit"
-                className="w-full mt-3 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white hover:brightness-110 transition-all py-2.5 text-md rounded-xl shadow-lg"
-              >
-                Update Password
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </motion.div>
+        {/* Confirm New Password */}
+        <div className="relative">
+          <input
+            type={visible.confirm ? "text" : "password"}
+            name="confirmPassword"
+            placeholder="Confirm New Password"
+            required
+            value={form.confirmPassword}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="button"
+            onClick={() => toggleVisibility("confirm")}
+            className="absolute top-2.5 right-3 text-gray-500"
+          >
+            {visible.confirm ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition"
+        >
+          {loading ? "Updating..." : "Update Password"}
+        </button>
+      </form>
     </div>
   );
 };

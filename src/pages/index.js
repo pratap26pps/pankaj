@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import Autoplay from 'embla-carousel-autoplay';
-import connectDB  from '../lib/db';
 import {
   Carousel,
   CarouselContent,
@@ -52,10 +51,6 @@ const Index = () => {
 
   const handleClick = () => {
     router.push('/ServiceForm');
-  };
-
-  const handlePowerSolutions = () => {
-    router.push('/power-solutions');
   };
 
   return (

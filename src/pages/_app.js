@@ -4,18 +4,19 @@ import Navbaar from "../features/Navbaar";
 import Footer from "../features/Footer";
 import { Toaster } from "sonner";
 import GeneralQuestions from "../features/GeneralQuestions";
-// import CustomCursor from "../components/CustomCursor";
-
+import { Provider } from "react-redux";
+import { store } from "../redux/store";
 // import Otp from "../features/otp";
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      {/* <CustomCursor /> */}
+      <Provider store={store}>
       <Navbaar />
       <Component {...pageProps} />
       <Toaster position="top-center" />
       <GeneralQuestions />
       <Footer />
+    </Provider>
     </>
   );
 }

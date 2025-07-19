@@ -53,7 +53,7 @@ const Navbaar = () => {
   };
 
   const handleSignup = () => {
-    router.push('/Signup');
+    router.push('/authpage');
     setMenuOpen(false);
   };
 
@@ -161,17 +161,13 @@ const Navbaar = () => {
           <Link href="/About" className="text-black hover:text-emerald-600 transition-colors duration-300 font-bold text-lg tracking-wide font-sans">About</Link>
           <button onClick={() => router.push('/Servicepage')} className="text-black hover:text-emerald-600 transition-colors duration-300 font-bold text-lg tracking-wide font-sans">Services</button>
           <Link href="/Blog" className="text-black hover:text-emerald-600 transition-colors duration-300 font-bold text-lg tracking-wide font-sans">Blog</Link>
+          <Link href="/enquiry" className="text-black hover:text-emerald-600 transition-colors duration-300 font-bold text-lg tracking-wide font-sans">Enquiry</Link>
           {!isLoggedIn ? (
             <div className="relative group">
-              <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full shadow-md transition-all duration-300 font-bold text-lg tracking-wide font-sans">
+              <button onClick={handleSignup} className="bg-emerald-600 cursor-pointer hover:bg-emerald-700 text-white px-6 py-3 rounded-full shadow-md transition-all duration-300 font-bold text-lg tracking-wide font-sans">
                 Login / Signup
               </button>
-              <div className="absolute right-0 mt-2 w-56 bg-white border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <div className="py-2">
-                  <button onClick={handleLogin} className="w-full text-left px-4 py-2 text-sm text-blue-600 hover:bg-blue-50 font-sans">Login</button>
-                  <button onClick={handleSignup} className="w-full text-left px-4 py-2 text-sm text-green-600 hover:bg-green-50 font-sans">Signup</button>
-                </div>
-              </div>
+              
             </div>
           ) : (
             <div className="relative group">
@@ -214,7 +210,6 @@ const Navbaar = () => {
 
           {!isLoggedIn ? (
             <div className="space-y-2 mt-4">
-              <button onClick={handleLogin} className="w-full bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-4 rounded-lg transition-all duration-300 font-bold text-lg tracking-wide font-sans">Login</button>
               <button onClick={handleSignup} className="w-full bg-blue-600 hover:bg-blue-700 text-white px-5 py-4 rounded-lg transition-all duration-300 font-bold text-lg tracking-wide font-sans">Signup</button>
             </div>
           ) : (
