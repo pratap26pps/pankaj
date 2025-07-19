@@ -40,16 +40,7 @@ const Footer = () => {
     'Delhi', 'Mumbai', 'Bangalore', 'Hyderabad', 'Chennai', 'Kolkata',
     'Pune', 'Ahmedabad', 'Jaipur', 'Lucknow', 'Kanpur', 'Nagpur',
     'Indore', 'Thane', 'Bhopal', 'Visakhapatnam', 'Pimpri', 'Patna',
-    'Vadodara', 'Ghaziabad', 'Ludhiana', 'Agra', 'Nashik', 'Faridabad',
-    'Meerut', 'Rajkot', 'Kalyan', 'Vasai', 'Varanasi', 'Srinagar',
-    'Aurangabad', 'Dhanbad', 'Amritsar', 'Navi Mumbai', 'Allahabad',
-    'Ranchi', 'Howrah', 'Coimbatore', 'Jabalpur', 'Gwalior', 'Vijayawada',
-    'Jodhpur', 'Madurai', 'Raipur', 'Kota', 'Guwahati', 'Chandigarh',
-    'Solapur', 'Hubballi', 'Tiruchirappalli', 'Bareilly', 'Mysore',
-    'Tiruppur', 'Gurgaon', 'Aligarh', 'Jalandhar', 'Bhubaneswar',
-    'Salem', 'Mira', 'Bhiwandi', 'Saharanpur', 'Gorakhpur', 'Bikaner',
-    'Amravati', 'Noida', 'Jamshedpur', 'Bhilai', 'Cuttack', 'Firozabad',
-    'Kochi', 'Nellore', 'Bhavnagar', 'Dehradun', 'Durgapur'
+  
   ];
 
   return (
@@ -64,16 +55,16 @@ const Footer = () => {
       </Head>
 
       <footer className="relative bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 overflow-hidden" style={{ fontFamily: 'Inter, sans-serif' }}>
-        {/* Beautiful Background Elements */}
+        {/* Beautiful Background Elements
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-10 left-10 w-96 h-96 bg-emerald-200/30 rounded-full blur-3xl animate-pulse" />
           <div className="absolute bottom-10 right-10 w-80 h-80 bg-green-200/25 rounded-full blur-3xl animate-pulse" />
           <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-teal-200/20 rounded-full blur-2xl" />
           <div className="absolute bottom-1/3 left-1/4 w-72 h-72 bg-lime-200/15 rounded-full blur-2xl" />
-        </div>
+        </div> */}
 
         {/* Decorative Wave Pattern */}
-        <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-r from-emerald-100/50 to-green-100/50 transform -skew-y-1" />
+        <div className="absolute top-0 left-0 w-full h-20 " />
 
         <div className="relative z-10 py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -260,7 +251,7 @@ const Footer = () => {
                     <Space direction="vertical" size="large" className="w-full">
                       <div className="flex items-center justify-center lg:justify-start gap-4 text-gray-700">
                         <PhoneOutlined className="text-emerald-500 text-xl" />
-                        <span className="font-semibold text-lg">+91 9876543210</span>
+                        <span className="font-semibold text-lg">+91 7982737801</span>
                       </div>
                       <div className="flex items-center justify-center lg:justify-start gap-4 text-gray-700">
                         <MailOutlined className="text-green-500 text-xl" />
