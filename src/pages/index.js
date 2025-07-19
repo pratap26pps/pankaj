@@ -19,7 +19,7 @@ import Image from 'next/image';
 const Index = () => {
   const router = useRouter();
   const plugin = React.useRef(
-    Autoplay({ delay: 3000, stopOnInteraction: false })
+    Autoplay({ delay: 7000, stopOnInteraction: false })
   );
 
   const mobilePosterImages = [

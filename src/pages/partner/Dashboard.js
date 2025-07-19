@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Card, CardContent } from '../../components/ui/card';
-import { Button } from '../../components/ui/button';
+import { Card as AntdCard, Input, Button as AntdButton, Typography, Badge as AntdBadge } from 'antd';
+import { SearchOutlined, UserOutlined, CalendarOutlined } from '@ant-design/icons';
 import { Badge } from '../../components/ui/badge';
+const { Title, Text } = Typography;
 import {
   FaHome,
   FaCalendar,
@@ -49,7 +50,20 @@ const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentTime, setCurrentTime] = useState('');
+  const [bookingSearch, setBookingSearch] = useState('');
   const router = useRouter();
+
+  // Filtered bookings for search functionality
+  const bookingsDataSafe = typeof bookingsData !== 'undefined' ? bookingsData : [];
+  const filteredBookings = bookingsDataSafe.filter(b => {
+    const q = bookingSearch.trim().toLowerCase();
+    return (
+      !q ||
+      (b.customerName && b.customerName.toLowerCase().includes(q)) ||
+      (b.serviceType && b.serviceType.toLowerCase().includes(q)) ||
+      (b.vehicleModel && b.vehicleModel.toLowerCase().includes(q))
+    );
+  });
 
   // Handle client-side time display to prevent hydration mismatch
   useEffect(() => {
@@ -211,10 +225,7 @@ const Dashboard = () => {
     { id: 'overview', label: 'Overview', icon: FaHome, type: 'section' },
     { id: 'bookings', label: 'Bookings', icon: FaCalendar, type: 'section' },
     { id: 'customers', label: 'Customers', icon: FaUsers, type: 'section' },
-    { id: 'earnings', label: 'Earnings', icon: FaDollarSign, type: 'section' },
     { id: 'training', label: 'Training', icon: FaBookOpen, type: 'section' },
-    { id: 'reviews', label: 'Reviews', icon: FaStar, type: 'section' },
-    { id: 'documents', label: 'Documents', icon: FaFileAlt, type: 'section' },
     { id: 'profile', label: 'Profile', icon: FaUser, type: 'section' },
     { id: 'update-profile', label: 'Update Profile', icon: FaEdit, type: 'section' },
     { id: 'logout', label: 'Logout', icon: FaSignOutAlt, type: 'button', action: 'logout' }
@@ -235,204 +246,137 @@ const Dashboard = () => {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-6"
           >
-            {/* Professional Welcome Section - Two Cards Aligned */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Welcome Card */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="bg-gradient-to-br from-emerald-50 to-teal-50 p-6 rounded-xl border border-emerald-200 shadow-lg"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h1 className="text-2xl font-bold text-gray-800 mb-2">
-                      Welcome back, {partnerData.name}! 👋
-                    </h1>
-                    <p className="text-gray-600 text-sm">
-                      Here's your dashboard overview for today
-                    </p>
-                  </div>
-                  <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
-                    <FaUser className="w-6 h-6 text-emerald-600" />
-                  </div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="space-y-1">
-                    <p className="text-sm text-gray-500">Current Time</p>
-                    <p className="text-lg font-semibold text-gray-800">{currentTime || '--:--'}</p>
-                  </div>
-                  <div className="space-y-1 text-right">
-                    <p className="text-sm text-gray-500">Today's Date</p>
-                    <p className="text-lg font-semibold text-gray-800">
-                      {new Date().toLocaleDateString('en-US', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Quick Stats Card */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200 shadow-lg"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h2 className="text-xl font-bold text-gray-800 mb-1">Quick Overview</h2>
-                    <p className="text-gray-600 text-sm">Your performance highlights</p>
-                  </div>
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <FaChartLine className="w-6 h-6 text-blue-600" />
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-emerald-600 mb-1">
-                      {partnerData.rating}⭐
-                    </div>
-                    <p className="text-sm text-gray-600">Rating</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600 mb-1">
-                      {partnerData.totalBookings}
-                    </div>
-                    <p className="text-sm text-gray-600">Total Bookings</p>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Stats Cards Grid */}
+            {/* Professional Welcome Section - Only Welcome Card Remains */}
+            {/* Welcome Card - Full Width & Responsive */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="bg-gradient-to-br from-emerald-50 to-teal-50 p-6 rounded-xl border border-emerald-200 shadow-lg w-full mb-8"
             >
-              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                    <FaDollarSign className="w-6 h-6 text-green-600" />
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm text-gray-500">Total Earnings</p>
-                    <p className="text-2xl font-bold text-gray-800">₹{partnerData.totalEarnings.toLocaleString('en-US')}</p>
-                  </div>
+              <div className="flex flex-col md:flex-row items-center justify-between mb-4 gap-4">
+                <div className="flex-1 min-w-0">
+                  <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2 truncate">
+                    Welcome back, {partnerData.name}! 👋
+                  </h1>
+                  <p className="text-gray-600 text-sm md:text-base">
+                    Here's your dashboard overview for today
+                  </p>
                 </div>
-                <div className="flex items-center text-sm text-green-600">
-                  <FaChartLine className="w-4 h-4 mr-1" />
-                  <span>+12% from last month</span>
+                <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <FaUser className="w-8 h-8 text-emerald-600" />
                 </div>
               </div>
-
-              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <FaCalendar className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm text-gray-500">Total Bookings</p>
-                    <p className="text-2xl font-bold text-gray-800">{partnerData.totalBookings}</p>
-                  </div>
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <p className="text-sm text-gray-500">Current Time</p>
+                  <p className="text-lg font-semibold text-gray-800">{currentTime || '--:--'}</p>
                 </div>
-                <div className="flex items-center text-sm text-blue-600">
-                  <FaChartLine className="w-4 h-4 mr-1" />
-                  <span>+8% from last month</span>
-                </div>
-              </div>
-
-              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
-                    <FaCheckCircle className="w-6 h-6 text-emerald-600" />
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm text-gray-500">Completed</p>
-                    <p className="text-2xl font-bold text-gray-800">{partnerData.completedServices}</p>
-                  </div>
-                </div>
-                <div className="flex items-center text-sm text-emerald-600">
-                  <FaChartLine className="w-4 h-4 mr-1" />
-                  <span>93% completion rate</span>
-                </div>
-              </div>
-
-              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                    <FaClock className="w-6 h-6 text-orange-600" />
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm text-gray-500">Pending</p>
-                    <p className="text-2xl font-bold text-gray-800">{partnerData.pendingServices}</p>
-                  </div>
-                </div>
-                <div className="flex items-center text-sm text-orange-600">
-                  <FaClock className="w-4 h-4 mr-1" />
-                  <span>Requires attention</span>
+                <div className="space-y-1 text-right">
+                  <p className="text-sm text-gray-500">Today's Date</p>
+                  <p className="text-lg font-semibold text-gray-800">
+                    {new Date().toLocaleDateString('en-US', {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </p>
                 </div>
               </div>
             </motion.div>
 
-            {/* Today's Bookings */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden"
+            {/* Today's Bookings - Scrollable, Searchable, Beautiful */}
+            <AntdCard
+              title={
+                <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <CalendarOutlined style={{ color: '#10b981', fontSize: 22 }} />
+                  <span style={{ fontWeight: 700, fontSize: 20 }}>Today's Bookings</span>
+                </span>
+              }
+              bordered={false}
+              style={{ borderRadius: 16, boxShadow: '0 8px 32px rgba(16,185,129,0.08)', marginBottom: 24 }}
+              headStyle={{ background: 'linear-gradient(90deg,#f0fdfa 0%,#e0f2fe 100%)', borderRadius: '16px 16px 0 0' }}
+              bodyStyle={{ padding: 0 }}
+              extra={<Text type="secondary">Manage your current service appointments</Text>}
             >
-              <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
-                <h2 className="text-xl font-bold text-gray-800 flex items-center">
-                  <FaCalendar className="mr-3 text-emerald-600" />
-                  Today's Bookings
-                </h2>
-                <p className="text-sm text-gray-600 mt-1">Manage your current service appointments</p>
+              <div style={{ padding: 16, borderBottom: '1px solid #f0f0f0', background: '#fafcff' }}>
+                <Input
+                  allowClear
+                  prefix={<SearchOutlined style={{ color: '#10b981' }} />}
+                  placeholder="Search by customer, service, or vehicle..."
+                  style={{ maxWidth: 360, width: '100%' }}
+                  onChange={e => setBookingSearch(e.target.value)}
+                />
               </div>
-              <div className="p-6">
-                <div className="space-y-4">
-                  {bookingsData.slice(0, 3).map((booking, index) => (
-                    <motion.div
-                      key={booking.id}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 * index }}
-                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-                    >
-                      <div className="flex items-center space-x-4">
-                        <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
-                          <FaUser className="w-5 h-5 text-emerald-600" />
-                        </div>
-                        <div>
-                          <p className="font-semibold text-gray-800">{booking.customerName}</p>
-                          <p className="text-sm text-gray-600">{booking.serviceType} • {booking.vehicleModel}</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-bold text-emerald-600 text-lg">₹{booking.amount}</p>
-                        <Badge className={`mt-1 ${
-                          booking.status === 'Pending' ? 'bg-yellow-100 text-yellow-800 border-yellow-200' :
-                          booking.status === 'In Progress' ? 'bg-blue-100 text-blue-800 border-blue-200' :
-                          'bg-emerald-100 text-emerald-800 border-emerald-200'
-                        }`}>
-                          {booking.status}
-                        </Badge>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-                <div className="mt-6 text-center">
-                  <Button className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-200">
-                    <FaCalendar className="mr-2" />
-                    View All Bookings
-                  </Button>
-                </div>
+              <div
+                style={{
+                  maxHeight: 320,
+                  overflowY: 'auto',
+                  padding: 16,
+                  background: '#fff',
+                  borderRadius: '0 0 16px 16px',
+                  scrollbarWidth: 'thin',
+                  scrollbarColor: '#10b981 #f0fdfa'
+                }}
+                className="custom-scrollbar"
+              >
+                <AnimatePresence>
+                  {filteredBookings.length > 0 ? (
+                    filteredBookings.map((booking, index) => (
+                      <motion.div
+                        key={booking.id}
+                        initial={{ opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 24 }}
+                        transition={{ delay: index * 0.05, type: 'spring', stiffness: 100 }}
+                        style={{ marginBottom: 18 }}
+                      >
+                        <AntdCard
+                          hoverable
+                          style={{ borderRadius: 12, boxShadow: '0 2px 8px rgba(16,185,129,0.06)' }}
+                          bodyStyle={{ padding: 16, display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap', justifyContent: 'space-between' }}
+                        >
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                            <UserOutlined style={{ color: '#10b981', fontSize: 28 }} />
+                            <div>
+                              <Title level={5} style={{ margin: 0 }}>{booking.customerName}</Title>
+                              <Text type="secondary">{booking.serviceType} • {booking.vehicleModel}</Text>
+                            </div>
+                          </div>
+                          <div style={{ textAlign: 'right' }}>
+                            <Text strong style={{ color: '#10b981', fontSize: 18 }}>₹{booking.amount}</Text>
+                            <div style={{ marginTop: 4 }}>
+                              <AntdBadge
+                                color={
+                                  booking.status === 'Pending' ? 'gold' :
+                                  booking.status === 'In Progress' ? 'blue' :
+                                  'green'
+                                }
+                                text={booking.status}
+                              />
+                            </div>
+                          </div>
+                        </AntdCard>
+                      </motion.div>
+                    ))
+                  ) : (
+                    <div style={{ textAlign: 'center', color: '#bdbdbd', padding: '48px 0' }}>
+                      No bookings found for today.
+                    </div>
+                  )}
+                </AnimatePresence>
               </div>
-            </motion.div>
+              <div style={{ padding: 16, textAlign: 'center', background: '#fafcff', borderRadius: '0 0 16px 16px' }}>
+                <AntdButton
+                  type="primary"
+                  icon={<CalendarOutlined />}
+                  style={{ background: '#10b981', borderColor: '#10b981', fontWeight: 600, borderRadius: 8 }}
+                  size="large"
+                >
+                  View All Bookings
+                </AntdButton>
+              </div>
+            </AntdCard>
           </motion.div>
         );
 
@@ -658,7 +602,7 @@ const Dashboard = () => {
           </motion.div>
         );
 
-      case 'earnings':
+      
         return (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -794,7 +738,7 @@ const Dashboard = () => {
           </motion.div>
         );
 
-      case 'reviews':
+      
         return (
           <motion.div
             initial={{ opacity: 0, y: 20 }}

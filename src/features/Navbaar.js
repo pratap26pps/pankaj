@@ -143,7 +143,7 @@ const Navbaar = () => {
         </Link>
         <div className="hidden md:flex items-center space-x-10 font-medium text-lg">
           <button onClick={() => router.push('/')} className={linkClass}>Home</button>
-          <button onClick={()=>router.push("/Aboutpage")} className={linkClass}>About</button>
+          <button onClick={()=>router.push("/About")} className={linkClass}>About</button>
           <button onClick={() => router.push('/Servicepage')} className={linkClass}>Services</button>
           {!isLoggedIn ? (
             <div className="relative group">
