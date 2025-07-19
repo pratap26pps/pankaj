@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { services } from '../features/Data';
+import Head from 'next/head';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -102,17 +103,36 @@ const ServicePage = () => {
   };
 
   return (
-    <section className="min-h-screen bg-white px-4 mt-10 sm:px-6 md:px-10 py-16">
-      <div className="max-w-7xl mx-auto space-y-12">
-        {/* Heading */}
-        <div className="text-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-green-600 mb-4">
-            Our <span className="text-blue-600">Services</span> in {location}
-          </h1>
-          <p className="text-xl text-gray-700 font-medium">
-            Select the service you're looking for
-          </p>
-        </div>
+    <>
+      <Head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <link 
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" 
+          rel="stylesheet" 
+        />
+      </Head>
+      
+      <section className="min-h-screen bg-white px-4 mt-10 sm:px-6 md:px-10 py-16" style={{ fontFamily: 'Inter, sans-serif' }}>
+        <div className="max-w-7xl mx-auto space-y-12">
+          {/* Heading */}
+          <div className="text-center">
+            <h1 
+              className="text-4xl sm:text-5xl md:text-6xl font-bold text-green-600 mb-4"
+              style={{ 
+                fontFamily: 'Playfair Display, serif',
+                letterSpacing: '-0.02em'
+              }}
+            >
+              Our Services in {location}
+            </h1>
+            <p 
+              className="text-xl text-gray-700 font-medium"
+              style={{ fontFamily: 'Inter, sans-serif' }}
+            >
+              Select the service you're looking for
+            </p>
+          </div>
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -131,17 +151,24 @@ const ServicePage = () => {
               <div className="text-green-600 group-hover:text-blue-600 transition-colors duration-300 mb-4">
                 {service.icon}
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-green-600 group-hover:text-blue-600 transition-colors duration-300 mb-2">
+              <h3 
+                className="text-lg sm:text-xl font-bold text-green-600 group-hover:text-blue-600 transition-colors duration-300 mb-2"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
                 {service.name}
               </h3>
-              <p className="text-sm text-gray-600 leading-relaxed px-2">
+              <p 
+                className="text-sm text-gray-600 leading-relaxed px-2"
+                style={{ fontFamily: 'Inter, sans-serif' }}
+              >
                 {service.description}
               </p>
             </motion.button>
           ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

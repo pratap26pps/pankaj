@@ -247,27 +247,32 @@ const Blog = () => {
         />
       </Head>
       
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-emerald-50 mt-24" style={{ fontFamily: 'Inter, sans-serif' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-emerald-50 pt-24 pb-16" style={{ fontFamily: 'Inter, sans-serif' }}>
+        {/* Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-200/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-200/10 rounded-full blur-3xl" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header Section */}
           <motion.div
-            initial={{ y: -30, opacity: 0 }}
+            initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="mb-6"
-            >
+            <div className="relative inline-block">
               <Title 
                 level={1} 
-                className="text-5xl sm:text-6xl lg:text-7xl font-black bg-gradient-to-r from-blue-600 via-emerald-600 to-purple-600 bg-clip-text text-transparent mb-6"
-                style={{ fontFamily: 'Playfair Display, serif', lineHeight: '1.1' }}
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 mb-6 leading-tight"
+                style={{ 
+                  fontFamily: 'Playfair Display, serif',
+                  letterSpacing: '-0.02em'
+                }}
               >
-                GridaNeo Bharat
+                Our Blog
               </Title>
               <motion.div
                 initial={{ width: 0 }}
@@ -276,14 +281,7 @@ const Blog = () => {
                 className="h-1 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full mx-auto mb-4"
                 style={{ maxWidth: '200px' }}
               />
-              <Title 
-                level={2} 
-                className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-700 mb-6"
-                style={{ fontFamily: 'Poppins, sans-serif', letterSpacing: '0.05em' }}
-              >
-                Innovation Blog
-              </Title>
-            </motion.div>
+            </div>
             
             <motion.div
               initial={{ y: 20, opacity: 0 }}
@@ -291,27 +289,26 @@ const Blog = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <Paragraph 
-                className="text-lg sm:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed"
-                style={{ fontFamily: 'Inter, sans-serif', fontWeight: '400' }}
+                className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+                style={{ fontFamily: 'Inter, sans-serif' }}
               >
-                Discover the future of electric mobility through expert insights, success stories, 
-                and cutting-edge innovations from our team of industry leaders.
+                Discover insights, success stories, and the latest developments in electric vehicle technology and sustainable transportation solutions.
               </Paragraph>
               
               <div className="flex justify-center items-center gap-6 mt-8 text-gray-500">
                 <div className="flex items-center gap-2">
                   <FireOutlined className="text-orange-500" />
-                  <Text style={{ fontFamily: 'Inter, sans-serif', fontWeight: '500' }}>Latest Updates</Text>
+                  <Text style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '500' }}>Latest Updates</Text>
                 </div>
                 <Divider type="vertical" className="h-6" />
                 <div className="flex items-center gap-2">
                   <ThunderboltOutlined className="text-yellow-500" />
-                  <Text style={{ fontFamily: 'Inter, sans-serif', fontWeight: '500' }}>Expert Insights</Text>
+                  <Text style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '500' }}>Expert Insights</Text>
                 </div>
                 <Divider type="vertical" className="h-6" />
                 <div className="flex items-center gap-2">
                   <TrophyOutlined className="text-emerald-500" />
-                  <Text style={{ fontFamily: 'Inter, sans-serif', fontWeight: '500' }}>Success Stories</Text>
+                  <Text style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '500' }}>Success Stories</Text>
                 </div>
               </div>
             </motion.div>
@@ -328,7 +325,7 @@ const Blog = () => {
             <Title 
               level={3} 
               className="text-2xl font-semibold text-gray-800 mb-2"
-              style={{ fontFamily: 'Poppins, sans-serif' }}
+              style={{ fontFamily: 'Playfair Display, serif' }}
             >
               Explore by Category
             </Title>
@@ -348,18 +345,19 @@ const Blog = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <Button
-                  type={selectedCategory === category ? "primary" : "default"}
-                  size="large"
+                  key={category}
+                  type={selectedCategory === category ? 'primary' : 'default'}
                   onClick={() => handleCategoryFilter(category)}
-                  className={`rounded-full font-semibold transition-all duration-300 px-6 py-2 h-auto ${
+                  className={`rounded-full font-medium transition-all duration-300 ${
                     selectedCategory === category 
-                      ? 'bg-gradient-to-r from-blue-500 to-emerald-500 border-none shadow-lg transform scale-105' 
-                      : 'hover:border-blue-400 hover:text-blue-500 hover:shadow-md bg-white/80 backdrop-blur-sm'
+                      ? 'shadow-lg transform scale-105' 
+                      : 'hover:shadow-md hover:scale-102'
                   }`}
-                  style={{ 
-                    fontFamily: 'Inter, sans-serif',
-                    fontSize: '14px',
-                    fontWeight: selectedCategory === category ? '600' : '500'
+                  style={{
+                    fontFamily: 'Poppins, sans-serif',
+                    backgroundColor: selectedCategory === category ? categoryColors[category] : undefined,
+                    borderColor: categoryColors[category],
+                    color: selectedCategory === category ? 'white' : categoryColors[category]
                   }}
                 >
                   {category}
@@ -497,7 +495,7 @@ const Blog = () => {
                             <Space>
                               <Avatar src={post.authorAvatar} icon={<UserOutlined />} />
                               <div>
-                                <Text strong className="text-sm font-inter">{post.author}</Text>
+                                <Text strong className="text-sm" style={{ fontFamily: 'Poppins, sans-serif' }}>{post.author}</Text>
                                 <div className="flex items-center text-gray-500 text-xs">
                                   <CalendarOutlined className="mr-1" />
                                   {formatDate(post.createdAt)}
@@ -510,13 +508,18 @@ const Blog = () => {
                             </Space>
                           </div>
                           
-                          <Title level={4} className="mb-2 font-inter line-clamp-2 group-hover:text-blue-600 transition-colors duration-300">
+                          <Title 
+                            level={4} 
+                            className="mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors duration-300"
+                            style={{ fontFamily: 'Poppins, sans-serif' }}
+                          >
                             {post.title}
                           </Title>
                           
                           <Paragraph 
-                            className="text-gray-600 mb-4 font-inter text-sm leading-relaxed line-clamp-3"
+                            className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3"
                             ellipsis={{ rows: 3 }}
+                            style={{ fontFamily: 'Inter, sans-serif' }}
                           >
                             {post.excerpt}
                           </Paragraph>

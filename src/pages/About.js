@@ -339,8 +339,8 @@ const About = () => {
                     <Card 
                       className="relative h-full border-0 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-700 group/mission"
                       style={{
-                        background: 'linear-gradient(135deg, #fed7aa 0%, #fdba74 30%, #fb923c 70%, #f97316 100%)',
-                        border: '2px solid rgba(251, 146, 60, 0.3)'
+                        background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%)',
+                        border: '2px solid rgba(59, 130, 246, 0.2)'
                       }}
                     >
                       {/* Animated Pattern Overlay */}
@@ -376,7 +376,6 @@ const About = () => {
                             style={{ 
                               fontFamily: 'Playfair Display, serif',
                               letterSpacing: '-0.01em',
-                              textShadow: '0 4px 12px rgba(0,0,0,0.3)'
                             }}
                           >
                             Our Mission
@@ -395,10 +394,9 @@ const About = () => {
                             style={{ 
                               fontFamily: 'Inter, sans-serif',
                               lineHeight: '1.7',
-                              textShadow: '0 2px 8px rgba(0,0,0,0.2)'
                             }}
                           >
-                            Deliver <span className="font-bold text-yellow-100">sustainable, noise-free power</span> and dependable EV support that enhances lives and powers progress.
+                            Deliver sustainable, noise-free power and dependable EV support that enhances lives and powers progress.
                           </Paragraph>
                         </motion.div>
                         
@@ -452,10 +450,10 @@ const About = () => {
                     
                     <Card 
                       className="relative h-full border-0 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-700 group/vision"
-                      style={{
-                        background: 'linear-gradient(135deg, #e9d5ff 0%, #d8b4fe 30%, #c084fc 70%, #a855f7 100%)',
-                        border: '2px solid rgba(192, 132, 252, 0.3)'
-                      }}
+                       style={{
+                              background: 'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%)',
+                              border: '2px solid rgba(16, 185, 129, 0.2)'
+                            }}
                     >
                       {/* Animated Pattern Overlay */}
                       <div className="absolute inset-0 opacity-10 group-hover/vision:opacity-20 transition-opacity duration-700">
@@ -490,7 +488,6 @@ const About = () => {
                             style={{ 
                               fontFamily: 'Playfair Display, serif',
                               letterSpacing: '-0.01em',
-                              textShadow: '0 4px 12px rgba(0,0,0,0.3)'
                             }}
                           >
                             Our Vision
@@ -512,7 +509,7 @@ const About = () => {
                               textShadow: '0 2px 8px rgba(0,0,0,0.2)'
                             }}
                           >
-                            A <span className="font-bold text-yellow-100">smarter, quieter, greener Bharat</span> — powered by clean energy solutions that transform communities and preserve our environment for future generations.
+                            A smarter, quieter, greener Bharat — powered by clean energy solutions that transform communities and preserve our environment for future generations.
                           </Paragraph>
                         </motion.div>
                         
@@ -567,7 +564,6 @@ const About = () => {
                     className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black bg-gradient-to-r from-blue-600 via-emerald-600 to-indigo-600 bg-clip-text text-transparent mb-6 leading-tight"
                     style={{ 
                       fontFamily: 'Playfair Display, serif',
-                      textShadow: '0 4px 20px rgba(59, 130, 246, 0.15)',
                       letterSpacing: '-0.02em'
                     }}
                   >
@@ -641,8 +637,8 @@ const About = () => {
                       <Card 
                         className="relative h-full border-0 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-700 group/contact"
                         style={{
-                          background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 30%, #93c5fd 70%, #3b82f6 100%)',
-                          border: '2px solid rgba(59, 130, 246, 0.3)'
+                          background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%)',
+                          border: '2px solid rgba(59, 130, 246, 0.2)'
                         }}
                       >
                         {/* Animated Pattern Overlay */}
@@ -678,7 +674,6 @@ const About = () => {
                               style={{ 
                                 fontFamily: 'Playfair Display, serif',
                                 letterSpacing: '-0.01em',
-                                textShadow: '0 4px 12px rgba(0,0,0,0.3)'
                               }}
                             >
                               Contact Us
@@ -713,7 +708,7 @@ const About = () => {
                             <motion.a
                               href="tel:+917982737801"
                               whileHover={{ scale: 1.05, x: 5 }}
-                              className="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300 block"
+                              className="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300"
                             >
                               <ThunderboltOutlined className="text-green-200 text-lg flex-shrink-0" />
                               <div className="flex-1 min-w-0">
@@ -725,7 +720,7 @@ const About = () => {
                             <motion.a
                               href="mailto:info@gridaneobharat.com"
                               whileHover={{ scale: 1.05, x: 5 }}
-                              className="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300 block"
+                              className="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300"
                             >
                               <CarOutlined className="text-purple-200 text-lg flex-shrink-0" />
                               <div className="flex-1 min-w-0">
@@ -739,7 +734,7 @@ const About = () => {
                               target="_blank"
                               rel="noopener noreferrer"
                               whileHover={{ scale: 1.05, x: 5 }}
-                              className="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300 block"
+                              className="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300"
                             >
                               <SafetyOutlined className="text-blue-200 text-lg flex-shrink-0" />
                               <div className="flex-1 min-w-0">
@@ -790,7 +785,13 @@ const About = () => {
                     transition={{ duration: 0.8, delay: 1.6 }}
                     className="h-full"
                   >
-                    <Card className="h-full shadow-2xl bg-white/95 backdrop-blur-sm border-0 rounded-3xl overflow-hidden hover:shadow-3xl transition-all duration-500">
+                    <Card 
+                      className="h-full shadow-2xl backdrop-blur-sm border-0 rounded-3xl overflow-hidden hover:shadow-3xl transition-all duration-500"
+                      style={{
+                        background: 'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%)',
+                        border: '2px solid rgba(16, 185, 129, 0.2)'
+                      }}
+                    >
                       <div className="p-6">
                         <div className="text-center mb-6">
                           <Title 

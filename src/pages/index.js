@@ -15,6 +15,7 @@ import ServicePage from './Servicepage';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Head from 'next/head';
 
 const Index = () => {
   const router = useRouter();
@@ -58,8 +59,18 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen w-full">
-      {/* ✅ Hero Carousel Section - UNCHANGED */}
+    <>
+      <Head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <link 
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" 
+          rel="stylesheet" 
+        />
+      </Head>
+      
+      <div className="min-h-screen w-full" style={{ fontFamily: 'Inter, sans-serif' }}>
+        {/* ✅ Hero Carousel Section - UNCHANGED */}
       <div className="w-full flex items-start justify-center 2xl:mt-6 md:mt-6 lg:mt-5 pt-20 sm:pt-16 md:pt-10">
         <div className="w-full">
           <Carousel plugins={[plugin.current]} className="w-full relative">
@@ -73,7 +84,7 @@ const Index = () => {
                           src={image}
                           alt={`Poster ${index + 1}`}
                           fill
-                          className=" w-full h-full   object-fill   my-2 transition-all duration-500 ease-in-out hover:scale-[1.02] "
+                          className="w-full h-full object-fill my-2 transition-all duration-500 ease-in-out hover:scale-[1.02]"
                           priority={index === 0}
                         />
                       </CardContent>
@@ -98,7 +109,13 @@ const Index = () => {
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="text-center space-y-8"
           >
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight">
+            <h1 
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight"
+              style={{ 
+                fontFamily: 'Playfair Display, serif',
+                letterSpacing: '-0.02em'
+              }}
+            >
               <span className="text-green-600">Fuel-Free Power.</span>
               <br />
               <span className="text-blue-600">EV-Ready India.</span>
@@ -109,10 +126,11 @@ const Index = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
               className="text-xl sm:text-2xl md:text-3xl text-gray-700 font-medium leading-relaxed max-w-5xl mx-auto"
+              style={{ fontFamily: 'Inter, sans-serif' }}
             >
               India's clean-tech solution for silent battery backup systems and trusted electric vehicle servicing,
-              <span className="text-green-600 font-semibold"> designed for reliability</span>,
-              <span className="text-blue-600 font-semibold"> built for the future</span>.
+             designed for reliability
+              built for the future...
             </motion.p>
 
             <motion.div
@@ -152,10 +170,16 @@ const Index = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-green-600 mb-6">
+            <h2 
+              className="text-4xl sm:text-5xl md:text-6xl font-bold text-green-600 mb-6"
+              style={{ fontFamily: 'Playfair Display, serif', letterSpacing: '-0.01em' }}
+            >
               Powering India's <span className="text-blue-600">Electric Future</span>
             </h2>
-            <p className="text-xl sm:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
+            <p 
+              className="text-xl sm:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed"
+              style={{ fontFamily: 'Inter, sans-serif' }}
+            >
               Leading the charge with innovative solutions and unmatched expertise
             </p>
           </motion.div>
@@ -175,10 +199,16 @@ const Index = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-green-600 mb-4 text-center group-hover:text-green-700 transition-colors">
+              <h3 
+                className="text-2xl font-bold text-green-600 mb-4 text-center group-hover:text-green-700 transition-colors"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
                 Lightning Fast
               </h3>
-              <p className="text-gray-600 text-center leading-relaxed">
+              <p 
+                className="text-gray-600 text-center leading-relaxed"
+                style={{ fontFamily: 'Inter, sans-serif' }}
+              >
                 Rapid service delivery with cutting-edge diagnostic tools and streamlined processes.
               </p>
             </motion.div>
@@ -197,10 +227,16 @@ const Index = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-blue-600 mb-4 text-center group-hover:text-blue-700 transition-colors">
+              <h3 
+                className="text-2xl font-bold text-blue-600 mb-4 text-center group-hover:text-blue-700 transition-colors"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
                 Certified Excellence
               </h3>
-              <p className="text-gray-600 text-center leading-relaxed">
+              <p 
+                className="text-gray-600 text-center leading-relaxed"
+                style={{ fontFamily: 'Inter, sans-serif' }}
+              >
                 Industry-certified technicians with specialized EV training and proven expertise.
               </p>
             </motion.div>
@@ -215,14 +251,20 @@ const Index = () => {
             >
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-green-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
               <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:rotate-6 transition-transform duration-300">
-                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                </svg>
+                <div className="text-4xl font-bold text-white">
+                  ₹
+                </div>
               </div>
-              <h3 className="text-2xl font-bold text-green-600 mb-4 text-center group-hover:text-green-700 transition-colors">
+              <h3 
+                className="text-2xl font-bold text-green-600 mb-4 text-center group-hover:text-green-700 transition-colors"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
                 Smart Pricing
               </h3>
-              <p className="text-gray-600 text-center leading-relaxed">
+              <p 
+                className="text-gray-600 text-center leading-relaxed"
+                style={{ fontFamily: 'Inter, sans-serif' }}
+              >
                 Transparent, competitive rates starting at ₹199 with no hidden charges.
               </p>
             </motion.div>
@@ -241,10 +283,16 @@ const Index = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-blue-600 mb-4 text-center group-hover:text-blue-700 transition-colors">
+              <h3 
+                className="text-2xl font-bold text-blue-600 mb-4 text-center group-hover:text-blue-700 transition-colors"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
                 Future Ready
               </h3>
-              <p className="text-gray-600 text-center leading-relaxed">
+              <p 
+                className="text-gray-600 text-center leading-relaxed"
+                style={{ fontFamily: 'Inter, sans-serif' }}
+              >
                 Advanced technology solutions designed for tomorrow's electric mobility needs.
               </p>
             </motion.div>
@@ -252,9 +300,10 @@ const Index = () => {
         </div>
       </div>
 
-      {/* ✅ Service Component */}
-      <ServicePage />
-    </div>
+        {/* ✅ Service Component */}
+        <ServicePage />
+      </div>
+    </>
   );
 };
 
