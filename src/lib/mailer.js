@@ -1,15 +1,15 @@
- 
+
 
 import nodemailer from "nodemailer";
 
-export const sendOTPEmail = async (email, otp) => {
+export const sendOtpMail = async (email, otp) => {
   const transporter = nodemailer.createTransport({
       host: process.env.MAIL_HOST,
       port: 587,
-      secure: false, 
+      secure: false,
     auth: {
-     user: process.env.EMAIL_USER,       
-    pass: process.env.EMAIL_PASS,     
+     user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
     },
   });
 

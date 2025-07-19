@@ -53,48 +53,6 @@ const Dashboard = () => {
   const [bookingSearch, setBookingSearch] = useState('');
   const router = useRouter();
 
-  // Filtered bookings for search functionality
-  const bookingsDataSafe = typeof bookingsData !== 'undefined' ? bookingsData : [];
-  const filteredBookings = bookingsDataSafe.filter(b => {
-    const q = bookingSearch.trim().toLowerCase();
-    return (
-      !q ||
-      (b.customerName && b.customerName.toLowerCase().includes(q)) ||
-      (b.serviceType && b.serviceType.toLowerCase().includes(q)) ||
-      (b.vehicleModel && b.vehicleModel.toLowerCase().includes(q))
-    );
-  });
-
-  // Handle client-side time display to prevent hydration mismatch
-  useEffect(() => {
-    const updateTime = () => {
-      setCurrentTime(new Date().toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-      }));
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Listen for localStorage changes from navbar
-  useEffect(() => {
-    const checkLocalStorage = () => {
-      const menuState = localStorage.getItem('partnerDashboardMobileMenu');
-      if (menuState === 'open' && !isSidebarOpen) {
-        setIsSidebarOpen(true);
-        localStorage.removeItem('partnerDashboardMobileMenu');
-      }
-    };
-
-    const interval = setInterval(checkLocalStorage, 100);
-    return () => clearInterval(interval);
-  }, [isSidebarOpen]);
-
   // Mock data for partner dashboard
   const partnerData = {
     name: 'AutoCare Center',
@@ -141,6 +99,47 @@ const Dashboard = () => {
       priority: 'Low'
     }
   ];
+
+  // Filtered bookings for search functionality
+  const filteredBookings = bookingsData.filter(b => {
+    const q = bookingSearch.trim().toLowerCase();
+    return (
+      !q ||
+      (b.customerName && b.customerName.toLowerCase().includes(q)) ||
+      (b.serviceType && b.serviceType.toLowerCase().includes(q)) ||
+      (b.vehicleModel && b.vehicleModel.toLowerCase().includes(q))
+    );
+  });
+
+  // Handle client-side time display to prevent hydration mismatch
+  useEffect(() => {
+    const updateTime = () => {
+      setCurrentTime(new Date().toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      }));
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Listen for localStorage changes from navbar
+  useEffect(() => {
+    const checkLocalStorage = () => {
+      const menuState = localStorage.getItem('partnerDashboardMobileMenu');
+      if (menuState === 'open' && !isSidebarOpen) {
+        setIsSidebarOpen(true);
+        localStorage.removeItem('partnerDashboardMobileMenu');
+      }
+    };
+
+    const interval = setInterval(checkLocalStorage, 100);
+    return () => clearInterval(interval);
+  }, [isSidebarOpen]);
 
   const customersData = [
     {
@@ -602,7 +601,7 @@ const Dashboard = () => {
           </motion.div>
         );
 
-      
+
         return (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -738,7 +737,7 @@ const Dashboard = () => {
           </motion.div>
         );
 
-      
+
         return (
           <motion.div
             initial={{ opacity: 0, y: 20 }}

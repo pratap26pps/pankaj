@@ -1,8 +1,8 @@
 // File: src/pages/api/Signup.js
-import connectDB from "@/lib/db"; 
- import User from '@/Model/User';
- import Otp from '@/Model/Otp';
-import { sendOTPEmail } from "@/lib/mailer";
+import { connectDB } from "@/lib/db";
+import User from '@/Model/User';
+import Otp from '@/Model/Otp';
+import { sendOtpMail } from "@/lib/mailer";
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -50,7 +50,7 @@ export default async function handler(req, res) {
     );
 
     // Send OTP via email
-    await sendOTPEmail(email, otpCode);
+    await sendOtpMail(email, otpCode);
 
     return res.status(200).json({
       message: 'Signup successful, OTP sent to email',
