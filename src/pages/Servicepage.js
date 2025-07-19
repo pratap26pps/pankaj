@@ -102,23 +102,20 @@ const ServicePage = () => {
   };
 
   return (
-    <section
-      className="min-h-screen bg-white px-4 sm:px-6 md:px-10 py-10 bg-no-repeat bg-center bg-cover"
-      style={{ backgroundImage: "url('/images/book.jp')" }}
-    >
-      <div className="max-w-6xl mt-20 sm:mt-32 mx-auto space-y-10">
+    <section className="min-h-screen bg-white px-4 mt-10 sm:px-6 md:px-10 py-16">
+      <div className="max-w-7xl mx-auto space-y-12">
         {/* Heading */}
-        <div className="text-center -mt-14">
-          <h1 className="text-4xl font-bold text-green-800 mb-2">
-            Welcome to <span className="text-green-600">GNB EV Service Center {location}</span>
+        <div className="text-center">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-green-600 mb-4">
+            Our <span className="text-blue-600">Services</span> in {location}
           </h1>
-          <p className="text-gray-800 font-bold text-lg">
-            Select the service you’re looking for
+          <p className="text-xl text-gray-700 font-medium">
+            Select the service you're looking for
           </p>
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredServices.map((service, index) => (
             <motion.button
               key={index}
@@ -126,20 +123,24 @@ const ServicePage = () => {
               initial="hidden"
               animate="visible"
               variants={cardVariants}
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => handleCardClick(service.name)}
-              className="cursor-pointer bg-white border-2 border-green-200 hover:border-green-400 text-green-800 font-medium rounded-2xl shadow-md flex flex-col items-center justify-center text-center p-6 w-full h-44 sm:h-48 md:h-52 transition-all duration-300 focus:outline-none"
+              className="group cursor-pointer bg-white border-2 border-gray-200 hover:border-green-400 text-gray-800 font-medium rounded-3xl shadow-lg hover:shadow-2xl flex flex-col items-center justify-center text-center p-8 w-full h-56 sm:h-60 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-green-200"
             >
-              {service.icon}
-              <h3 className="text-md font-bold mt-2">{service.name}</h3>
-              <p className="text-sm text-gray-600 mt-1 px-2">{service.description}</p>
+              <div className="text-green-600 group-hover:text-blue-600 transition-colors duration-300 mb-4">
+                {service.icon}
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-green-600 group-hover:text-blue-600 transition-colors duration-300 mb-2">
+                {service.name}
+              </h3>
+              <p className="text-sm text-gray-600 leading-relaxed px-2">
+                {service.description}
+              </p>
             </motion.button>
           ))}
         </div>
       </div>
-
-
     </section>
   );
 };

@@ -53,10 +53,14 @@ const Index = () => {
     router.push('/ServiceForm');
   };
 
+  const handlePowerSolutions = () => {
+    router.push('/power-solutions');
+  };
+
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-green-200 via-green-500 to-green-900 bg-contain bg-no-repeat    bg-center">
-      {/* ✅ Hero Carousel Section */}
-      <div className="w-full flex items-start justify-center mt-2 pt-10">
+    <div className="min-h-screen w-full">
+      {/* ✅ Hero Carousel Section - UNCHANGED */}
+      <div className="w-full flex items-start justify-center 2xl:mt-6 md:mt-6 lg:mt-5 pt-20 sm:pt-16 md:pt-10">
         <div className="w-full">
           <Carousel plugins={[plugin.current]} className="w-full relative">
             <CarouselContent>
@@ -85,67 +89,164 @@ const Index = () => {
         </div>
       </div>
 
-      {/* ✅ Title Section */}
-      <div className="w-full md:mt-0 mb-7 px-4">
-        <div className="max-w-7xl mt-6 md:-mt-2 2xl:mt-2 mx-auto text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white leading-tight drop-shadow-2xl">
-            Welcome to{' '}
-            <span className="bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent drop-shadow-lg">
-              GNB EV Service Center
-            </span>
-          </h1>
-          <p className="text-lg sm:text-xl md:text-3xl text-white font-medium leading-relaxed drop-shadow-xl mt-2">
-            Your Trusted Partner for{' '}
-            <span className="text-black font-semibold drop-shadow-lg">E-Bikes</span>{' '}
-            &{' '}
-            <span className="text-black font-semibold drop-shadow-lg">Electric 3-Wheelers</span>
-          </p>
+      {/* ✅ Hero Section - Professional Redesign */}
+      <div className="w-full bg-white py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="text-center space-y-8"
+          >
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight">
+              <span className="text-green-600">Fuel-Free Power.</span>
+              <br />
+              <span className="text-blue-600">EV-Ready India.</span>
+            </h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
+              className="text-xl sm:text-2xl md:text-3xl text-gray-700 font-medium leading-relaxed max-w-5xl mx-auto"
+            >
+              India's clean-tech solution for silent battery backup systems and trusted electric vehicle servicing,
+              <span className="text-green-600 font-semibold"> designed for reliability</span>,
+              <span className="text-blue-600 font-semibold"> built for the future</span>.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8"
+            >
+              <motion.button
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-green-600 hover:bg-green-700 text-white px-10 py-5 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-2xl min-w-[250px]"
+              >
+                Explore Power Solutions
+              </motion.button>
+
+              <motion.button
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleClick}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-5 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-2xl min-w-[250px]"
+              >
+                Book EV Service
+              </motion.button>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
 
-      {/* ✅ Service Offer Section */}
-      <div className="w-full bg-gradient-to-ur from-green-200 via-green-500 to-green-700 py-12">
+      {/* ✅ Professional Features Section */}
+      <div className="w-full bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 items-center border-2 gap-0.5 bg-black rounded-3xl shadow-2xl overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-green-600 mb-6">
+              Powering India's <span className="text-blue-600">Electric Future</span>
+            </h2>
+            <p className="text-xl sm:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
+              Leading the charge with innovative solutions and unmatched expertise
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <motion.div
-              initial={{ x: -100, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
+              initial={{ y: 80, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              whileHover={{ y: -10, scale: 1.02 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
-              className="w-full h-64 sm:h-72 md:h-full relative"
+              className="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-green-300 relative overflow-hidden"
             >
-              <img
-                src="/images/image.png"
-                alt="EV Repair"
-                className="w-full h-full object-fill"
-              />
-            </motion.div>
-            <motion.div
-              initial={{ x: 100, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
-              viewport={{ once: true }}
-              className="relative h-full flex flex-col justify-center items-center md:items-end px-6 md:px-12 py-10 text-center md:text-right bg-no-repeat bg-center bg-cover"
-              style={{ backgroundImage: "url('/images/service%20bannner.jpg')" }}
-            >
-              <div className="relative z-10 space-y-4 w-full">
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-emerald-700">
-                  Expert EV Repair <br /> Services Just At ₹199
-                </h3>
-                <p className="text-black text-sm sm:text-base md:text-base leading-relaxed">
-                  For electric bikes our certified <br />
-                  professionals provide reliable, fast, and <br />
-                  affordable service to keep you moving.
-                </p>
-                <div className="w-full flex justify-center md:justify-end mt-6">
-                  <button
-                    onClick={handleClick}
-                    className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-full text-base font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
-                  >
-                    Book a Service
-                  </button>
-                </div>
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-green-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+              <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:rotate-6 transition-transform duration-300">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
               </div>
+              <h3 className="text-2xl font-bold text-green-600 mb-4 text-center group-hover:text-green-700 transition-colors">
+                Lightning Fast
+              </h3>
+              <p className="text-gray-600 text-center leading-relaxed">
+                Rapid service delivery with cutting-edge diagnostic tools and streamlined processes.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ y: 80, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              whileHover={{ y: -10, scale: 1.02 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-blue-300 relative overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:rotate-6 transition-transform duration-300">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-blue-600 mb-4 text-center group-hover:text-blue-700 transition-colors">
+                Certified Excellence
+              </h3>
+              <p className="text-gray-600 text-center leading-relaxed">
+                Industry-certified technicians with specialized EV training and proven expertise.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ y: 80, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              whileHover={{ y: -10, scale: 1.02 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-green-300 relative overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-green-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+              <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:rotate-6 transition-transform duration-300">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-green-600 mb-4 text-center group-hover:text-green-700 transition-colors">
+                Smart Pricing
+              </h3>
+              <p className="text-gray-600 text-center leading-relaxed">
+                Transparent, competitive rates starting at ₹199 with no hidden charges.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ y: 80, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              whileHover={{ y: -10, scale: 1.02 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-blue-300 relative overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:rotate-6 transition-transform duration-300">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-blue-600 mb-4 text-center group-hover:text-blue-700 transition-colors">
+                Future Ready
+              </h3>
+              <p className="text-gray-600 text-center leading-relaxed">
+                Advanced technology solutions designed for tomorrow's electric mobility needs.
+              </p>
             </motion.div>
           </div>
         </div>
