@@ -3,203 +3,202 @@ import React, { useEffect, useState, useRef } from 'react';
 const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [particles, setParticles] = useState([]);
-  const [sparks, setSparks] = useState([]);
   const [isClicking, setIsClicking] = useState(false);
-  const [batteryLevel, setBatteryLevel] = useState(100);
+  const [isHovering, setIsHovering] = useState(false);
   const particleIdRef = useRef(0);
-  const sparkIdRef = useRef(0);
 
   useEffect(() => {
     const updateMousePosition = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
       
-      // Create electric particles
-      const particleTypes = [
-        { color: '#3b82f6', type: 'electric' }, // Blue electric
-        { color: '#10b981', type: 'eco' },      // Green eco
-        { color: '#f59e0b', type: 'energy' },   // Orange energy
-        { color: '#8b5cf6', type: 'power' }     // Purple power
-      ];
-      
-      const randomType = particleTypes[Math.floor(Math.random() * particleTypes.length)];
-      
-      const newParticle = {
-        id: particleIdRef.current++,
-        x: e.clientX + (Math.random() - 0.5) * 20,
-        y: e.clientY + (Math.random() - 0.5) * 20,
-        opacity: 1,
-        size: Math.random() * 6 + 3,
-        color: randomType.color,
-        type: randomType.type,
-        vx: (Math.random() - 0.5) * 2,
-        vy: (Math.random() - 0.5) * 2,
-        createdAt: Date.now()
-      };
-
-      setParticles(prev => [...prev, newParticle]);
-      
-      // Create electric sparks occasionally
-      if (Math.random() > 0.8) {
-        const newSpark = {
-          id: sparkIdRef.current++,
-          x: e.clientX,
-          y: e.clientY,
-          opacity: 1,
-          angle: Math.random() * Math.PI * 2,
-          length: Math.random() * 15 + 10,
+      // Create elegant trail particles
+      if (Math.random() > 0.7) {
+        const colors = ['#10b981', '#3b82f6', '#06b6d4', '#8b5cf6'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        const newParticle = {
+          id: particleIdRef.current++,
+          x: e.clientX + (Math.random() - 0.5) * 10,
+          y: e.clientY + (Math.random() - 0.5) * 10,
+          opacity: 0.8,
+          size: Math.random() * 4 + 2,
+          color: randomColor,
+          vx: (Math.random() - 0.5) * 1,
+          vy: (Math.random() - 0.5) * 1 - 0.5,
           createdAt: Date.now()
         };
-        setSparks(prev => [...prev, newSpark]);
+
+        setParticles(prev => [...prev, newParticle]);
       }
     };
 
     const handleMouseMove = (e) => {
-      // More frequent particle creation for EV effect
-      if (Math.random() > 0.6) {
-        updateMousePosition(e);
-      } else {
-        setMousePosition({ x: e.clientX, y: e.clientY });
-      }
+      updateMousePosition(e);
     };
 
     const handleMouseDown = () => setIsClicking(true);
     const handleMouseUp = () => setIsClicking(false);
+    
+    const handleMouseEnter = (e) => {
+      if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('a, button')) {
+        setIsHovering(true);
+      }
+    };
+    
+    const handleMouseLeave = () => setIsHovering(false);
 
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('mouseover', handleMouseEnter);
+    document.addEventListener('mouseout', handleMouseLeave);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('mouseover', handleMouseEnter);
+      document.removeEventListener('mouseout', handleMouseLeave);
     };
   }, []);
 
-  // Animate battery level
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBatteryLevel(prev => {
-        const newLevel = prev - 1;
-        return newLevel <= 0 ? 100 : newLevel;
-      });
-    }, 100);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Clean up particles and sparks
+  // Clean up particles with smooth animation
   useEffect(() => {
     const interval = setInterval(() => {
       setParticles(prev => 
         prev
           .map(particle => ({
             ...particle,
-            opacity: Math.max(0, particle.opacity - 0.04),
+            opacity: Math.max(0, particle.opacity - 0.03),
             x: particle.x + particle.vx,
             y: particle.y + particle.vy,
-            vx: particle.vx * 0.98,
-            vy: particle.vy * 0.98
+            vx: particle.vx * 0.99,
+            vy: particle.vy * 0.99
           }))
-          .filter(particle => particle.opacity > 0)
+          .filter(particle => particle.opacity > 0.1)
       );
-      
-      setSparks(prev => 
-        prev
-          .map(spark => ({
-            ...spark,
-            opacity: Math.max(0, spark.opacity - 0.1)
-          }))
-          .filter(spark => spark.opacity > 0)
-      );
-    }, 50);
+    }, 60);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
     <>
-      {/* EV Battery Cursor */}
+      {/* Beautiful Leaf Cursor */}
       <div
-        className={`fixed pointer-events-none z-[9999] transition-all duration-200 ease-out ${
-          isClicking ? 'scale-125' : 'scale-100'
+        className={`fixed pointer-events-none z-[9999] transition-all duration-300 ease-out ${
+          isClicking ? 'scale-110 rotate-12' : isHovering ? 'scale-125 -rotate-6' : 'scale-100'
         }`}
         style={{
-          left: mousePosition.x - 16,
-          top: mousePosition.y - 20,
+          left: mousePosition.x,
+          top: mousePosition.y,
           transform: 'translate(-50%, -50%)'
         }}
       >
-        {/* Main EV Battery Cursor */}
+        {/* Leaf SVG Cursor */}
         <div className="relative">
-          {/* Outer Glow */}
-          <div className="absolute inset-0 bg-blue-400 rounded-lg blur-md opacity-30 animate-pulse" />
-          
-          {/* Battery Body */}
-          <div className="relative w-8 h-12 bg-gradient-to-b from-gray-800 to-gray-900 rounded-lg border-2 border-blue-400 shadow-lg">
-            {/* Battery Terminal */}
-            <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-3 h-2 bg-gray-700 rounded-t border border-blue-400" />
-            
-            {/* Battery Level Indicator */}
-            <div className="absolute bottom-1 left-1 right-1 top-2 bg-gray-700 rounded">
-              <div 
-                className="absolute bottom-0 left-0 right-0 rounded transition-all duration-300"
-                style={{
-                  height: `${batteryLevel}%`,
-                  background: batteryLevel > 60 ? 
-                    'linear-gradient(to top, #10b981, #34d399)' : 
-                    batteryLevel > 30 ? 
-                    'linear-gradient(to top, #f59e0b, #fbbf24)' : 
-                    'linear-gradient(to top, #ef4444, #f87171)'
-                }}
-              />
-              
-              {/* Electric Bolt Icon */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <svg width="8" height="8" viewBox="0 0 24 24" fill="white" className="opacity-80">
-                  <path d="M13 2L4 14h7v7l9-11h-7V2z" />
-                </svg>
-              </div>
-            </div>
-            
-            {/* Charging Animation */}
-            {isClicking && (
-              <div className="absolute inset-0 bg-blue-400 opacity-20 rounded-lg animate-ping" />
-            )}
-          </div>
-          
-          {/* EV Label */}
-          <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-blue-400 whitespace-nowrap">
-            EV
-          </div>
-        </div>
-      </div>
-      
-      {/* Electric Sparks */}
-      {sparks.map(spark => (
-        <div
-          key={spark.id}
-          className="fixed pointer-events-none z-[9998]"
-          style={{
-            left: spark.x,
-            top: spark.y,
-            opacity: spark.opacity,
-            transform: 'translate(-50%, -50%)'
-          }}
-        >
-          <div
-            className="bg-blue-300"
+          {/* Outer Glow Effect */}
+          <div 
+            className="absolute inset-0 blur-lg opacity-40 transition-all duration-300"
             style={{
-              width: '2px',
-              height: `${spark.length}px`,
-              transform: `rotate(${spark.angle}rad)`,
-              boxShadow: '0 0 6px #3b82f6',
-              borderRadius: '1px'
+              background: `radial-gradient(circle, ${isClicking ? '#f59e0b' : isHovering ? '#3b82f6' : '#10b981'}, transparent)`,
+              width: '40px',
+              height: '40px',
+              left: '-4px',
+              top: '-4px'
             }}
           />
+          
+          {/* Main Leaf Shape */}
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            className="drop-shadow-lg transition-all duration-300"
+          >
+            {/* Leaf Body */}
+            <path
+              d="M16 2C16 2 10 8 10 16C10 22 13 26 16 26C19 26 22 22 22 16C22 8 16 2 16 2Z"
+              fill={`url(#leafGradient-${isClicking ? 'orange' : isHovering ? 'blue' : 'green'})`}
+              stroke={isClicking ? '#f59e0b' : isHovering ? '#3b82f6' : '#059669'}
+              strokeWidth="1"
+              className="transition-all duration-300"
+            />
+            
+            {/* Main Vein */}
+            <path
+              d="M16 4L16 24"
+              stroke={isClicking ? '#ea580c' : isHovering ? '#1d4ed8' : '#047857'}
+              strokeWidth="1.5"
+              opacity="0.8"
+              className="transition-all duration-300"
+            />
+            
+            {/* Side Veins */}
+            <path
+              d="M13 10L16 13M19 10L16 13M13 16L16 19M19 16L16 19"
+              stroke={isClicking ? '#ea580c' : isHovering ? '#1d4ed8' : '#047857'}
+              strokeWidth="0.8"
+              opacity="0.6"
+              className="transition-all duration-300"
+            />
+            
+            {/* Gradient Definitions */}
+            <defs>
+              <linearGradient id="leafGradient-green" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#34d399" />
+                <stop offset="50%" stopColor="#10b981" />
+                <stop offset="100%" stopColor="#059669" />
+              </linearGradient>
+              <linearGradient id="leafGradient-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#60a5fa" />
+                <stop offset="50%" stopColor="#3b82f6" />
+                <stop offset="100%" stopColor="#1d4ed8" />
+              </linearGradient>
+              <linearGradient id="leafGradient-orange" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#fbbf24" />
+                <stop offset="50%" stopColor="#f59e0b" />
+                <stop offset="100%" stopColor="#ea580c" />
+              </linearGradient>
+            </defs>
+          </svg>
+          
+          {/* Floating Sparkles */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div 
+              className={`absolute w-1 h-1 rounded-full animate-pulse transition-all duration-300 ${
+                isHovering ? 'opacity-100' : 'opacity-60'
+              }`}
+              style={{
+                top: '6px',
+                left: '8px',
+                backgroundColor: isClicking ? '#fbbf24' : isHovering ? '#60a5fa' : '#34d399',
+                boxShadow: `0 0 6px ${isClicking ? '#fbbf24' : isHovering ? '#60a5fa' : '#34d399'}`,
+                animationDelay: '0s'
+              }}
+            />
+            <div 
+              className={`absolute w-1 h-1 rounded-full animate-pulse transition-all duration-300 ${
+                isHovering ? 'opacity-100' : 'opacity-60'
+              }`}
+              style={{
+                top: '20px',
+                right: '6px',
+                backgroundColor: isClicking ? '#fbbf24' : isHovering ? '#60a5fa' : '#34d399',
+                boxShadow: `0 0 6px ${isClicking ? '#fbbf24' : isHovering ? '#60a5fa' : '#34d399'}`,
+                animationDelay: '0.5s'
+              }}
+            />
+          </div>
+          
+          {/* Click Ripple Effect */}
+          {isClicking && (
+            <div className="absolute inset-0 rounded-full border-2 border-orange-300 animate-ping opacity-60" />
+          )}
         </div>
-      ))}
+      </div>
 
-      {/* Enhanced EV Particle Trail */}
+      {/* Elegant Particle Trail */}
       {particles.map(particle => (
         <div
           key={particle.id}
@@ -211,79 +210,16 @@ const CustomCursor = () => {
             transform: 'translate(-50%, -50%)'
           }}
         >
-          {particle.type === 'electric' && (
-            <div
-              className="animate-pulse"
-              style={{
-                width: particle.size,
-                height: particle.size,
-                background: `radial-gradient(circle, ${particle.color}, transparent)`,
-                borderRadius: '50%',
-                boxShadow: `0 0 ${particle.size * 2}px ${particle.color}`,
-                filter: 'blur(0.5px)'
-              }}
-            />
-          )}
-          
-          {particle.type === 'eco' && (
-            <div className="relative">
-              <div
-                style={{
-                  width: particle.size,
-                  height: particle.size,
-                  backgroundColor: particle.color,
-                  borderRadius: '50%',
-                  boxShadow: `0 0 ${particle.size}px ${particle.color}60`
-                }}
-              />
-              <div
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-xs"
-                style={{ fontSize: `${particle.size / 3}px` }}
-              >
-                ⚡
-              </div>
-            </div>
-          )}
-          
-          {particle.type === 'energy' && (
-            <div
-              className="animate-spin"
-              style={{
-                width: particle.size,
-                height: particle.size,
-                background: `conic-gradient(${particle.color}, transparent, ${particle.color})`,
-                borderRadius: '50%',
-                boxShadow: `0 0 ${particle.size}px ${particle.color}80`
-              }}
-            />
-          )}
-          
-          {particle.type === 'power' && (
-            <div className="relative">
-              <div
-                className="animate-pulse"
-                style={{
-                  width: particle.size,
-                  height: particle.size / 4,
-                  backgroundColor: particle.color,
-                  borderRadius: '50px',
-                  boxShadow: `0 0 ${particle.size}px ${particle.color}`,
-                  transform: 'rotate(45deg)'
-                }}
-              />
-              <div
-                className="absolute top-0 left-0 animate-pulse"
-                style={{
-                  width: particle.size,
-                  height: particle.size / 4,
-                  backgroundColor: particle.color,
-                  borderRadius: '50px',
-                  boxShadow: `0 0 ${particle.size}px ${particle.color}`,
-                  transform: 'rotate(-45deg)'
-                }}
-              />
-            </div>
-          )}
+          <div
+            className="rounded-full transition-all duration-300"
+            style={{
+              width: particle.size,
+              height: particle.size,
+              background: `radial-gradient(circle, ${particle.color}, ${particle.color}80, transparent)`,
+              boxShadow: `0 0 ${particle.size * 2}px ${particle.color}60`,
+              filter: 'blur(0.5px)'
+            }}
+          />
         </div>
       ))}
 
