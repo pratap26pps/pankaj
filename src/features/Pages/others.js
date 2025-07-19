@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Others() {
+export default function Others(){
   return (
     <div className="min-h-screen flex items-center ml-33 -mt-20 p-4">
       <div className="max-w-sm  bg-white/30 backdrop-blur-md rounded-2xl border border-white/40 shadow-lg overflow-hidden">
