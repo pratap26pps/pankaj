@@ -8,7 +8,7 @@ import Erickshaw from "./Pages/Erickshaw";
 import LithiumBatteries from "./Pages/LithiumBatteries";
 import Chargers from "./Pages/Chargers";
 import Accessories from "./Pages/Accessories";
-
+import Others from "./Pages/Others";
 // ✅ Services List
 export const services = [
   {
