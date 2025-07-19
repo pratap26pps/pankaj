@@ -13,6 +13,10 @@ const Navbaar = () => {
   const pathname = usePathname();
   const router = useRouter();
 
+  // Define pages with white backgrounds
+  const whiteBackgroundPages = ['/About', '/Blog', '/Login', '/Signup', '/Servicepage', '/ServiceForm', '/verify-otp'];
+  const isWhiteBackgroundPage = whiteBackgroundPages.includes(pathname) || pathname.includes('/user/') || pathname.includes('/admin/') || pathname.includes('/partner/');
+  
   const isHomePage = pathname === '/';
   const isPartnerDashboard = pathname.includes('/partner/Dashboard');
   const isAdminDashboard = pathname.includes('/admin/dashboard');
@@ -132,11 +136,9 @@ const Navbaar = () => {
 
   // General Navbar
   return (
-   <nav
-  className="fixed top-0 left-0 w-full  py-2 z-50 backdrop-blur-lg shadow-2xl"
-
->
-
+    <nav className={`fixed top-0 left-0 w-full py-2 z-50 backdrop-blur-lg shadow-2xl ${
+      isWhiteBackgroundPage ? 'bg-white/95' : ''
+    }`}>
       <div className="w-full px-4 sm:px-6 md:px-10 lg:px-20 xl:px-28 mx-auto flex items-center justify-between h-20">
         <Link href="/" className="flex items-center">
           <Image src="/images/logo (3).png" alt="EV Repair" width={190} height={90} className="object-contain" />

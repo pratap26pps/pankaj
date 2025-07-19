@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { services, bikemodels } from '../features/Data';
+import { services } from '../features/Data';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -139,27 +139,7 @@ const ServicePage = () => {
         </div>
       </div>
 
-      {/* Scrolling Bike Brand Logos */}
-      <div className="overflow-hidden w-full mt-16 ">
-        <div className="flex animate-scroll-left gap-x-6 sm:gap-x-10 w-max">
-          {bikemodels.concat(bikemodels).map((bike, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center justify-center"
-            >
-              <img
-                src={bike.image}
-                alt={bike.name}
-                title={bike.name}
-                className="h-12 sm:h-14 md:h-16 w-auto object-contain"
-              />
-              <p className="text-xs text-gray-700 font-medium mt-1 text-center">
-                {bike.name}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
+
     </section>
   );
 };
