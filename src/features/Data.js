@@ -8,8 +8,7 @@ import Erickshaw from "./Pages/Erickshaw";
 import LithiumBatteries from "./Pages/LithiumBatteries";
 import Chargers from "./Pages/Chargers";
 import Accessories from "./Pages/Accessories";
-import Others from "./Pages/Others";
-console.log(Others)
+import trainingPrograms from "./Pages/trainingPrograms";
 // ✅ Services List
 export const services = [
   {
@@ -43,10 +42,10 @@ export const services = [
     Component: Accessories,
   },
   {
-    name: "Others",
+    name: "Training Programs",
     icon: <PackageCheck className="h-10 w-10 text-green-700" />,
     description: "Miscellaneous EV support",
-    Component: Others,
+    Component: trainingPrograms,
   },
 ];
 
