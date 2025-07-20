@@ -673,7 +673,7 @@ const About = () => {
                           <motion.a
                             href="tel:+917982737801"
                             whileHover={{ scale: 1.05, x: 5 }}
-                            className="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300 block"
+                            className="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300 "
                           >
                             <span className="text-green-200 text-lg flex-shrink-0">⚡</span>
                             <div className="flex-1 min-w-0">
@@ -685,7 +685,7 @@ const About = () => {
                           <motion.a
                             href="mailto:info@gridaneobharat.com"
                             whileHover={{ scale: 1.05, x: 5 }}
-                            className="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300 block"
+                            className="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300 "
                           >
                             <span className="text-purple-200 text-lg flex-shrink-0">🚗</span>
                             <div className="flex-1 min-w-0">
@@ -699,7 +699,7 @@ const About = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             whileHover={{ scale: 1.05, x: 5 }}
-                            className="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300 block"
+                            className="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300"
                           >
                             <span className="text-blue-200 text-lg flex-shrink-0">🛡️</span>
                             <div className="flex-1 min-w-0">

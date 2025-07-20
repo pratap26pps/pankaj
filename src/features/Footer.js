@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { Facebook, Instagram, Twitter, Linkedin, Building2, Users, Zap, Wrench, Phone, Mail, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -81,24 +82,46 @@ const Footer = () => {
                       Follow Us
                     </h4>
                     <div className="flex gap-4 justify-center">
-                      {[
-                        { icon: '📘', link: 'https://facebook.com' },
-                        { icon: '📷', link: 'https://instagram.com' },
-                        { icon: '🐦', link: 'https://twitter.com' },
-                        { icon: '💼', link: 'https://linkedin.com' },
-                      ].map((social, index) => (
-                        <motion.a
-                          key={index}
-                          href={social.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          whileHover={{ scale: 1.3, y: -3 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-xl transition-all duration-300 text-xl bg-gradient-to-r from-emerald-500 to-green-500"
-                        >
-                          {social.icon}
-                        </motion.a>
-                      ))}
+                      <motion.a
+                        href="https://facebook.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.3, y: -3 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-xl transition-all duration-300 text-xl bg-gradient-to-r from-emerald-500 to-green-500"
+                      >
+                        <Facebook className="w-7 h-7" />
+                      </motion.a>
+                      <motion.a
+                        href="https://instagram.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.3, y: -3 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-xl transition-all duration-300 text-xl bg-gradient-to-r from-emerald-500 to-green-500"
+                      >
+                        <Instagram className="w-7 h-7" />
+                      </motion.a>
+                      <motion.a
+                        href="https://twitter.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.3, y: -3 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-xl transition-all duration-300 text-xl bg-gradient-to-r from-emerald-500 to-green-500"
+                      >
+                        <Twitter className="w-7 h-7" />
+                      </motion.a>
+                      <motion.a
+                        href="https://linkedin.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.3, y: -3 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-xl transition-all duration-300 text-xl bg-gradient-to-r from-emerald-500 to-green-500"
+                      >
+                        <Linkedin className="w-7 h-7" />
+                      </motion.a>
                     </div>
                   </div>
                 </div>
@@ -119,7 +142,7 @@ const Footer = () => {
                     className="text-2xl font-bold text-emerald-700 mb-4 flex items-center justify-center lg:justify-start gap-3"
                     style={{ fontFamily: 'Poppins, sans-serif' }}
                   >
-                    <span className="text-3xl text-emerald-500">👥</span>
+                    <Building2 className="w-7 h-7 text-emerald-500" />
                     Company
                   </h3>
                   <div className="w-16 h-1 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full mb-6 mx-auto lg:mx-0" />
@@ -149,7 +172,7 @@ const Footer = () => {
                     className="text-2xl font-bold text-emerald-700 mb-4 flex items-center justify-center lg:justify-start gap-3"
                     style={{ fontFamily: 'Poppins, sans-serif' }}
                   >
-                    <span className="text-3xl text-emerald-500">⚡</span>
+                    <Zap className="w-7 h-7 text-emerald-500" />
                     Services
                   </h3>
                   <div className="w-16 h-1 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full mb-6 mx-auto lg:mx-0" />
@@ -179,7 +202,7 @@ const Footer = () => {
                     className="text-2xl font-bold text-emerald-700 mb-4 flex items-center justify-center lg:justify-start gap-3"
                     style={{ fontFamily: 'Poppins, sans-serif' }}
                   >
-                    <span className="text-3xl text-emerald-500">🛠️</span>
+                    <Wrench className="w-7 h-7 text-emerald-500" />
                     Support
                   </h3>
                   <div className="w-16 h-1 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full mb-6 mx-auto lg:mx-0" />
@@ -209,21 +232,21 @@ const Footer = () => {
                     className="text-2xl font-bold text-emerald-700 mb-4 flex items-center justify-center lg:justify-start gap-3"
                     style={{ fontFamily: 'Poppins, sans-serif' }}
                   >
-                    <span className="text-3xl text-emerald-500">📞</span>
+                    <Phone className="w-7 h-7 text-emerald-500" />
                     Contact
                   </h3>
                   <div className="w-16 h-1 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full mb-6 mx-auto lg:mx-0" />
                   <div className="space-y-4">
                     <div className="flex items-center justify-center lg:justify-start gap-3">
-                      <span className="text-emerald-500">📞</span>
+                      <Phone className="w-5 h-5 text-emerald-500" />
                       <span className="text-gray-700">+91 98765 43210</span>
                     </div>
                     <div className="flex items-center justify-center lg:justify-start gap-3">
-                      <span className="text-emerald-500">✉️</span>
+                      <Mail className="w-5 h-5 text-emerald-500" />
                       <span className="text-gray-700">info@gridaneo.com</span>
                     </div>
                     <div className="flex items-center justify-center lg:justify-start gap-3">
-                      <span className="text-emerald-500">📍</span>
+                      <MapPin className="w-5 h-5 text-emerald-500" />
                       <span className="text-gray-700">Mumbai, India</span>
                     </div>
                   </div>
