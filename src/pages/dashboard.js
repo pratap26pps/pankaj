@@ -42,6 +42,9 @@ import ManageUserPage from './superadmin/manageuser';
 import VerifyPartner from './superadmin/verifypatner';
 import LiveBookingPage from './superadmin/livebooking';
 import CarouselPage from './superadmin/crausel';
+import UserOverview from './user/overview';
+import ServiceHistory from './user/serviceHistory';
+import EVBookingForm from './ServiceForm';
  
 
 
@@ -98,7 +101,6 @@ const Dashboard = () => {
     { key: 'Amc-Enquiry', label: 'Enquiry', icon: <HelpCircle className="w-5 h-5" /> },
     
     { key: 'Battery Inventory', label: 'Battery Inventory', icon:< Users className="w-5 h-5" />  },
-    { key: 'carousel', label: 'Carousel Images', icon: <Users className="w-5 h-5" />   },
    
   ];
       
@@ -119,6 +121,13 @@ const Dashboard = () => {
     { key: 'overview', label: 'Overview', icon: <BarChart3 className="w-5 h-5" /> },
     { key: 'orders', label: 'My Orders', icon: <ClipboardList className="w-5 h-5" /> },
     { key: 'cart', label: 'My Cart', icon: <ShoppingCart className="w-5 h-5" /> },
+   
+        { key: 'service-history', label: 'Service History', icon: <ClipboardList className="w-5 h-5" />  },
+ 
+        { key: 'book-service', label: 'Book Service', icon: <ClipboardList className="w-5 h-5" />  },
+        { key: 'buy-battery', label: 'Buy Battery',icon: <ClipboardList className="w-5 h-5" /> },
+       
+   
  
   ];
 
@@ -304,10 +313,7 @@ const Modal = ({ isOpen, onClose, title, children, modalClassName }) => {
                <AddCategoryProduct/>      
         );
          
-          case 'carousel':
-        return (
-            <CarouselPage/>        
-        );
+      
         
     
       default:
@@ -348,39 +354,7 @@ const Modal = ({ isOpen, onClose, title, children, modalClassName }) => {
       switch (selectedMenuItem) {
         case 'overview':
           return (
-            <div className="space-y-6 animate-fade-in">
-              {/* Customer Stats Grid */}
-              
-
-              {/* Customer Content Grid */}
-              <div className="grid grid-cols-1 xl:grid-cols-5 gap-6">
-                {/* Recent Orders */}
-                <div className="xl:col-span-7">
-                  <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-xl shadow-lg border border-white/20 dark:border-gray-700/50">
-                    <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">My Recent Orders</h3>
-                    </div>
-                    <div className="overflow-x-auto">
-                      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                        <thead className="bg-gray-50 dark:bg-gray-900/50">
-                          <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Order ID</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Products</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Amount</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Date</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
-                          </tr>
-                        </thead>
-                     
-                      </table>
-                    </div>
-                  </div>
-                </div>
-
-                
-              </div>
-            </div>
+           <UserOverview/>
           );
         case 'orders':
           return (
@@ -391,13 +365,34 @@ const Modal = ({ isOpen, onClose, title, children, modalClassName }) => {
             <div className='-mt-24 -ml-6'>
             <MyShoppingCart/>
             </div>
-          
-           
           );
-        
-        
+        case 'service-history':
+          return ( 
+            <div className='-mt-24 -ml-6'>
+            <ServiceHistory/>
+            </div>
+          );
+           case ' book-service':
+          return ( 
+            <div className='-mt-24 -ml-6'>
+            <EVBookingForm/>
+            </div>
+          );
+           case 'service-history':
+          return ( 
+            <div className='-mt-24 -ml-6'>
+            <MyShoppingCart/>
+            </div>
+          );
+           case 'buy-battery':
+          return ( 
+            <div className='-mt-24 -ml-6'>
+            <MyShoppingCart/>
+            </div>
+          );
+ 
         default:
-          return <OverviewContent />;
+          return <UserOverview/>;
       }
 
   

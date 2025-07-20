@@ -113,7 +113,7 @@ const ServicePage = () => {
         />
       </Head>
       
-      <section className="min-h-screen bg-white px-4 mt-10 sm:px-6 md:px-10 py-16" style={{ fontFamily: 'Inter, sans-serif' }}>
+      <section className="min-h-screen bg-green-50 px-4  sm:px-6 md:px-10 py-28" style={{ fontFamily: 'Inter, sans-serif' }}>
         <div className="max-w-7xl mx-auto space-y-12">
           {/* Heading */}
           <div className="text-center">
@@ -146,10 +146,10 @@ const ServicePage = () => {
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => handleCardClick(service.name)}
-              className="group cursor-pointer bg-white border-2 border-gray-200 hover:border-green-400 text-gray-800 font-medium rounded-3xl shadow-lg hover:shadow-2xl flex flex-col items-center justify-center text-center p-8 w-full h-56 sm:h-60 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-green-200"
+              className="group cursor-pointer bg-white border-2 border-gray-200 group-hover:text-blue-600  text-gray-800 font-medium rounded-3xl shadow-lg hover:shadow-2xl flex flex-col items-center justify-center text-center p-8 w-full h-56 sm:h-60 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-green-200"
             >
               <div className="text-green-600 group-hover:text-blue-600 transition-colors duration-300 mb-4">
-                {service.icon}
+                  {service.icon}
               </div>
               <h3 
                 className="text-lg sm:text-xl font-bold text-green-600 group-hover:text-blue-600 transition-colors duration-300 mb-2"
@@ -158,7 +158,7 @@ const ServicePage = () => {
                 {service.name}
               </h3>
               <p 
-                className="text-sm text-gray-600 leading-relaxed px-2"
+                className="text-sm text-gray-600 group-hover:text-blue-600 transition-colors duration-300 leading-relaxed px-2"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 {service.description}

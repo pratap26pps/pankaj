@@ -13,37 +13,37 @@ import trainingPrograms from "./Pages/trainingPrograms";
 export const services = [
   {
     name: "Electric Bike",
-    icon: <GiScooter className="h-10 w-10 text-green-700" />,
+    icon: <GiScooter className="h-10 w-10  " />,
     description: "Repair & maintenance for e-bikes",
     Component: ElectricBike,
   },
   {
     name: "Erickshaw",
-    icon: <MdElectricRickshaw className="h-10 w-10 text-green-700" />,
+    icon: <MdElectricRickshaw className="h-10 w-10  0" />,
     description: "Services for electric 3-wheelers",
     Component: Erickshaw,
   },
   {
     name: "Lithium Batteries",
-    icon: <BatteryCharging className="h-10 w-10 text-green-700" />,
+    icon: <BatteryCharging className="h-10 w-10" />,
     description: "Battery checkup & replacement",
     Component: LithiumBatteries,
   },
   {
     name: "Chargers",
-    icon: <PlugZap className="h-10 w-10 text-green-700" />,
+    icon: <PlugZap className="h-10 w-10" />,
     description: "Fast charging solutions",
     Component: Chargers,
   },
   {
     name: "Accessories",
-    icon: <Wrench className="h-10 w-10 text-green-700" />,
+    icon: <Wrench className="h-10 w-10" />,
     description: "All EV-related add-ons",
     Component: Accessories,
   },
   {
     name: "Training Programs",
-    icon: <PackageCheck className="h-10 w-10 text-green-700" />,
+    icon: <PackageCheck className="h-10 w-10" />,
     description: "Miscellaneous EV support",
     Component: trainingPrograms,
   },

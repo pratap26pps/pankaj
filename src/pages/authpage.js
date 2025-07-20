@@ -64,7 +64,7 @@ export default function AuthPage() {
   };
 
   const handleGoogleSignIn = () => {
-    signIn("google", { callbackUrl: "/admin/dashboard" });
+    signIn("google", { callbackUrl: "/dashboard" });
   };
 
   const handleSignup = async (e) => {

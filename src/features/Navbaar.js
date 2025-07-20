@@ -1,18 +1,22 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
+import axios from 'axios';
+import { signOut } from 'next-auth/react';
+import { setUser } from '@/redux/slices/authSlice';
 
 const Navbaar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userType, setUserType] = useState('user');
   const [scrolled, setScrolled] = useState(false);
+  const user = useSelector((state) => state.auth.user);
 
   const pathname = usePathname();
   const router = useRouter();
+  const dispatch = useDispatch();
 
   // Define pages with white backgrounds
   const whiteBackgroundPages = ['/About', '/Blog', '/Login', '/Signup', '/Servicepage', '/ServiceForm', '/verify-otp'];
@@ -23,10 +27,6 @@ const Navbaar = () => {
   const isAdminDashboard = pathname.includes('/admin/dashboard');
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
-    const type = localStorage.getItem('userType') || 'user';
-    setIsLoggedIn(!!token);
-    setUserType(type);
     if (isHomePage) {
       const handleScroll = () => {
         setScrolled(window.scrollY > 40);
@@ -47,30 +47,30 @@ const Navbaar = () => {
       : 'bg-white/90 backdrop-blur-md text-black shadow-sm'
     : 'bg-white/95 backdrop-blur-xl text-black shadow-lg';
 
-  const handleLogin = () => {
-    router.push('/Login');
-    setMenuOpen(false);
-  };
-
+ 
   const handleSignup = () => {
     router.push('/authpage');
     setMenuOpen(false);
   };
 
   const handleDashboard = () => {
-    if (userType === 'partner') router.push('/partner/Dashboard');
-    else if (userType === 'admin') router.push('/admin/dashboard');
+    if (user?.role === 'partner') router.push('/partner/Dashboard');
+    else if (user?.role === 'admin') router.push('/admin/dashboard');
+    else if (user?.role === 'superadmin') router.push('/dashboard');
     else router.push('/user/Dashboard');
     setMenuOpen(false);
   };
-
-  const handleLogout = () => {
-    localStorage.clear();
-    sessionStorage.removeItem('authToken');
-    setIsLoggedIn(false);
-    setUserType('user');
-    setMenuOpen(false);
-    router.push('/');
+ 
+     const handleLogout = async () => {
+    try {
+      await axios.get("/api/auth/logout");
+     await signOut({ redirect: false });
+      dispatch(clearUser());
+      setUser(null);
+     router.push("/");
+    } catch (error) {
+      console.error("Logout error", error);
+    }
   };
 
   const handleDemoLogin = (type = 'user') => {
@@ -162,12 +162,25 @@ const Navbaar = () => {
           <button onClick={() => router.push('/Servicepage')} className="text-black hover:text-emerald-600 transition-colors duration-300 font-bold text-lg tracking-wide font-sans">Services</button>
           <Link href="/Blog" className="text-black hover:text-emerald-600 transition-colors duration-300 font-bold text-lg tracking-wide font-sans">Blog</Link>
           <Link href="/enquiry" className="text-black hover:text-emerald-600 transition-colors duration-300 font-bold text-lg tracking-wide font-sans">Enquiry</Link>
-          {!isLoggedIn ? (
-            <div className="relative group">
-              <button onClick={handleSignup} className="bg-blue-500 cursor-pointer hover:bg-emerald-700 text-white px-6 py-3 rounded-full shadow-md transition-all duration-300 font-bold text-lg tracking-wide font-sans">
-                Login 
+          {!user ? (
+            <>
+           
+              <button onClick={handleSignup} className="bg-emerald-500 cursor-pointer hover:bg-blue-700 text-white px-6 py-3 rounded-full shadow-md transition-all duration-300 font-bold text-lg tracking-wide font-sans ml-2">
+                Register
               </button>
-              
+            </>
+          ) : user.role === 'superadmin' ? (
+            <div className="relative group">
+              <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full shadow-md transition-all duration-300 font-bold text-lg tracking-wide font-sans">
+                Superadmin
+              </button>
+              <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div className="py-2">
+                  <div className="px-4 py-2 text-sm text-gray-700 border-b font-bold tracking-wide font-sans">Superadmin Account</div>
+                  <button onClick={handleDashboard} className="w-full text-left px-4 py-2 text-sm text-purple-600 hover:bg-purple-50 font-bold tracking-wide font-sans">Dashboard</button>
+                  <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold tracking-wide font-sans">Logout</button>
+                </div>
+              </div>
             </div>
           ) : (
             <div className="relative group">
@@ -176,11 +189,8 @@ const Navbaar = () => {
               </button>
               <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <div className="py-2">
-                  <div className="px-4 py-2 text-sm text-gray-700 border-b font-bold tracking-wide font-sans">{userType === 'partner' ? 'Partner Account' : userType === 'admin' ? 'Admin Account' : 'My Account'}</div>
+                  <div className="px-4 py-2 text-sm text-gray-700 border-b font-bold tracking-wide font-sans">My Account</div>
                   <button onClick={handleDashboard} className="w-full text-left px-4 py-2 text-sm text-blue-600 hover:bg-blue-50 font-bold tracking-wide font-sans">Dashboard</button>
-                  {userType === 'admin' && (
-                    <button onClick={() => router.push('/admin/dashboard')} className="w-full text-left px-4 py-2 text-sm text-emerald-600 hover:bg-emerald-50 font-bold tracking-wide font-sans">Admin Dashboard</button>
-                  )}
                   <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 font-bold tracking-wide font-sans">Logout</button>
                 </div>
               </div>
@@ -208,16 +218,19 @@ const Navbaar = () => {
           <button onClick={() => { router.push('/Servicepage'); toggleMenu(); }} className="w-full text-left hover:text-emerald-600 py-3 font-bold text-lg tracking-wide font-sans">Services</button>
           <Link href="/Blog" className="w-full text-left hover:text-emerald-600 py-3 font-bold text-lg tracking-wide font-sans" onClick={toggleMenu}>Blog</Link>
 
-          {!isLoggedIn ? (
+          {!user ? (
             <div className="space-y-2 mt-4">
-              <button onClick={handleSignup} className="w-full bg-blue-600 hover:bg-blue-700 text-white px-5 py-4 rounded-lg transition-all duration-300 font-bold text-lg tracking-wide font-sans">Signup</button>
+              <button onClick={handleLogin} className="w-full bg-blue-500 hover:bg-blue-700 text-white px-5 py-4 rounded-lg transition-all duration-300 font-bold text-lg tracking-wide font-sans">Login</button>
+              <button onClick={handleSignup} className="w-full bg-emerald-500 hover:bg-emerald-700 text-white px-5 py-4 rounded-lg transition-all duration-300 font-bold text-lg tracking-wide font-sans">Signup</button>
             </div>
+          ) : user.role === 'superadmin' ? (
+            <>
+              <button onClick={handleDashboard} className="w-full text-left text-purple-600 hover:text-purple-700 py-3 font-bold text-lg tracking-wide font-sans">Superadmin Dashboard</button>
+              <button onClick={handleLogout} className="w-full text-left text-red-600 hover:text-red-700 py-3 font-bold text-lg tracking-wide font-sans">Logout</button>
+            </>
           ) : (
             <>
               <button onClick={handleDashboard} className="w-full text-left text-blue-600 hover:text-blue-700 py-3 font-bold text-lg tracking-wide font-sans">Dashboard</button>
-              {userType === 'admin' && (
-                <button onClick={() => { router.push('/admin/dashboard'); toggleMenu(); }} className="w-full text-left text-emerald-600 hover:text-emerald-700 py-3 font-bold text-lg tracking-wide font-sans">Admin Dashboard</button>
-              )}
               <button onClick={handleLogout} className="w-full text-left text-red-600 hover:text-red-700 py-3 font-bold text-lg tracking-wide font-sans">Logout</button>
             </>
           )}

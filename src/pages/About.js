@@ -14,7 +14,7 @@ const About = () => {
         />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-emerald-50 pt-24" style={{ fontFamily: 'Inter, sans-serif' }}>
+      <div className="min-h-screen bg-green-50 pt-24" style={{ fontFamily: 'Inter, sans-serif' }}>
         {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl animate-pulse" />

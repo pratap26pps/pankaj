@@ -18,37 +18,6 @@ import Head from 'next/head';
 
 const Index = () => {
   const router = useRouter();
-  const plugin = React.useRef(
-    Autoplay({ delay: 7000, stopOnInteraction: false })
-  );
-
-  const mobilePosterImages = [
-    '/images/banner/2.jpg',
-    '/images/banner/3.jpg',
-    '/images/banner/2.jpg',
-    '/images/banner/4.jpg',
-  ];
-
-  const desktopPosterImages = [
-    '/images/banner/3.jpg ',
-    '/images/banner/2.jpg',
-    '/images/banner/3.jpg',
-    '/images/banner/4.jpg',
-  ];
-
-  const [isMobile, setIsMobile] = React.useState(false);
-
-  React.useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkIsMobile();
-    window.addEventListener('resize', checkIsMobile);
-    return () => window.removeEventListener('resize', checkIsMobile);
-  }, []);
-
-  const posterImages = isMobile ? mobilePosterImages : desktopPosterImages;
-
   const handleClick = () => {
     router.push('/ServiceForm');
   };
@@ -64,40 +33,24 @@ const Index = () => {
         />
       </Head>
 
-      <div className="min-h-screen w-full" style={{ fontFamily: 'Inter, sans-serif' }}>
-        {/* ✅ Hero Carousel Section - UNCHANGED */}
-      <div className="w-full flex items-start justify-center 2xl:mt-6 md:mt-2 lg:mt-5 pt-10 sm:pt-1 md:pt-10">
-        <div className="w-full">
-          <Carousel plugins={[plugin.current]} className="w-full relative">
-            <CarouselContent>
-              {posterImages.map((image, index) => (
-                <CarouselItem key={index} className="basis-full">
-                  <div className="relative w-full h-[30vh] sm:h-[40vh] md:h-[60vh] lg:h-[70vh] xl:h-[80vh] rounded-xl overflow-hidden shadow-xl">
-                    <Card className="w-full h-full border-0 shadow-none">
-                      <CardContent className="p-0 h-full flex items-center justify-center">
-                        <Image
-                          src={image}
-                          alt={`Poster ${index + 1}`}
-                          width={1920}
-                          height={600}
-                          className="w-full h-full object-fill my-2 transition-all duration-500 ease-in-out hover:scale-[1.02]"
-                          priority={index === 0}
-                        />
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-
-            <CarouselPrevious className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/90 hover:bg-gray-800 text-black border-0 shadow-lg rounded-full w-10 h-10 sm:w-12 sm:h-12 z-10" />
-            <CarouselNext className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/90 hover:bg-gray-700 text-black border-0 shadow-lg rounded-full w-10 h-10 sm:w-12 sm:h-12 z-10" />
-          </Carousel>
+      <div className="h-full w-full " style={{ fontFamily: 'Inter, sans-serif' }}>
+        {/* ✅ Hero Image Section - Full Width/Height */}
+        <div className="w-full flex items-start justify-center pt-30 2xl:mt-10 md:mt-2 lg:mt-5  sm:pt-1 md:pt-10">
+          <div className="w-full">
+            <div className="relative w-full h-[calc(100vh-5rem)]"> {/* 5rem = 80px navbar height */}
+              <Image
+                src="/images/banner/1.jpg"
+                alt="Hero Banner"
+                fill
+                className="object-fill mt-8 w-full h-full"
+                priority
+              />
+            </div>
+          </div>
         </div>
-      </div>
 
       {/* ✅ Hero Section - Professional Redesign */}
-      <div className="w-full bg-white py-20 px-4">
+      <div className="w-full bg-green-50 py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -157,7 +110,7 @@ const Index = () => {
       </div>
 
       {/* ✅ Professional Features Section */}
-      <div className="w-full bg-gray-50 py-20">
+      <div className="w-full bg-green-50 py-20">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
