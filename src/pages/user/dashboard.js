@@ -33,10 +33,7 @@ import {
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Steps } from 'antd';
 import { CheckCircle, Loader, ClipboardCheck, PackageCheck } from "lucide-react"; // or use react-icons
-
-import { SettingOutlined } from '@ant-design/icons';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -212,32 +209,52 @@ const Dashboard = () => {
         </div>
 
         <div className="bg-white p-6 rounded-2xl border border-blue-100 shadow-inner">
-          <Steps
-            direction="vertical"
-            current={2}
-            items={[
-              {
-                title: <span className="font-semibold text-gray-800">Service Booked</span>,
-                description: <span className="text-sm text-slate-500">Your booking has been confirmed.</span>,
-                icon: <ClipboardCheck className="text-blue-500" />,
-              },
-              {
-                title: <span className="font-semibold text-gray-800">In Service</span>,
-                description: <span className="text-sm text-slate-500">Vehicle is currently being serviced.</span>,
-                icon: <Loader className="text-amber-500 animate-spin-slow" />,
-              },
-              {
-                title: <span className="font-semibold text-gray-800">Ready for Pickup</span>,
-                description: <span className="text-sm text-slate-500">Service completed and ready for delivery.</span>,
-                icon: <PackageCheck className="text-green-500" />,
-              },
-              {
-                title: <span className="font-semibold text-gray-800">Completed</span>,
-                description: <span className="text-sm text-slate-500">Vehicle handed over to the customer.</span>,
-                icon: <CheckCircle className="text-emerald-500" />,
-              },
-            ]}
-          />
+          <div className="space-y-6">
+            <div className="flex items-start space-x-4">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                  <ClipboardCheck className="text-white w-4 h-4" />
+                </div>
+              </div>
+              <div className="flex-1">
+                <h4 className="font-semibold text-gray-800">Service Booked</h4>
+                <p className="text-sm text-slate-500">Your booking has been confirmed.</p>
+              </div>
+            </div>
+            <div className="flex items-start space-x-4">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center">
+                  <Loader className="text-white w-4 h-4 animate-spin" />
+                </div>
+              </div>
+              <div className="flex-1">
+                <h4 className="font-semibold text-gray-800">In Service</h4>
+                <p className="text-sm text-slate-500">Vehicle is currently being serviced.</p>
+              </div>
+            </div>
+            <div className="flex items-start space-x-4">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                  <PackageCheck className="text-white w-4 h-4" />
+                </div>
+              </div>
+              <div className="flex-1">
+                <h4 className="font-semibold text-gray-800">Ready for Pickup</h4>
+                <p className="text-sm text-slate-500">Service completed and ready for delivery.</p>
+              </div>
+            </div>
+            <div className="flex items-start space-x-4">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                  <CheckCircle className="text-white w-4 h-4" />
+                </div>
+              </div>
+              <div className="flex-1">
+                <h4 className="font-semibold text-gray-800">Completed</h4>
+                <p className="text-sm text-slate-500">Vehicle handed over to the customer.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </CardContent>
    

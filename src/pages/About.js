@@ -1,21 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Card, Typography, Row, Col, Space, Divider, Button } from "antd";
-import {
-  ThunderboltOutlined,
-  CarOutlined,
-  EnvironmentOutlined,
-  SafetyOutlined,
-  BulbOutlined,
-  HeartOutlined,
-  RocketOutlined,
-  CheckCircleOutlined,
-  AudioOutlined,
-  ToolOutlined,
-} from "@ant-design/icons";
 import Head from "next/head";
-
-const { Title, Paragraph, Text } = Typography;
 
 const About = () => {
   return (
@@ -34,7 +19,7 @@ const About = () => {
       </Head>
 
       <div
-        className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-emerald-50 mt-24"
+        className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-emerald-50 pt-24"
         style={{ fontFamily: "Inter, sans-serif" }}
       >
         {/* Background Elements */}
@@ -58,11 +43,9 @@ const About = () => {
                 <div className="absolute -top-4 -left-4 w-24 h-24 bg-gradient-to-br from-blue-400/20 to-emerald-400/20 rounded-full blur-xl" />
                 <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-to-br from-emerald-400/20 to-blue-400/20 rounded-full blur-xl" />
 
-                <Card
-                  className="relative shadow-2xl bg-white/95 backdrop-blur-lg border-0 rounded-3xl overflow-hidden hover:shadow-3xl transition-all duration-700 group"
+                <div className="relative shadow-2xl bg-white/95 backdrop-blur-lg border-0 rounded-3xl overflow-hidden hover:shadow-3xl transition-all duration-700 group"
                   style={{
-                    background:
-                      "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.95) 100%)",
+                    background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.95) 100%)",
                     border: "1px solid rgba(59, 130, 246, 0.1)",
                   }}
                 >
@@ -76,8 +59,7 @@ const About = () => {
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ duration: 1, delay: 0.8 }}
                       >
-                        <Title
-                          level={1}
+                        <h1
                           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-blue-600 mb-4 leading-tight"
                           style={{
                             fontFamily: "Playfair Display, serif",
@@ -85,7 +67,7 @@ const About = () => {
                           }}
                         >
                           GridaNeo Bharat
-                        </Title>
+                        </h1>
 
                         {/* Simple Decorative Line */}
                         <motion.div
@@ -104,7 +86,7 @@ const About = () => {
                           transition={{ duration: 0.8, delay: 1.2 }}
                           className="mb-6"
                         >
-                          <Paragraph
+                          <p
                             className="text-base sm:text-lg md:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed font-medium px-4"
                             style={{
                               fontFamily: "Inter, sans-serif",
@@ -113,7 +95,7 @@ const About = () => {
                           >
                             Leading India's clean energy revolution with smart,
                             sustainable solutions
-                          </Paragraph>
+                          </p>
                         </motion.div>
 
                         <motion.div
@@ -123,7 +105,7 @@ const About = () => {
                           className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-white rounded-full border border-green-200 shadow-sm"
                         >
                           <div className="w-3 h-3 bg-green-500 rounded-full" />
-                          <Text
+                          <span
                             className="text-xs sm:text-sm font-semibold text-gray-700"
                             style={{
                               fontFamily: "Inter, sans-serif",
@@ -131,7 +113,7 @@ const About = () => {
                             }}
                           >
                             CLEAN ENERGY PIONEERS
-                          </Text>
+                          </span>
                         </motion.div>
                       </motion.div>
                     </div>
@@ -142,7 +124,7 @@ const About = () => {
                       transition={{ duration: 0.8, delay: 1.6 }}
                       className="text-center mb-12"
                     >
-                      <Paragraph
+                      <p
                         className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed max-w-4xl mx-auto font-medium px-4"
                         style={{
                           fontFamily: "Inter, sans-serif",
@@ -156,860 +138,197 @@ const About = () => {
                         </span>{" "}
                         committed to transforming India's energy landscape
                         through two revolutionary missions:
-                      </Paragraph>
+                      </p>
                     </motion.div>
 
-                    <Row gutter={[24, 24]} className="mb-12">
-                      <Col xs={24} lg={12}>
-                        <motion.div
-                          initial={{ x: -50, opacity: 0 }}
-                          animate={{ x: 0, opacity: 1 }}
-                          transition={{ duration: 0.8, delay: 1.6 }}
-                          whileHover={{
-                            scale: 1.03,
-                            y: -8,
-                            transition: { duration: 0.3 },
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+                      <motion.div
+                        initial={{ x: -50, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.8, delay: 1.6 }}
+                        whileHover={{
+                          scale: 1.03,
+                          y: -8,
+                          transition: { duration: 0.3 },
+                        }}
+                        className="h-full"
+                      >
+                        <div
+                          className="h-full text-center border-0 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group/card"
+                          style={{
+                            background: "linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%)",
+                            border: "2px solid rgba(59, 130, 246, 0.2)",
                           }}
-                          className="h-full"
                         >
-                          <Card
-                            className="h-full text-center border-0 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group/card"
-                            style={{
-                              background:
-                                "linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%)",
-                              border: "2px solid rgba(59, 130, 246, 0.2)",
-                            }}
-                          >
-                            <div className="relative p-8">
-                              {/* Floating Icon Container */}
-                              <motion.div
-                                whileHover={{ rotate: 360 }}
-                                transition={{ duration: 0.8 }}
-                                className="relative mx-auto mb-6"
-                                style={{ width: "fit-content" }}
-                              >
-                                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center shadow-xl group-hover/card:shadow-2xl transition-all duration-500">
-                                  <ThunderboltOutlined className="text-4xl text-white" />
-                                </div>
-                                <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center">
-                                  <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                                </div>
-                              </motion.div>
-
-                              <Title
-                                level={3}
-                                className="text-xl sm:text-2xl font-bold text-blue-900 mb-4"
-                                style={{
-                                  fontFamily: "Poppins, sans-serif",
-                                  letterSpacing: "-0.01em",
-                                }}
-                              >
-                                Smart Battery Systems
-                              </Title>
-
-                              <Paragraph
-                                className="text-blue-800 leading-relaxed font-medium"
-                                style={{
-                                  fontFamily: "Inter, sans-serif",
-                                  fontSize: "16px",
-                                  lineHeight: "1.6",
-                                }}
-                              >
-                                Providing{" "}
-                                <strong>
-                                  smart, silent battery backup systems
-                                </strong>{" "}
-                                to replace diesel generators with clean,
-                                efficient energy solutions
-                              </Paragraph>
-
-                              {/* Feature Tags */}
-                              <div className="flex flex-wrap justify-center gap-2 mt-4">
-                                <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
-                                  Silent
-                                </span>
-                                <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
-                                  Efficient
-                                </span>
-                                <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
-                                  Smart
-                                </span>
+                          <div className="relative p-8">
+                            {/* Floating Icon Container */}
+                            <motion.div
+                              whileHover={{ rotate: 360 }}
+                              transition={{ duration: 0.8 }}
+                              className="relative mx-auto mb-6"
+                              style={{ width: "fit-content" }}
+                            >
+                              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center shadow-xl group-hover/card:shadow-2xl transition-all duration-500">
+                                <span className="text-4xl text-white">⚡</span>
                               </div>
-                            </div>
-                          </Card>
-                        </motion.div>
-                      </Col>
+                              <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center">
+                                <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                              </div>
+                            </motion.div>
 
-                      <Col xs={24} lg={12}>
-                        <motion.div
-                          initial={{ x: 50, opacity: 0 }}
-                          animate={{ x: 0, opacity: 1 }}
-                          transition={{ duration: 0.8, delay: 1.8 }}
-                          whileHover={{
-                            scale: 1.03,
-                            y: -8,
-                            transition: { duration: 0.3 },
+                            <h3
+                              className="text-2xl font-bold text-blue-800 mb-4"
+                              style={{ fontFamily: "Poppins, sans-serif" }}
+                            >
+                              Silent Battery Backup Systems
+                            </h3>
+                            <p className="text-blue-700 leading-relaxed">
+                              Providing reliable, eco-friendly power solutions for homes and businesses across India
+                            </p>
+                          </div>
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        initial={{ x: 50, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.8, delay: 1.8 }}
+                        whileHover={{
+                          scale: 1.03,
+                          y: -8,
+                          transition: { duration: 0.3 },
+                        }}
+                        className="h-full"
+                      >
+                        <div
+                          className="h-full text-center border-0 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group/card"
+                          style={{
+                            background: "linear-gradient(135deg, #dcfce7 0%, #bbf7d0 50%, #86efac 100%)",
+                            border: "2px solid rgba(34, 197, 94, 0.2)",
                           }}
-                          className="h-full"
                         >
-                          <Card
-                            className="h-full text-center border-0 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group/card"
-                            style={{
-                              background:
-                                "linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%)",
-                              border: "2px solid rgba(16, 185, 129, 0.2)",
-                            }}
-                          >
-                            <div className="relative p-8">
-                              {/* Floating Icon Container */}
-                              <motion.div
-                                whileHover={{ rotate: 360 }}
-                                transition={{ duration: 0.8 }}
-                                className="relative mx-auto mb-6"
-                                style={{ width: "fit-content" }}
-                              >
-                                <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-2xl flex items-center justify-center shadow-xl group-hover/card:shadow-2xl transition-all duration-500">
-                                  <CarOutlined className="text-4xl text-white" />
-                                </div>
-                                <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full flex items-center justify-center">
-                                  <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                                </div>
-                              </motion.div>
-
-                              <Title
-                                level={3}
-                                className="text-xl sm:text-2xl font-bold text-emerald-900 mb-4"
-                                style={{
-                                  fontFamily: "Poppins, sans-serif",
-                                  letterSpacing: "-0.01em",
-                                }}
-                              >
-                                EV Services
-                              </Title>
-
-                              <Paragraph
-                                className="text-emerald-800 leading-relaxed font-medium"
-                                style={{
-                                  fontFamily: "Inter, sans-serif",
-                                  fontSize: "16px",
-                                  lineHeight: "1.6",
-                                }}
-                              >
-                                Offering{" "}
-                                <strong>
-                                  reliable EV servicing and maintenance
-                                </strong>{" "}
-                                to support India's electric mobility
-                                transformation
-                              </Paragraph>
-
-                              {/* Feature Tags */}
-                              <div className="flex flex-wrap justify-center gap-2 mt-4">
-                                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
-                                  Reliable
-                                </span>
-                                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
-                                  Expert
-                                </span>
-                                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
-                                  Future
-                                </span>
+                          <div className="relative p-8">
+                            {/* Floating Icon Container */}
+                            <motion.div
+                              whileHover={{ rotate: 360 }}
+                              transition={{ duration: 0.8 }}
+                              className="relative mx-auto mb-6"
+                              style={{ width: "fit-content" }}
+                            >
+                              <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center shadow-xl group-hover/card:shadow-2xl transition-all duration-500">
+                                <span className="text-4xl text-white">🚗</span>
                               </div>
-                            </div>
-                          </Card>
-                        </motion.div>
-                      </Col>
-                    </Row>
+                              <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full flex items-center justify-center">
+                                <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                              </div>
+                            </motion.div>
 
+                            <h3
+                              className="text-2xl font-bold text-green-800 mb-4"
+                              style={{ fontFamily: "Poppins, sans-serif" }}
+                            >
+                              Electric Vehicle Services
+                            </h3>
+                            <p className="text-green-700 leading-relaxed">
+                              Comprehensive maintenance and support for the growing EV ecosystem in India
+                            </p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    </div>
+
+                    {/* Mission Statement */}
                     <motion.div
                       initial={{ y: 30, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: 0.8, delay: 2.0 }}
                       className="text-center"
                     >
-                      <div className="relative p-8 rounded-2xl bg-gradient-to-r from-gray-50 to-blue-50 border border-gray-200/50">
-                        <Paragraph
-                          className="text-lg sm:text-xl text-gray-800 leading-relaxed mb-0 font-medium"
-                          style={{
-                            fontFamily: "Inter, sans-serif",
-                            lineHeight: "1.7",
-                          }}
+                      <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-2xl p-8 border border-blue-100">
+                        <h2
+                          className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4"
+                          style={{ fontFamily: "Playfair Display, serif" }}
                         >
-                          Our{" "}
-                          <span className="text-blue-600 font-semibold">
-                            clean-energy solutions
-                          </span>{" "}
-                          deliver long-term savings, zero emissions, and peace
-                          of mind — built for{" "}
-                          <span className="text-emerald-600 font-semibold">
-                            homes, businesses, farms, and institutions
-                          </span>
-                          .
-                        </Paragraph>
-
-                        {/* Decorative Elements */}
-                        <div className="absolute top-4 left-4 w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
-                        <div
-                          className="absolute bottom-4 right-4 w-2 h-2 bg-emerald-400 rounded-full animate-pulse"
-                          style={{ animationDelay: "0.5s" }}
-                        />
+                          Our Mission
+                        </h2>
+                        <p
+                          className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto"
+                          style={{ fontFamily: "Inter, sans-serif" }}
+                        >
+                          To accelerate India's transition to sustainable energy by providing innovative, 
+                          reliable, and accessible clean energy solutions that empower communities and 
+                          businesses to thrive in a greener future.
+                        </p>
                       </div>
                     </motion.div>
                   </div>
-                </Card>
+                </div>
               </div>
             </motion.div>
 
-            {/* Mission and Vision */}
-            <Row gutter={[24, 32]} className="mb-20">
-              <Col xs={24} lg={12}>
-                <motion.div
-                  initial={{ x: -50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.8 }}
-                  whileHover={{
-                    scale: 1.02,
-                    y: -5,
-                    transition: { duration: 0.3 },
-                  }}
-                  className="h-full"
-                >
-                  <div className="relative h-full">
-                    {/* Background Glow Effect */}
-                    <div className="absolute -inset-2 bg-gradient-to-r from-orange-400/20 to-red-400/20 rounded-3xl blur-xl opacity-70" />
-
-                    <Card
-                      className="relative h-full border-0 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-700 group/mission"
-                      style={{
-                        background:
-                          "linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%)",
-                        border: "2px solid rgba(59, 130, 246, 0.2)",
-                      }}
-                    >
-                      {/* Animated Pattern Overlay */}
-                      <div className="absolute inset-0 opacity-10 group-hover/mission:opacity-20 transition-opacity duration-700">
-                        <div className="absolute top-4 left-4 w-8 h-8 border-2 border-white/30 rounded-full" />
-                        <div className="absolute top-8 right-8 w-4 h-4 bg-white/20 rounded-full" />
-                        <div className="absolute bottom-8 left-8 w-6 h-6 border border-white/30 rotate-45" />
-                        <div className="absolute bottom-4 right-12 w-3 h-3 bg-white/30 rounded-full" />
-                      </div>
-
-                      <div className="relative p-8 sm:p-10">
-                        <div className="text-center mb-8">
-                          <motion.div
-                            whileHover={{
-                              rotate: [0, -10, 10, -10, 0],
-                              scale: 1.1,
-                            }}
-                            transition={{ duration: 0.6 }}
-                            className="relative mx-auto mb-6"
-                            style={{ width: "fit-content" }}
-                          >
-                            <div className="w-20 h-20 bg-gradient-to-br from-orange-600 to-red-600 rounded-2xl flex items-center justify-center shadow-2xl group-hover/mission:shadow-3xl transition-all duration-500">
-                              <RocketOutlined className="text-4xl text-white" />
-                            </div>
-                            {/* Floating Particles */}
-                            <div
-                              className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full animate-bounce"
-                              style={{ animationDelay: "0.5s" }}
-                            />
-                            <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-gradient-to-r from-red-400 to-pink-400 rounded-full animate-pulse" />
-                          </motion.div>
-
-                          <Title
-                            level={2}
-                            className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-4 drop-shadow-lg"
-                            style={{
-                              fontFamily: "Playfair Display, serif",
-                              letterSpacing: "-0.01em",
-                            }}
-                          >
-                            Our Mission
-                          </Title>
-
-                          <div className="w-16 h-1 bg-white/80 rounded-full mx-auto mb-6" />
-                        </div>
-
-                        <motion.div
-                          initial={{ y: 20, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          transition={{ duration: 0.6, delay: 1.0 }}
-                        >
-                          <Paragraph
-                            className="text-lg sm:text-xl text-white leading-relaxed text-center mb-8 font-medium drop-shadow-md"
-                            style={{
-                              fontFamily: "Inter, sans-serif",
-                              lineHeight: "1.7",
-                            }}
-                          >
-                            Deliver sustainable, noise-free power and dependable
-                            EV support that enhances lives and powers progress.
-                          </Paragraph>
-                        </motion.div>
-
-                        {/* Feature Pills */}
-                        <div className="flex flex-wrap justify-center gap-3">
-                          <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30"
-                          >
-                            <AudioOutlined className="text-yellow-200" />
-                            <Text
-                              className="text-white font-semibold text-sm"
-                              style={{ fontFamily: "Inter, sans-serif" }}
-                            >
-                              Silent
-                            </Text>
-                          </motion.div>
-
-                          <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30"
-                          >
-                            <CheckCircleOutlined className="text-green-200" />
-                            <Text
-                              className="text-white font-semibold text-sm"
-                              style={{ fontFamily: "Inter, sans-serif" }}
-                            >
-                              Sustainable
-                            </Text>
-                          </motion.div>
-
-                          <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30"
-                          >
-                            <SafetyOutlined className="text-blue-200" />
-                            <Text
-                              className="text-white font-semibold text-sm"
-                              style={{ fontFamily: "Inter, sans-serif" }}
-                            >
-                              Reliable
-                            </Text>
-                          </motion.div>
-                        </div>
-                      </div>
-                    </Card>
-                  </div>
-                </motion.div>
-              </Col>
-
-              <Col xs={24} lg={12}>
-                <motion.div
-                  initial={{ x: 50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 1.0 }}
-                  whileHover={{
-                    scale: 1.02,
-                    y: -5,
-                    transition: { duration: 0.3 },
-                  }}
-                  className="h-full"
-                >
-                  <div className="relative h-full">
-                    {/* Background Glow Effect */}
-                    <div className="absolute -inset-2 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-3xl blur-xl opacity-70" />
-
-                    <Card
-                      className="relative h-full border-0 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-700 group/vision"
-                      style={{
-                        background:
-                          "linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%)",
-                        border: "2px solid rgba(16, 185, 129, 0.2)",
-                      }}
-                    >
-                      {/* Animated Pattern Overlay */}
-                      <div className="absolute inset-0 opacity-10 group-hover/vision:opacity-20 transition-opacity duration-700">
-                        <div className="absolute top-6 right-6 w-6 h-6 border-2 border-white/30 rounded-full" />
-                        <div className="absolute top-12 left-6 w-4 h-4 bg-white/20 rounded-full" />
-                        <div className="absolute bottom-6 right-12 w-5 h-5 border border-white/30 rotate-45" />
-                        <div className="absolute bottom-12 left-12 w-3 h-3 bg-white/30 rounded-full" />
-                      </div>
-
-                      <div className="relative p-8 sm:p-10">
-                        <div className="text-center mb-8">
-                          <motion.div
-                            whileHover={{
-                              rotate: [0, 10, -10, 10, 0],
-                              scale: 1.1,
-                            }}
-                            transition={{ duration: 0.6 }}
-                            className="relative mx-auto mb-6"
-                            style={{ width: "fit-content" }}
-                          >
-                            <div className="w-20 h-20 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-2xl group-hover/vision:shadow-3xl transition-all duration-500">
-                              <BulbOutlined className="text-4xl text-white" />
-                            </div>
-                            {/* Floating Particles */}
-                            <div
-                              className="absolute -top-1 -left-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-pink-400 rounded-full animate-bounce"
-                              style={{ animationDelay: "0.3s" }}
-                            />
-                            <div
-                              className="absolute -bottom-1 -right-1 w-3 h-3 bg-gradient-to-r from-purple-400 to-indigo-400 rounded-full animate-pulse"
-                              style={{ animationDelay: "0.7s" }}
-                            />
-                          </motion.div>
-
-                          <Title
-                            level={2}
-                            className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-4 drop-shadow-lg"
-                            style={{
-                              fontFamily: "Playfair Display, serif",
-                              letterSpacing: "-0.01em",
-                            }}
-                          >
-                            Our Vision
-                          </Title>
-
-                          <div className="w-16 h-1 bg-white/80 rounded-full mx-auto mb-6" />
-                        </div>
-
-                        <motion.div
-                          initial={{ y: 20, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          transition={{ duration: 0.6, delay: 1.2 }}
-                        >
-                          <Paragraph
-                            className="text-lg sm:text-xl text-white leading-relaxed text-center mb-8 font-medium drop-shadow-md"
-                            style={{
-                              fontFamily: "Inter, sans-serif",
-                              lineHeight: "1.7",
-                              textShadow: "0 2px 8px rgba(0,0,0,0.2)",
-                            }}
-                          >
-                            A smarter, quieter, greener Bharat — powered by
-                            clean energy solutions that transform communities
-                            and preserve our environment for future generations.
-                          </Paragraph>
-                        </motion.div>
-
-                        {/* Feature Pills */}
-                        <div className="flex flex-wrap justify-center gap-3">
-                          <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30"
-                          >
-                            <BulbOutlined className="text-yellow-200" />
-                            <Text
-                              className="text-white font-semibold text-sm"
-                              style={{ fontFamily: "Inter, sans-serif" }}
-                            >
-                              Smart
-                            </Text>
-                          </motion.div>
-
-                          <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30"
-                          >
-                            <EnvironmentOutlined className="text-green-200" />
-                            <Text
-                              className="text-white font-semibold text-sm"
-                              style={{ fontFamily: "Inter, sans-serif" }}
-                            >
-                              Green
-                            </Text>
-                          </motion.div>
-
-                          <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30"
-                          >
-                            <HeartOutlined className="text-red-200" />
-                            <Text
-                              className="text-white font-semibold text-sm"
-                              style={{ fontFamily: "Inter, sans-serif" }}
-                            >
-                              Future
-                            </Text>
-                          </motion.div>
-                        </div>
-                      </div>
-                    </Card>
-                  </div>
-                </motion.div>
-              </Col>
-            </Row>
-
-            {/* Contact Section */}
+            {/* Key Features Section */}
             <motion.div
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
+              transition={{ duration: 0.8, delay: 2.2 }}
               className="mb-20"
             >
-              <div className="text-center mb-16">
-                <motion.div
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 1, delay: 1.4 }}
+              <div className="text-center mb-12">
+                <h2
+                  className="text-3xl sm:text-4xl font-bold text-gray-800 mb-4"
+                  style={{ fontFamily: "Playfair Display, serif" }}
                 >
-                  <Title
-                    level={1}
-                    className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black bg-gradient-to-r from-blue-600 via-emerald-600 to-indigo-600 bg-clip-text text-transparent mb-6 leading-tight"
-                    style={{
-                      fontFamily: "Playfair Display, serif",
-                      letterSpacing: "-0.02em",
-                    }}
-                  >
-                    Get In Touch
-                  </Title>
-
-                  {/* Enhanced Decorative Line */}
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: "100%" }}
-                    transition={{ duration: 1.2, delay: 1.6 }}
-                    className="relative mx-auto mb-8"
-                    style={{ maxWidth: "200px" }}
-                  >
-                    <div className="h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent rounded-full" />
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-gradient-to-r from-blue-400 to-emerald-400 rounded-full animate-pulse" />
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 1.8 }}
-                    className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-50 to-emerald-50 rounded-full border border-blue-200/50 shadow-lg"
-                  >
-                    <div className="w-4 h-4 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full animate-pulse" />
-                    <Text
-                      className="text-base font-bold text-gray-700"
-                      style={{
-                        fontFamily: "Inter, sans-serif",
-                        letterSpacing: "0.5px",
-                      }}
-                    >
-                      CONNECT WITH US TODAY
-                    </Text>
-                  </motion.div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ y: 30, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 2.0 }}
-                  className="mt-8"
-                >
-                  <Paragraph
-                    className="text-xl sm:text-2xl text-gray-600 max-w-4xl mx-auto font-medium leading-relaxed"
-                    style={{
-                      fontFamily: "Inter, sans-serif",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    Ready to embrace{" "}
-                    <span className="text-blue-600 font-semibold">
-                      clean energy
-                    </span>
-                    ? Contact us today for{" "}
-                    <span className="text-emerald-600 font-semibold">
-                      sustainable solutions
-                    </span>
-                    .
-                  </Paragraph>
-                </motion.div>
+                  Why Choose GridaNeo Bharat?
+                </h2>
+                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  We combine cutting-edge technology with deep local expertise to deliver exceptional results
+                </p>
               </div>
 
-              <Row gutter={[32, 32]}>
-                {/* Contact Information */}
-                <Col xs={24} lg={12}>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                  { icon: "⚡", title: "Innovation", desc: "Latest technology solutions" },
+                  { icon: "🛠️", title: "Expertise", desc: "Deep technical knowledge" },
+                  { icon: "🌱", title: "Sustainability", desc: "Eco-friendly approaches" },
+                  { icon: "🤝", title: "Support", desc: "24/7 customer service" }
+                ].map((feature, index) => (
                   <motion.div
-                    initial={{ x: -50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 1.4 }}
-                    whileHover={{
-                      scale: 1.02,
-                      y: -5,
-                      transition: { duration: 0.3 },
-                    }}
-                    className="h-full"
+                    key={index}
+                    initial={{ y: 30, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 2.4 + index * 0.1 }}
+                    whileHover={{ y: -5, scale: 1.02 }}
+                    className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 text-center"
                   >
-                    <div className="relative h-full">
-                      {/* Background Glow Effect */}
-                      <div className="absolute -inset-2 bg-gradient-to-r from-blue-400/20 to-emerald-400/20 rounded-3xl blur-xl opacity-70" />
-
-                      <Card
-                        className="relative h-full border-0 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-700 group/contact"
-                        style={{
-                          background:
-                            "linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%)",
-                          border: "2px solid rgba(59, 130, 246, 0.2)",
-                        }}
-                      >
-                        {/* Animated Pattern Overlay */}
-                        <div className="absolute inset-0 opacity-10 group-hover/contact:opacity-20 transition-opacity duration-700">
-                          <div className="absolute top-4 left-4 w-8 h-8 border-2 border-white/30 rounded-full" />
-                          <div className="absolute top-8 right-8 w-4 h-4 bg-white/20 rounded-full" />
-                          <div className="absolute bottom-8 left-8 w-6 h-6 border border-white/30 rotate-45" />
-                          <div className="absolute bottom-4 right-12 w-3 h-3 bg-white/30 rounded-full" />
-                        </div>
-
-                        <div className="relative p-6 sm:p-8 lg:p-10">
-                          <div className="text-center mb-8">
-                            <motion.div
-                              whileHover={{
-                                rotate: [0, -10, 10, -10, 0],
-                                scale: 1.1,
-                              }}
-                              transition={{ duration: 0.6 }}
-                              className="relative mx-auto mb-6"
-                              style={{ width: "fit-content" }}
-                            >
-                              <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-emerald-600 rounded-2xl flex items-center justify-center shadow-2xl group-hover/contact:shadow-3xl transition-all duration-500">
-                                <EnvironmentOutlined className="text-4xl text-white" />
-                              </div>
-                              {/* Floating Particles */}
-                              <div
-                                className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full animate-bounce"
-                                style={{ animationDelay: "0.5s" }}
-                              />
-                              <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full animate-pulse" />
-                            </motion.div>
-
-                            <Title
-                              level={2}
-                              className="text-xl sm:text-2xl lg:text-3xl font-black text-white mb-3 drop-shadow-lg"
-                              style={{
-                                fontFamily: "Playfair Display, serif",
-                                letterSpacing: "-0.01em",
-                              }}
-                            >
-                              Contact Us
-                            </Title>
-
-                            <Paragraph
-                              className="text-sm sm:text-base text-white/90 mb-6 font-medium"
-                              style={{
-                                fontFamily: "Inter, sans-serif",
-                                lineHeight: "1.6",
-                              }}
-                            >
-                              Power your home. Maintain your EV. Choose clean
-                              energy.
-                            </Paragraph>
-
-                            <div className="w-16 h-1 bg-white/80 rounded-full mx-auto mb-6" />
-                          </div>
-
-                          {/* Contact Pills */}
-                          <div className="space-y-3">
-                            <motion.div
-                              whileHover={{ scale: 1.05, x: 5 }}
-                              className="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300"
-                            >
-                              <EnvironmentOutlined className="text-yellow-200 text-lg flex-shrink-0" />
-                              <div className="flex-1 min-w-0">
-                                <Text
-                                  className="text-white font-semibold text-sm block"
-                                  style={{ fontFamily: "Inter, sans-serif" }}
-                                >
-                                  Office
-                                </Text>
-                                <Text
-                                  className="text-white/90 text-xs truncate"
-                                  style={{ fontFamily: "Inter, sans-serif" }}
-                                >
-                                  Safdarjung Enclave
-                                </Text>
-                              </div>
-                            </motion.div>
-
-                            <motion.a
-                              href="tel:+917982737801"
-                              whileHover={{ scale: 1.05, x: 5 }}
-                              className="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300"
-                            >
-                              <ThunderboltOutlined className="text-green-200 text-lg flex-shrink-0" />
-                              <div className="flex-1 min-w-0">
-                                <Text
-                                  className="text-white font-semibold text-sm block"
-                                  style={{ fontFamily: "Inter, sans-serif" }}
-                                >
-                                  Phone
-                                </Text>
-                                <Text
-                                  className="text-white/90 text-xs"
-                                  style={{ fontFamily: "Inter, sans-serif" }}
-                                >
-                                  +91 79827 37801
-                                </Text>
-                              </div>
-                            </motion.a>
-
-                            <motion.a
-                              href="mailto:info@gridaneobharat.com"
-                              whileHover={{ scale: 1.05, x: 5 }}
-                              className="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300"
-                            >
-                              <CarOutlined className="text-purple-200 text-lg flex-shrink-0" />
-                              <div className="flex-1 min-w-0">
-                                <Text
-                                  className="text-white font-semibold text-sm block"
-                                  style={{ fontFamily: "Inter, sans-serif" }}
-                                >
-                                  Email
-                                </Text>
-                                <Text
-                                  className="text-white/90 text-xs truncate"
-                                  style={{ fontFamily: "Inter, sans-serif" }}
-                                >
-                                  info@gridaneobharat.com
-                                </Text>
-                              </div>
-                            </motion.a>
-
-                            <motion.a
-                              href="https://www.gridaneobharat.com"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              whileHover={{ scale: 1.05, x: 5 }}
-                              className="flex items-center gap-3 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300"
-                            >
-                              <SafetyOutlined className="text-blue-200 text-lg flex-shrink-0" />
-                              <div className="flex-1 min-w-0">
-                                <Text
-                                  className="text-white font-semibold text-sm block"
-                                  style={{ fontFamily: "Inter, sans-serif" }}
-                                >
-                                  Website
-                                </Text>
-                                <Text
-                                  className="text-white/90 text-xs truncate"
-                                  style={{ fontFamily: "Inter, sans-serif" }}
-                                >
-                                  www.gridaneobharat.com
-                                </Text>
-                              </div>
-                            </motion.a>
-
-                            {/* Find My Location Button */}
-                            <motion.button
-                              whileHover={{ scale: 1.05, y: -2 }}
-                              whileTap={{ scale: 0.95 }}
-                              onClick={() => {
-                                if (navigator.geolocation) {
-                                  navigator.geolocation.getCurrentPosition(
-                                    (position) => {
-                                      const { latitude, longitude } =
-                                        position.coords;
-                                      window.open(
-                                        `https://www.google.com/maps/dir/${latitude},${longitude}/Safdarjung+Enclave,+New+Delhi`,
-                                        "_blank"
-                                      );
-                                    },
-                                    () => {
-                                      window.open(
-                                        "https://www.google.com/maps/search/Safdarjung+Enclave,+New+Delhi",
-                                        "_blank"
-                                      );
-                                    }
-                                  );
-                                } else {
-                                  window.open(
-                                    "https://www.google.com/maps/search/Safdarjung+Enclave,+New+Delhi",
-                                    "_blank"
-                                  );
-                                }
-                              }}
-                              className="w-full flex items-center justify-center gap-3 px-4 py-4 bg-gradient-to-r from-emerald-500/30 to-blue-500/30 backdrop-blur-sm rounded-full border-2 border-emerald-300/50 hover:border-emerald-300 transition-all duration-300 mt-4"
-                            >
-                              <EnvironmentOutlined className="text-emerald-200 text-xl" />
-                              <div className="text-center">
-                                <Text
-                                  className="text-white font-bold text-sm block"
-                                  style={{ fontFamily: "Inter, sans-serif" }}
-                                >
-                                  Find My Location
-                                </Text>
-                                <Text
-                                  className="text-emerald-200 text-xs"
-                                  style={{ fontFamily: "Inter, sans-serif" }}
-                                >
-                                  Get directions to our office
-                                </Text>
-                              </div>
-                            </motion.button>
-                          </div>
-                        </div>
-                      </Card>
-                    </div>
+                    <div className="text-4xl mb-4">{feature.icon}</div>
+                    <h3 className="text-xl font-bold text-gray-800 mb-2">{feature.title}</h3>
+                    <p className="text-gray-600">{feature.desc}</p>
                   </motion.div>
-                </Col>
+                ))}
+              </div>
+            </motion.div>
 
-                {/* Map */}
-                <Col xs={24} lg={12}>
-                  <motion.div
-                    initial={{ x: 50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 1.6 }}
-                    className="h-full"
-                  >
-                    <Card
-                      className="h-full shadow-2xl backdrop-blur-sm border-0 rounded-3xl overflow-hidden hover:shadow-3xl transition-all duration-500"
-                      style={{
-                        background:
-                          "linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%)",
-                        border: "2px solid rgba(16, 185, 129, 0.2)",
-                      }}
-                    >
-                      <div className="p-6">
-                        <div className="text-center mb-6">
-                          <Title
-                            level={4}
-                            className="text-xl font-bold text-gray-800 mb-4 flex items-center justify-center gap-3"
-                            style={{ fontFamily: "Poppins, sans-serif" }}
-                          >
-                            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-lg flex items-center justify-center">
-                              <EnvironmentOutlined className="text-lg text-white" />
-                            </div>
-                            Find Our Location
-                          </Title>
-                        </div>
-
-                        <motion.div
-                          whileHover={{ scale: 1.02 }}
-                          className="w-full h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-xl relative group"
-                        >
-                          <iframe
-                            title="GridaNeo Bharat Office Location - Safdarjung Enclave"
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.5234567890123!2d77.20123456789012!3d28.567890123456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce26b00000000%3A0x0000000000000000!2sSafdarjung%20Enclave%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1642345678901!5m2!1sen!2sin"
-                            width="100%"
-                            height="100%"
-                            style={{ border: 0 }}
-                            allowFullScreen
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                            className="rounded-2xl transition-transform duration-500 group-hover:scale-105"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl" />
-                        </motion.div>
-
-                        <div className="mt-6 text-center">
-                          <motion.a
-                            href="https://maps.google.com/?q=Safdarjung+Enclave,+New+Delhi"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <Button
-                              size="large"
-                              className="bg-gradient-to-r from-blue-500 to-emerald-500 text-white border-none rounded-full px-8 py-6 h-auto font-semibold hover:shadow-lg transition-all duration-300"
-                              style={{ fontFamily: "Inter, sans-serif" }}
-                            >
-                              <EnvironmentOutlined className="mr-2" />
-                              Open in Google Maps
-                            </Button>
-                          </motion.a>
-                        </div>
-                      </div>
-                    </Card>
-                  </motion.div>
-                </Col>
-              </Row>
+            {/* Call to Action */}
+            <motion.div
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 2.8 }}
+              className="text-center"
+            >
+              <div className="bg-gradient-to-r from-blue-600 to-green-600 rounded-2xl p-8 text-white">
+                <h2
+                  className="text-2xl sm:text-3xl font-bold mb-4"
+                  style={{ fontFamily: "Playfair Display, serif" }}
+                >
+                  Ready to Go Green?
+                </h2>
+                <p className="text-lg mb-6 opacity-90">
+                  Join thousands of satisfied customers who have already made the switch to sustainable energy
+                </p>
+                <button className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-300">
+                  Get Started Today
+                </button>
+              </div>
             </motion.div>
           </div>
         </div>

@@ -1,36 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Card, 
-  Avatar, 
-  Typography, 
-  Space, 
-  Tag, 
-  Button,
-  Row,
-  Col,
-  Badge,
-  Tooltip,
-  Divider
-} from 'antd';
-import {
-  CalendarOutlined,
-  EyeOutlined,
-  HeartOutlined,
-  UserOutlined,
-  ReadOutlined,
-  ShareAltOutlined,
-  CrownOutlined,
-  StarOutlined,
-  FireOutlined,
-  ThunderboltOutlined,
-  TrophyOutlined
-} from '@ant-design/icons';
-
-// Import Google Fonts
 import Head from 'next/head';
-
-const { Title, Paragraph, Text } = Typography;
 
 // Utility function to format dates consistently for SSR
 const formatDate = (dateString) => {
@@ -264,8 +234,7 @@ const Blog = () => {
             className="text-center mb-16"
           >
             <div className="relative inline-block">
-              <Title 
-                level={1} 
+              <h1 
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 mb-6 leading-tight"
                 style={{ 
                   fontFamily: 'Playfair Display, serif',
@@ -273,7 +242,7 @@ const Blog = () => {
                 }}
               >
                 Our Blog
-              </Title>
+              </h1>
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: '100%' }}
@@ -288,27 +257,27 @@ const Blog = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <Paragraph 
+              <p 
                 className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 Discover insights, success stories, and the latest developments in electric vehicle technology and sustainable transportation solutions.
-              </Paragraph>
+              </p>
               
               <div className="flex justify-center items-center gap-6 mt-8 text-gray-500">
                 <div className="flex items-center gap-2">
-                  <FireOutlined className="text-orange-500" />
-                  <Text style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '500' }}>Latest Updates</Text>
+                  <span className="text-orange-500">🔥</span>
+                  <span style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '500' }}>Latest Updates</span>
                 </div>
-                <Divider type="vertical" className="h-6" />
+                <div className="h-6 w-px bg-gray-300"></div>
                 <div className="flex items-center gap-2">
-                  <ThunderboltOutlined className="text-yellow-500" />
-                  <Text style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '500' }}>Expert Insights</Text>
+                  <span className="text-yellow-500">⚡</span>
+                  <span style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '500' }}>Expert Insights</span>
                 </div>
-                <Divider type="vertical" className="h-6" />
+                <div className="h-6 w-px bg-gray-300"></div>
                 <div className="flex items-center gap-2">
-                  <TrophyOutlined className="text-emerald-500" />
-                  <Text style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '500' }}>Success Stories</Text>
+                  <span className="text-emerald-500">🏆</span>
+                  <span style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '500' }}>Success Stories</span>
                 </div>
               </div>
             </motion.div>
@@ -322,16 +291,15 @@ const Blog = () => {
           className="mb-12"
         >
           <div className="text-center mb-8">
-            <Title 
-              level={3} 
+            <h3 
               className="text-2xl font-semibold text-gray-800 mb-2"
               style={{ fontFamily: 'Playfair Display, serif' }}
             >
               Explore by Category
-            </Title>
-            <Text className="text-gray-500" style={{ fontFamily: 'Inter, sans-serif' }}>
+            </h3>
+            <p className="text-gray-500" style={{ fontFamily: 'Inter, sans-serif' }}>
               Filter posts to find exactly what you're looking for
-            </Text>
+            </p>
           </div>
           
           <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
@@ -344,35 +312,34 @@ const Blog = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button
+                <button
                   key={category}
-                  type={selectedCategory === category ? 'primary' : 'default'}
                   onClick={() => handleCategoryFilter(category)}
-                  className={`rounded-full font-medium transition-all duration-300 ${
+                  className={`rounded-full font-medium transition-all duration-300 px-6 py-3 ${
                     selectedCategory === category 
-                      ? 'shadow-lg transform scale-105' 
-                      : 'hover:shadow-md hover:scale-102'
+                      ? 'shadow-lg transform scale-105 text-white' 
+                      : 'hover:shadow-md hover:scale-102 border'
                   }`}
                   style={{
                     fontFamily: 'Poppins, sans-serif',
-                    backgroundColor: selectedCategory === category ? categoryColors[category] : undefined,
+                    backgroundColor: selectedCategory === category ? categoryColors[category] : 'transparent',
                     borderColor: categoryColors[category],
                     color: selectedCategory === category ? 'white' : categoryColors[category]
                   }}
                 >
                   {category}
                   {selectedCategory === category && (
-                    <Badge 
-                      count={category === 'All' ? totalPosts : staticBlogPosts.filter(post => post.category === category).length} 
+                    <span 
+                      className="ml-2 px-2 py-1 rounded-full text-xs"
                       style={{ 
                         backgroundColor: 'rgba(255,255,255,0.3)', 
-                        color: 'white',
-                        marginLeft: '8px',
-                        fontSize: '11px'
+                        color: 'white'
                       }} 
-                    />
+                    >
+                      {category === 'All' ? totalPosts : staticBlogPosts.filter(post => post.category === category).length}
+                    </span>
                   )}
-                </Button>
+                </button>
               </motion.div>
             ))}
           </div>
@@ -386,30 +353,33 @@ const Blog = () => {
           className="mb-8 flex flex-col sm:flex-row justify-between items-center gap-4"
         >
           <div className="flex items-center gap-6">
-            <Badge count={totalPosts} showZero>
-              <Title level={4} className="mb-0 text-gray-700">
+            <div className="flex items-center gap-2">
+              <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+                {totalPosts}
+              </span>
+              <h4 className="mb-0 text-gray-700">
                 Admin & SuperAdmin Posts
-              </Title>
-            </Badge>
+              </h4>
+            </div>
             <div className="flex items-center gap-4 text-gray-600">
               <div className="flex items-center gap-2">
-                <CrownOutlined className="text-purple-500" />
-                <Text className="text-sm">
+                <span className="text-purple-500">👑</span>
+                <span className="text-sm">
                   {staticBlogPosts.filter(post => post.authorRole === 'superadmin').length} SuperAdmin
-                </Text>
+                </span>
               </div>
               <div className="flex items-center gap-2">
-                <StarOutlined className="text-blue-500" />
-                <Text className="text-sm">
+                <span className="text-blue-500">⭐</span>
+                <span className="text-sm">
                   {staticBlogPosts.filter(post => post.authorRole === 'admin').length} Admin
-                </Text>
+                </span>
               </div>
             </div>
           </div>
           <div className="text-right">
-            <Text className="text-gray-500 text-sm">
+            <p className="text-gray-500 text-sm">
               Showing {filteredPosts.length} of {totalPosts} posts
-            </Text>
+            </p>
           </div>
         </motion.div>
 
@@ -420,134 +390,136 @@ const Blog = () => {
               initial="hidden"
               animate="visible"
             >
-              <Row gutter={[24, 24]}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredPosts.map((post, index) => (
-                  <Col xs={24} sm={12} lg={8} key={post._id || index}>
-                    <motion.div 
-                      variants={cardVariants}
-                      layout
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
-                      <Card
-                        hoverable
-                        className="h-full shadow-xl rounded-2xl overflow-hidden border-0 bg-white/90 backdrop-blur-sm group hover:shadow-2xl transition-all duration-500"
-                        cover={
-                          <div className="relative overflow-hidden h-48">
+                  <motion.div 
+                    key={post.id || index}
+                    variants={cardVariants}
+                    layout
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="group"
+                  >
+                    <div className="h-full shadow-xl rounded-2xl overflow-hidden border-0 bg-white/90 backdrop-blur-sm hover:shadow-2xl transition-all duration-500">
+                      {/* Card Cover */}
+                      <div className="relative overflow-hidden h-48">
+                        <img
+                          alt={post.title}
+                          src={post.image}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          onError={(e) => {
+                            e.target.src = 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=400&fit=crop';
+                          }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        <span
+                          className="absolute top-4 left-4 px-3 py-1 rounded-full text-sm font-medium text-white"
+                          style={{ backgroundColor: categoryColors[post.category] || categoryColors.General }}
+                        >
+                          {post.category}
+                        </span>
+                        <div className="absolute top-4 right-4">
+                          <span 
+                            className="px-2 py-1 rounded-full text-xs font-bold text-white"
+                            style={{ 
+                              backgroundColor: post.authorRole === 'superadmin' ? '#722ed1' : '#1890ff'
+                            }}
+                          >
+                            {post.authorRole === 'superadmin' ? 'Super' : 'Admin'}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Card Content */}
+                      <div className="p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center gap-3">
                             <img
-                              alt={post.title}
-                              src={post.image}
-                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                              src={post.authorAvatar}
+                              alt={post.author}
+                              className="w-10 h-10 rounded-full object-cover"
                               onError={(e) => {
-                                e.target.src = 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=400&fit=crop';
+                                e.target.src = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face';
                               }}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            <Tag
-                              color={categoryColors[post.category] || categoryColors.General}
-                              className="absolute top-4 left-4 font-medium"
-                            >
-                              {post.category}
-                            </Tag>
-                            <div className="absolute top-4 right-4">
-                              <Badge 
-                                count={post.authorRole === 'superadmin' ? 'Super' : 'Admin'} 
-                                style={{ 
-                                  backgroundColor: post.authorRole === 'superadmin' ? '#722ed1' : '#1890ff',
-                                  fontSize: '10px'
-                                }}
-                              />
-                            </div>
-                          </div>
-                        }
-                        actions={[
-                          <Space key="stats" className="text-gray-500">
-                            <EyeOutlined />
-                            <Text className="text-sm">{post.views || 0}</Text>
-                          </Space>,
-                          <Button
-                            key="like"
-                            type="text"
-                            icon={<HeartOutlined />}
-                            onClick={() => handleLike(post._id)}
-                            className={`transition-colors duration-300 ${
-                              likedPosts.has(post._id) 
-                                ? 'text-red-500' 
-                                : 'text-gray-500 hover:text-red-500'
-                            }`}
-                          >
-                            {(post.likes || 0) + (likedPosts.has(post._id) ? 1 : 0)}
-                          </Button>,
-                          <Button
-                            key="share"
-                            type="text"
-                            icon={<ShareAltOutlined />}
-                            className="text-gray-500 hover:text-blue-500 transition-colors duration-300"
-                          >
-                            Share
-                          </Button>
-                        ]}
-                      >
-                        <div className="p-2">
-                          <div className="flex items-center justify-between mb-3">
-                            <Space>
-                              <Avatar src={post.authorAvatar} icon={<UserOutlined />} />
-                              <div>
-                                <Text strong className="text-sm" style={{ fontFamily: 'Poppins, sans-serif' }}>{post.author}</Text>
-                                <div className="flex items-center text-gray-500 text-xs">
-                                  <CalendarOutlined className="mr-1" />
-                                  {formatDate(post.createdAt)}
-                                </div>
+                            <div>
+                              <p className="font-semibold text-sm" style={{ fontFamily: 'Poppins, sans-serif' }}>{post.author}</p>
+                              <div className="flex items-center text-gray-500 text-xs">
+                                <span className="mr-1">📅</span>
+                                {formatDate(post.createdAt)}
                               </div>
-                            </Space>
-                            <Space className="text-gray-500 text-xs">
-                              <ReadOutlined />
-                              <Text className="text-xs">{post.readTime}</Text>
-                            </Space>
-                          </div>
-                          
-                          <Title 
-                            level={4} 
-                            className="mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors duration-300"
-                            style={{ fontFamily: 'Poppins, sans-serif' }}
-                          >
-                            {post.title}
-                          </Title>
-                          
-                          <Paragraph 
-                            className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3"
-                            ellipsis={{ rows: 3 }}
-                            style={{ fontFamily: 'Inter, sans-serif' }}
-                          >
-                            {post.excerpt}
-                          </Paragraph>
-                          
-                          {post.tags && post.tags.length > 0 && (
-                            <div className="flex flex-wrap gap-1">
-                              {post.tags.slice(0, 3).map((tag, tagIndex) => (
-                                <Tag 
-                                  key={`${tag}-${tagIndex}`} 
-                                  className="text-xs rounded-full font-medium"
-                                  style={{ 
-                                    fontFamily: 'Inter, sans-serif',
-                                    backgroundColor: `${categoryColors[post.category] || categoryColors.General}20`,
-                                    color: categoryColors[post.category] || categoryColors.General,
-                                    border: `1px solid ${categoryColors[post.category] || categoryColors.General}40`
-                                  }}
-                                >
-                                  {tag}
-                                </Tag>
-                              ))}
                             </div>
-                          )}
+                          </div>
+                          <div className="flex items-center text-gray-500 text-xs">
+                            <span className="mr-1">📖</span>
+                            <span className="text-xs">{post.readTime}</span>
+                          </div>
                         </div>
-                      </Card>
-                    </motion.div>
-                  </Col>
+                        
+                        <h4 
+                          className="mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors duration-300 text-lg font-bold"
+                          style={{ fontFamily: 'Poppins, sans-serif' }}
+                        >
+                          {post.title}
+                        </h4>
+                        
+                        <p 
+                          className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3"
+                          style={{ fontFamily: 'Inter, sans-serif' }}
+                        >
+                          {post.excerpt}
+                        </p>
+                        
+                        {post.tags && post.tags.length > 0 && (
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {post.tags.slice(0, 3).map((tag, tagIndex) => (
+                              <span 
+                                key={`${tag}-${tagIndex}`} 
+                                className="text-xs rounded-full font-medium px-2 py-1"
+                                style={{ 
+                                  fontFamily: 'Inter, sans-serif',
+                                  backgroundColor: `${categoryColors[post.category] || categoryColors.General}20`,
+                                  color: categoryColors[post.category] || categoryColors.General,
+                                  border: `1px solid ${categoryColors[post.category] || categoryColors.General}40`
+                                }}
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+
+                        {/* Card Actions */}
+                        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                          <div className="flex items-center gap-4 text-gray-500">
+                            <div className="flex items-center gap-1">
+                              <span>👁️</span>
+                              <span className="text-sm">{post.views || 0}</span>
+                            </div>
+                            <button
+                              onClick={() => handleLike(post.id)}
+                              className={`flex items-center gap-1 transition-colors duration-300 ${
+                                likedPosts.has(post.id) 
+                                  ? 'text-red-500' 
+                                  : 'text-gray-500 hover:text-red-500'
+                              }`}
+                            >
+                              <span>{likedPosts.has(post.id) ? '❤️' : '🤍'}</span>
+                              <span className="text-sm">{(post.likes || 0) + (likedPosts.has(post.id) ? 1 : 0)}</span>
+                            </button>
+                            <button className="flex items-center gap-1 text-gray-500 hover:text-blue-500 transition-colors duration-300">
+                              <span>📤</span>
+                              <span className="text-sm">Share</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
                 ))}
-              </Row>
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>
