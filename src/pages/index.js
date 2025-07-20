@@ -30,10 +30,10 @@ const Index = () => {
   ];
 
   const desktopPosterImages = [
+    '/images/banner/1.jpg',
+    '/images/banner/2.jpg',
     '/images/banner/3.jpg',
-    '/images/banner/3.jpg',
-    '/images/banner/3.jpg',
-    '/images/banner/3.jpg',
+    '/images/banner/4.jpg',
   ];
 
   const [isMobile, setIsMobile] = React.useState(false);
@@ -58,15 +58,15 @@ const Index = () => {
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link 
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" 
-          rel="stylesheet" 
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
         />
       </Head>
-      
+
       <div className="min-h-screen w-full" style={{ fontFamily: 'Inter, sans-serif' }}>
         {/* ✅ Hero Carousel Section - UNCHANGED */}
-      <div className="w-full flex items-start justify-center 2xl:mt-6 md:mt-6 lg:mt-5 pt-20 sm:pt-16 md:pt-10">
+      <div className="w-full flex items-start justify-center 2xl:mt-6 md:mt-2 lg:mt-5 pt-10 sm:pt-1 md:pt-10">
         <div className="w-full">
           <Carousel plugins={[plugin.current]} className="w-full relative">
             <CarouselContent>
@@ -75,12 +75,17 @@ const Index = () => {
                   <div className="relative w-full h-[30vh] sm:h-[40vh] md:h-[60vh] lg:h-[70vh] xl:h-[80vh] rounded-xl overflow-hidden shadow-xl">
                     <Card className="w-full h-full border-0 shadow-none">
                       <CardContent className="p-0 h-full flex items-center justify-center">
-                        <Image
+                        {/* <Image
                           src={image}
                           alt={`Poster ${index + 1}`}
                           fill
                           className="w-full h-full object-fill my-2 transition-all duration-500 ease-in-out hover:scale-[1.02]"
                           priority={index === 0}
+                        /> */}
+                        <img
+                          src={image}
+                          alt={`Poster ${index + 1}`}
+                          style={{ width: '100%', height: '100%', objectFit: 'fill' }}
                         />
                       </CardContent>
                     </Card>
@@ -104,9 +109,9 @@ const Index = () => {
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="text-center space-y-8"
           >
-            <h1 
+            <h1
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight"
-              style={{ 
+              style={{
                 fontFamily: 'Playfair Display, serif',
                 letterSpacing: '-0.02em'
               }}
@@ -165,13 +170,13 @@ const Index = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 
+            <h2
               className="text-4xl sm:text-5xl md:text-6xl font-bold text-green-600 mb-6"
               style={{ fontFamily: 'Playfair Display, serif', letterSpacing: '-0.01em' }}
             >
               Powering India's <span className="text-blue-600">Electric Future</span>
             </h2>
-            <p 
+            <p
               className="text-xl sm:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
@@ -194,13 +199,13 @@ const Index = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 
+              <h3
                 className="text-2xl font-bold text-green-600 mb-4 text-center group-hover:text-green-700 transition-colors"
                 style={{ fontFamily: 'Poppins, sans-serif' }}
               >
                 Lightning Fast
               </h3>
-              <p 
+              <p
                 className="text-gray-600 text-center leading-relaxed"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
@@ -222,13 +227,13 @@ const Index = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 
+              <h3
                 className="text-2xl font-bold text-blue-600 mb-4 text-center group-hover:text-blue-700 transition-colors"
                 style={{ fontFamily: 'Poppins, sans-serif' }}
               >
                 Certified Excellence
               </h3>
-              <p 
+              <p
                 className="text-gray-600 text-center leading-relaxed"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
@@ -250,13 +255,13 @@ const Index = () => {
                   ₹
                 </div>
               </div>
-              <h3 
+              <h3
                 className="text-2xl font-bold text-green-600 mb-4 text-center group-hover:text-green-700 transition-colors"
                 style={{ fontFamily: 'Poppins, sans-serif' }}
               >
                 Smart Pricing
               </h3>
-              <p 
+              <p
                 className="text-gray-600 text-center leading-relaxed"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
@@ -278,13 +283,13 @@ const Index = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h3 
+              <h3
                 className="text-2xl font-bold text-blue-600 mb-4 text-center group-hover:text-blue-700 transition-colors"
                 style={{ fontFamily: 'Poppins, sans-serif' }}
               >
                 Future Ready
               </h3>
-              <p 
+              <p
                 className="text-gray-600 text-center leading-relaxed"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
