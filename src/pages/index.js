@@ -23,14 +23,14 @@ const Index = () => {
   );
 
   const mobilePosterImages = [
-    '/images/banner/1.jpg',
+    '/images/banner/2.jpg',
     '/images/banner/3.jpg',
     '/images/banner/2.jpg',
     '/images/banner/4.jpg',
   ];
 
   const desktopPosterImages = [
-    '/images/banner/1.jpg',
+    '/images/banner/3.jpg ',
     '/images/banner/2.jpg',
     '/images/banner/3.jpg',
     '/images/banner/4.jpg',
@@ -75,17 +75,13 @@ const Index = () => {
                   <div className="relative w-full h-[30vh] sm:h-[40vh] md:h-[60vh] lg:h-[70vh] xl:h-[80vh] rounded-xl overflow-hidden shadow-xl">
                     <Card className="w-full h-full border-0 shadow-none">
                       <CardContent className="p-0 h-full flex items-center justify-center">
-                        {/* <Image
+                        <Image
                           src={image}
                           alt={`Poster ${index + 1}`}
-                          fill
+                          width={1920}
+                          height={600}
                           className="w-full h-full object-fill my-2 transition-all duration-500 ease-in-out hover:scale-[1.02]"
                           priority={index === 0}
-                        /> */}
-                        <img
-                          src={image}
-                          alt={`Poster ${index + 1}`}
-                          style={{ width: '100%', height: '100%', objectFit: 'fill' }}
                         />
                       </CardContent>
                     </Card>

@@ -235,7 +235,7 @@ const Blog = () => {
           >
             <div className="relative inline-block">
               <h1 
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 mb-6 leading-tight"
+                className="text-4xl sm:text-3xl md:text-4xl font-normal text-gray-900 mb-4 mt-10 leading-tight"
                 style={{ 
                   fontFamily: 'Playfair Display, serif',
                   letterSpacing: '-0.02em'
@@ -258,7 +258,7 @@ const Blog = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <p 
-                className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+                className="text-sm sm:text-xl text-black max-w-5xl mx-auto leading-relaxed"
                 style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 Discover insights, success stories, and the latest developments in electric vehicle technology and sustainable transportation solutions.
@@ -317,14 +317,14 @@ const Blog = () => {
                   onClick={() => handleCategoryFilter(category)}
                   className={`rounded-full font-medium transition-all duration-300 px-6 py-3 ${
                     selectedCategory === category 
-                      ? 'shadow-lg transform scale-105 text-white' 
+                      ? 'shadow-lg transform scale-105 t' 
                       : 'hover:shadow-md hover:scale-102 border'
                   }`}
                   style={{
                     fontFamily: 'Poppins, sans-serif',
                     backgroundColor: selectedCategory === category ? categoryColors[category] : 'transparent',
                     borderColor: categoryColors[category],
-                    color: selectedCategory === category ? 'white' : categoryColors[category]
+                    color: selectedCategory === category ? 'black' : categoryColors[category]
                   }}
                 >
                   {category}
@@ -332,8 +332,8 @@ const Blog = () => {
                     <span 
                       className="ml-2 px-2 py-1 rounded-full text-xs"
                       style={{ 
-                        backgroundColor: 'rgba(255,255,255,0.3)', 
-                        color: 'white'
+                        backgroundColor: '', 
+                        color: 'black'
                       }} 
                     >
                       {category === 'All' ? totalPosts : staticBlogPosts.filter(post => post.category === category).length}

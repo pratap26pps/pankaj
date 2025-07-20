@@ -164,8 +164,8 @@ const Navbaar = () => {
           <Link href="/enquiry" className="text-black hover:text-emerald-600 transition-colors duration-300 font-bold text-lg tracking-wide font-sans">Enquiry</Link>
           {!isLoggedIn ? (
             <div className="relative group">
-              <button onClick={handleSignup} className="bg-emerald-600 cursor-pointer hover:bg-emerald-700 text-white px-6 py-3 rounded-full shadow-md transition-all duration-300 font-bold text-lg tracking-wide font-sans">
-                Login / Signup
+              <button onClick={handleSignup} className="bg-blue-500 cursor-pointer hover:bg-emerald-700 text-white px-6 py-3 rounded-full shadow-md transition-all duration-300 font-bold text-lg tracking-wide font-sans">
+                Login 
               </button>
               
             </div>
