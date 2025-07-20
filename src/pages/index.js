@@ -24,16 +24,16 @@ const Index = () => {
 
   const mobilePosterImages = [
     '/images/banner/1.jpg',
-    '/images/banner/2.jpg',
+    '/images/banner/3.jpg',
     '/images/banner/2.jpg',
     '/images/banner/4.jpg',
   ];
 
   const desktopPosterImages = [
-    '/images/banner/1.jpg',
-    '/images/banner/2.jpg',
     '/images/banner/3.jpg',
-    '/images/banner/4.jpg',
+    '/images/banner/3.jpg',
+    '/images/banner/3.jpg',
+    '/images/banner/3.jpg',
   ];
 
   const [isMobile, setIsMobile] = React.useState(false);
