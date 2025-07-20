@@ -11,7 +11,7 @@ import ProductHistory from './admin/products/productlist';
 import AddCategoryProduct from './admin/products/addcategoryproduct';
 import CustomerManagement from './admin/userlist';
 import OrderManagement from './admin/order/orderlist';
-import OverviewContent from './admin/overviewcontent';
+ 
 import { 
   BarChart3, 
   ShoppingCart, 
@@ -29,12 +29,19 @@ import {
   AlertTriangle,
   Menu,
   X,
+ 
+
   HelpCircle
 } from "lucide-react";
 import MyShoppingCart from './cart';
 import AddReview from './admin/addreview';
 import MicroAdminManagement from './admin/microadmin';
 import OrderHistory from './customer/orderhistory';
+import Overview from './superadmin/overview';
+import ManageUserPage from './superadmin/manageuser';
+import VerifyPartner from './superadmin/verifypatner';
+import LiveBookingPage from './superadmin/livebooking';
+import CarouselPage from './superadmin/crausel';
  
 
 
@@ -79,7 +86,34 @@ const Dashboard = () => {
 }, [user]);
 
  
+  
+  const AdminItems = [
+    { key: 'overview', label: 'Overview', icon: <BarChart3 className="w-5 h-5" /> },
+    { key: 'manage-users', label:'ManageUsers&Centers', icon: <Users className="w-5 h-5" /> },
+    { key: 'verify-partners', label: 'Verify Partners', icon: <Users className="w-5 h-5" /> },
+    { key: 'Micro Admin', label: 'Micro Admin', icon: <Users className="w-5 h-5" /> },
+    { key: 'live-bookings', label: 'LiveBookings&Disputes', icon: <Users className="w-5 h-5" /> },
+    { key: 'AddReview', label: 'AddReview', icon: <Users className="w-5 h-5" /> },
+   
+    { key: 'Amc-Enquiry', label: 'Enquiry', icon: <HelpCircle className="w-5 h-5" /> },
+    
+    { key: 'Battery Inventory', label: 'Battery Inventory', icon:< Users className="w-5 h-5" />  },
+    { key: 'carousel', label: 'Carousel Images', icon: <Users className="w-5 h-5" />   },
+   
+  ];
+      
+  
+
  
+
+     const MicroAdminItems = [
+    { key: 'overview', label: 'Overview', icon: <BarChart3 className="w-5 h-5" /> },
+    { key: 'orders', label: 'Orders', icon: <ShoppingCart className="w-5 h-5" /> },
+    { key: 'customers', label: 'Customers', icon: <Users className="w-5 h-5" /> },
+    { key: 'Add Review', label: 'Add Review', icon: <Plus className="w-5 h-5" /> },
+    { key: 'Product-History', label: 'Product-History', icon: <Package className="w-5 h-5" /> },
+   
+  ];
 
     const CustomerItems = [
     { key: 'overview', label: 'Overview', icon: <BarChart3 className="w-5 h-5" /> },
@@ -234,10 +268,83 @@ const Modal = ({ isOpen, onClose, title, children, modalClassName }) => {
 
 
   const renderContent = () => {
-    // Customer-specific content
-   
+
+     if (user?.role === "superadmin") {
+
+    switch (selectedMenuItem) {
+      case 'overview':
+        return <Overview />;
+      case 'manage-users':
+        return (
+         < ManageUserPage/>
+        );
+      case 'verify-partners':
+        return (
+          <VerifyPartner/>
+        );
+         case 'Micro Admin':
+        return (
+          <MicroAdminManagement/>
+        );
+      case 'live-bookings':
+        return (
+          <LiveBookingPage/>
+        );
+         case 'AddReview':
+        return (
+          <AddReview/>
+        );
     
+          case 'Amc-Enquiry':
+        return (
+            <ProductHistory/>        
+        );
+          case 'Battery Inventory':
+        return (
+               <AddCategoryProduct/>      
+        );
+         
+          case 'carousel':
+        return (
+            <CarouselPage/>        
+        );
+        
     
+      default:
+        return <Overview />;
+    }
+ 
+    }
+   if (user?.role === "microadmin"){
+    switch (selectedMenuItem) {
+      case 'overview':
+        return <OverviewContent />;
+      case 'orders':
+        return (
+         <OrderManagement/>
+        );
+      case 'customers':
+        return (
+          <CustomerManagement/>
+        );
+         
+         case 'Add Review':
+        return (
+          <AddReview/>
+        );
+      case 'Product-History':
+        return (
+            <ProductHistory/>        
+        );
+     
+      default:
+        return <OverviewContent />;
+    }
+
+  }
+
+
+
       switch (selectedMenuItem) {
         case 'overview':
           return (
@@ -292,69 +399,8 @@ const Modal = ({ isOpen, onClose, title, children, modalClassName }) => {
         default:
           return <OverviewContent />;
       }
- 
 
-   if (user.role === "microadmin"){
-    switch (selectedMenuItem) {
-      case 'overview':
-        return <OverviewContent />;
-      case 'orders':
-        return (
-         <OrderManagement/>
-        );
-      case 'customers':
-        return (
-          <CustomerManagement/>
-        );
-         
-         case 'Add Review':
-        return (
-          <AddReview/>
-        );
-      case 'Product-History':
-        return (
-            <ProductHistory/>        
-        );
-     
-      default:
-        return <OverviewContent />;
-    }
-
-  }
-
-    // Admin-specific content
-    switch (selectedMenuItem) {
-      case 'overview':
-        return <OverviewContent />;
-      case 'orders':
-        return (
-         <OrderManagement/>
-        );
-      case 'customers':
-        return (
-          <CustomerManagement/>
-        );
-         case 'Micro Admin':
-        return (
-          <MicroAdminManagement/>
-        );
-      case 'Add Category/Product':
-        return (
-          <AddCategoryProduct/>
-        );
-         case 'Add Review':
-        return (
-          <AddReview/>
-        );
-      case 'Product-History':
-        return (
-            <ProductHistory/>        
-        );
-        
-     
-      default:
-        return <OverviewContent />;
-    }
+  
   };
 
  
@@ -438,7 +484,7 @@ const handleChange = (e) => {
             {/* Navigation */}
         {/* Navigation */}
 <nav className="flex-1 p-4 overflow-y-auto">
-  {user?.role === "admin" ? (
+  {user?.role === "superadmin" ? (
     <ul className="space-y-2">
       {AdminItems?.map((item) => (
         <li key={item.key}>
@@ -625,23 +671,7 @@ const handleChange = (e) => {
           </div>
         )}
       </Modal>
-      {/* <Modal
-        isOpen={trackModalOpen}
-        onClose={() => setTrackModalOpen(false)}
-        title={trackOrder ? `Track Order - ${trackOrder._id}` : 'Track Order'}
-        modalClassName="z-[110]"
-      >
-        {trackOrder && (
-          <div className="space-y-4">
-            <div>
-              <p className="text-sm text-gray-700 dark:text-gray-300"><strong>Address:</strong> {trackOrder.address}</p>
-              <p className="text-sm text-gray-700 dark:text-gray-300"><strong>Date:</strong> {trackOrder.date}</p>
-              <p className="text-sm text-gray-700 dark:text-gray-300"><strong>Status:</strong> {trackOrder.status}</p>
-             
-            </div>
-          </div>
-        )}
-      </Modal> */}
+      
       {/* Profile Modal */}
       <Modal
         isOpen={profileModalVisible}

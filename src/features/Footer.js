@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { Facebook, Instagram, Twitter, Linkedin, Building2, Users, Zap, Wrench, Phone, Mail, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
