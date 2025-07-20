@@ -11,7 +11,7 @@ import ProductHistory from './admin/products/productlist';
 import AddCategoryProduct from './admin/products/addcategoryproduct';
 import CustomerManagement from './admin/userlist';
 import OrderManagement from './admin/order/orderlist';
-import OverviewContent from './admin/overviewcontent';
+ 
 import { 
   BarChart3, 
   ShoppingCart, 
@@ -29,19 +29,19 @@ import {
   AlertTriangle,
   Menu,
   X,
-  FaUserCheck,
-  FaBookOpen,
-  FaMoneyBill,
-  FaChartBar,
-  FaBatteryHalf,
-  FaImage,
-  
+ 
+
   HelpCircle
 } from "lucide-react";
 import MyShoppingCart from './cart';
 import AddReview from './admin/addreview';
 import MicroAdminManagement from './admin/microadmin';
 import OrderHistory from './customer/orderhistory';
+import Overview from './superadmin/overview';
+import ManageUserPage from './superadmin/manageuser';
+import VerifyPartner from './superadmin/verifypatner';
+import LiveBookingPage from './superadmin/livebooking';
+import CarouselPage from './superadmin/crausel';
  
 
 
@@ -89,16 +89,16 @@ const Dashboard = () => {
   
   const AdminItems = [
     { key: 'overview', label: 'Overview', icon: <BarChart3 className="w-5 h-5" /> },
-    { key: 'manage-users', label: 'Manage Users & Centers', icon: <Users className="w-5 h-5" /> },
-    { key: 'verify-partners', label: 'Verify Partners', icon: <FaUserCheck className="w-5 h-5" /> },
+    { key: 'manage-users', label:'ManageUsers&Centers', icon: <Users className="w-5 h-5" /> },
+    { key: 'verify-partners', label: 'Verify Partners', icon: <Users className="w-5 h-5" /> },
     { key: 'Micro Admin', label: 'Micro Admin', icon: <Users className="w-5 h-5" /> },
-    { key: 'live-bookings', label: 'Live Bookings & Disputes', icon: <FaBookOpen className="w-5 h-5" /> },
-    { key: 'commissions', label: 'Commissions & Payouts', icon: <FaMoneyBill className="w-5 h-5" /> },
-    { key: 'offers', label: 'Offers & Promotions', icon: <Package className="w-5 h-5" /> },
+    { key: 'live-bookings', label: 'LiveBookings&Disputes', icon: <Users className="w-5 h-5" /> },
+    { key: 'AddReview', label: 'AddReview', icon: <Users className="w-5 h-5" /> },
+   
     { key: 'Amc-Enquiry', label: 'Enquiry', icon: <HelpCircle className="w-5 h-5" /> },
-    { key: 'analytics', label: 'Analytics', icon: <FaChartBar className="w-5 h-5" />  },
-    { key: 'inventory', label: 'Battery Inventory', icon:< FaBatteryHalf className="w-5 h-5" />  },
-    { key: 'carousel', label: 'Carousel Images', icon: <FaImage className="w-5 h-5" />   },
+    
+    { key: 'Battery Inventory', label: 'Battery Inventory', icon:< Users className="w-5 h-5" />  },
+    { key: 'carousel', label: 'Carousel Images', icon: <Users className="w-5 h-5" />   },
    
   ];
       
@@ -273,35 +273,45 @@ const Modal = ({ isOpen, onClose, title, children, modalClassName }) => {
 
     switch (selectedMenuItem) {
       case 'overview':
-        return <OverviewContent />;
-      case 'orders':
+        return <Overview />;
+      case 'manage-users':
         return (
-         <OrderManagement/>
+         < ManageUserPage/>
         );
-      case 'customers':
+      case 'verify-partners':
         return (
-          <CustomerManagement/>
+          <VerifyPartner/>
         );
          case 'Micro Admin':
         return (
           <MicroAdminManagement/>
         );
-      case 'Add Category/Product':
+      case 'live-bookings':
         return (
-          <AddCategoryProduct/>
+          <LiveBookingPage/>
         );
-         case 'Add Review':
+         case 'AddReview':
         return (
           <AddReview/>
         );
-      case 'Product-History':
+    
+          case 'Amc-Enquiry':
         return (
             <ProductHistory/>        
         );
+          case 'Battery Inventory':
+        return (
+               <AddCategoryProduct/>      
+        );
+         
+          case 'carousel':
+        return (
+            <CarouselPage/>        
+        );
         
-     
+    
       default:
-        return <OverviewContent />;
+        return <Overview />;
     }
  
     }

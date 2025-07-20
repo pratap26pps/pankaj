@@ -51,7 +51,7 @@ const Dashboard = () => {
   const [activeSection, setActiveSection] = useState('overview');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [currentTime, setCurrentTime] = useState('');
+
   const [selectedImages, setSelectedImages] = useState([]);
   const [isCarouselOpen, setIsCarouselOpen] = useState(false);
   const router = useRouter();
@@ -61,20 +61,7 @@ const Dashboard = () => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
-  // Handle client-side time display
-  useEffect(() => {
-    const updateTime = () => {
-      setCurrentTime(new Date().toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-      }));
-    };
 
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   // Mock data for admin dashboard
   const adminData = {
@@ -481,7 +468,7 @@ const Dashboard = () => {
             </Card>
           </motion.div>
         );
-
+ 
       case 'manage-users':
         return (
           <motion.div
@@ -1147,101 +1134,7 @@ const Dashboard = () => {
       </div>
 
       {/* Carousel Modal */}
-      <AnimatePresence>
-        {isCarouselOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
-              onClick={() => setIsCarouselOpen(false)}
-            />
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="fixed inset-4 sm:inset-8 lg:inset-16 z-50 bg-white/95 backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl overflow-hidden"
-            >
-              <div className="h-full flex flex-col">
-                {/* Carousel Header */}
-                <div className="flex items-center justify-between p-4 sm:p-6 border-b border-white/20">
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Carousel Images</h2>
-                  <Button
-                    onClick={() => setIsCarouselOpen(false)}
-                    variant="ghost"
-                    size="sm"
-                    className="p-2 bg-white/50 hover:bg-white/70 backdrop-blur-sm"
-                  >
-                    <FaTimes className="text-gray-600" />
-                  </Button>
-                </div>
-
-                {/* Carousel Content */}
-                <div className="flex-1 p-4 sm:p-6 overflow-y-auto">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    {selectedImages.map((image) => (
-                      <motion.div
-                        key={image.id}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="relative group"
-                      >
-                        <img
-                          src={image.preview}
-                          alt={image.name}
-                          className="w-full h-32 sm:h-40 object-cover rounded-lg shadow-md"
-                        />
-                        <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
-                          <Button
-                            onClick={() => removeImage(image.id)}
-                            className="bg-red-500 hover:bg-red-600"
-                          >
-                            <FaTrash className="mr-2" />
-                            Remove
-                          </Button>
-                        </div>
-                        <p className="text-sm text-gray-600 mt-2 truncate">{image.name}</p>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  {selectedImages.length === 0 && (
-                    <div className="text-center py-12">
-                      <FaImage className="text-4xl text-gray-400 mx-auto mb-4" />
-                      <p className="text-gray-600">No images uploaded yet</p>
-                    </div>
-                  )}
-                </div>
-
-                {/* Carousel Footer */}
-                <div className="p-4 sm:p-6 border-t border-white/20">
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <input
-                      type="file"
-                      multiple
-                      accept="image/*"
-                      onChange={handleImageUpload}
-                      className="hidden"
-                      id="carousel-image-upload"
-                    />
-                    <label htmlFor="carousel-image-upload">
-                      <Button className="bg-emerald-500 hover:bg-emerald-600 cursor-pointer w-full sm:w-auto">
-                        <FaUpload className="mr-2" />
-                        Upload Images
-                      </Button>
-                    </label>
-                    <Button variant="outline" className="w-full sm:w-auto">
-                      <FaSave className="mr-2" />
-                      Save to Carousel
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+  
     </div>
   );
 };

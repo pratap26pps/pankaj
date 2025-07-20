@@ -130,7 +130,7 @@ export default function AuthPage() {
       console.log("user role ",data)
       dispatch(setUser(data.user));
       toast.success("Login successful!");
-      router.push("/");
+      router.push("/dashboard");
     } catch (error) {
       toast.error("Something went wrong");
     } finally {

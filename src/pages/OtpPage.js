@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/slices/authSlice";
 
 const OTPPage = () => {
-  const [isDark, setIsDark] = useState(false); // White mode by default
+  const [isDark, setIsDark] = useState(false);  
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const inputRefs = useRef([]);
   const router = useRouter();
@@ -27,7 +27,7 @@ const OTPPage = () => {
 
   useEffect(() => {
     if (user) {
-      router.push("/admin/dashboard");
+      router.push("/dashboard");
     }
   }, [user, router]);
 

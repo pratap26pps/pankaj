@@ -56,7 +56,7 @@ export default function AmcEnquiry() {
       />
       {/* Responsive Form Content */}
       <form onSubmit={handleSubmit} className="relative z-10 w-full max-w-lg bg-white/90  text-gray-800 rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 backdrop-blur-md border border-blue-100 dark:border-gray-700">
-        <h2 className="text-2xl font-extrabold text-blue-700 dark:text-cyan-300 mb-2 text-center drop-shadow">Enquiry Form</h2>
+        <h2 className="text-2xl font-extrabold text-blue-700   mb-2 text-center drop-shadow">Enquiry Form</h2>
         {success && <div className="bg-green-100 text-green-800 px-4 py-2 rounded text-center font-semibold">{success}</div>}
         {error && <div className="bg-red-100 text-red-800 px-4 py-2 rounded text-center font-semibold">{error}</div>}
         <div className="grid grid-cols-1 gap-4">
