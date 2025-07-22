@@ -78,7 +78,7 @@ const Footer = () => {
                   </div>
 
                   <div>
-                    <h4 className="text-emerald-700 mb-6" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                    <h4 className="text-black text-2xl font-bold mb-6" style={{ fontFamily: 'Poppins, sans-serif' }}>
                       Follow Us
                     </h4>
                     <div className="flex gap-4 justify-center">

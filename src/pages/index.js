@@ -39,7 +39,7 @@ const Index = () => {
           <div className="w-full">
             <div className="relative w-full h-[calc(100vh-5rem)]"> {/* 5rem = 80px navbar height */}
               <Image
-                src="/images/banner/1.jpg"
+                src="/Public/images/banner/1.jpg"
                 alt="Hero Banner"
                 fill
                 className="object-fill mt-8 w-full h-full"
