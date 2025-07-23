@@ -6,20 +6,35 @@ const userSchema = new mongoose.Schema(
         lastName: { type: String, required: true },
         email: { type: String, required: true, unique: true },
         mobile: { type: String,default: ""},
+        emergencyContact: { type: String,default: ""},
+        alternatecontact: { type: String,default: ""},
         image: { type: String, default: "/images/avatar.png" }, 
         
         password: { type: String ,default: "" },  
-        role: { type: String, enum: ["Admin", "User","Partner"], default: "User" },
         accountType: {
             type: String,
             enum: ["Admin", "Partner", "User"],
             required: true,
             default: "User",
           },
-          extra1: { type: String, default: "" },
-          extra2: { type: String, default: "" },
-          extra3: { type: String, default: "" },
-          extra4: { type: String, default: "" },
+        status: { type: String, enum: ["Pending", "Approved", "Rejected"], default: "Pending" },
+        bloodgroup: { type: String, default: "" },
+        adharNumber: { type: String, default: "" },
+        panNumber: { type: String, default: "" },
+     
+        address: { type: String, default: "" },
+        pincode: { type: String, default: "" },
+        yearofexperience: { type: String, default: "" },
+        bankaccountnumber: { type: String, default: "" },
+        ifsc: { type: String, default: "" },
+        bankname: { type: String, default: "" },
+        typeOfEntity: {
+            type: String,
+            enum: ["individual", "company", "franchise","other"],
+            default: "other",
+         
+          },
+          vehicalRegistrationNumber: { type: String, default: "" },
           
     },
     { timestamps: true }

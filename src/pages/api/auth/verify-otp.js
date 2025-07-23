@@ -10,6 +10,7 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     const { code, ...pendingSignup } = req.body;
     const parsed = signupSchema.safeParse(pendingSignup);
+    console.log("Parsed Data:", parsed);
      if (!parsed.success) {
       return res.status(400).json({ message: "Validation error", error: parsed.error });
     }
@@ -24,20 +25,20 @@ export default async function handler(req, res) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     
-    const role =  "User"
+   
     const image = "/images/avatar.png";
     console.log("Data to insert:", {
   ...parsed.data,
   password: hashedPassword,
   image,
-  role,
+   
 });
 
   const userdata=  await users.create({
       ...parsed.data,
       password: hashedPassword,
       image,
-      role,
+     
     });
     await Otp.deleteMany({ email });
 
@@ -48,7 +49,7 @@ export default async function handler(req, res) {
       name: userdata.firstName + " " + userdata.lastName,
       image: userdata.image || "/images/avatar.png",
       mobile: userdata.mobile,
-      role: userdata.role,
+      role: userdata.accountType,
     }), {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

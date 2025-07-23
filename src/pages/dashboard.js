@@ -61,7 +61,21 @@ const Dashboard = () => {
     lastName: "",
     mobile: "",
     image: "",
-    email:""
+    email: "",
+    // Admin/Partner specific fields
+    emergencyContact: "",
+    alternatecontact: "",
+    bloodgroup: "",
+    adharNumber: "",
+    panNumber: "",
+    address: "",
+    pincode: "",
+    yearofexperience: "",
+    bankaccountnumber: "",
+    ifsc: "",
+    bankname: "",
+    typeOfEntity: "",
+    vehicalRegistrationNumber: ""
   });
   const [loading2, setLoading2] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -73,13 +87,27 @@ const Dashboard = () => {
   if (user) {
     const firstName = user.firstName || user.name?.split(" ")[0] || "";
     const lastName = user.lastName || user.name?.split(" ").slice(1).join(" ") || "";
-     const email = user.email
+    const email = user.email
     setProfileForm({
       firstName,
       lastName,
-       email,
+      email,
       mobile: user.mobile || "",
       image: user.image || "",
+      // Admin/Partner specific fields
+      emergencyContact: user.emergencyContact || "",
+      alternatecontact: user.alternatecontact || "",
+      bloodgroup: user.bloodgroup || "",
+      adharNumber: user.adharNumber || "",
+      panNumber: user.panNumber || "",
+      address: user.address || "",
+      pincode: user.pincode || "",
+      yearofexperience: user.yearofexperience || "",
+      bankaccountnumber: user.bankaccountnumber || "",
+      ifsc: user.ifsc || "",
+      bankname: user.bankname || "",
+      typeOfEntity: user.typeOfEntity || "",
+      vehicalRegistrationNumber: user.vehicalRegistrationNumber || ""
     });
   }
 }, [user]);
@@ -277,8 +305,9 @@ const handleChange = (e) => {
 
   const renderContent = () => {
     
-    if (user?.accountType === "Patner" || user?.accountType === "Admin")  {
+    if ((user?.accountType === "Patner"  || user?.accountType === "Admin") && user?.status === "Pending")  {
       return (
+        
         <div className="flex items-center justify-center min-h-screen bg-gray-50">
           <div className="text-center p-8">
             <div className="mb-4">
@@ -291,7 +320,7 @@ const handleChange = (e) => {
       )
     }
 
-     if (user?.role === "SuperAdmin") {
+     if (user?.accountType === "SuperAdmin") {
 
     switch (selectedMenuItem) {
       case 'overview':
@@ -328,7 +357,7 @@ const handleChange = (e) => {
  
     }
 
-     if (user?.role === "Partner") {
+     if (user?.accountType === "Partner") {
 
     switch (selectedMenuItem) {
       case 'overview':
@@ -357,7 +386,7 @@ const handleChange = (e) => {
  
     }
 
-   if (user?.role === "Admin"){
+   if (user?.accountType === "Admin"){
     switch (selectedMenuItem) {
       case 'overview':
         return <MicroBookings />;
@@ -665,7 +694,7 @@ const handleChange = (e) => {
               <div className="mt-4">
                 <span className="font-semibold">Products:</span>
                 <ul className="mt-2 space-y-2">
-                  {selectedOrder.items?.map((item, idx) => (
+                  {selectedOrder?.items?.map((item, idx) => (
                     <li key={item._id || idx} className="flex items-center gap-3 border-b pb-2 last:border-b-0">
                       {item.product?.images?.[0] && (
                         <img src={item.product.images[0]} alt={item.product.name} className="w-10 h-10 object-cover rounded border" />
@@ -740,16 +769,242 @@ const handleChange = (e) => {
           </div>
  
           <div>
-            <label className="block text-sm font-medium text-gray-700   mb-1">Phone</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
             <input
               type="tel"
               name="mobile"
               value={profileForm.mobile}
               onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
-              placeholder={user?.phone}
+              placeholder={user?.mobile || ""}
             />
           </div>
+
+          {/* Admin-specific fields */}
+          {user?.accountType === "Admin" && (
+            <>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Aadhaar Number</label>
+                  <input
+                    type="text"
+                    name="adharNumber"
+                    value={profileForm.adharNumber}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    placeholder="Enter Aadhaar number"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">PAN Number</label>
+                  <input
+                    type="text"
+                    name="panNumber"
+                    value={profileForm.panNumber}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    placeholder="Enter PAN number"
+                  />
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Blood Group</label>
+                  <input
+                    type="text"
+                    name="bloodgroup"
+                    value={profileForm.bloodgroup}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    placeholder="Enter blood group"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Years of Experience</label>
+                  <input
+                    type="text"
+                    name="yearofexperience"
+                    value={profileForm.yearofexperience}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    placeholder="Enter years of experience"
+                  />
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Alternate Contact</label>
+                  <input
+                    type="tel"
+                    name="alternatecontact"
+                    value={profileForm.alternatecontact}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    placeholder="Enter alternate contact"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Emergency Contact</label>
+                  <input
+                    type="tel"
+                    name="emergencyContact"
+                    value={profileForm.emergencyContact}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    placeholder="Enter emergency contact"
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                <textarea
+                  name="address"
+                  value={profileForm.address}
+                  onChange={handleChange}
+                  rows={3}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                  placeholder="Enter address"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Pincode</label>
+                <input
+                  type="text"
+                  name="pincode"
+                  value={profileForm.pincode}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                  placeholder="Enter pincode"
+                />
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Bank Name</label>
+                  <input
+                    type="text"
+                    name="bankname"
+                    value={profileForm.bankname}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    placeholder="Enter bank name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Bank Account Number</label>
+                  <input
+                    type="text"
+                    name="bankaccountnumber"
+                    value={profileForm.bankaccountnumber}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    placeholder="Enter bank account number"
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">IFSC Code</label>
+                <input
+                  type="text"
+                  name="ifsc"
+                  value={profileForm.ifsc}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                  placeholder="Enter IFSC code"
+                />
+              </div>
+            </>
+          )}
+
+          {/* Partner-specific fields */}
+          {user?.accountType === "Partner" && (
+            <>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Aadhaar Number</label>
+                  <input
+                    type="text"
+                    name="adharNumber"
+                    value={profileForm.adharNumber}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    placeholder="Enter Aadhaar number"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Alternate Contact</label>
+                  <input
+                    type="tel"
+                    name="alternatecontact"
+                    value={profileForm.alternatecontact}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    placeholder="Enter alternate contact"
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                <textarea
+                  name="address"
+                  value={profileForm.address}
+                  onChange={handleChange}
+                  rows={3}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                  placeholder="Enter address"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Pincode</label>
+                <input
+                  type="text"
+                  name="pincode"
+                  value={profileForm.pincode}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                  placeholder="Enter pincode"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Type of Entity</label>
+                <select
+                  name="typeOfEntity"
+                  value={profileForm.typeOfEntity}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                >
+                  <option value="">Select entity type</option>
+                  <option value="individual">Individual</option>
+                  <option value="company">Company</option>
+                  <option value="franchise">Franchise</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </>
+          )}
+
+          {/* User-specific fields */}
+          {user?.accountType === "User" && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Vehicle Registration Number (Optional)</label>
+              <input
+                type="text"
+                name="vehicalRegistrationNumber"
+                value={profileForm.vehicalRegistrationNumber}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                placeholder="Enter vehicle registration number"
+              />
+            </div>
+          )}
 
           <div className="flex justify-end space-x-3 pt-4">
             <button

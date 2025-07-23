@@ -11,8 +11,8 @@ export default function ManageUserPage() {
     const [searchQuery, setSearchQuery] = useState("");
     const [User, setUser] = useState([]);
 
-    const partner = User.filter((u) => u.role === "Partner");
-    const admin = User.filter((u) => u.role === "Admin");
+    const partner = User.filter((u) => u.accountType === "Partner");
+    const admin = User.filter((u) => u.accountType === "Admin");
 
       useEffect(() => {
         async function fetchUsers() {
@@ -28,7 +28,7 @@ export default function ManageUserPage() {
                   name: `${u.firstName} ${u.lastName}`,
                   email: u.email,
                   mobile: u.mobile,
-                  role: u.role,
+                  accountType: u.accountType,
                   orders: [],  
                 }))
               );

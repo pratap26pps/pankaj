@@ -42,10 +42,21 @@ export default function AuthPage() {
     password: "",
     confirmPassword: "",
     accountType: "",
-  extra1: "",
-  extra2: "",
-  extra3: "",
-  extra4: ""
+    adharNumber: "",
+    panNumber: "",
+    bloodgroup: "",
+    yearofexperience: "",
+    bankaccountnumber: "",
+    ifsc: "",
+    bankname: "",
+    typeOfEntity: "",
+    vehicalRegistrationNumber: "",
+    alternatecontact: "",
+    address: "",
+    pincode: "",
+    emergencyContact: "",
+    status: "Pending",
+    
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -75,14 +86,86 @@ export default function AuthPage() {
   const handleSignup = async (e) => {
     e.preventDefault();
     setErrors({});
+    
+    // Basic validation patterns
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const mobileRegex = /^[0-9]{10}$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    const adharRegex = /^[0-9]{12}$/;
+    const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+    const vehicleRegistrationRegex = /^[A-Z]{2}[0-9]{1,2}[A-Z]{1,2}[0-9]{4}$/;
+    const phoneRegex = /^[0-9]{10}$/;
+    const yearExperienceRegex = /^[0-9]{1,2}$/;
+    const bankNameRegex = /^[a-zA-Z\s]+$/;
+    const pincodeRegex = /^[0-9]{6}$/;
+    const ifscRegex = /^[A-Z]{4}0[A-Z0-9]{6}$/;
+    const bankAccountRegex = /^[0-9]{9,18}$/;
 
     const newErrors = {};
-    if (!mobileRegex.test(formData.mobile)) newErrors.mobile = "Mobile number must be exactly 10 digits";
-    if (!passwordRegex.test(formData.password)) newErrors.password = "Password must include uppercase, lowercase, number & symbol";
+    
+    // Basic required field validation
+    if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
+    if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
+    if (!formData.email.trim()) newErrors.email = "Email is required";
+    else if (!emailRegex.test(formData.email)) newErrors.email = "Please enter a valid email address";
+    if (!formData.mobile.trim()) newErrors.mobile = "Mobile number is required";
+    else if (!mobileRegex.test(formData.mobile)) newErrors.mobile = "Mobile number must be exactly 10 digits";
+    if (!formData.password) newErrors.password = "Password is required";
+    else if (!passwordRegex.test(formData.password)) newErrors.password = "Password must include uppercase, lowercase, number & symbol (min 8 chars)";
     if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords do not match";
     if (!formData.accountType) newErrors.accountType = "Please select an account type";
+
+    // Conditional validation based on account type
+    if (formData.accountType === "Admin") {
+      if (!formData.adharNumber.trim()) newErrors.adharNumber = "Aadhaar number is required for Admin";
+      else if (!adharRegex.test(formData.adharNumber)) newErrors.adharNumber = "Aadhaar number must be exactly 12 digits";
+      
+      if (!formData.panNumber.trim()) newErrors.panNumber = "PAN number is required for Admin";
+      else if (!panRegex.test(formData.panNumber)) newErrors.panNumber = "PAN number format: ABCDE1234F";
+      
+      if (!formData.bloodgroup.trim()) newErrors.bloodgroup = "Blood group is required for Admin";
+      
+      if (!formData.yearofexperience.trim()) newErrors.yearofexperience = "Years of experience is required for Admin";
+      else if (!yearExperienceRegex.test(formData.yearofexperience)) newErrors.yearofexperience = "Years of experience must be 1-2 digits";
+      
+      if (!formData.alternatecontact.trim()) newErrors.alternatecontact = "Alternate contact is required for Admin";
+      else if (!phoneRegex.test(formData.alternatecontact)) newErrors.alternatecontact = "Alternate contact must be exactly 10 digits";
+      
+      if (!formData.address.trim()) newErrors.address = "Address is required for Admin";
+      
+      if (!formData.pincode.trim()) newErrors.pincode = "Pincode is required for Admin";
+      else if (!pincodeRegex.test(formData.pincode)) newErrors.pincode = "Pincode must be exactly 6 digits";
+      
+      if (!formData.bankname.trim()) newErrors.bankname = "Bank name is required for Admin";
+      else if (!bankNameRegex.test(formData.bankname)) newErrors.bankname = "Bank name should contain only letters and spaces";
+      
+      if (!formData.bankaccountnumber.trim()) newErrors.bankaccountnumber = "Bank account number is required for Admin";
+      else if (!bankAccountRegex.test(formData.bankaccountnumber)) newErrors.bankaccountnumber = "Bank account number must be 9-18 digits";
+      
+      if (!formData.ifsc.trim()) newErrors.ifsc = "IFSC code is required for Admin";
+      else if (!ifscRegex.test(formData.ifsc)) newErrors.ifsc = "IFSC code format: ABCD0123456";
+    }
+    
+    if (formData.accountType === "Partner") {
+      if (!formData.adharNumber.trim()) newErrors.adharNumber = "Aadhaar number is required for Partner";
+      else if (!adharRegex.test(formData.adharNumber)) newErrors.adharNumber = "Aadhaar number must be exactly 12 digits";
+      
+      if (!formData.address.trim()) newErrors.address = "Address is required for Partner";
+      
+      if (!formData.pincode.trim()) newErrors.pincode = "Pincode is required for Partner";
+      else if (!pincodeRegex.test(formData.pincode)) newErrors.pincode = "Pincode must be exactly 6 digits";
+      
+      if (!formData.typeOfEntity.trim()) newErrors.typeOfEntity = "Type of entity is required for Partner";
+      
+      if (!formData.alternatecontact.trim()) newErrors.alternatecontact = "Alternate contact is required for Partner";
+      else if (!phoneRegex.test(formData.alternatecontact)) newErrors.alternatecontact = "Alternate contact must be exactly 10 digits";
+    }
+    
+    if (formData.accountType === "User") {
+      if (formData.vehicalRegistrationNumber && !vehicleRegistrationRegex.test(formData.vehicalRegistrationNumber)) {
+        newErrors.vehicalRegistrationNumber = "Vehicle registration format: AB12CD3456";
+      }
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -91,6 +174,7 @@ export default function AuthPage() {
 
     try {
       setLoading(true);
+      console.log("Form Data:", formData);
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -145,9 +229,7 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-600 py-20 relative flex items-center justify-center p-4 font-inter">
-      
-
+    <div className="min-h-screen bg-gray-600 py-24 relative flex items-center justify-center p-4 font-inter">
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -165,21 +247,21 @@ export default function AuthPage() {
           <CardContent className="space-y-6">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
              <div className="flex justify-center w-full">
-  <TabsList className="w-full max-w-md grid grid-cols-2 bg-white/10 rounded-md">
-    <TabsTrigger
-      value="login"
-      className="data-[state=active]:bg-white/20 text-white cursor-pointer"
-    >
-      Login
-    </TabsTrigger>
-    <TabsTrigger
-      value="signup"
-      className="data-[state=active]:bg-white/20 text-white cursor-pointer"
-    >
-      Sign Up
-    </TabsTrigger>
-  </TabsList>
-</div>
+            <TabsList className="w-full max-w-md grid grid-cols-2 bg-white/10 rounded-md">
+              <TabsTrigger
+                value="login"
+                className="data-[state=active]:bg-white/20 text-white cursor-pointer"
+              >
+                Login
+              </TabsTrigger>
+              <TabsTrigger
+                value="signup"
+                className="data-[state=active]:bg-white/20 text-white cursor-pointer"
+              >
+                Sign Up
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
 
               <motion.div className="mt-6">
@@ -247,13 +329,23 @@ export default function AuthPage() {
                 <TabsContent value="signup">
                   <motion.form onSubmit={handleSignup} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
                     <div className="grid grid-cols-2 gap-2">
-                      <Input name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleInputChange}    className="bg-white/10 border-white/20 text-white placeholder:text-white/60" required />
-                      <Input name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleInputChange}    className="bg-white/10 border-white/20 text-white placeholder:text-white/60" required />
+                      <div>
+                      <Input name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleInputChange}  className="bg-white/10 border-white/20 text-white placeholder:text-white/60" required />
+                      {errors.firstName && <p className="text-sm text-red-400 mt-1">{errors.firstName}</p>}
                     </div>
-                    <Input name="email" type="email" placeholder="Email" value={formData.email} onChange={handleInputChange}    className="bg-white/10 border-white/20 text-white placeholder:text-white/60" required />
-                    <Input name="mobile" type="tel" placeholder="Mobile" value={formData.mobile} onChange={handleInputChange}   className="bg-white/10 border-white/20 text-white placeholder:text-white/60" required />
-                    {errors.mobile && <p className="text-sm text-red-400">{errors.mobile}</p>}
-
+                    <div>
+                      <Input name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleInputChange}  className="bg-white/10 border-white/20 text-white placeholder:text-white/60" required />
+                      {errors.lastName && <p className="text-sm text-red-400 mt-1">{errors.lastName}</p>}
+                    </div>
+                    </div>
+                    <div>
+                    <Input name="email" type="email" placeholder="Email" value={formData.email} onChange={handleInputChange}  className="bg-white/10 border-white/20 text-white placeholder:text-white/60" required />
+                    {errors.email && <p className="text-sm text-red-400 mt-1">{errors.email}</p>}
+                  </div>
+                  <div>
+                    <Input name="mobile" type="tel" placeholder="Mobile" value={formData.mobile} onChange={handleInputChange}  className="bg-white/10 border-white/20 text-white placeholder:text-white/60" required />
+                    {errors.mobile && <p className="text-sm text-red-400 mt-1">{errors.mobile}</p>}
+                  </div>
                     <div>
                     <Label className="text-white">Select Account Type</Label>
                     <select
@@ -272,36 +364,190 @@ export default function AuthPage() {
                       <p className="text-sm text-red-400">{errors.accountType}</p>
                     )}
                   </div>
-                  {(formData.accountType === "Admin" || formData.accountType === "Partner") && (
+                  {(formData.accountType === "Admin" ) && (
                     <div className="grid grid-cols-2 gap-2">
                       <Input
-                        name="extra1"
-                        placeholder={`${formData.accountType} Field 1`}
-                        value={formData.extra1}
+                        name="adharNumber"
+                        placeholder={`Adhar Number`}
+                        value={formData.adharNumber}
+                        onChange={handleInputChange}
+                        className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                      />
+                       {errors.adharNumber && (
+                      <p className="text-sm text-red-400">{errors.adharNumber}</p>
+                    )}
+                      <Input
+                        name="panNumber"
+                        placeholder={`Pan Number`}
+                        value={formData.panNumber}
+                        onChange={handleInputChange}
+                        className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                      />
+                       {errors.panNumber && (
+                      <p className="text-sm text-red-400">{errors.panNumber}</p>
+                    )}
+                       <Input
+                        name="bloodgroup"
+                        placeholder={`Blood Group`}
+                        value={formData.bloodgroup}
+                        onChange={handleInputChange}
+                        className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                      />
+                       {errors.bloodgroup && (
+                      <p className="text-sm text-red-400">{errors.bloodgroup}</p>
+                    )}
+                      <Input
+                        name="yearofexperience"
+                        placeholder={`Year of Experience`}
+                        value={formData.yearofexperience}
+                        onChange={handleInputChange}
+                        className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                      />
+                       {errors.yearofexperience && (
+                      <p className="text-sm text-red-400">{errors.yearofexperience}</p>
+                    )}
+                       <Input
+                        name="alternatecontact"
+                        placeholder={`Alternate Contact`}
+                        value={formData.alternatecontact}
+                        onChange={handleInputChange}
+                        className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                      />
+                       {errors.alternatecontact && (
+                      <p className="text-sm text-red-400">{errors.alternatecontact}</p>
+                    )}
+                      <Input
+                        name="address"
+                        placeholder={`Address`}
+                        value={formData.address}
+                        onChange={handleInputChange}
+                        className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                      />
+                       {errors.address && (
+                      <p className="text-sm text-red-400">{errors.address}</p>
+                    )}
+                      <Input
+                        name="pincode"
+                        placeholder={`Pincode`}
+                        value={formData.pincode}
+                        onChange={handleInputChange}
+                        className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                      />
+                       {errors.pincode && (
+                      <p className="text-sm text-red-400">{errors.pincode}</p>
+                    )}
+                      <Input
+                        name="bankname"
+                        placeholder={`Bank Name`}
+                        value={formData.bankname}
                         onChange={handleInputChange}
                         className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
                       />
                       <Input
-                        name="extra2"
-                        placeholder={`${formData.accountType} Field 2`}
-                        value={formData.extra2}
+                        name="bankaccountnumber"
+                        placeholder={`Bank Account Number`}
+                        value={formData.bankaccountnumber}
                         onChange={handleInputChange}
                         className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
                       />
+                       {errors.bankaccountnumber && (
+                      <p className="text-sm text-red-400">{errors.bankaccountnumber}</p>
+                    )}
                       <Input
-                        name="extra3"
-                        placeholder={`${formData.accountType} Field 3`}
-                        value={formData.extra3}
+                        name="ifsc"
+                        placeholder={`IFSC`}
+                        value={formData.ifsc}
                         onChange={handleInputChange}
                         className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
                       />
+                      {errors.ifsc && (
+                        <p className="text-sm text-red-400">{errors.ifsc}</p>
+                      )}
+                    </div>
+                  )}  
+                   {( formData.accountType === "Partner") && (
+                    <>
+                      <div className="grid grid-cols-2 gap-2">
                       <Input
-                        name="extra4"
-                        placeholder={`${formData.accountType} Field 4`}
-                        value={formData.extra4}
+                        name="adharNumber"
+                        placeholder={`Adhar Number`}
+                        value={formData.adharNumber}
                         onChange={handleInputChange}
                         className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
                       />
+                      {errors.adharNumber && (
+                        <p className="text-sm text-red-400">{errors.adharNumber}</p>
+                      )}
+                      <Input
+                        name="address"
+                        placeholder={`Address`}
+                        value={formData.address}
+                        onChange={handleInputChange}
+                        className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                      />
+                      {errors.address && (
+                        <p className="text-sm text-red-400">{errors.address}</p>
+                      )}
+                      <Input
+                        name="pincode"
+                        placeholder={`Pincode`}
+                        value={formData.pincode}
+                        onChange={handleInputChange}
+                        className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                      />
+                      {errors.pincode && (
+                        <p className="text-sm text-red-400">{errors.pincode}</p>
+                      )}
+                      <div>
+                        <Input
+                          name="alternatecontact"
+                          placeholder={`Alternate Contact`}
+                          value={formData.alternatecontact}
+                          onChange={handleInputChange}
+                          className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                        />
+                        {errors.alternatecontact && (
+                          <p className="text-sm text-red-400 mt-1">{errors.alternatecontact}</p>
+                        )}
+                      </div>
+
+                    </div>
+                    <label className="block mb-1 text-white">Type of Entity</label>
+                      <div className="flex flex-row gap-2  rounded-md">
+                        {["individual", "company", "franchise","other"].map((role) => (
+                          <label key={role} className="flex items-center text-white space-x-2">
+                            <input
+                              type="radio"
+                              name="typeOfEntity"
+                              value={role}
+                              checked={formData.typeOfEntity === role}
+                              onChange={handleInputChange}
+                              className="accent-blue-500"
+                            />
+                            <span className="capitalize">{role}</span>
+                          </label>
+                        ))}
+                        {errors.typeOfEntity && (
+                          <p className="text-sm text-red-400">{errors.typeOfEntity}</p>
+                        )}  
+                      </div>
+                    </>
+                  
+                    
+                  )}
+                   {(formData.accountType === "User") && (
+                    <div className="grid grid-cols-2 gap-2">
+                      <Input
+                        name="vehicalRegistrationNumber"
+                        placeholder={`Vehicle Registration Number (Optional)`}
+                        value={formData.vehicalRegistrationNumber}
+                        onChange={handleInputChange}
+                        className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                      />
+                      {errors.vehicalRegistrationNumber && (
+                        <p className="text-sm text-red-400">{errors.vehicalRegistrationNumber}</p>
+                      )}
+                      
                     </div>
                   )}
 
