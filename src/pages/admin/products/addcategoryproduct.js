@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { useSelector, useDispatch } from "react-redux";
-import { addCategory,setCategories } from "@/redux/slices/categorySlice";
+import { setCategories } from "@/redux/slices/categorySlice";
 import { addProduct } from "@/redux/slices/productSlice";
 
 import toast from "react-hot-toast";
@@ -24,22 +24,22 @@ export default function AddCategoryProduct() {
   const [categoryName, setCategoryName] = useState("");
   const [categoryDesc, setCategoryDesc] = useState("");
   const [categoryImg, setCategoryImg] = useState([]);
-  const [isCustomCategory, setIsCustomCategory] = useState(false);
-  const [isHomeCategory, setIsHomeCategory] = useState(false);
+  
   const user = useSelector((state) => state.auth.user);
-    const [isCustomProduct, setIsCustomProduct] = useState(false);
-  const [isHomeProduct, setIsHomeProduct] = useState(false);
+ 
 
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [productForm, setProductForm] = useState({
     name: "",
-    price: "",
-    quantity: "",
-    images: [],
     description: "",
-    flipkartLink: "",
-    amazonLink: "",
+    images: [],
+    duration: "",
+    warranty: "",
+    recommended: "",
+    problems: [""],
+    isTopSeller: false
   });
+  
   const [catProducts, setCatProducts] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -57,12 +57,10 @@ export default function AddCategoryProduct() {
   const [editCategoryDesc, setEditCategoryDesc] = useState("");
   const [editCategoryImg, setEditCategoryImg] = useState("");
   const [editUploading, setEditUploading] = useState(false);
-  const [editIsCustomCategory, setEditIsCustomCategory] = useState(false);
-  const [showOnlyCustomCategories, setShowOnlyCustomCategories] = useState(false);
-  const [showOnlyHomeCategories, setShowOnlyHomeCategories] = useState(false);
-  const [editIsHomeCategory, setEditIsHomeCategory] = useState(false);
 
-  // Close dropdown on outside click
+ 
+
+  // Close dropdown on outside click 
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -78,39 +76,9 @@ export default function AddCategoryProduct() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownOpen]);
-
-  // Fetch all categories from backend on mount
-  useEffect(() => {
-    async function fetchCategories() {
-      try {
-        const res = await fetch('/api/categories');
-        const data = await res.json();
-        if (data.success && Array.isArray(data.categories)) {
-          setAllCategories(data.categories);
-              console.log("allCategories",data.categories);
-          dispatch(setCategories(data.categories));
-        }
-      } catch (err) {
-       console.log(err)
-      }
-    }
-    fetchCategories();
-  }, [dispatch]);
-console.log("cat product",catProducts)
-
-  const getCategoryType = () => {
-  if (isCustomCategory && isHomeCategory) return "customplushome";
-  if (isCustomCategory) return "customcategory";
-  if (isHomeCategory) return "homecategory";
-  return "homecategory"; // default
-};
-
-  const getProductType = () => {
-  if (isCustomProduct && isHomeProduct) return "customplushome";
-  if (isCustomProduct) return "customproduct";
-  if (isHomeProduct) return "homeproduct";
-  return "homeproduct"; // default
-};
+ 
+ 
+ 
   // Add a new category
   const handleAddCategory = async(e) => {
     e.preventDefault();
@@ -119,7 +87,7 @@ console.log("cat product",catProducts)
       name: categoryName,
       description: categoryDesc,
  
-     categoryType: getCategoryType(),
+      
       catImage:categoryImg,
     };
     try {
@@ -150,21 +118,40 @@ console.log("cat product",catProducts)
 
   // Add a product to the selected category (local redux)
   const handleAddProduct = (e) => {
+    console.log("productForm",productForm)
+    console.log("selectedCategory",selectedCategory)
     e.preventDefault();
-    if (!selectedCategory || !productForm.name.trim() ||!productForm.quantity || !productForm.price) return;
+    const {
+        name, duration, warranty, recommended, problems, images
+    } = productForm;
+  
+    if ( !name || !duration || !warranty || !recommended || problems.length === 0) return;
+  
     const newProduct = {
       ...productForm,
-      productType: getProductType(),
       category: selectedCategory,
-      images: productForm.images,
-      flipkartLink: productForm.flipkartLink,
-      amazonLink: productForm.amazonLink,
+      images,
     };
-      setCatProducts(prev => [...prev, newProduct]);
-    setProductForm({ name: "", price: "", quantity: "", images: [], description: "", flipkartLink: "", amazonLink: "" });
-    setMessage({ type: 'success', text: 'Product added successfully!' });
+  
+    setCatProducts(prev => [...prev, newProduct]);
+  
+    // Reset
+    setProductForm({
+      name: "",
+      duration: "",
+      warranty: "",
+      recommended: "",
+      problems: [""],
+      images: [],
+      description: "",
+      isTopSeller: false,
+      
+    });
+  
+    setMessage({ type: 'success', text: 'Service added successfully!' });
     setTimeout(() => setMessage({ type: '', text: '' }), 3000);
   };
+  
 
     const handleImageChangeforcategory = async (e) => {
     const files = Array.from(e.target.files);
@@ -254,8 +241,7 @@ console.log("cat product",catProducts)
     setEditCategoryName(cat.name);
     setEditCategoryDesc(cat.description || "");
     setEditCategoryImg(cat.catImage || "");
-    setEditIsCustomCategory(cat.categoryType === "customcategory");
-    setEditIsHomeCategory(cat.categoryType === "homecategory");
+ 
     setEditModalOpen(true);
   };
   const handleEditImageChange = async (e) => {
@@ -286,7 +272,6 @@ console.log("cat product",catProducts)
       name: editCategoryName,
       description: editCategoryDesc,
       catImage: editCategoryImg,
-      categoryType: (editIsCustomCategory && editIsHomeCategory) ? "customplushome" : (editIsCustomCategory ? "customcategory" : "homecategory"),
     };
     // Backend or local update
     if (allCategories.some(c => c._id === editCategory._id)) {
@@ -338,34 +323,7 @@ console.log("cat product",catProducts)
     {/* Category Form */}
     <form onSubmit={handleAddCategory} className="flex flex-col gap-4 w-full lg:w-3/5">
       <h3 className="text-xl font-bold text-blue-600 dark:text-cyan-300">Add New Category</h3>
-
-      {/* Checkbox */}
-      <div className="flex flex-col lg:flex-row lg:gap-5">
-       <div className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          id="isHomeCategory"
-          checked={isHomeCategory}
-          onChange={(e) => setIsHomeCategory(e.target.checked)}
-          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-        />
-        <Label htmlFor="customCategory" className="text-sm text-gray-700 dark:text-gray-300">
-          Mark as Home Category
-        </Label>
-      </div>
-     <div className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          id="customCategory"
-          checked={isCustomCategory}
-          onChange={(e) => setIsCustomCategory(e.target.checked)}
-          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-        />
-        <Label htmlFor="customCategory" className="text-sm text-gray-700 dark:text-gray-300">
-          Mark as Custom Category
-        </Label>
-      </div>
-      </div>
+ 
     
       {/* Image Input */}
       <div>
@@ -436,7 +394,7 @@ console.log("cat product",catProducts)
           <span>
             {(() => {
               if (!selectedCategory) return 'Select a category';
-              const cat = allCategories.find(c => c._id === selectedCategory) || categories?.find(c => c._id === selectedCategory);
+              const cat = categories?.find(c => c._id === selectedCategory);
               return cat ? cat.name : 'Select a category';
             })()}
           </span>
@@ -446,73 +404,10 @@ console.log("cat product",catProducts)
         {/* Dropdown Items */}
         {dropdownOpen && (
           <ul className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-900 border border-blue-200 dark:border-gray-700 rounded-lg shadow-lg max-h-60 overflow-auto">
-            {(() => {
-              const seen = new Set();
-              const uniqueBackend = allCategories?.filter(cat => {
-                if (seen.has(cat.name)) return false;
-                seen.add(cat.name);
-                return true;
-              });
-              const uniqueLocal = categories?.filter(cat => {
-                if (seen.has(cat.name)) return false;
-                seen.add(cat.name);
-                return true;
-              });
-              const filteredBackend = showOnlyCustomCategories
-                ? uniqueBackend.filter(cat => cat.categoryType === "customcategory")
-                : showOnlyHomeCategories
-                  ? uniqueBackend.filter(cat => cat.categoryType !== "customcategory")
-                  : uniqueBackend;
-              const filteredLocal = showOnlyCustomCategories
-                ? uniqueLocal.filter(cat => cat.categoryType === "customcategory")
-                : showOnlyHomeCategories
-                  ? uniqueLocal.filter(cat => cat.categoryType !== "customcategory")
-                  : uniqueLocal;
-              return [
-                ...(filteredBackend || []).map(cat => (
-                  <li key={cat._id} className="flex items-center justify-between px-3 py-2 hover:bg-blue-50 dark:hover:bg-gray-800 cursor-pointer border-b border-blue-50 dark:border-gray-700 last:border-b-0">
-                    <div
-                      className={`flex-1 ${selectedCategory === cat._id ? 'font-semibold text-blue-700 dark:text-cyan-300' : ''}`}
-                      onClick={() => { setSelectedCategory(cat._id); setDropdownOpen(false); }}
-                    >
-                     <p>{cat.name}</p> 
-                     <p className="text-gray-600">{cat.categoryType}</p> 
-                    </div>
-                     <Button
-                      size="sm"
-              
-                      className="ml-2 cursor-pointer px-2 py-1 text-xs"
-                      onClick={e => {
-                        e.stopPropagation();
-                        openEditModal(cat);
-                      }}
-                    >
-                      Edit
-                    </Button>
-                    {user?.role !== 'microadmin' && (
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      className="ml-2 px-2 py-1 cursor-pointer text-xs"
-                      onClick={async (e) => {
-                        e.stopPropagation();
-                        try {
-                          const res = await fetch(`/api/admin/${cat._id}`, { method: 'DELETE' });
-                          const data = await res.json();
-                          if (res.ok && data.success) {
-                            setAllCategories(prev => prev.filter(c => c._id !== cat._id));
-                            if (selectedCategory === cat._id) setSelectedCategory(null);
-                            toast.success(data.message)
-                          }
-                        } catch (err) { 
-                          console.log(err)
-                        }
-                      }}
-                    >Delete</Button>
-                    )}
-                  </li>
-                )),
-                ...(filteredLocal || []).map(cat => (
+        
+          
+              {
+                categories?.map(cat =>(
                   <li key={cat._id} className="flex items-center justify-between px-3 py-2 hover:bg-blue-50 dark:hover:bg-gray-800 cursor-pointer border-b border-blue-50 dark:border-gray-700 last:border-b-0">
                     <span
                       className={`flex-1 ${selectedCategory === cat._id ? 'font-semibold text-blue-700 dark:text-cyan-300' : ''}`}
@@ -545,8 +440,8 @@ console.log("cat product",catProducts)
                     )}
                   </li>
                 ))
-              ];
-            })()}
+              }                
+      
           </ul>
         )}
       </div>
@@ -565,26 +460,7 @@ console.log("cat product",catProducts)
       <Input value={editCategoryName} onChange={e => setEditCategoryName(e.target.value)} />
       <label className="font-semibold">Description</label>
       <Input value={editCategoryDesc} onChange={e => setEditCategoryDesc(e.target.value)} />
-      <div className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          id="editIsHomeCategory"
-          checked={editIsHomeCategory}
-          onChange={e => setEditIsHomeCategory(e.target.checked)}
-          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-        />
-        <label htmlFor="editIsHomeCategory" className="text-sm font-medium">Mark as Home Category</label>
-      </div>
-      <div className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          id="editIsCustomCategory"
-          checked={editIsCustomCategory}
-          onChange={e => setEditIsCustomCategory(e.target.checked)}
-          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-        />
-        <label htmlFor="editIsCustomCategory" className="text-sm font-medium">Mark as Custom Category</label>
-      </div>
+    
       <label className="font-semibold">Image</label>
       <Input type="file" accept="image/*" onChange={handleEditImageChange} />
       {editUploading ? <span>Uploading...</span> : editCategoryImg && <img src={editCategoryImg} alt="preview" className="w-16 h-16 object-cover rounded border mt-2" />}
@@ -625,139 +501,143 @@ console.log("cat product",catProducts)
                     <span className="inline-block w-2 h-2 bg-blue-400 dark:bg-cyan-400 rounded-full"></span>
                     {cat?.name}
                   </h3>
-                  <p className="text-gray-500 dark:text-gray-300 text-sm mt-1">categoryType: {cat?.categoryType || "homecategory" } </p>
+                 
                   <p className="text-gray-500 dark:text-gray-300 text-sm mt-1">Description: {cat?.description}</p>
 
                 </div>
               </div>
               {/* Product Form for this category */}
-                 {/* Checkbox */}
-      <div className="flex flex-col lg:flex-row lg:gap-5">
-       <div className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          id="isHomeProduct"
-          checked={isHomeProduct}
-          onChange={(e) => setIsHomeProduct(e.target.checked)}
-          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-        />
-        <Label htmlFor="isHomeProduct" className="text-sm text-gray-700 dark:text-gray-300">
-        Mark as Home Product
-        </Label>
-      </div>
-     <div className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          id="isCustomProduct"
-          checked={isCustomProduct}
-          onChange={(e) => setIsCustomProduct(e.target.checked)}
-          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-        />
-        <Label htmlFor="isCustomProduct" className="text-sm text-gray-700 dark:text-gray-300">
-                    Mark as Custom Product
-        </Label>
-      </div>
-      </div>
-              <form onSubmit={handleAddProduct} className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 bg-blue-50/40 dark:bg-gray-900/60 p-4 rounded-xl border border-blue-100 dark:border-gray-700 relative">
                
-                <div>
-                  <Label htmlFor="productName" className="font-semibold">Product Name</Label>
-                  <Input
-                    id="productName"
-                    value={productForm.name}
-                    onChange={(e) => setProductForm((prev) => ({ ...prev, name: e.target.value }))}
-                    placeholder="e.g. AquaSure Delight"
-                    className="mt-1 border-blue-200 dark:border-gray-700 focus:ring-blue-400 dark:bg-gray-900 dark:text-white"
-                    required
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="productPrice" className="font-semibold">Price (₹)</Label>
-                  <Input
-                    id="productPrice"
-                    type="number"
-                    value={productForm.price}
-                    onChange={(e) => setProductForm((prev) => ({ ...prev, price: e.target.value }))}
-                    placeholder="e.g. 8499"
-                    className="mt-1 border-blue-200 dark:border-gray-700 focus:ring-blue-400 dark:bg-gray-900 dark:text-white"
-                    required
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="productQuantity" className="font-semibold">Product Quantity</Label>
-                  <Input
-                    id="productquantity"
-                    type="number"
-                    value={productForm.quantity}
-                    onChange={(e) => setProductForm((prev) => ({ ...prev, quantity: e.target.value }))}
-                    placeholder="e.g. 10"
-                    className="mt-1 border-blue-200 dark:border-gray-700 focus:ring-blue-400 dark:bg-gray-900 dark:text-white"
-                    required
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="productImage" className="font-semibold">Images</Label>
-                  <Input
-                    id="productImage"
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    onChange={handleImageChange}
-                    className="mt-1 border-blue-200 dark:border-gray-700 focus:ring-blue-400 dark:bg-gray-900 dark:text-white"
-                  />
-                  {/* Preview uploaded images */}
-                  {
-                    uploading ? "uploading.. please wait" :   <div className="flex gap-2 mt-2 flex-wrap">
-                    {productForm.images && productForm.images.map((img, idx) => (
-                      <img key={idx} src={img} alt={`preview-${idx}`} className="w-14 h-14 object-cover rounded border border-blue-200 dark:border-cyan-700 shadow" />
-                    ))}
-                  </div>
-                  }
-                
-                </div>
-                 <div>
-                <Label htmlFor="productDesc" className="font-semibold pb-1">Description</Label>
-                <textarea
-                     id="productDesc"
-                    value={productForm.description}
-                    onChange={(e) => setProductForm((prev) => ({ ...prev, description: e.target.value }))}
-                   className="block w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                  placeholder="Short description"
-                />
-              </div>
-                
-                <div>
-                  <Label htmlFor="flipkartLink" className="font-semibold">Flipkart Link</Label>
-                  <Input
-                    id="flipkartLink"
-                    value={productForm.flipkartLink}
-                    onChange={e => setProductForm(prev => ({ ...prev, flipkartLink: e.target.value }))}
-                    placeholder="e.g. https://www.flipkart.com/product"
-                    className="mt-1 border-blue-200 dark:border-gray-700 focus:ring-blue-400 dark:bg-gray-900 dark:text-white"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="amazonLink" className="font-semibold">Amazon Link</Label>
-                  <Input
-                    id="amazonLink"
-                    value={productForm.amazonLink}
-                    onChange={e => setProductForm(prev => ({ ...prev, amazonLink: e.target.value }))}
-                    placeholder="e.g. https://www.amazon.in/product"
-                    className="mt-1 border-blue-200 dark:border-gray-700 focus:ring-blue-400 dark:bg-gray-900 dark:text-white"
-                  />
-                </div>
-                <div className="col-span-full flex justify-between items-center mt-2">
-                  <div className="flex gap-3 items-center">
-                    <Button type="submit" className="bg-gradient-to-r from-blue-500 to-cyan-500 dark:from-cyan-700 dark:to-blue-800 text-white font-bold shadow hover:from-blue-600 hover:to-cyan-600">
-                      Create Product
-                    </Button>
-                  </div>
-                 
-                </div>
-              </form>
+      <div className="flex flex-col lg:flex-row lg:gap-5">
+     
+      </div>
+      <form onSubmit={handleAddProduct} className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 bg-blue-50/40 dark:bg-gray-900/60 p-4 rounded-xl border border-blue-100 dark:border-gray-700 relative">
+ 
+      <div className="flex items-center space-x-2">
+  <Input
+    type="checkbox"
+    id="isTopSeller"
+    name="isTopSeller"
+    checked={productForm?.isTopSeller}
+    onChange={(e) =>
+      setProductForm({ ...productForm, isTopSeller: e.target.checked })
+    }
+    className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+  />
+  <label htmlFor="isTopSeller" className="text-sm font-medium text-gray-700">
+    Is Top Seller
+  </label>
+</div>
+
+<div>
+  <Label className="font-semibold">Title / Name</Label>
+  <Input
+    value={productForm?.name}
+    onChange={(e) => setProductForm(prev => ({ ...prev, name: e.target.value }))}
+    placeholder="e.g. Basic Service"
+    required
+  />
+</div>
+
+<div>
+  <Label className="font-semibold">Duration</Label>
+  <Input
+    value={productForm?.duration}
+    onChange={(e) => setProductForm(prev => ({ ...prev, duration: e.target.value }))}
+    placeholder="e.g. 4 Hrs"
+    required
+  />
+</div>
+
+<div>
+  <Label className="font-semibold">Warranty</Label>
+  <Input
+    value={productForm?.warranty}
+    onChange={(e) => setProductForm(prev => ({ ...prev, warranty: e.target.value }))}
+    placeholder="e.g. 1000 Kms / 3 Months"
+    required
+  />
+</div>
+
+<div>
+  <Label className="font-semibold">Recommended</Label>
+  <Input
+    value={productForm?.recommended}
+    onChange={(e) => setProductForm(prev => ({ ...prev, recommended: e.target.value }))}
+    placeholder="e.g. Every 5000 Kms / 6 Months"
+    required
+  />
+</div>
+
+<div className="col-span-full">
+  <Label className="font-semibold">Problems / Included Services</Label>
+  {productForm?.problems?.map((item, idx) => (
+    <Input
+      key={idx}
+      value={item}
+      onChange={(e) => {
+        const updated = [...productForm.problems];
+        updated[idx] = e.target.value;
+        setProductForm(prev => ({ ...prev, problems: updated }));
+      }}
+      placeholder={`Service ${idx + 1}`}
+      className="mt-1 mb-2"
+      required
+    />
+  ))}
+  <Button
+    type="button"
+    onClick={() => setProductForm(prev => ({ ...prev, problems: [...prev.problems, ""] }))}
+    className="text-sm mt-1"
+  >
+    + Add More
+  </Button>
+</div>
+
+<div>
+  <Label className="font-semibold">Images</Label>
+  <Input
+    type="file"
+    accept="image/*"
+    multiple
+    onChange={handleImageChange}
+  />
+  {uploading ? (
+    "Uploading... please wait"
+  ) : (
+    <div className="flex gap-2 mt-2 flex-wrap">
+      {productForm.images?.map((img, idx) => (
+        <img
+          key={idx}
+          src={img}
+          alt={`preview-${idx}`}
+          className="w-14 h-14 object-cover rounded border border-blue-200"
+        />
+      ))}
+    </div>
+  )}
+</div>
+
+<div className="col-span-full">
+  <Label className="font-semibold">Description</Label>
+  <textarea
+    value={productForm?.description}
+    onChange={(e) => setProductForm(prev => ({ ...prev, description: e.target.value }))}
+    placeholder="Short description"
+    className="block w-full rounded-lg px-3 py-2"
+  />
+</div>
+
+ 
+
+<div className="col-span-full mt-4">
+  <Button type="submit">Create Service</Button>
+</div>
+</form>
+
               {/* Show Add All to Database button only if there are products for this category */}
 
-              {catProducts.length > 0 && (
+              {catProducts?.length > 0 && (
                 <div className="flex justify-end mt-4">
                   <Button 
                     onClick={() => handleAddAllToDB()}
@@ -770,11 +650,11 @@ console.log("cat product",catProducts)
               )}
               {/* List products for this category */}
 
-            {catProducts.filter(p => p.category === selectedCategory).length > 0 && (
+            {catProducts?.filter(p => p.category === selectedCategory)?.length > 0 && (
               <div className="mt-6 space-y-4">
                 <h4 className="text-lg font-semibold text-blue-600 dark:text-cyan-300">Products for this Category:</h4>
                 {catProducts
-                  .filter(p => p.category === selectedCategory)
+                  .filter(p => p?.category === selectedCategory)
                   .map((product, idx) => (
                     <div
                       key={idx}
@@ -782,23 +662,23 @@ console.log("cat product",catProducts)
                     >
                       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
                         <div>
-                          <h5 className="text-md font-bold text-gray-800 dark:text-white">{product.name}</h5>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">₹ {product.price} &bull; Qty: {product.quantity}</p>
-                          {product.description && (
-                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{product.description}</p>
+                          <h5 className="text-md font-bold text-gray-800 dark:text-white">{product?.name}</h5>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">₹ {product?.price} &bull; Qty: {product?.quantity}</p>
+                          {product?.description && (
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{product?.description}</p>
                           )}
                           <div className="flex gap-2 mt-2">
-                            {product.flipkartLink && (
-                              <a href={product.flipkartLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline text-sm">Flipkart</a>
+                            {product?.flipkartLink && (
+                              <a href={product?.flipkartLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline text-sm">Flipkart</a>
                             )}
-                            {product.amazonLink && (
-                              <a href={product.amazonLink} target="_blank" rel="noopener noreferrer" className="text-yellow-600 underline text-sm">Amazon</a>
+                            {product?.amazonLink && (
+                              <a href={product?.amazonLink} target="_blank" rel="noopener noreferrer" className="text-yellow-600 underline text-sm">Amazon</a>
                             )}
                           </div>
                         </div>
-                        {product.images && product.images.length > 0 && (
+                        {product?.images && product?.images?.length > 0 && (
                           <div className="flex gap-2 mt-2 sm:mt-0 flex-wrap">
-                            {product.images.map((img, imgIdx) => (
+                            {product?.images?.map((img, imgIdx) => (
                               <img
                                 key={imgIdx}
                                 src={img}

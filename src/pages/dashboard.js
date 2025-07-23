@@ -85,16 +85,13 @@ const Dashboard = () => {
 
  
   
-  const AdminItems = [
+  const SuperAdminItems = [
     { key: 'overview', label: 'Overview', icon: <BarChart3 className="w-5 h-5" /> },
     { key: 'manage-users', label:'ManageUsers&Centers', icon: <Users className="w-5 h-5" /> },
     { key: 'verify-partners', label: 'Verify Partners', icon: <Users className="w-5 h-5" /> },
-    { key: 'Micro Admin', label: 'Micro Admin', icon: <Users className="w-5 h-5" /> },
+    { key: 'Total Users', label: 'Total Users', icon: <Users className="w-5 h-5" /> },
     { key: 'live-bookings', label: 'LiveBookings&Disputes', icon: <Users className="w-5 h-5" /> },
     { key: 'AddReview', label: 'AddReview', icon: <Users className="w-5 h-5" /> },
-   
-    { key: 'Amc-Enquiry', label: 'Enquiry', icon: <HelpCircle className="w-5 h-5" /> },
-    
     { key: 'Battery Inventory', label: 'Battery Inventory', icon:< Users className="w-5 h-5" />  },
    
   ];
@@ -108,7 +105,7 @@ const Dashboard = () => {
       { key: 'settings', label: 'Settings',icon:< Users className="w-5 h-5" />  }
     ];
  
-     const MicroAdminItems = [
+     const AdminItems = [
     { key: 'overview', label: 'Overview', icon: <BarChart3 className="w-5 h-5" /> },
     { key: 'orders', label: 'Orders', icon: <ShoppingCart className="w-5 h-5" /> },
     { key: 'customers', label: 'Customers', icon: <Users className="w-5 h-5" /> },
@@ -122,13 +119,9 @@ const Dashboard = () => {
     { key: 'orders', label: 'My Orders', icon: <ClipboardList className="w-5 h-5" /> },
     { key: 'cart', label: 'My Cart', icon: <ShoppingCart className="w-5 h-5" /> },
    
-        { key: 'service-history', label: 'Service History', icon: <ClipboardList className="w-5 h-5" />  },
- 
-        { key: 'book-service', label: 'Book Service', icon: <ClipboardList className="w-5 h-5" />  },
-        { key: 'buy-battery', label: 'Buy Battery',icon: <ClipboardList className="w-5 h-5" /> },
-       
-   
- 
+      { key: 'service-history', label: 'Service History', icon: <ClipboardList className="w-5 h-5" />  },
+      { key: 'book-service', label: 'Book Service', icon: <ClipboardList className="w-5 h-5" />  },
+      { key: 'buy-battery', label: 'Buy Battery',icon: <ClipboardList className="w-5 h-5" /> },
   ];
  
  
@@ -274,7 +267,7 @@ const handleChange = (e) => {
 
   const renderContent = () => {
 
-     if (user?.role === "superadmin") {
+     if (user?.role === "SuperAdmin") {
 
     switch (selectedMenuItem) {
       case 'overview':
@@ -287,7 +280,7 @@ const handleChange = (e) => {
         return (
           <VerifyPartner/>
         );
-         case 'Micro Admin':
+         case 'Total Users':
         return (
           <MicroAdminManagement/>
         );
@@ -299,11 +292,7 @@ const handleChange = (e) => {
         return (
           <AddReview/>
         );
-    
-          case 'Amc-Enquiry':
-        return (
-            <ProductHistory/>        
-        );
+     
           case 'Battery Inventory':
         return (
                <AddCategoryProduct/>      
@@ -315,7 +304,7 @@ const handleChange = (e) => {
  
     }
 
-     if (user?.role === "partner") {
+     if (user?.role === "Partner") {
 
     switch (selectedMenuItem) {
       case 'overview':
@@ -344,7 +333,7 @@ const handleChange = (e) => {
  
     }
 
-   if (user?.role === "microadmin"){
+   if (user?.role === "Admin"){
     switch (selectedMenuItem) {
       case 'overview':
         return <MicroBookings />;
@@ -409,9 +398,7 @@ const handleChange = (e) => {
           );
            case 'buy-battery':
           return ( 
-            <div className='-mt-24 -ml-6'>
-            <MyShoppingCart/>
-            </div>
+             router.push('/ServiceSelector?service=suraj')
           );
  
         default:
@@ -475,9 +462,9 @@ const handleChange = (e) => {
             {/* Navigation */}
         {/* Navigation */}
 <nav className="flex-1 p-4 overflow-y-auto">
-  {user?.role === "superadmin" ? (
+  {user?.role === "SuperAdmin" ? (
     <ul className="space-y-2">
-      {AdminItems?.map((item) => (
+      {SuperAdminItems?.map((item) => (
         <li key={item.key}>
           <button
             onClick={() => {
@@ -497,9 +484,9 @@ const handleChange = (e) => {
         </li>
       ))}
     </ul>
-  ) : user?.role === "microadmin" ? (
+  ) : user?.role === "Admin" ? (
     <ul className="space-y-2">
-      {MicroAdminItems.map((item) => (
+      {AdminItems.map((item) => (
         <li key={item.key}>
           <button
             onClick={() => {
@@ -519,7 +506,7 @@ const handleChange = (e) => {
         </li>
       ))}
     </ul>
-  ) : user?.role === "partner" ? (
+  ) : user?.role === "Partner" ? (
     <ul className="space-y-2">
       {PatnerItems.map((item) => (
         <li key={item.key}>

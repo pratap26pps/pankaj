@@ -70,11 +70,15 @@ const MyShoppingCart = () => {
   };
 
   const subtotal = displayItems.reduce(
-    (acc, item) => acc + item.price * (item.quantity || 1),
+    (acc, item) => acc + (item.finalPrice || item.price || 0) * (item.quantity || 1),
     0
   );
   const savings = displayItems.reduce(
-    (acc, item) => acc + ((item.originalPrice || item.price) - item.price) * (item.quantity || 1),
+    (acc, item) => {
+      const originalPrice = item.originalPrice || item.price || 0;
+      const finalPrice = item.finalPrice || item.price || 0;
+      return acc + (originalPrice - finalPrice) * (item.quantity || 1);
+    },
     0
   );
   const shipping = subtotal > 100 ? 0 : 0.00;
@@ -104,7 +108,7 @@ const MyShoppingCart = () => {
       router.push("/authpage");
       return;
     }
-    if (user.role !== "customer") {
+    if (user.role !== "User") {
       toast.error("Only customers can checkout");
       return;
     }
@@ -148,23 +152,54 @@ const MyShoppingCart = () => {
                 displayItems.map((item) => (
                   <div
                     key={item._id}
-                    className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-4  rounded-lg  mb-5 bg-gray-100"
+                    className="flex flex-col gap-4 p-6 rounded-lg mb-5 bg-gray-50 border border-gray-200"
                   >
-                    <img
-                      src={item.images?.[0]}
-                      alt={item.name}
-                      className="w-24 h-24 object-cover rounded-lg"
-                    />
-                    <div className="flex-1 space-y-2">
-                      <h4 className="text-lg font-bold">{item.name}</h4>
-                      <p className="text-sm text-gray-500">Category: {item?.category?.name}</p>
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold flex text-blue-600">
-                          <IndianRupee className="w-5 h-5 mt-1" /><p className="text-xl"> {item?.price?.toFixed(2)}</p>
-                        </span>
+                    {/* Header Section with Image and Basic Info */}
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                      <img
+                        src={item.packageImage || item.images?.[0]}
+                        alt={item.packageName || item.name}
+                        className="w-24 h-24 object-cover rounded-lg"
+                      />
+                      <div className="flex-1 space-y-2">
+                        <h4 className="text-lg font-bold">{item.packageName || item.name}</h4>
                         
+                        {/* Service Package Details */}
+                        {item.packageName && (
+                          <div className="space-y-1 text-sm text-gray-600">
+                            {item.warranty && <p>• Warranty: {item.warranty}</p>}
+                            {item.duration && <p>• Duration: {item.duration}</p>}
+                            {item.recommended && <p>• {item.recommended}</p>}
+                          </div>
+                        )}
+                        
+                        {/* Regular Product Category */}
+                        {!item.packageName && item?.category?.name && (
+                          <p className="text-sm text-gray-500">Category: {item?.category?.name}</p>
+                        )}
+                        
+                        {/* Price Display */}
+                        <div className="flex items-center gap-2">
+                          {item.offerPrice ? (
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm text-red-500 line-through flex items-center">
+                                <IndianRupee className="w-4 h-4" />
+                                {item.originalPrice?.toFixed(2)}
+                              </span>
+                              <span className="font-semibold flex text-green-600">
+                                <IndianRupee className="w-5 h-5 mt-1" />
+                                <p className="text-xl">{item.offerPrice?.toFixed(2)}</p>
+                              </span>
+                              <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">OFFER</span>
+                            </div>
+                          ) : (
+                            <span className="font-semibold flex text-blue-600">
+                              <IndianRupee className="w-5 h-5 mt-1" />
+                              <p className="text-xl">{(item.finalPrice || item?.price || 0)?.toFixed(2)}</p>
+                            </span>
+                          )}
+                        </div>
                       </div>
-                    </div>
                     {/* Only show quantity controls and remove if not skuid mode */}
                     {!skuid && (
                       <div className="flex items-center gap-2">
@@ -188,6 +223,46 @@ const MyShoppingCart = () => {
                       <button onClick={() => handleRemove(item._id)}>
                         <TrashIcon className="h-5 w-5 cursor-pointer text-red-500" />
                       </button>
+                    )}
+                    </div>
+
+                    {/* Car Selection Details */}
+                    {item.carBrand && item.carModel && (
+                      <div className="bg-white p-4 rounded-lg border">
+                        <h5 className="font-semibold text-gray-800 mb-2">Vehicle Details</h5>
+                        <div className="flex items-center gap-4">
+                          {item.carBrandImage && (
+                            <img
+                              src={item.carBrandImage}
+                              alt={item.carBrand}
+                              className="w-12 h-10 object-contain"
+                            />
+                          )}
+                          <div>
+                            <p className="font-medium text-gray-700">Brand: {item.carBrand}</p>
+                            <p className="text-sm text-gray-600">Model: {item.carModel}</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Selected Problems/Services Checklist */}
+                    {item.selectedProblems && item.selectedProblems.length > 0 && (
+                      <div className="bg-white p-4 rounded-lg border">
+                        <h5 className="font-semibold text-gray-800 mb-3">Selected Services</h5>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {item.selectedProblems.map((problem, index) => (
+                            <div key={index} className="flex items-center gap-2 text-sm">
+                              <div className="w-4 h-4 bg-green-500 rounded-sm flex items-center justify-center">
+                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              </div>
+                              <span className="text-gray-700">{problem}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     )}
                   </div>
                 ))

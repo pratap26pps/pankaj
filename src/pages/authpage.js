@@ -41,6 +41,11 @@ export default function AuthPage() {
     mobile: "",
     password: "",
     confirmPassword: "",
+    accountType: "",
+  extra1: "",
+  extra2: "",
+  extra3: "",
+  extra4: ""
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -77,6 +82,7 @@ export default function AuthPage() {
     if (!mobileRegex.test(formData.mobile)) newErrors.mobile = "Mobile number must be exactly 10 digits";
     if (!passwordRegex.test(formData.password)) newErrors.password = "Password must include uppercase, lowercase, number & symbol";
     if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords do not match";
+    if (!formData.accountType) newErrors.accountType = "Please select an account type";
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -151,7 +157,7 @@ export default function AuthPage() {
         <Card className="backdrop-blur-xl bg-gray-700 border-white/20 shadow-2xl">
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-cyan-200 font-poppins">
-              GridaNio Bharat
+              GridaNeo Bharat
             </CardTitle>
             <CardDescription className="text-white/70">Welcome to the future of authentication</CardDescription>
           </CardHeader>
@@ -247,6 +253,59 @@ export default function AuthPage() {
                     <Input name="email" type="email" placeholder="Email" value={formData.email} onChange={handleInputChange}    className="bg-white/10 border-white/20 text-white placeholder:text-white/60" required />
                     <Input name="mobile" type="tel" placeholder="Mobile" value={formData.mobile} onChange={handleInputChange}   className="bg-white/10 border-white/20 text-white placeholder:text-white/60" required />
                     {errors.mobile && <p className="text-sm text-red-400">{errors.mobile}</p>}
+
+                    <div>
+                    <Label className="text-white">Select Account Type</Label>
+                    <select
+                      name="accountType"
+                      value={formData.accountType}
+                      onChange={handleInputChange}
+                      className="mt-1 w-full bg-white/10 border-white/20 text-white placeholder:text-white/60 p-2 rounded-md"
+                      required
+                    >
+                      <option value="">-- Select --</option>
+                      <option value="Admin">Admin</option>
+                      <option value="Partner">Partner</option>
+                      <option value="User">User</option>
+                    </select>
+                    {errors.accountType && (
+                      <p className="text-sm text-red-400">{errors.accountType}</p>
+                    )}
+                  </div>
+                  {(formData.accountType === "Admin" || formData.accountType === "Partner") && (
+                    <div className="grid grid-cols-2 gap-2">
+                      <Input
+                        name="extra1"
+                        placeholder={`${formData.accountType} Field 1`}
+                        value={formData.extra1}
+                        onChange={handleInputChange}
+                        className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                      />
+                      <Input
+                        name="extra2"
+                        placeholder={`${formData.accountType} Field 2`}
+                        value={formData.extra2}
+                        onChange={handleInputChange}
+                        className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                      />
+                      <Input
+                        name="extra3"
+                        placeholder={`${formData.accountType} Field 3`}
+                        value={formData.extra3}
+                        onChange={handleInputChange}
+                        className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                      />
+                      <Input
+                        name="extra4"
+                        placeholder={`${formData.accountType} Field 4`}
+                        value={formData.extra4}
+                        onChange={handleInputChange}
+                        className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                      />
+                    </div>
+                  )}
+
+
                     <div className="grid grid-cols-2 gap-2">
                       <div className="relative">
                         <Input type={showPassword ? "text" : "password"} name="password" placeholder="Password" value={formData.password} onChange={handleInputChange}  className="bg-white/10 border-white/20 text-white placeholder:text-white/60" required />

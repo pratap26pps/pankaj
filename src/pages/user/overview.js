@@ -2,6 +2,7 @@ import React from "react";
 import { FaUser, FaTools } from "react-icons/fa";
 import { ClipboardCheck, Loader, PackageCheck, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useSelector } from "react-redux";
 
 const userData = {
     name: "John Doe",
@@ -17,6 +18,7 @@ const userData = {
 };
 
 export default function UserOverview() {
+    const userData = useSelector((state) => state.auth.user);
     return (
         <div
             className="space-y-6"
@@ -38,19 +40,19 @@ export default function UserOverview() {
                             <div className="space-y-3">
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Name:</span>
-                                    <span className="font-medium">{userData.name}</span>
+                                    <span className="font-medium">{userData?.firstName}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Email:</span>
-                                    <span className="font-medium">{userData.email}</span>
+                                    <span className="font-medium">{userData?.email}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Phone:</span>
-                                    <span className="font-medium">{userData.phone}</span>
+                                    <span className="font-medium">{userData?.mobile}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Address:</span>
-                                    <span className="font-medium">{userData.address}</span>
+                                    <span className="font-medium">{userData?.address}</span>
                                 </div>
                             </div>
                         </div>
@@ -59,19 +61,19 @@ export default function UserOverview() {
                             <div className="space-y-3">
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Model:</span>
-                                    <span className="font-medium">{userData.evDetails.model}</span>
+                                    <span className="font-medium">{userData?.evDetails?.model}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Battery:</span>
-                                    <span className="font-medium">{userData.evDetails.batteryCapacity}</span>
+                                    <span className="font-medium">{userData?.evDetails?.batteryCapacity}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Reg. No:</span>
-                                    <span className="font-medium">{userData.evDetails.registrationNumber}</span>
+                                    <span className="font-medium">{userData?.evDetails?.registrationNumber}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Color:</span>
-                                    <span className="font-medium">{userData.evDetails.color}</span>
+                                    <span className="font-medium">{userData?.evDetails?.color}</span>
                                 </div>
                             </div>
                         </div>

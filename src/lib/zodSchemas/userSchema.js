@@ -8,6 +8,7 @@ export const signupSchema = z
  mobile: z
     .string()
     .regex(/^[0-9]{10}$/, "Mobile number must be 10 digits"),
+    
   password: z
     .string()
     .min(8, "Password must be at least 8 characters")

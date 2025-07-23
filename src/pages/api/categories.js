@@ -11,8 +11,7 @@ export default async function handler(req, res) {
 
         const categories = await Category.find()
             .populate({
-                path: 'products',
-                select: 'name price quantity description images skuid flipkartLink slug amazonLink isTopSeller '
+                path: 'products'
             })
             .select('name description products categoryType catImage slug')
             .sort({ createdAt: -1 }); 

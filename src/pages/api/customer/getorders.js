@@ -1,5 +1,5 @@
-import connectDB from '@/src/lib/dbConnect';
-import Order from '@/src/models/Order';
+import connectDB from '@/lib/dbConnect';
+import Order from '@/models/Order';
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {

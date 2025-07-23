@@ -5,67 +5,16 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Clock } from "lucide-react";
 import { bikemodels } from "../Data";
-
-const packagesData = [
-  {
-    id: 1,
-    title: "Basic Service",
-    image: "/images/e2.jpg",
-    duration: "4 Hrs",
-    warranty: "1000 Kms / 3 Months",
-    recommended: "Every 5000 Kms / 6 Months",
-    problems: [
-      "Motor Controller Repair – ₹599",
-      "Motor Hallsensor Repair – ₹599",
-      "Brake Pump Replacement – ₹599",
-      "Disc Replacement – ₹499",
-      "Brake – ₹499",
-      "Any Wheel Bearing Replacement – ₹499",
-    ],
-  },
-  {
-    id: 2,
-    title: "Standard Service",
-    image: "/images/e.jpeg",
-    duration: "6 Hrs",
-    warranty: "2000 Kms / 6 Months",
-    recommended: "Every 10,000 Kms / 6 Months",
-    problems: [
-      "Disc Brake Repair – ₹299",
-      "Brake Pad Replacement – ₹199",
-      "Any Indicator Replacement – ₹299",
-      "Front Bulb Replacement – ₹299",
-      "Rear Indicator Bulb Replacement – ₹299",
-      "Horn Repair – ₹299",
-      "Battery Health Check-Up – ₹299",
-      "Charger Repair – ₹299",
-      "Brake Oil Replacement – ₹299",
-      "Converter Change – ₹299",
-      "Converter Repair – ₹249",
-      "Footrest Rubber – ₹249",
-    ],
-  },
-  {
-    id: 3,
-    title: "Premium Service",
-    image: "/images/moter.png",
-    duration: "6 Hrs",
-    warranty: "2000 Kms / 6 Months",
-    recommended: "Every 10,000 Kms / 6 Months",
-    problems: [
-      '10" Motor Winding – ₹1999',
-      '12" Motor Winding – ₹2199',
-      "Handle Bearing Replacement – ₹1499",
-      "Display Dashboard Replacement – ₹2299",
-    ],
-  },
-];
+import { useSelector } from "react-redux";
+ 
 
 export default function ElectricBike() {
   const [selectedProblems, setSelectedProblems] = useState({});
   const [activeModelModal, setActiveModelModal] = useState(null);
   const [activeSubmodelModal, setActiveSubmodelModal] = useState(null);
   const [carSelection, setCarSelection] = useState({});
+  const products = useSelector((state) => state.product.products);
+  console.log("products",products)
 
   const toggleProblem = (pkgId, problem) => {
     setSelectedProblems((prev) => {
@@ -129,13 +78,13 @@ export default function ElectricBike() {
 
   return (
     <div className="flex flex-col gap-18 pb-20 px-2 sm:px-4 md:px-8 lg:px-16 py-4">
-      {packagesData.map((pkg) => (
-        <div key={pkg.id}>
+      {products?.map((pkg) => (
+        <div key={pkg._id}>
           <div className="flex justify-center">
             <Card className="flex flex-col md:flex-row gap-6 w-full max-w-5xl p-5 shadow-xl bg-white/30 backdrop-blur-md rounded-2xl border border-white/40">
               <div className="w-full md:w-1/3 h-40 md:h-auto">
                 <img
-                  src={pkg.image}
+                  src={pkg.images}
                   alt={pkg.title}
                   className="rounded-2xl w-full h-full object-contain"
                 />
@@ -147,16 +96,16 @@ export default function ElectricBike() {
                   <div className="flex gap-2 flex-wrap">
                     <Button
                       variant="outline"
-                      onClick={() => setActiveModelModal(pkg.id)}
+                      onClick={() => setActiveModelModal(pkg._id)}
                     >
-                      {carSelection[pkg.id]?.model?.name || "Select Brand"}
+                      {carSelection[pkg._id]?.model?.name || "Select Brand"}
                     </Button>
-                    {carSelection[pkg.id]?.model && (
+                    {carSelection[pkg._id]?.model && (
                       <Button
                         variant="outline"
-                        onClick={() => setActiveSubmodelModal(pkg.id)}
+                        onClick={() => setActiveSubmodelModal(pkg._id)}
                       >
-                        {carSelection[pkg.id]?.submodel || "Select Model"}
+                        {carSelection[pkg._id]?.submodel || "Select Model"}
                       </Button>
                     )}
                   </div>
@@ -169,7 +118,7 @@ export default function ElectricBike() {
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4">
-                  {pkg.problems.map((problem) => (
+                  {pkg?.problems?.map((problem) => (
                     <label key={problem} className="flex items-center gap-2 text-sm">
                       <input
                         type="checkbox"
@@ -208,7 +157,7 @@ export default function ElectricBike() {
           </div>
 
           {/* Model Modal */}
-          {activeModelModal === pkg.id && (
+          {activeModelModal === pkg._id && (
             <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/30 px-2">
               <div className="bg-white shadow-xl max-w-[95%] w-[480px] max-h-[90vh] overflow-auto p-4 rounded-xl border mt-20">
                 <h4 className="text-lg font-semibold mb-4">Select Car Brand</h4>
@@ -216,7 +165,7 @@ export default function ElectricBike() {
                   {bikemodels.map((model) => (
                     <div
                       key={model.name}
-                      onClick={() => handleModelSelect(pkg.id, model)}
+                      onClick={() => handleModelSelect(pkg._id, model)}
                       className="cursor-pointer rounded-2xl hover:shadow-md flex flex-col items-center p-2 transition-all hover:scale-105"
                     >
                       <img
@@ -240,15 +189,15 @@ export default function ElectricBike() {
           )}
 
           {/* Submodel Modal */}
-          {activeSubmodelModal === pkg.id && carSelection[pkg.id]?.model && (
+          {activeSubmodelModal === pkg._id && carSelection[pkg._id]?.model && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-2">
               <div className="w-full max-w-[360px] bg-white shadow-2xl p-4 rounded-xl border max-h-[90vh] overflow-auto">
                 <h4 className="text-lg font-semibold mb-4">Select Car Submodel</h4>
                 <div className="grid grid-cols-2 gap-2">
-                  {carSelection[pkg.id].model.submodels.map((sub) => (
+                  {carSelection[pkg._id].model.submodels.map((sub) => (
                     <div
                       key={sub.name}
-                      onClick={() => handleSubmodelSelect(pkg.id, sub.name)}
+                      onClick={() => handleSubmodelSelect(pkg._id, sub.name)}
                       className="cursor-pointer p-2 rounded-2xl hover:shadow-md flex flex-col items-center transition-all hover:scale-105"
                     >
                       <img

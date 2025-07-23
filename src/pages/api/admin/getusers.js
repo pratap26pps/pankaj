@@ -9,8 +9,8 @@ export default async function handler(req, res) {
   try {
 
     await connectDB();
-    const searchedRole = req.query.role;
-    const user = await users.find({role : searchedRole}, '-password');  
+   
+    const user = await users.find();  
     res.status(200).json({ user });
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch users', error: error.message });

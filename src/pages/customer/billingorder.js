@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useSelector } from "react-redux";
-import { placeOrder } from "@/src/redux/slices/orderSlice";
 import { useDispatch } from "react-redux";
 import { CreditCard, Banknote, Wallet } from "lucide-react";
 
@@ -18,58 +17,41 @@ export default function CheckoutPage() {
 
     const user = useSelector((state) => state.auth.user);
     const { cartItems } = useSelector((state) => state.cart);
-    const searchParams = useSearchParams();
-    const skuid = searchParams.get("skuid");
-    const allProducts = useSelector((state) => state.product.products);
+    // const searchParams = useSearchParams();
+    // const skuid = searchParams.get("skuid");
+    // const allProducts = useSelector((state) => state.product.products);
     console.log("User in billingorder:", user);
     console.log("cartItems in billingorder ",cartItems)
  
-    const [product, setProduct] = useState(null);
-     const dispatch = useDispatch();
+  //   const [product, setProduct] = useState(null);
+  //    const dispatch = useDispatch();
 
-    useEffect(() => {
-    const storedProduct = localStorage.getItem("specific-product");
-    if (storedProduct) {
-      try {
-        const parsed = JSON.parse(storedProduct);
-        setProduct(parsed);
-      } catch (error) {
-        console.error("Failed to parse localStorage product:", error);
-      }
-    }
-  }, []);
+  //   useEffect(() => {
+  //   const storedProduct = localStorage.getItem("specific-product");
+  //   if (storedProduct) {
+  //     try {
+  //       const parsed = JSON.parse(storedProduct);
+  //       setProduct(parsed);
+  //     } catch (error) {
+  //       console.error("Failed to parse localStorage product:", error);
+  //     }
+  //   }
+  // }, []);
   
   // If skuid is present, find the product
-  let singleProduct = null;
-  if (skuid) {
-    singleProduct = allProducts.find((p) => p.skuid === skuid);
-  }
+  // let singleProduct = null;
+  // if (skuid) {
+  //   singleProduct = allProducts.find((p) => p.skuid === skuid);
+  // }
 
   // If skuid, use that product, else use cart
-  const recentproduct = skuid && singleProduct ? [singleProduct] : cartItems;
-const total = recentproduct?.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0) || 0;
+  const recentproduct =  cartItems;
+const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || item.price || 0) * (item.quantity || 1), 0) || 0;
+ 
+ 
 
-  const customConfigParam = searchParams.get("custom");
-  const [customConfig, setCustomConfig] = useState(null);
-
-  useEffect(() => {
-    if (customConfigParam === "1") {
-      const storedConfig = localStorage.getItem("custom-ro-config");
-      if (storedConfig) {
-        try {
-          setCustomConfig(JSON.parse(storedConfig));
-        } catch (e) {
-          setCustomConfig(null);
-        }
-      }
-    }
-  }, [customConfigParam]);
-console.log("customConfig",customConfig)
-  // If custom config, use that for order summary and placement
-  const isCustomOrder = !!customConfig;
-  const customProducts = isCustomOrder ? Object.values(customConfig.selectedComponents || {}) : [];
-  console.log("customproduct",customProducts)
-  const customTotal = isCustomOrder ? customConfig.finalPrice : total;
+ 
+ 
 
   const [country, setCountry] = useState("");
   const [address, setAddress] = useState("");
@@ -93,16 +75,18 @@ console.log("customConfig",customConfig)
     if (!validate()) return;
     setIsPlacingOrder(true);
     try {
-      const itemsToOrder = isCustomOrder
-        ? customProducts.map((item) => ({
-            product: item._id,
-            quantity: 1,
-            price: item.price,
-          }))
-        : recentproduct.map((item) => ({
-            product: item._id,
+      const itemsToOrder =recentproduct.map((item) => ({
+            product: item.packageId || item._id, // Use packageId for service packages, fallback to _id for regular products
             quantity: item.quantity,
-            price: item.price,
+            price: item.finalPrice || item.price || 0,
+            packageId: item.packageId,
+            packageName: item.packageName,
+            selectedProblems: item.selectedProblems,
+            carBrand: item.carBrand,
+            carModel: item.carModel,
+            warranty: item.warranty,
+            duration: item.duration,
+            serviceSlug: item.serviceSlug
           }));
 
       const res = await fetch("/api/customer/placeorder", {
@@ -111,7 +95,7 @@ console.log("customConfig",customConfig)
         body: JSON.stringify({
           user: user?._id || user?.id,
           items: itemsToOrder,
-          totalAmount: isCustomOrder ? customTotal : total,
+          totalAmount: total,
           shippingAddress: {
             address,
             city,
@@ -191,47 +175,77 @@ console.log("customConfig",customConfig)
               Your order
             </h2>
             <div className="bg-white border rounded-xl p-6">
-              <div className="flex justify-between font-semibold mb-4 text-gray-700">
-                <span>Image</span>
-                <span>Product</span>
-                <span>Subtotal</span>
-              </div>
-              {isCustomOrder ? (
-                customProducts.map((item) => (
-                  <div key={item._id} className="flex items-center justify-evenly mb-3 text-gray-700">
-                    <img src={item?.images} alt={item?.name} className="w-16 h-16 object-cover rounded border border-gray-200" />
-                   <div>
-                    
-                   <span className="flex-1 ml-4">{item.name} × 1</span>
-                   <span className="font-semibold">₹{item.price }</span>
-                    </div> 
-                 
-
-                  </div>
-                ))
-              ) : (
+              <h3 className="font-semibold mb-4 text-gray-700">Order Items</h3>
+              {
                 recentproduct.map((item) => (
-                  <div key={item.id} className="flex items-center justify-between mb-3 text-gray-700">
-                    <img src={item?.images} alt={item?.name} className="w-16 h-16 object-cover rounded border border-gray-200" />
-                    <span className="flex-1 ml-4">{item.name} × {item.quantity}</span>
-                    <span className="font-semibold">₹{item.price * item.quantity}</span>
+                  <div key={item._id} className="border-b border-gray-200 pb-4 mb-4 last:border-b-0">
+                    {/* Header with Image and Basic Info */}
+                    <div className="flex items-start gap-4 mb-3">
+                      <img 
+                        src={item?.packageImage || item?.images?.[0]} 
+                        alt={item?.packageName || item?.name} 
+                        className="w-20 h-20 object-cover rounded-lg border border-gray-200" 
+                      />
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-lg text-gray-800">{item.packageName || item.name}</h4>
+                        <div className="text-sm text-gray-600 space-y-1 mt-1">
+                          {item.warranty && <p>• Warranty: {item.warranty}</p>}
+                          {item.duration && <p>• Duration: {item.duration}</p>}
+                          {item.recommended && <p>• {item.recommended}</p>}
+                        </div>
+                        <div className="flex items-center gap-2 mt-2">
+                          <span className="text-sm text-gray-600">Quantity: {item.quantity}</span>
+                          <span className="font-semibold text-blue-600">₹{(item.finalPrice || item.price || 0) * item.quantity}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Vehicle Details */}
+                    {item.carBrand && item.carModel && (
+                      <div className="bg-gray-50 p-3 rounded-lg mb-3">
+                        <h5 className="font-medium text-gray-800 mb-2">Vehicle Details</h5>
+                        <div className="flex items-center gap-3">
+                          {item.carBrandImage && (
+                            <img
+                              src={item.carBrandImage}
+                              alt={item.carBrand}
+                              className="w-10 h-8 object-contain"
+                            />
+                          )}
+                          <div className="text-sm">
+                            <p className="font-medium text-gray-700">Brand: {item.carBrand}</p>
+                            <p className="text-gray-600">Model: {item.carModel}</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Selected Services */}
+                    {item.selectedProblems && item.selectedProblems.length > 0 && (
+                      <div className="bg-blue-50 p-3 rounded-lg">
+                        <h5 className="font-medium text-gray-800 mb-2">Selected Services ({item.selectedProblems.length})</h5>
+                        <div className="grid grid-cols-1 gap-1">
+                          {item.selectedProblems.map((problem, index) => (
+                            <div key={index} className="flex items-center gap-2 text-sm">
+                              <div className="w-3 h-3 bg-green-500 rounded-full flex-shrink-0"></div>
+                              <span className="text-gray-700">{problem}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 ))
-              )}
+              }
               <hr className="my-3" />
               <div className="flex justify-between text-blue-700">
                 <span>Subtotal</span>
-                <span>₹{isCustomOrder ? customTotal : total}</span>
+                <span>₹{total}</span>
               </div>
-              {
-                isCustomOrder && <div className="flex justify-between text-blue-700">
-               <p>Installation Charges</p> <p>{customConfig?.installationPrice}</p>
-              </div>
-                
-              }
+               
               <div className="flex justify-between font-bold text-blue-800 text-lg mt-2">
                 <span>Total</span>
-                <span>₹{isCustomOrder ? customTotal : total}</span>
+                <span>₹{total}</span>
               </div>
             </div>
 

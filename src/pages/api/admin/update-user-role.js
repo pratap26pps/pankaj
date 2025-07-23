@@ -1,5 +1,5 @@
-import connectDB from '@/src/lib/dbConnect';
-import User from '@/src/models/users';
+import connectDB from '@/lib/dbConnect';
+import User from '@/models/users';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {

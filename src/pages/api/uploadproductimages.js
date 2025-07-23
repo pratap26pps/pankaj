@@ -1,5 +1,5 @@
 import { IncomingForm } from "formidable";
-import imageuploadcloudanary from "@/src/lib/imageUpload";
+import imageuploadcloudanary from "@/lib/imageUpload";
 
 // Ensure formidable is set up to parse incoming form data
 export const config = {

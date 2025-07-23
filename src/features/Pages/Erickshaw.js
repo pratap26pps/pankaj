@@ -166,7 +166,7 @@ export default function Erickshaw() {
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4">
-                  {pkg.problems.map((problem) => (
+                  {pkg?.problems?.map((problem) => (
                     <label key={problem} className="flex items-center gap-2 text-sm">
                       <input
                         type="checkbox"
