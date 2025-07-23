@@ -231,12 +231,12 @@ const Modal = ({ isOpen, onClose, title, children, modalClassName }) => {
   return (
     <div className=" relative -mt-[45%] inset-0 flex items-center justify-center px-4  z-50">
       <div
-        className="  rounded-xl shadow-2xl bg-white ring-4 ring-blue-400/20 w-full max-w-lg transform transition-all overflow-hidden focus:outline-none"
+        className="  rounded-xl shadow-2xl bg-gray-50 w-full max-w-lg transform transition-all overflow-hidden focus:outline-none"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
       >
-        <div className="px-6 py-4 border-b dark:border-gray-700 flex items-center justify-between">
+        <div className="px-6 py-4 border-b  flex items-center justify-between">
           <h3
             className="text-lg font-semibold text-gray-900  "
             id="modal-title"
@@ -464,7 +464,7 @@ const handleChange = (e) => {
 
  if (!user)
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-100  relative">
+    <div className="min-h-screen flex items-center justify-center   relative">
       <div className="loader"></div>
     </div>
   );

@@ -229,16 +229,16 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-600 py-24 relative flex items-center justify-center p-4 font-inter">
+<div className="min-h-screen bg-green-50 mt-15 py-24 relative flex items-center justify-center p-4 font-inter">
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="relative z-10 w-full max-w-xl"
       >
-        <Card className="backdrop-blur-xl bg-gray-700 border-white/20 shadow-2xl">
+<Card className="backdrop-blur-xl bg-blue-700 border-white/20 shadow-2xl">
           <CardHeader className="text-center">
-            <CardTitle className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-cyan-200 font-poppins">
+            <CardTitle className="text-3xl font-extrabold  bg-clip-text text-white font-poppins">
               GridaNeo Bharat
             </CardTitle>
             <CardDescription className="text-white/70">Welcome to the future of authentication</CardDescription>
@@ -320,7 +320,7 @@ export default function AuthPage() {
                 Forgot Password
               </label>
             </Link>
-                    <Button disabled={loading} type="submit" className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
+                    <Button disabled={loading} type="submit" className="w-full cursor-pointer bg-green-600 font-bold  text-white">
                       {loading ? "Logging in..." : "Login"}
                     </Button>
                   </motion.form>
@@ -568,7 +568,7 @@ export default function AuthPage() {
                     </div>
                     {errors.password && <p className="text-sm text-red-400">{errors.password}</p>}
                     {errors.confirmPassword && <p className="text-sm text-red-400">{errors.confirmPassword}</p>}
-                    <Button disabled={loading} type="submit" className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
+                    <Button disabled={loading} type="submit" className="w-full cursor-pointer bg-green-600 text-white">
                       {loading ? "Creating Account..." : "Create Account"}
                     </Button>
                   </motion.form>
