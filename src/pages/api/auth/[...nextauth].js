@@ -14,7 +14,7 @@ export default NextAuth({
   callbacks: {
     async signIn({ user, profile }) {
       try {
-        await dbConnect();
+        await dbConnect()
         const existingUser = await users.findOne({ email: user.email });
 
         if (!existingUser) {
@@ -23,9 +23,23 @@ export default NextAuth({
             lastName: profile.family_name || user.name?.split(" ")[1] || "",
             email: user.email,
             image: user.image,
-            mobile: "",
-            password: "",  
-            role: "customer",
+            mobile: user.mobile,
+            password: user.password,
+            accountType: user.accountType,
+            status: user.status,
+            bloodgroup: user.bloodgroup,
+            adharNumber: user.adharNumber,
+            panNumber: user.panNumber,
+            address: user.address,
+            pincode: user.pincode,
+            yearofexperience: user.yearofexperience,
+            bankaccountnumber: user.bankaccountnumber,
+            ifsc: user.ifsc,
+            bankname: user.bankname,
+            typeOfEntity: user.typeOfEntity,
+            vehicalRegistrationNumber: user.vehicalRegistrationNumber,
+            alternatecontact: user.alternatecontact,
+            emergencyContact: user.emergencyContact,
           });
         }
 
@@ -40,10 +54,24 @@ export default NextAuth({
       const dbUser = await users.findOne({ email: session.user.email });
       if (dbUser) {
         session.user.id = dbUser._id.toString();
-        session.user.role = dbUser.role;
+        session.user.accountType = dbUser.accountType;
         session.user.mobile = dbUser.mobile;
         session.user.name = `${dbUser.firstName} ${dbUser.lastName}`;
         session.user.image = dbUser.image;
+        session.user.status = dbUser.status;
+        session.user.bloodgroup = dbUser.bloodgroup;
+        session.user.adharNumber = dbUser.adharNumber;
+        session.user.panNumber = dbUser.panNumber;
+        session.user.address = dbUser.address;
+        session.user.pincode = dbUser.pincode;
+        session.user.yearofexperience = dbUser.yearofexperience;
+        session.user.bankaccountnumber = dbUser.bankaccountnumber;
+        session.user.ifsc = dbUser.ifsc;
+        session.user.bankname = dbUser.bankname;
+        session.user.typeOfEntity = dbUser.typeOfEntity;
+        session.user.vehicalRegistrationNumber = dbUser.vehicalRegistrationNumber;
+        session.user.alternatecontact = dbUser.alternatecontact;
+        session.user.emergencyContact = dbUser.emergencyContact;
       }
       return session;
     }

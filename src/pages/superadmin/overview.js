@@ -29,7 +29,6 @@ const Overview = () => {
               <div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="bg-gradient-to-br from-emerald-50 to-teal-50 p-6 rounded-xl border border-emerald-200 shadow-lg"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div>
@@ -42,24 +41,6 @@ const Overview = () => {
                     <div className="text-sm text-gray-500">Current Time</div>
                     <div className="text-lg font-mono font-bold text-emerald-600">{currentTime}</div>
                   </div>
-                </div>
-              </div>
-
-              <div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200 shadow-lg"
-              >
-                <h2 className="text-xl font-bold text-gray-800 mb-4">Quick Actions</h2>
-                <div className="grid grid-cols-2 gap-3">
-                  <Button onClick={() => setActiveSection('verify-partners')} className="bg-emerald-500 hover:bg-emerald-600">
-                    <FaUserCheck className="mr-2" />
-                    Verify Partners
-                  </Button>
-                  <Button onClick={() => setActiveSection('live-bookings')} className="bg-orange-500 hover:bg-orange-600">
-                    <FaExclamationTriangle className="mr-2" />
-                    Handle Disputes
-                  </Button>
                 </div>
               </div>
             </div>

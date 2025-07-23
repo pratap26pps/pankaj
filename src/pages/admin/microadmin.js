@@ -28,7 +28,8 @@ export default function MicroAdminManagement() {
   const [deleteUser, setDeleteUser] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-
+const customer = customers.filter((c) => c.role === "User");
+console.log("customer", customer);
   useEffect(() => {
     async function fetchUsers() {
       try {
@@ -86,14 +87,12 @@ export default function MicroAdminManagement() {
     }
   };
 
-  const filteredCustomers = customers.filter((c) =>
-    c.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+ 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-950 py-10 px-2 sm:px-6 text-gray-800 dark:text-gray-100 transition-colors duration-300">
+    <div className="min-h-screen   py-10 px-2 sm:px-6 text-gray-800 dark:text-gray-100 transition-colors duration-300">
       <h2 className="text-3xl font-extrabold text-blue-700 dark:text-cyan-300 mb-8 text-center tracking-tight">
-        Microadmin Management
+        User Management
       </h2>
 
       {/* Search Bar */}
@@ -129,24 +128,13 @@ export default function MicroAdminManagement() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredCustomers.map((customer) => (
+            {customer?.map((customer) => (
               <TableRow key={customer?._id} className="hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors">
                 <TableCell className="font-semibold">{customer?.name}</TableCell>
                 <TableCell>{customer?.email}</TableCell>
                 <TableCell>{customer?.mobile}</TableCell>
-                <TableCell>
-                  <Select
-                    value={customer?.role}
-                    disabled
-                  >
-                    <SelectTrigger className="w-32 border-blue-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="microadmin">Microadmin</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </TableCell>
+                <TableCell>{customer?.role}</TableCell>
+               
                 <TableCell className="text-center space-x-2">
                   <Button
                     size="sm"

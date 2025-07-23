@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaCheck, FaUserTimes } from "react-icons/fa";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 // Dummy Card and Button components (replace with your UI library if needed)
 const Card = ({ children, className }) => (
@@ -23,7 +24,7 @@ export default function VerifyPartner() {
 
         const [User, setUser] = useState([]);
     
-        const partner = User.filter((u) => u.accountType === "Partner" || u.accountType === "User");
+        const partner = User.filter((u) => u.accountType === "Partner" || u.accountType === "Admin");
         console.log("partner",partner)
       
     
@@ -41,7 +42,6 @@ export default function VerifyPartner() {
                       name: `${u.firstName} ${u.lastName}`,
                       email: u.email,
                       mobile: u.mobile,
-                      role: u.role,
                       accountType: u.accountType,
                       orders: [],  
                     }))
@@ -55,20 +55,67 @@ export default function VerifyPartner() {
             fetchUsers();
           }, []);
 
-    const handleApprove = (id) => {
-        setUser((prev) =>
-            prev.map((u) =>
-                u.id === id ? { ...u, status: "Approved" } : u
-            )
-        );
-    };
+          const handleApprove = async (id) => {
+            try {
+              const response = await fetch('/api/users/update-status', {
+                method: 'PATCH',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  userId: id,
+                  status: 'Approved'
+                })
+              });
+              
+              if (response.ok) {
+                const data = await response.json();
+                setUser((prev) =>
+                  prev.map((u) => {
+                    return u.id === id ? { ...u, status: "Approved" } : u
+                  })
+                );
+                toast.success(`User approved successfully`);
+              } else {
+                const errorData = await response.json();
+                toast.error(errorData.message || 'Failed to approve user');
+              }
+            } catch (error) {
+              console.error('Error approving user:', error);
+              toast.error('Failed to approve user');
+            }
+          };
+        
 
-    const handleReject = (id) => {
-        setUser((prev) =>
+    const handleReject = async (id) => {
+      try {
+        const response = await fetch('/api/users/update-status', {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: id,
+            status: 'Rejected'
+          })
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          setUser((prev) =>
             prev.map((u) =>
-                u.id === id ? { ...u, status: "Rejected" } : u
+              u.id === id ? { ...u, status: "Rejected" } : u
             )
-        );
+          );
+          toast.success(`User rejected successfully`);
+        } else {
+          const errorData = await response.json();
+          toast.error(errorData.message || 'Failed to reject user');
+        }
+      } catch (error) {
+        console.error('Error rejecting user:', error);
+        toast.error('Failed to reject user');
+      }
     };
 
     return (
