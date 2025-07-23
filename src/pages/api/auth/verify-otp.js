@@ -8,8 +8,8 @@ export default async function handler(req, res) {
   await dbConnect();
 
   if (req.method === "POST") {
-    const { code, ...formData } = req.body;
-    const parsed = signupSchema.safeParse(formData);
+    const { code, ...pendingSignup } = req.body;
+    const parsed = signupSchema.safeParse(pendingSignup);
      if (!parsed.success) {
       return res.status(400).json({ message: "Validation error", error: parsed.error });
     }
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     
-    const role =  "customer"
+    const role =  "User"
     const image = "/images/avatar.png";
     console.log("Data to insert:", {
   ...parsed.data,

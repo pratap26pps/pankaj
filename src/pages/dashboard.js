@@ -65,6 +65,7 @@ const Dashboard = () => {
   });
   const [loading2, setLoading2] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [approvalModalVisible, setApprovalModalVisible] = useState(false);
   const dispatch = useDispatch();
  
   
@@ -265,7 +266,30 @@ const handleChange = (e) => {
   };
 
 
+  // Check for pending approval accounts
+  useEffect(() => {
+    if (user?.accountType === "Patner" || user?.accountType === "Admin") {
+      setApprovalModalVisible(true);
+    } else {
+      setApprovalModalVisible(false);
+    }
+  }, [user?.accountType]);
+
   const renderContent = () => {
+    
+    if (user?.accountType === "Patner" || user?.accountType === "Admin")  {
+      return (
+        <div className="flex items-center justify-center min-h-screen bg-gray-50">
+          <div className="text-center p-8">
+            <div className="mb-4">
+              <AlertTriangle className="mx-auto h-16 w-16 text-yellow-500" />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">Account Pending Approval</h2>
+            <p className="text-gray-600">Please contact SuperAdmin for approval to access your dashboard.</p>
+          </div>
+        </div>
+      )
+    }
 
      if (user?.role === "SuperAdmin") {
 

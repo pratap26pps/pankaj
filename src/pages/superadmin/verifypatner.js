@@ -23,7 +23,7 @@ export default function VerifyPartner() {
 
         const [User, setUser] = useState([]);
     
-        const partner = User.filter((u) => u.accountType === "Partner" || u.accountType === "User");
+        const partner = User.filter((u) => u.accountType === "Partner" || u.accountType === "Admin");
         console.log("partner",partner)
       
     
@@ -55,18 +55,27 @@ export default function VerifyPartner() {
             fetchUsers();
           }, []);
 
-    const handleApprove = (id) => {
-        setUser((prev) =>
-            prev.map((u) =>
-                u.id === id ? { ...u, status: "Approved" } : u
-            )
-        );
-    };
+          const handleApprove = (id) => {
+            setUser((prev) =>
+                prev.map((u) => {
+                    if (u.id === id) {
+                        const role = u.accountType === "Partner" 
+                            ? "Partner" 
+                            : u.accountType === "Admin" 
+                                ? "Admin" 
+                                : u.role; // fallback to existing role if no match
+                        return { ...u, role };
+                    }
+                    return u;
+                })
+            );
+        };
+        
 
     const handleReject = (id) => {
         setUser((prev) =>
             prev.map((u) =>
-                u.id === id ? { ...u, status: "Rejected" } : u
+                u.id === id ? { ...u, accountType: "Rejected" } : u
             )
         );
     };

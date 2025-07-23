@@ -26,6 +26,7 @@ export default async function handler(req, res) {
       image: user.image || "/images/avatar.png",
       mobile: user.mobile,
       role: user.role,
+      accountType: user.accountType,  
     }), {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -42,6 +43,7 @@ export default async function handler(req, res) {
       image: user.image || "/images/avatar.png",
       mobile: user.mobile,
       role: user.role,
+      accountType: user.accountType,  
     } });
 
 
