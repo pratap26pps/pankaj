@@ -134,7 +134,7 @@ const Dashboard = () => {
       { key: 'customers', label: 'Customers',icon:< Users className="w-5 h-5" />  },
       { key: 'earnings', label: 'Earnings',icon:< Users className="w-5 h-5" /> },
       { key: 'services', label: 'Services',icon:< Users className="w-5 h-5" />  },
-      { key: 'settings', label: 'Settings',icon:< Users className="w-5 h-5" />  }
+      
     ];
  
      const AdminItems = [
@@ -381,7 +381,7 @@ const handleChange = (e) => {
         return (
           <MicroAdminManagement/>
         );
-      case 'settings':
+      case 'earnings':
         return (
           <LiveBookingPage/>
         );
