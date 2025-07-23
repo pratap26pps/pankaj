@@ -108,7 +108,7 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
       const data = await res.json();
       if (res.ok) {
         toast.success("Order placed successfully!");
-        // Optionally redirect or clear cart
+        router.push("/customer/orderhistory");
       } else {
         toast.error(data.message || "Failed to place order");
       }

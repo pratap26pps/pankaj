@@ -236,7 +236,7 @@ export default function AuthPage() {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="relative z-10 w-full max-w-xl"
       >
-<Card className="backdrop-blur-xl bg-blue-700 border-white/20 shadow-2xl">
+<Card className="backdrop-blur-xl bg-blue-900 border-white/20 shadow-2xl">
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-extrabold  bg-clip-text text-white font-poppins">
               GridaNeo Bharat

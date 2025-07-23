@@ -313,10 +313,12 @@ const handleChange = (e) => {
             <div className="mb-4">
               <AlertTriangle className="mx-auto h-16 w-16 text-yellow-500" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">Account Pending Approval</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">Account Pending Approval,It will take 24 hours to approve your account.</h2>
             <div className="text-2xl font-bold text-gray-800 mb-2">Current Status: {user?.status}</div>
 
             <p className="text-gray-600">Please contact SuperAdmin for approval to access your dashboard.</p>
+
+                  Contact: 9821907223
           </div>
         </div>
       )
