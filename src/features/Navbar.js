@@ -68,12 +68,12 @@ export default function PremiumNavigation() {
     <>
      
 
-      <nav className="fixed bg-white top-0 w-full z-50  border-b    font-bold text-2xl">
+      <nav className="fixed bg-white top-0 py-3.5 w-full z-50  box-shadow-xl    font-bold text-2xl">
         <div className="relative flex justify-between lg:justify-around items-center">
           {/* Logo */}
-          <div className="bg-black item-start">
+          <div className="bg-blac   -my-15">
       <Image
-        src="/images/logo (3).png" alt="EV Repair" width={100} height={92}  
+        src="/images/logo (3).png" alt="EV Repair" width={190} height={92}  
         className="cursor-pointer object-contain "
         onClick={() => router.push("/")}
       />
