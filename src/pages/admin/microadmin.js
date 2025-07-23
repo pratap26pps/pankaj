@@ -28,7 +28,7 @@ export default function MicroAdminManagement() {
   const [deleteUser, setDeleteUser] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-const customer = customers.filter((c) => c.role === "User");
+const customer = customers.filter((c) => c.accountType === "User");
 console.log("customer", customer);
   useEffect(() => {
     async function fetchUsers() {
@@ -43,7 +43,7 @@ console.log("customer", customer);
                 name: `${u.firstName} ${u.lastName}`,
                 email: u.email,
                 mobile: u.mobile,
-                role: u.role,
+                accountType: u.accountType,
               }))
           );
         }

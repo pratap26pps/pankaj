@@ -305,10 +305,10 @@ const handleChange = (e) => {
 
   const renderContent = () => {
     
-    if ((user?.accountType === "Patner"  || user?.accountType === "Admin") && user?.status === "Pending")  {
+    if ((user?.accountType === "Partner"  || user?.accountType === "Admin") && user?.status === "Pending")  {
       return (
         
-        <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="flex items-center justify-center min-h-screen z-50 bg-gray-50">
           <div className="text-center p-8">
             <div className="mb-4">
               <AlertTriangle className="mx-auto h-16 w-16 text-yellow-500" />
@@ -324,7 +324,7 @@ const handleChange = (e) => {
 
     switch (selectedMenuItem) {
       case 'overview':
-        return <Overview />;
+        return <div className='pt-4'><Overview /> <div className='pt-11'> < ManageUserPage/> </div></div>;
       case 'manage-users':
         return (
          < ManageUserPage/>
@@ -470,7 +470,7 @@ const handleChange = (e) => {
   );
 
   return (
-    <div className='min-h-screen w-full bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-50 pb-24 pt-2 relative'>
+    <div className='min-h-screen w-full bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-50 pb-24 pt-6 relative'>
       {(orderModalOpen || trackModalOpen || profileModalVisible || deleteModalVisible) && (
         <div className="fixed inset-0 z-50  bg-white/10 backdrop-blur-sm transition-all"></div>
       )}
@@ -494,7 +494,7 @@ const handleChange = (e) => {
                 {!collapsed && (
                   <div>
                     <h3 className="font-semibold text-gray-800 ">{ user?.name || `${user?.firstName} ${user?.lastName}` }</h3>
-                    <p className="text-sm text-gray-700">{user?.role}</p>
+                    <p className="text-sm text-gray-700">{user?.accountType}</p>
                   </div>
                 )}
               </div>
@@ -515,7 +515,7 @@ const handleChange = (e) => {
             {/* Navigation */}
         {/* Navigation */}
 <nav className="flex-1 p-4 overflow-y-auto">
-  {user?.role === "SuperAdmin" ? (
+  {user?.accountType === "SuperAdmin" ? (
     <ul className="space-y-2">
       {SuperAdminItems?.map((item) => (
         <li key={item.key}>
@@ -537,7 +537,7 @@ const handleChange = (e) => {
         </li>
       ))}
     </ul>
-  ) : user?.role === "Admin" ? (
+  ) : user?.accountType === "Admin" ? (
     <ul className="space-y-2">
       {AdminItems.map((item) => (
         <li key={item.key}>
@@ -559,7 +559,7 @@ const handleChange = (e) => {
         </li>
       ))}
     </ul>
-  ) : user?.role === "Partner" ? (
+  ) : user?.accountType === "Partner" ? (
     <ul className="space-y-2">
       {PatnerItems.map((item) => (
         <li key={item.key}>

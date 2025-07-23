@@ -25,12 +25,12 @@ const Overview = () => {
     return (
         <div>
                {/* Welcome Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className=" ">
               <div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
               >
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex justify-evenly mb-4">
                   <div>
                     <h1 className="text-2xl font-bold text-gray-800 mb-2">
                         Welcome {user?.name || user?.firstname}👋
