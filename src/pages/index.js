@@ -1,15 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import Autoplay from 'embla-carousel-autoplay';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
-import { Card, CardContent } from '@/components/ui/card';
+ 
 import ServicePage from './Servicepage';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';

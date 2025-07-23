@@ -11,26 +11,19 @@ import ProductHistory from './admin/products/productlist';
 import AddCategoryProduct from './admin/products/addcategoryproduct';
 import CustomerManagement from './admin/userlist';
 import OrderManagement from './admin/order/orderlist';
- 
+ import MicroBookings from './microadmin/booking';
 import { 
   BarChart3, 
   ShoppingCart, 
   Users, 
   Plus, 
   Package, 
-  CheckCircle, 
-  Eye, 
-  Truck, 
-  Clock, 
   ClipboardList,
-  Zap,
   Edit,
   Trash2,
   AlertTriangle,
   Menu,
   X,
- 
-
   HelpCircle
 } from "lucide-react";
 import MyShoppingCart from './cart';
@@ -41,10 +34,12 @@ import Overview from './superadmin/overview';
 import ManageUserPage from './superadmin/manageuser';
 import VerifyPartner from './superadmin/verifypatner';
 import LiveBookingPage from './superadmin/livebooking';
-import CarouselPage from './superadmin/crausel';
 import UserOverview from './user/overview';
 import ServiceHistory from './user/serviceHistory';
 import EVBookingForm from './ServiceForm';
+import PartnerOverview from './partner/overview';
+import CustomersPage from './partner/customer';
+import Bookings from './partner/bookings';
  
 
 
@@ -103,11 +98,16 @@ const Dashboard = () => {
     { key: 'Battery Inventory', label: 'Battery Inventory', icon:< Users className="w-5 h-5" />  },
    
   ];
-      
-  
 
+    const PatnerItems = [
+      { key: 'overview', label: 'Overview',icon:< Users className="w-5 h-5" /> },
+      { key: 'bookings', label: 'Bookings', icon:< Users className="w-5 h-5" />  },
+      { key: 'customers', label: 'Customers',icon:< Users className="w-5 h-5" />  },
+      { key: 'earnings', label: 'Earnings',icon:< Users className="w-5 h-5" /> },
+      { key: 'services', label: 'Services',icon:< Users className="w-5 h-5" />  },
+      { key: 'settings', label: 'Settings',icon:< Users className="w-5 h-5" />  }
+    ];
  
-
      const MicroAdminItems = [
     { key: 'overview', label: 'Overview', icon: <BarChart3 className="w-5 h-5" /> },
     { key: 'orders', label: 'Orders', icon: <ShoppingCart className="w-5 h-5" /> },
@@ -130,27 +130,7 @@ const Dashboard = () => {
    
  
   ];
-
-  const getStatusColor = (status) => {
-    const colors = {
-      delivered: 'bg-green-100 text-green-800 border-green-200',
-      shipped: 'bg-blue-100 text-blue-800 border-blue-200',
-      pending: 'bg-yellow-100 text-yellow-800 border-yellow-200',
-      processing: 'bg-purple-100 text-purple-800 border-purple-200',
-      cancelled: 'bg-red-100 text-red-800 border-red-200'
-    };
-    return colors[status] || 'bg-gray-100 text-gray-800 border-gray-200';
-  };
-
-  const getStatusIcon = (status) => {
-    const icons = {
-      delivered: <CheckCircle className="w-4 h-4 text-green-600" />,
-      shipped: <Truck className="w-4 h-4 text-blue-600" />,
-      pending: <Clock className="w-4 h-4 text-yellow-600" />,
-      processing: <Zap className="w-4 h-4 text-purple-600" />
-    };
-    return icons[status] || <Clock className="w-4 h-4 text-gray-600" />;
-  };
+ 
  
    const handleProfileUpdate = async (e) => {
     e.preventDefault();
@@ -202,24 +182,7 @@ const Dashboard = () => {
       setLoading(false);
     }
   };
-
-  const StatCard = ({ title, value, icon, growth, color }) => (
-    <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-white/20 dark:border-gray-700/50">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">{title}</p>
-          <p className={`text-2xl font-bold ${color}`}>{value.toLocaleString()}</p>
-          {growth && (
-            <p className="text-xs text-green-600 mt-1">
-              +{growth}% from last month
-            </p>
-          )}
-        </div>
-        <div className="text-3xl opacity-80">{icon}</div>
-      </div>
-    </div>
-  );
-
+ 
   
 
   const [orderModalOpen, setOrderModalOpen] = useState(false);
@@ -244,16 +207,16 @@ const Modal = ({ isOpen, onClose, title, children, modalClassName }) => {
   if (!isOpen) return null;
 
   return (
-    <div className=" relative inset-0 flex items-center justify-center px-4  z-50">
+    <div className=" relative -mt-[45%] inset-0 flex items-center justify-center px-4  z-50">
       <div
-        className="  rounded-xl shadow-2xl ring-4 ring-blue-400/20 w-full max-w-lg transform transition-all overflow-hidden focus:outline-none"
+        className="  rounded-xl shadow-2xl bg-white ring-4 ring-blue-400/20 w-full max-w-lg transform transition-all overflow-hidden focus:outline-none"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
       >
         <div className="px-6 py-4 border-b dark:border-gray-700 flex items-center justify-between">
           <h3
-            className="text-lg font-semibold text-gray-900 dark:text-gray-100"
+            className="text-lg font-semibold text-gray-900  "
             id="modal-title"
           >
             {title}
@@ -272,8 +235,41 @@ const Modal = ({ isOpen, onClose, title, children, modalClassName }) => {
   );
 };
  
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setProfileForm((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+};
 
 
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const uploadForm = new FormData();
+    uploadForm.append("image", file);
+
+    try {
+      setLoading2(true);
+      const res = await axios.post("/api/upload", uploadForm);
+      const imageUrl = res.data.url;
+      console.log("Image uploaded successfully:", imageUrl);
+      setProfileForm((prev) => ({ ...prev, image: imageUrl }));
+      dispatch(setUser( {
+        ...user,
+        image: imageUrl,
+      }));
+    
+      toast.success("Image uploaded!");
+    } catch (err) {
+      console.error("Image upload failed:", err);
+    
+    } finally {
+      setLoading2(false);
+    }
+  };
 
 
   const renderContent = () => {
@@ -312,44 +308,71 @@ const Modal = ({ isOpen, onClose, title, children, modalClassName }) => {
         return (
                <AddCategoryProduct/>      
         );
-         
-      
-        
-    
+ 
       default:
         return <Overview />;
     }
  
     }
+
+     if (user?.role === "partner") {
+
+    switch (selectedMenuItem) {
+      case 'overview':
+        return <PartnerOverview />;
+      case 'customers':
+        return (
+         < CustomersPage/>
+        );
+      case 'bookings':
+        return (
+          <Bookings/>
+        );
+         case 'services':
+        return (
+          <MicroAdminManagement/>
+        );
+      case 'settings':
+        return (
+          <LiveBookingPage/>
+        );
+   
+ 
+      default:
+        return <Overview />;
+    }
+ 
+    }
+
    if (user?.role === "microadmin"){
     switch (selectedMenuItem) {
       case 'overview':
-        return <OverviewContent />;
+        return <MicroBookings />;
       case 'orders':
         return (
-         <OrderManagement/>
+         <MicroBookings/>
         );
       case 'customers':
         return (
-          <CustomerManagement/>
+          <MicroBookings/>
         );
          
          case 'Add Review':
         return (
-          <AddReview/>
+          <MicroBookings/>
         );
       case 'Product-History':
         return (
-            <ProductHistory/>        
+            <MicroBookings/>        
         );
      
       default:
-        return <OverviewContent />;
+        return <MicroBookings />;
     }
 
   }
 
-
+// customer or ev owner
 
       switch (selectedMenuItem) {
         case 'overview':
@@ -372,7 +395,7 @@ const Modal = ({ isOpen, onClose, title, children, modalClassName }) => {
             <ServiceHistory/>
             </div>
           );
-           case ' book-service':
+           case 'book-service':
           return ( 
             <div className='-mt-24 -ml-6'>
             <EVBookingForm/>
@@ -394,73 +417,34 @@ const Modal = ({ isOpen, onClose, title, children, modalClassName }) => {
         default:
           return <UserOverview/>;
       }
-
-  
   };
 
  
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setProfileForm((prev) => ({
-    ...prev,
-    [name]: value,
-  }));
-};
 
 
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const uploadForm = new FormData();
-    uploadForm.append("image", file);
-
-    try {
-      setLoading2(true);
-      const res = await axios.post("/api/upload", uploadForm);
-      const imageUrl = res.data.url;
-      console.log("Image uploaded successfully:", imageUrl);
-      setProfileForm((prev) => ({ ...prev, image: imageUrl }));
-      dispatch(setUser( {
-        ...user,
-        image: imageUrl,
-      }));
-    
-      toast.success("Image uploaded!");
-    } catch (err) {
-      console.error("Image upload failed:", err);
-    
-    } finally {
-      setLoading2(false);
-    }
-  };
-
- 
-  
-   
-//  if (!user)
-//   return (
-//     <div className="min-h-screen flex items-center justify-center bg-blue-100  relative">
-//       <div className="loader"></div>
-//     </div>
-//   );
+ if (!user)
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-blue-100  relative">
+      <div className="loader"></div>
+    </div>
+  );
 
   return (
     <div className='min-h-screen w-full bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-50 pb-24 pt-2 relative'>
       {(orderModalOpen || trackModalOpen || profileModalVisible || deleteModalVisible) && (
-        <div className="fixed inset-0 z-[100] bg-white/10 backdrop-blur-sm transition-all"></div>
+        <div className="fixed inset-0 z-50  bg-white/10 backdrop-blur-sm transition-all"></div>
       )}
 
       <div className="flex h-screen relative top-20 z-10">
         {/* Sidebar */}
-        <div className={`lg:relative h-[88%] fixed inset-y-0 left-0 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-r border-gray-200 dark:border-gray-700 shadow-lg transition-all duration-300 transform ${
+        <div className={`lg:relative  h-[88%] fixed inset-y-0 left-0 z-50  backdrop-blur-sm border-r border-gray-200 dark:border-gray-700 shadow-lg transition-all duration-300 transform ${
           collapsed ? 'w-20' : 'w-64'
         } ${
           sidebarOpen ? 'translate-x-0 top-20' : '-translate-x-full lg:translate-x-0 lg:top-0'
         }`}>
           <div className="flex flex-col h-full">
             {/* User Profile Section */}
-            <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+            <div className="p-4 border-b flex justify-between border-gray-200 dark:border-gray-700">
               <div className="flex items-center space-x-3">
                 <img
                   src={user?.image}
@@ -469,11 +453,23 @@ const handleChange = (e) => {
                 />
                 {!collapsed && (
                   <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-gray-100">{ user?.name || `${user?.firstName} ${user?.lastName}` }</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{user?.role}</p>
+                    <h3 className="font-semibold text-gray-800 ">{ user?.name || `${user?.firstName} ${user?.lastName}` }</h3>
+                    <p className="text-sm text-gray-700">{user?.role}</p>
                   </div>
                 )}
               </div>
+              <button
+                onClick={() => {
+                  if (window.innerWidth < 1024) {
+                    setSidebarOpen(!sidebarOpen);
+                  } else {
+                    setCollapsed(!collapsed);
+                  }
+                }}
+                className="p-2 rounded-lg   text-gray-900 transition-colors"
+              >
+                {collapsed ? <Menu className="w-5 cursor-pointer h-5" /> : <X className="w-5 cursor-pointer h-5" />}
+              </button>
             </div>
 
             {/* Navigation */}
@@ -490,8 +486,9 @@ const handleChange = (e) => {
             }}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
               selectedMenuItem === item.key
-                ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg"
-                : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:translate-x-1"
+                ? " text-white bg-gray-700 shadow-lg"
+                : "text-black hover:bg-gray-700 hover:text-white cursor-pointer hover:translate-x-1"
+
             }`}
           >
             <span className="text-xl">{item.icon}</span>
@@ -511,8 +508,9 @@ const handleChange = (e) => {
             }}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
               selectedMenuItem === item.key
-                ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg"
-                : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:translate-x-1"
+                ? " text-white bg-gray-700 shadow-lg"
+                : "text-black hover:bg-gray-700 hover:text-white cursor-pointer hover:translate-x-1"
+
             }`}
           >
             <span className="text-xl">{item.icon}</span>
@@ -521,7 +519,28 @@ const handleChange = (e) => {
         </li>
       ))}
     </ul>
-  ) : (
+  ) : user?.role === "partner" ? (
+    <ul className="space-y-2">
+      {PatnerItems.map((item) => (
+        <li key={item.key}>
+          <button
+            onClick={() => {
+              setSelectedMenuItem(item.key);
+              if (window.innerWidth < 1024) setSidebarOpen(false);
+            }}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+              selectedMenuItem === item.key
+                ? "  text-white bg-gray-700 shadow-lg"
+                : "text-black hover:bg-gray-700 hover:text-white cursor-pointer hover:translate-x-1"
+            }`}
+          >
+            <span className="text-xl">{item.icon}</span>
+            {!collapsed && <span className="font-medium">{item.label}</span>}
+          </button>
+        </li>
+      ))}
+    </ul>
+  ) :(
     <ul className="space-y-2">
       {CustomerItems.map((item) => (
         <li key={item.key}>
@@ -532,8 +551,9 @@ const handleChange = (e) => {
             }}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
               selectedMenuItem === item.key
-                ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg"
-                : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:translate-x-1"
+                ? " text-white bg-gray-700 shadow-lg"
+                : "text-black hover:bg-gray-700 hover:text-white cursor-pointer hover:translate-x-1"
+
             }`}
           >
             <span className="text-xl">{item.icon}</span>
@@ -590,17 +610,14 @@ const handleChange = (e) => {
         {/* Mobile Overlay */}
         {sidebarOpen && (
           <div 
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+            className="fixed inset-0  bg-black/50 z-40 lg:hidden"
             onClick={() => setSidebarOpen(false)}
           />
         )}
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col overflow-hidden">
-          {/* Header */}
-          <header className="h-16  bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-6 shadow-sm">
-            <div className="flex items-center space-x-4">
-              <button
+           <button
                 onClick={() => {
                   if (window.innerWidth < 1024) {
                     setSidebarOpen(!sidebarOpen);
@@ -608,21 +625,10 @@ const handleChange = (e) => {
                     setCollapsed(!collapsed);
                   }
                 }}
-                className="p-2 rounded-lg  text-gray-700 transition-colors"
+                className="p-2 rounded-lg   text-gray-900 transition-colors"
               >
-                {collapsed ? <Menu className="w-5 h-5" /> : <X className="w-5 h-5" />}
-              </button>
-              <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-                {user?.role === "admin" 
-                  ? AdminItems.find(item => item.key === selectedMenuItem)?.label
-                  : CustomerItems.find(item => item.key === selectedMenuItem)?.label
-                }
-              </h1>
-            </div>
-            
-          
-          </header>
-
+                {collapsed ? <X className="w-5 lg:hidden  cursor-pointer h-5" /> : <Menu className="w-5 lg:hidden cursor-pointer h-5" />}
+              </button> 
           {/* Content */}
           <main className="flex-1 overflow-y-auto p-6">
             {renderContent()}
@@ -698,26 +704,26 @@ const handleChange = (e) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">First Name</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
             <input
               type="text"
-                  name="firstName" 
+              name="firstName"
               value={profileForm.firstName}
-                 onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500  text-gray-500"
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
               placeholder={user?.firstName || ""}
             />
           </div>
 
            <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Last Name</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
 
             <input
               type="text"
-                  name="lastName" 
+              name="lastName"
               value={profileForm.lastName}
-               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500"
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
             placeholder={user?.lastName || ""}
             />
           </div>
@@ -726,10 +732,10 @@ const handleChange = (e) => {
             <label className="block text-sm font-medium text-gray-700   mb-1">Phone</label>
             <input
               type="tel"
-                  name="mobile" 
+              name="mobile"
               value={profileForm.mobile}
-                 onChange={handleChange}
-              className="w-full px-3 py-2 border  border-gray-600 rounded-lg  focus:outline-none focus:ring-2 focus:ring-blue-500    text-gray-500"
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
               placeholder={user?.phone}
             />
           </div>
@@ -737,13 +743,14 @@ const handleChange = (e) => {
           <div className="flex justify-end space-x-3 pt-4">
             <button
               onClick={() => setProfileModalVisible(false)}
-              className="px-4 py-2 text-gray-600   hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+              className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
             >
               Cancel
             </button>
             <button
               onClick={handleProfileUpdate}
               className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              disabled={loading}
             >
             {loading ? "Updating...":"Update Profile"}  
             </button>
@@ -760,33 +767,35 @@ const handleChange = (e) => {
       >
         <div className="text-center space-y-4">
           <div className="text-6xl text-yellow-500"><AlertTriangle className="w-24 h-24 mx-auto" /></div>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Are you absolutely sure?</h3>
-          <p className="text-gray-600 dark:text-gray-400">
+          <h3 className="text-lg font-semibold text-gray-900">Are you absolutely sure?</h3>
+          <p className="text-gray-600">
             This action cannot be undone. This will permanently delete your account
             and remove all associated data from our servers.
           </p>
           <div className="space-y-3">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Type 'DELETE' to confirm:
               </label>
               <input
                 type="text"
-                   onChange={(e) => setConfirm(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:text-gray-100"
+                value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                 placeholder="DELETE"
               />
             </div>
             <div className="flex justify-center space-x-3">
               <button
                 onClick={() => setDeleteModalVisible(false)}
-                className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+                className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={handleDeleteAccount}
                 className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                disabled={confirm !== "DELETE"}
               >
                 Delete Account
                   </button>
