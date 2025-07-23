@@ -39,7 +39,7 @@ export default function ModernTestimonials() {
   }, []);
 
   return (
-    <section className="py-16 bg-white text-gray-800 font-sans">
+    <section className="py-16 bg-green-50 text-gray-800 playfair-style">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header Row */}
         <div className="flex flex-col lg:flex-row justify-between items-center mb-12">
@@ -50,7 +50,7 @@ export default function ModernTestimonials() {
           </div>
           <div className="flex items-center gap-8 mt-6 lg:mt-0 text-gray-600 text-sm">
             <div className="text-center">
-              <div className="text-xl font-bold text-black">10M+</div>
+              <div className="text-xl font-bold text-black">1M+</div>
               Happy People
             </div>
             <div className="text-center flex gap-1">
@@ -77,27 +77,37 @@ export default function ModernTestimonials() {
               <div className="col-span-full text-center text-gray-400 py-10 w-full">No testimonials yet.</div>
             ) : (
               testimonials.map((t, idx) => (
-                <CarouselItem
-                  key={t._id || idx}
-                  className="basis-full md:basis-1/2 lg:basis-1/3 pl-4"
-                >
-                  <div className="bg-gray-200 border border-gray-100 shadow-sm hover:shadow-md rounded-2xl p-6 transition-all duration-300 h-full flex flex-col">
-                    <div className="flex items-center mb-4">
-                      <img
-                        src={t.image}
-                        alt={t.name}
-                        className="w-14 h-14 rounded-full object-cover mr-4"
-                      />
-                      <div>
-                        <h4 className="text-base font-semibold text-gray-900 flex items-center gap-2">
-                          {t.name} <Quote className="w-4 h-4 text-gray-400" />
-                        </h4>
-                        <p className="text-sm text-gray-500">{t.position}</p>
-                      </div>
-                    </div>
-                    <p className="text-sm text-gray-700 leading-relaxed">{t.description}</p>
-                  </div>
-                </CarouselItem>
+              <CarouselItem
+  key={t._id || idx}
+  className="basis-full md:basis-1/2 lg:basis-1/3 px-4"
+>
+  <div className="bg-white border border-emerald-100 rounded-3xl p-6 shadow-lg hover:shadow-emerald-300 transition-all duration-300 h-full flex flex-col hover:-translate-y-1 hover:scale-[1.01]">
+    {/* Header Section */}
+    <div className="flex items-center gap-4 mb-4">
+      <img
+        src={t.image}
+        alt={t.name}
+        className="w-16 h-16 rounded-full object-cover border-4 border-white shadow-md"
+      />
+      <div>
+        <h4 className="text-lg font-bold text-emerald-700 flex items-center gap-2">
+          {t.name}
+          <Quote className="w-4 h-4 text-emerald-400" />
+        </h4>
+        <p className="text-sm text-gray-500">{t.position}</p>
+      </div>
+    </div>
+
+    {/* Quote Text */}
+    <div className="text-sm text-gray-700 leading-relaxed mt-2 italic flex-1">
+      “{t.description}”
+    </div>
+
+    {/* Accent Border Line (optional) */}
+    <div className="h-1 w-20 mt-6 bg-gradient-to-r from-emerald-400 to-green-400 rounded-full" />
+  </div>
+</CarouselItem>
+
               ))
             )}
           </CarouselContent>

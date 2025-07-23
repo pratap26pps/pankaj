@@ -68,12 +68,12 @@ export default function PremiumNavigation() {
     <>
      
 
-      <nav className="fixed top-0 w-full z-50 backdrop-blur-3xl border-b  ">
+      <nav className="fixed bg-white top-0 w-full z-50  border-b    font-bold text-2xl">
         <div className="relative flex justify-between lg:justify-around items-center">
           {/* Logo */}
-          <div className="flex relative items-center">
+          <div className="bg-black item-start">
       <Image
-        src="/images/logo (3).png" alt="EV Repair" width={90} height={62}  
+        src="/images/logo (3).png" alt="EV Repair" width={100} height={92}  
         className="cursor-pointer object-contain "
         onClick={() => router.push("/")}
       />
@@ -82,14 +82,14 @@ export default function PremiumNavigation() {
 
           {/* Hamburger Menu (Mobile) */}
           <button
-            className="sm:hidden text-blue-300 hover:text-blue-100 focus:outline-none transition-colors duration-300 p-2 rounded-lg  cursor-pointer "
+            className="sm:hidden text-blue-300 hover:text-blue-100 focus:outline-none transition-colors duration-300  rounded-lg  cursor-pointer "
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden sm:flex items-center gap-8">
+          <div className="hidden sm:flex items-center gap-8 text-4xl " >
             {/* home  */}
             <NavigationMenu>
               <NavigationMenuLink

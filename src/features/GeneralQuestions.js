@@ -41,7 +41,7 @@ const GeneralQuestions = () => {
   };
 
   return (
-    <section className="bg-green-50 w-full min-h-[600px] py-10 px-4 sm:px-6 md:px-12 flex flex-col md:flex-row items-center justify-center gap-10" style={{ fontFamily: 'Inter, sans-serif' }}>
+    <section className=" bg-green-50 w-full min-h-[600px] py-10 px-4 sm:px-6 md:px-12 flex flex-col md:flex-row items-center justify-center gap-10" style={{ fontFamily: 'Inter, sans-serif' }}>
       {/* FAQ Left Side */}
       <motion.div
         initial={{ x: -50, opacity: 0 }}
