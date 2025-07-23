@@ -24,7 +24,10 @@ import {
   AlertTriangle,
   Menu,
   X,
-  HelpCircle
+  HelpCircle,
+  ChevronRight,
+  MoreVertical,
+  
 } from "lucide-react";
 import MyShoppingCart from './cart';
 import AddReview from './admin/addreview';
@@ -671,7 +674,7 @@ const handleChange = (e) => {
                 }}
                 className="p-2 rounded-lg   text-gray-900 transition-colors"
               >
-                {collapsed ? <X className="w-5 lg:hidden  cursor-pointer h-5" /> : <Menu className="w-5 lg:hidden cursor-pointer h-5" />}
+                {collapsed ? <X className="w-5 lg:hidden  cursor-pointer h-5" /> : <ChevronRight className="w-5 lg:hidden mt-6 ml-3 font-bold cursor-pointer h-5" />}
               </button> 
           {/* Content */}
           <main className="flex-1 overflow-y-auto p-6">
