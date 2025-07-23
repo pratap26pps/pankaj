@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
     await connectDB();
    
-    const user = await users.find();  
+    const user = await users.find( );  
     res.status(200).json({ user });
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch users', error: error.message });

@@ -305,7 +305,7 @@ const handleChange = (e) => {
 
   const renderContent = () => {
     
-    if ((user?.accountType === "Partner"  || user?.accountType === "Admin") && user?.status === "Pending")  {
+    if ((user?.accountType === "Partner"  || user?.accountType === "Admin") && (user?.status === "Pending" || user?.status === "Rejected"))  {
       return (
         
         <div className="flex items-center justify-center min-h-screen z-50 bg-gray-50">
@@ -314,6 +314,8 @@ const handleChange = (e) => {
               <AlertTriangle className="mx-auto h-16 w-16 text-yellow-500" />
             </div>
             <h2 className="text-2xl font-bold text-gray-800 mb-2">Account Pending Approval</h2>
+            <div className="text-2xl font-bold text-gray-800 mb-2">Current Status: {user?.status}</div>
+
             <p className="text-gray-600">Please contact SuperAdmin for approval to access your dashboard.</p>
           </div>
         </div>
