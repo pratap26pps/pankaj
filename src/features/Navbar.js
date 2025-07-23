@@ -68,7 +68,7 @@ export default function PremiumNavigation() {
     <>
      
 
-      <nav className="fixed top-0 w-full z-50 backdrop-blur-md  border-b ">
+      <nav className="fixed top-0 w-full z-50 backdrop-blur-3xl border-b  ">
         <div className="relative flex justify-between lg:justify-around items-center">
           {/* Logo */}
           <div className="flex relative items-center">

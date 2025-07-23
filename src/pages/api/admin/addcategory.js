@@ -1,5 +1,5 @@
-import connectDB from "@/src/lib/dbConnect"; 
-import Category from "@/src/models/Category"; 
+import connectDB from "@/lib/dbConnect";
+import Category from "@/models/Category"; 
 
 export default async function handler(req, res) {
 
@@ -11,9 +11,9 @@ export default async function handler(req, res) {
     
     await connectDB();
 
-    const { name, catImage, description, categoryType } = req.body;
+    const { name, catImage, description } = req.body;
 
-    if (!name || !catImage || !categoryType) {
+    if (!name || !catImage || !description) {
       return res.status(400).json({ success: false, message: "Missing required fields" });
     }
 
@@ -27,7 +27,6 @@ export default async function handler(req, res) {
       name,
       catImage,
       description,
-      categoryType,
     });
 
     return res.status(201).json({ success: true, category: newCategory });

@@ -32,12 +32,11 @@ export default function MicroAdminManagement() {
   useEffect(() => {
     async function fetchUsers() {
       try {
-        const res = await fetch("/api/admin/getusers?role=microadmin");
+        const res = await fetch("/api/admin/getusers");
         const data = await res.json();
-        if (res.ok && data.users) {
+        if (res.ok && data.user) {
           setCustomers(
-            data.users
-              .filter((u) => u.role === "microadmin")
+            data.user
               .map((u) => ({
                 id: u._id,
                 name: `${u.firstName} ${u.lastName}`,
@@ -60,7 +59,7 @@ export default function MicroAdminManagement() {
   };
 
   const handleDelete = (id) => {
-    const user = customers.find((c) => c.id === id);
+    const user = customers.find((c) => c?._id === id);
     setDeleteUser(user);
     setShowDeleteModal(true);
   };
@@ -69,11 +68,11 @@ export default function MicroAdminManagement() {
     if (!deleteUser) return;
     setIsDeleting(true);
     try {
-      const res = await fetch(`/api/admin/deleteuser?id=${deleteUser.id}`, {
+      const res = await fetch(`/api/admin/deleteuser?id=${deleteUser._id}`, {
         method: "DELETE",
       });
       if (res.ok) {
-        setCustomers((prev) => prev.filter((c) => c.id !== deleteUser.id));
+        setCustomers((prev) => prev.filter((c) => c._id !== deleteUser._id));
         toast.success("Microadmin deleted successfully");
         setShowDeleteModal(false);
         setDeleteUser(null);
@@ -131,13 +130,13 @@ export default function MicroAdminManagement() {
           </TableHeader>
           <TableBody>
             {filteredCustomers.map((customer) => (
-              <TableRow key={customer.id} className="hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors">
-                <TableCell className="font-semibold">{customer.name}</TableCell>
-                <TableCell>{customer.email}</TableCell>
-                <TableCell>{customer.mobile}</TableCell>
+              <TableRow key={customer?._id} className="hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors">
+                <TableCell className="font-semibold">{customer?.name}</TableCell>
+                <TableCell>{customer?.email}</TableCell>
+                <TableCell>{customer?.mobile}</TableCell>
                 <TableCell>
                   <Select
-                    value={customer.role}
+                    value={customer?.role}
                     disabled
                   >
                     <SelectTrigger className="w-32 border-blue-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
@@ -152,7 +151,7 @@ export default function MicroAdminManagement() {
                   <Button
                     size="sm"
                     variant="destructive"
-                    onClick={() => handleDelete(customer.id)}
+                    onClick={() => handleDelete(customer?._id)}
                   >
                     Delete
                   </Button>
@@ -169,7 +168,7 @@ export default function MicroAdminManagement() {
               <DialogTitle className="text-red-700 dark:text-red-300">Delete Microadmin</DialogTitle>
             </DialogHeader>
             <div className="py-4 text-gray-700">
-              <p>Are you sure you want to delete <span className="font-bold text-red-600">{deleteUser.name}</span>?</p>
+              <p>Are you sure you want to delete <span className="font-bold text-red-600">{deleteUser?.name}</span>?</p>
             </div>
             <div className="flex justify-end gap-2">
               <Button variant="outline" onClick={() => setShowDeleteModal(false)} disabled={isDeleting}>Cancel</Button>

@@ -1,6 +1,6 @@
- import connectDB from "@/src/lib/dbConnect";
- import Category from "@/src/models/Category";
-import Product from "@/src/models/Product";
+import connectDB from "@/lib/dbConnect";
+import Category from "@/models/Category";
+import Product from "@/models/Product";
 
 export default async function handler(req, res) {
 

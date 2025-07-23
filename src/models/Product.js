@@ -20,32 +20,25 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: true
     }],
-    description: {
-        type: String,
-        default: '',
-        trim: true
-    },
-     flipkartLink: {
-        type: String,
-        default: '',
-      
-    },
-     amazonLink: {
-        type: String,
-        default: '',
+    duration: {
+          type: String,
+          required: true,
+        },
+    warranty: {
+          type: String,
+          required: true,
+        },
+    recommended: {
+          type: String,
+          required: true,
+        },
+    problems: [
+          {
+            type: String,
+            required: true,
+          },
+        ],
        
-    },
-    price: {
-        type: Number,
-        required: true,
-        min: 0
-    },
-    quantity: {
-        type: Number,
-        required: true,
-        min: 0,
-        default: 0
-    },
     category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
@@ -55,11 +48,7 @@ const ProductSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    productType: {
-         type: String,
-       enum: ["homeproduct", "customproduct", "customplushome"],
-       default: "homeproduct"
-      }
+    
     
 }, { 
     timestamps: true 

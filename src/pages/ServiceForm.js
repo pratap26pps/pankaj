@@ -46,7 +46,7 @@ export default function EVBookingForm() {
   const [form, setForm] = useState(initialForm);
   const [step, setStep] = useState(1);
   const [showServiceDropdown, setShowServiceDropdown] = useState(false);
-
+console.log("form",form)
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
@@ -93,16 +93,38 @@ export default function EVBookingForm() {
     setStep((prev) => prev + 1);
   };
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
     if (!form.agreeTerms || !form.agreeRepair) {
       toast.error('Please agree to both service terms and repair conditions');
       return;
     }
 
-    toast.success('Service booked successfully!');
-    setForm(initialForm);
-    setStep(1);
+    try {
+      const response = await fetch('/api/service-booking', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success(`Service booked successfully! Booking ID: ${data.booking.bookingId}`);
+        setForm(initialForm);
+        setStep(1);
+      } else {
+        toast.error(data.message || 'Failed to book service');
+        if (data.errors) {
+          data.errors.forEach(error => toast.error(error));
+        }
+      }
+    } catch (error) {
+      console.error('Booking submission error:', error);
+      toast.error('Failed to submit booking. Please try again.');
+    }
   };
 
   const toggleService = (service) => {

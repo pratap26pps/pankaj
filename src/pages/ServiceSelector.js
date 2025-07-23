@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { services } from '../features/Data';
+import ServiceSelectorProduct from '../features/Pages/[product]';
+import { useSelector } from 'react-redux';
 
-// 🔹 Animation Variants
 const containerVariants = {
   hidden: {},
   visible: {
@@ -25,14 +25,12 @@ export default function ServiceSelector() {
   const scrollRef = useRef(null);
   const searchParams = useSearchParams();
   const selectedSlug = searchParams.get('service');
+  const router = useRouter(); // ✅ Add router hook
+  const categories = useSelector((state) => state.category.categories);
 
-  // 🔸 Auto-select service on page load based on slug in URL
   useEffect(() => {
     if (selectedSlug) {
-      const matchedService = services.find((s) => {
-        const slug = s.name.toLowerCase().replace(/\s+/g, '-');
-        return slug === selectedSlug;
-      });
+      const matchedService = categories?.find((s) => s.slug === selectedSlug);
       if (matchedService) {
         setSelectedService(matchedService);
         setTimeout(() => {
@@ -40,11 +38,16 @@ export default function ServiceSelector() {
         }, 200);
       }
     }
-  }, [selectedSlug]);
+  }, [selectedSlug, categories]);
 
-  // 🔹 On click from this page
   const handleCardClick = (service) => {
     setSelectedService(service);
+
+    // ✅ Update the URL with the selected category slug
+    const params = new URLSearchParams(window.location.search);
+    params.set('service', service.slug);
+    router.push(`?${params.toString()}`);
+
     setTimeout(() => {
       scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);
@@ -55,7 +58,6 @@ export default function ServiceSelector() {
       className="px-10 sm:px-10 md:px-20 max-w-10xl mx-auto mt-18 pt-20 bg-no-repeat bg-center bg-cover"
       style={{ backgroundImage: "url('/images/book.jpg')" }}
     >
-      {/* 🔹 Sticky Service Selector - Centered */}
       <div className="flex justify-center">
         <div className="2xl:w-[1000px] top-[90px] z-20 bg-white/30 backdrop-blur-md rounded-2xl p-4 shadow-lg border border-white/40">
           <motion.div
@@ -64,8 +66,8 @@ export default function ServiceSelector() {
             initial="hidden"
             animate="visible"
           >
-            {Array.isArray(services) &&
-              services.map((service, index) => (
+            {Array.isArray(categories) &&
+              categories?.map((service, index) => (
                 <motion.button
                   key={index}
                   variants={itemVariants}
@@ -80,7 +82,9 @@ export default function ServiceSelector() {
                         : 'border-gray-300'
                     } hover:border-green-500`}
                 >
-                  <div className="text-[34px] text-green-600 mb-1">{service.icon}</div>
+                  <div className="text-[34px] text-green-600 mb-1">
+                    <img src={service.catImage} alt={service.name} height={50} width={50}/>
+                  </div>
                   <div className="text-sm font-medium text-gray-800 leading-tight">
                     {service.name}
                   </div>
@@ -90,17 +94,16 @@ export default function ServiceSelector() {
         </div>
       </div>
 
-      {/* 🔻 Dynamic Component Render - Scrolls Just Below Selector */}
-      {selectedService?.Component && (
+      {selectedService && (
         <div ref={scrollRef} className="scroll-mt-[520px] mx-auto">
           <motion.div
-            key={selectedService.name}
+            key={selectedService.slug}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
             className="mt-10"
           >
-            <selectedService.Component />
+            <ServiceSelectorProduct />
           </motion.div>
         </div>
       )}

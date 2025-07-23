@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { services } from '../features/Data';
 import Head from 'next/head';
+import { useSelector } from 'react-redux';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -23,6 +24,8 @@ const ServicePage = () => {
   const router = useRouter();
   const [location, setLocation] = useState(null);
   const [search, setSearch] = useState('');
+  const categories = useSelector((state) => state.category.categories)
+  console.log("categories",categories)
 
   useEffect(() => {
     if (typeof window !== 'undefined' && 'geolocation' in navigator) {
@@ -90,7 +93,7 @@ const ServicePage = () => {
     }
   }, []);
 
-  const filteredServices = services.filter((service) =>
+  const filteredServices = categories.filter((service) =>
     service.name.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -148,8 +151,8 @@ const ServicePage = () => {
               onClick={() => handleCardClick(service.name)}
               className="group cursor-pointer bg-white border-2 border-gray-200 group-hover:text-blue-600  text-gray-800 font-medium rounded-3xl shadow-lg hover:shadow-2xl flex flex-col items-center justify-center text-center p-8 w-full h-56 sm:h-60 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-green-200"
             >
-              <div className="text-green-600 group-hover:text-blue-600 transition-colors duration-300 mb-4">
-                  {service.icon}
+              <div className="text-green-600 group-hover:text-blue-600 ">
+                  <img src={service.catImage} alt={service.name} height={50} width={50}/>
               </div>
               <h3 
                 className="text-lg sm:text-xl font-bold text-green-600 group-hover:text-blue-600 transition-colors duration-300 mb-2"
