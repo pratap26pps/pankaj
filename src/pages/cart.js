@@ -108,7 +108,7 @@ const MyShoppingCart = () => {
       router.push("/authpage");
       return;
     }
-    if (user.role !== "User") {
+    if (user.accountType !== "User") {
       toast.error("Only customers can checkout");
       return;
     }
@@ -118,7 +118,7 @@ const MyShoppingCart = () => {
  
 
   return (
-    <div className={`min-h-screen ${theme.bg} pt-24 px-4`}>
+    <div className={`min-h-screen ${theme.bg} pt-28 px-4`}>
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex justify-between items-center p-6 rounded-xl bg-white shadow">
           <div className="flex items-center gap-4">

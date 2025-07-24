@@ -24,7 +24,10 @@ import {
   AlertTriangle,
   Menu,
   X,
-  HelpCircle
+  HelpCircle,
+  ChevronRight,
+  MoreVertical,
+  
 } from "lucide-react";
 import MyShoppingCart from './cart';
 import AddReview from './admin/addreview';
@@ -131,7 +134,7 @@ const Dashboard = () => {
       { key: 'customers', label: 'Customers',icon:< Users className="w-5 h-5" />  },
       { key: 'earnings', label: 'Earnings',icon:< Users className="w-5 h-5" /> },
       { key: 'services', label: 'Services',icon:< Users className="w-5 h-5" />  },
-      { key: 'settings', label: 'Settings',icon:< Users className="w-5 h-5" />  }
+      
     ];
  
      const AdminItems = [
@@ -305,7 +308,7 @@ const handleChange = (e) => {
 
   const renderContent = () => {
     
-    if ((user?.accountType === "Partner"  || user?.accountType === "Admin") && user?.status === "Pending")  {
+    if ((user?.accountType === "Partner"  || user?.accountType === "Admin") && (user?.status === "Pending" || user?.status === "Rejected"))  {
       return (
         
         <div className="flex items-center justify-center min-h-screen z-50 bg-gray-50">
@@ -313,8 +316,12 @@ const handleChange = (e) => {
             <div className="mb-4">
               <AlertTriangle className="mx-auto h-16 w-16 text-yellow-500" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">Account Pending Approval</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">Account Pending Approval,It will take 24 hours to approve your account.</h2>
+            <div className="text-2xl font-bold text-gray-800 mb-2">Current Status: {user?.status}</div>
+
             <p className="text-gray-600">Please contact SuperAdmin for approval to access your dashboard.</p>
+
+                  Contact: 9821907223
           </div>
         </div>
       )
@@ -374,7 +381,7 @@ const handleChange = (e) => {
         return (
           <MicroAdminManagement/>
         );
-      case 'settings':
+      case 'earnings':
         return (
           <LiveBookingPage/>
         );
@@ -667,7 +674,7 @@ const handleChange = (e) => {
                 }}
                 className="p-2 rounded-lg   text-gray-900 transition-colors"
               >
-                {collapsed ? <X className="w-5 lg:hidden  cursor-pointer h-5" /> : <Menu className="w-5 lg:hidden cursor-pointer h-5" />}
+                {collapsed ? <X className="w-5 lg:hidden  cursor-pointer h-5" /> : <ChevronRight className="w-5 lg:hidden mt-6 ml-3 font-bold cursor-pointer h-5" />}
               </button> 
           {/* Content */}
           <main className="flex-1 overflow-y-auto p-6">

@@ -30,8 +30,9 @@ const userSchema = new mongoose.Schema(
         bankname: { type: String, default: "" },
         typeOfEntity: {
             type: String,
-            enum: ["individual", "company", "franchise","other"],
-            default: "other",
+            enum: ["individual", "company", "franchise","other",""],
+            default: "",
+            required: false,
          
           },
           vehicalRegistrationNumber: { type: String, default: "" },

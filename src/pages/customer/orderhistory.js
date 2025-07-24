@@ -13,10 +13,10 @@ export default function OrderHistory() {
   const user = useSelector((state) => state.auth.user);
 
   // Filter orders for the logged-in user
-  const userOrders = useMemo(() => {
-    if (!user?._id) return [];
-    return orders.filter(order => order.user && order.user._id === user._id);
-  }, [orders, user]);
+  // const userOrders = useMemo(() => {
+  //   if (!user?._id) return [];
+  //   return orders.filter(order => order.user && order.user._id === user._id);
+  // }, [orders, user]);
   console.log("orders",orders)
  
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -40,7 +40,7 @@ export default function OrderHistory() {
                     </tr>
                   </thead>
                   <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                    {userOrders.map(order => (
+                    {orders.map(order => (
                       <tr key={order._id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className="font-medium text-gray-900 dark:text-gray-100">{order.orderId || order._id}</span>
@@ -52,7 +52,7 @@ export default function OrderHistory() {
                           <span className="font-semibold text-gray-900 dark:text-gray-100">₹{order.totalAmount}</span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`inline-flex items-center px-2.5 py-0.5 text-gray-900 rounded-full text-xs font-medium border`}>{order.status?.toUpperCase()}</span>
+                          <span className={`inline-flex items-center px-2.5 py-0.5 text-gray-900 dark:text-gray-100 rounded-full text-xs font-medium border`}>{order.status?.toUpperCase()}</span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">
                           {order.createdAt ? new Date(order.createdAt).toLocaleDateString() : ''}

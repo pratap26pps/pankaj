@@ -57,6 +57,7 @@ export default function PremiumNavigation() {
       dispatch(clearUser());
       setUser(null);
      router.push("/");
+     setMenuOpen(false);
     } catch (error) {
       console.error("Logout error", error);
     }
@@ -71,7 +72,7 @@ export default function PremiumNavigation() {
       <nav className="fixed bg-white top-0 py-3.5 w-full z-50  box-shadow-xl    font-bold text-2xl">
         <div className="relative flex justify-between lg:justify-around items-center">
           {/* Logo */}
-          <div className="bg-blac   -my-15">
+          <div className="bg-blac   -my-16">
       <Image
         src="/images/logo (3).png" alt="EV Repair" width={190} height={92}  
         className="cursor-pointer object-contain "
@@ -82,10 +83,10 @@ export default function PremiumNavigation() {
 
           {/* Hamburger Menu (Mobile) */}
           <button
-            className="sm:hidden text-blue-300 hover:text-blue-100 focus:outline-none transition-colors duration-300  rounded-lg  cursor-pointer "
+            className="sm:hidden text-blue-400 hover:text-blue-600 mr-4 focus:outline-none transition-colors duration-300  rounded-lg  cursor-pointer "
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            {menuOpen ? <X size={28} /> : <Menu size={28} />}
+            {menuOpen ? <X size={28} /> : <Menu size={28}/>}
           </button>
 
           {/* Desktop Navigation */}
@@ -227,27 +228,26 @@ export default function PremiumNavigation() {
             
             <NavigationMenu>
               <NavigationMenuLink
-                onClick={()=>router.push("/About")}
-              className="block cursor-pointer py-2 text-sm text-slate-900  hover:text-blue-300   rounded-lg transition-all duration-300  relative group">
+                onClick={()=>{router.push("/About"),setMenuOpen(false)}}
+              className="block cursor-pointer py-2 text-sm text-slate-200  hover:text-blue-300   rounded-lg transition-all duration-300  relative group">
                 <span className="relative z-10">About</span>
               </NavigationMenuLink>
             </NavigationMenu>
 
              
-
             {/* About */}
             <NavigationMenu>
               <NavigationMenuLink 
-                    onClick={()=>router.push("/Servicepage")}
-              className="block cursor-pointer  py-2 text-sm text-slate-900 hover:text-blue-300 rounded-lg transition-all duration-300   relative group">
+                    onClick={()=>{router.push("/Servicepage"),setMenuOpen(false)}}
+              className="block cursor-pointer  py-2 text-sm text-slate-200 hover:text-blue-300 rounded-lg transition-all duration-300   relative group">
                 <span className="relative z-10">Services</span>
               </NavigationMenuLink>
             </NavigationMenu>
 
 <NavigationMenu>
 <NavigationMenuLink
-                      onClick={()=>router.push("/Blog")}
-                    className="block cursor-pointer  py-2 text-sm text-slate-900   hover:text-blue-300 rounded-lg transition-all duration-300 relative group">
+                      onClick={()=>{router.push("/Blog"),setMenuOpen(false) } }
+                    className="block cursor-pointer  py-2 text-sm text-slate-200   hover:text-blue-300 rounded-lg transition-all duration-300 relative group">
                      Blog
                     </NavigationMenuLink>
    </NavigationMenu>
