@@ -229,7 +229,7 @@ const Modal = ({ isOpen, onClose, title, children, modalClassName }) => {
   if (!isOpen) return null;
 
   return (
-    <div className=" relative -mt-[45%] inset-0 flex items-center justify-center px-4  z-50">
+    <div className="dash relative -mt-[45%] inset-0 flex items-center justify-center px-4  z-50">
       <div
         className="  rounded-xl shadow-2xl bg-gray-50 w-full max-w-lg transform transition-all overflow-hidden focus:outline-none"
         role="dialog"
