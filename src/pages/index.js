@@ -27,7 +27,7 @@ const Index = () => {
 
       <div className="h-full w-full " style={{ fontFamily: 'Inter, sans-serif' }}>
         {/* ✅ Hero Image Section - Full Width/Height */}
-        <div className="w-full flex items-start justify-center  2xl:mt-10 md:mt-2 lg:mt-5  sm:pt-1 md:pt-10">
+        <div className="w-full flex items-start justify-center   lg:mt-6  sm:pt-1 md:pt-10">
           <div className="w-full">
             <div className="relative w-full h-[calc(100vh-5rem)]"> {/* 5rem = 80px navbar height */}
               <Image

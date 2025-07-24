@@ -81,7 +81,7 @@ export default function ModernTestimonials() {
   key={t._id || idx}
   className="basis-full md:basis-1/2 lg:basis-1/3 px-4"
 >
-  <div className="bg-white border border-emerald-100 rounded-3xl p-6 shadow-lg hover:shadow-emerald-300 transition-all duration-300 h-full flex flex-col hover:-translate-y-1 hover:scale-[1.01]">
+  <div className="bg-white border border-emerald-100 rounded-3xl p-6    cursor-pointer transition-all duration-300 h-full flex flex-col hover:-translate-y-1 hover:scale-[1.01]">
     {/* Header Section */}
     <div className="flex items-center gap-4 mb-4">
       <img

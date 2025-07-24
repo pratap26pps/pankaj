@@ -138,7 +138,11 @@ const ServicePage = () => {
           </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          !filteredServices  ?
+         <div className="flex justify-center"><span className='loader'></span></div>
+          :
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredServices.map((service, index) => (
             <motion.button
               key={index}
@@ -169,6 +173,8 @@ const ServicePage = () => {
             </motion.button>
           ))}
           </div>
+        }
+       
         </div>
       </section>
     </>
