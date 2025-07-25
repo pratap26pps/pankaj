@@ -116,7 +116,7 @@ const ServicePage = () => {
         />
       </Head>
       
-      <section className="min-h-screen bg-green-50 px-4  sm:px-6 md:px-10 py-28" style={{ fontFamily: 'Inter, sans-serif' }}>
+      <section className="min-h-screen bg-green-50 px-4  sm:px-6 md:px-10 py-28" style={{ fontFamily: 'poppins, sans-serif' }}>
         <div className="max-w-7xl mx-auto space-y-12">
           {/* Heading */}
           <div className="text-center">

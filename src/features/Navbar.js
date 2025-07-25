@@ -23,164 +23,164 @@ import { setUser } from "../redux/slices/authSlice";
 import Image from "next/image";
 
 export default function PremiumNavigation() {
-
   const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
-    const dispatch = useDispatch();
-    const { cartItems } = useSelector((state) => state.cart);
-    const [localCartCount, setLocalCartCount] = useState(0);
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.cart);
+  const [localCartCount, setLocalCartCount] = useState(0);
 
-    useEffect(() => {
-      if ((!cartItems || cartItems.length === 0) && typeof window !== 'undefined') {
-        const stored = localStorage.getItem('cartItems');
-        if (stored) {
-          try {
-            setLocalCartCount(JSON.parse(stored).length);
-          } catch {
-            setLocalCartCount(0);
-          }
-        } else {
+  useEffect(() => {
+    if (
+      (!cartItems || cartItems.length === 0) &&
+      typeof window !== "undefined"
+    ) {
+      const stored = localStorage.getItem("cartItems");
+      if (stored) {
+        try {
+          setLocalCartCount(JSON.parse(stored).length);
+        } catch {
           setLocalCartCount(0);
         }
+      } else {
+        setLocalCartCount(0);
       }
-    }, [cartItems]);
+    }
+  }, [cartItems]);
 
-    const totalItems = (cartItems && cartItems.length > 0) ? cartItems.length : localCartCount;
+  const totalItems =
+    cartItems && cartItems.length > 0 ? cartItems.length : localCartCount;
 
-    console.log("cartItems in nav ",cartItems?.length)
-   const user = useSelector((state) => state.auth.user);
+  console.log("cartItems in nav ", cartItems?.length);
+  const user = useSelector((state) => state.auth.user);
 
-   const handleLogout = async () => {
+  const handleLogout = async () => {
     try {
       await axios.get("/api/auth/logout");
-     await signOut({ redirect: false });
+      await signOut({ redirect: false });
       dispatch(clearUser());
       setUser(null);
-     router.push("/");
-     setMenuOpen(false);
+      router.push("/");
+      setMenuOpen(false);
     } catch (error) {
       console.error("Logout error", error);
     }
   };
 
- 
-
   return (
     <>
-     
-
-      <nav className="fixed bg-white top-0 py-3.5 w-full z-50  box-shadow-xl    font-bold text-2xl">
+      <nav className="fixed bg-white top-0 py-3.5 w-full z-50  box-shadow-xl   font-bold text-2xl"  style={{ fontFamily: "'Poppins', sans-serif" }}>
         <div className="relative flex justify-between lg:justify-around items-center">
           {/* Logo */}
           <div className="bg-blac   -my-16">
-      <Image
-        src="/images/logo (3).png" alt="EV Repair" width={190} height={92}  
-        className="cursor-pointer object-contain "
-        onClick={() => router.push("/")}
-      />
- 
-    </div>
+            <Image
+              src="/images/logo (3).png"
+              alt="EV Repair"
+              width={190}
+              height={92}
+              className="cursor-pointer object-contain "
+              onClick={() => router.push("/")}
+            />
+          </div>
 
           {/* Hamburger Menu (Mobile) */}
           <button
             className="sm:hidden text-blue-400 hover:text-blue-600 mr-4 focus:outline-none transition-colors duration-300  rounded-lg  cursor-pointer "
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            {menuOpen ? <X size={28} /> : <Menu size={28}/>}
+            {menuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden sm:flex items-center gap-8 text-4xl " >
+          <div className="hidden sm:flex items-center gap-8 text-4xl ">
             {/* home  */}
             <NavigationMenu>
               <NavigationMenuLink
-                onClick={()=>router.push("/")}
-              className="block cursor-pointer  py-2 text-sm text-slate-900  hover:text-blue-300   rounded-lg transition-all duration-300  relative group">
-                <span className="relative z-10">Home</span>
+                onClick={() => router.push("/")}
+                className="block cursor-pointer  py-2  text-slate-900 text-xl hover:text-blue-300   rounded-lg transition-all duration-300  relative group"
+                  style={{ fontFamily: "'Poppins', sans-serif" }}
+              >
+                <span className="relative text-xl  z-10">Home</span>
               </NavigationMenuLink>
             </NavigationMenu>
 
-          
-            
             <NavigationMenu>
               <NavigationMenuLink
-                onClick={()=>router.push("/About")}
-              className="block cursor-pointer py-2 text-sm text-slate-900  hover:text-blue-300   rounded-lg transition-all duration-300  relative group">
-                <span className="relative z-10">About</span>
+                onClick={() => router.push("/About")}
+                className="block cursor-pointer py-2 text-sm text-slate-900  hover:text-blue-300   rounded-lg transition-all duration-300  relative group"
+              >
+                <span className="relative text-xl z-10">About</span>
               </NavigationMenuLink>
             </NavigationMenu>
-
-             
 
             {/* About */}
             <NavigationMenu>
-              <NavigationMenuLink 
-                    onClick={()=>router.push("/Servicepage")}
-              className="block cursor-pointer  py-2 text-sm text-slate-900 hover:text-blue-300 rounded-lg transition-all duration-300   relative group">
-                <span className="relative z-10">Services</span>
+              <NavigationMenuLink
+                onClick={() => router.push("/Servicepage")}
+                className="block cursor-pointer  py-2 text-sm text-slate-900 hover:text-blue-300 rounded-lg transition-all duration-300   relative group"
+              >
+                <span className="relative text-xl z-10">Services</span>
               </NavigationMenuLink>
             </NavigationMenu>
 
-<NavigationMenu>
-<NavigationMenuLink
-                      onClick={()=>router.push("/Blog")}
-                    className="block cursor-pointer  py-2 text-sm text-slate-900   hover:text-blue-300 rounded-lg transition-all duration-300 relative group">
-                     Blog
-                    </NavigationMenuLink>
-   </NavigationMenu>
-           
-             
- 
+            <NavigationMenu>
+              <NavigationMenuLink
+                onClick={() => router.push("/Blog")}
+                className="block cursor-pointer text-xl  py-2   text-slate-900   hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
+
+              >
+                Blog
+              </NavigationMenuLink>
+            </NavigationMenu>
           </div>
 
           {/* Auth/Login Buttons */}
           <div className="hidden sm:flex items-center gap-6 relative">
             {/* Cart */}
-              <div    onClick={() => router.push("/cart")} className="relative cursor-pointer">
+            <div
+              onClick={() => router.push("/cart")}
+              className="relative cursor-pointer"
+            >
               <div className="absolute -top-4 -right-2  text-black text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold   border-2 border-slate-900">
                 {totalItems}
               </div>
-              <ShoppingCart
-             
-                className="text-slate-900 w-6 h-6 transition-all duration-300"
-              />
+              <ShoppingCart className="text-slate-900 w-6 h-6 transition-all duration-300" />
             </div>
 
             {user ? (
               <Popover>
-      <PopoverTrigger asChild>
-        <div className="flex items-center gap-3 cursor-pointer rounded-lg p-2 transition-all duration-300">
-          <img
-            src={user?.image || "images/avatar.png"}
-            alt="User"
-            className="w-8 h-8 rounded-full border-2 border-blue-400/50"
-          />
-          <p className="text-sm text-slate-900">
-            Hi, {user?.name || `${user?.firstName} ${user?.lastName}`}
-          </p>
-        </div>
-      </PopoverTrigger>
-      <PopoverContent className="max-w-[150px] py-2 bg-white border border-blue-500/20 rounded-xl ">
-        <div
-          onClick={() => router.push("/dashboard")}
-          className="block cursor-pointer px-4 py-3 text-sm  hover:text-blue-500 rounded-lg"
-        >
-          Dashboard
-        </div>
-        <div
-          onClick={() => router.push("/cart")}
-          className="block cursor-pointer px-4 py-3 text-sm  hover:text-blue-500 rounded-lg"
-        >
-          My Cart
-        </div>
-        <div
-          onClick={handleLogout}
-          className="block cursor-pointer px-4 py-3 text-sm  hover:text-blue-500 rounded-lg"
-        >
-          Logout
-        </div>
-      </PopoverContent>
-    </Popover>
+                <PopoverTrigger asChild>
+                  <div className="flex items-center gap-3 cursor-pointer rounded-lg p-2 transition-all duration-300">
+                    <img
+                      src={user?.image || "images/avatar.png"}
+                      alt="User"
+                      className="w-8 h-8 rounded-full border-2 border-blue-400/50"
+                    />
+                    <p className="text-sm text-slate-900">
+                      Hi, {user?.name || `${user?.firstName} ${user?.lastName}`}
+                    </p>
+                  </div>
+                </PopoverTrigger>
+                <PopoverContent className="max-w-[150px] py-2 bg-white border border-blue-500/20 rounded-xl ">
+                  <div
+                    onClick={() => router.push("/dashboard")}
+                    className="block cursor-pointer px-4 py-3 text-sm  hover:text-blue-500 rounded-lg"
+                  >
+                    Dashboard
+                  </div>
+                  <div
+                    onClick={() => router.push("/cart")}
+                    className="block cursor-pointer px-4 py-3 text-sm  hover:text-blue-500 rounded-lg"
+                  >
+                    My Cart
+                  </div>
+                  <div
+                    onClick={handleLogout}
+                    className="block cursor-pointer px-4 py-3 text-sm  hover:text-blue-500 rounded-lg"
+                  >
+                    Logout
+                  </div>
+                </PopoverContent>
+              </Popover>
             ) : (
               <button
                 onClick={() => router.push("/authpage")}
@@ -191,147 +191,154 @@ export default function PremiumNavigation() {
             )}
           </div>
         </div>
-    </nav>
+      </nav>
 
-
-        {/* Mobile Menu Drawer */}
-     {menuOpen && (
-  <div className="fixed inset-0 z-50 sm:hidden">
-    {/* Overlay */}
-    <div
-      className="absolute inset-0    transition-opacity duration-300"
-      onClick={() => setMenuOpen(false)}
-    />
-
-    {/* Right Drawer */}
-    <div className="absolute top-0 right-0 h-full w-[75vw] max-w-xs bg-slate-900/90 backdrop-blur-md border-l border-blue-500/30 px-6 py-6 space-y-6 shadow-2xl transform transition-transform duration-300 translate-x-0">
-      {/* Close Button */}
-      <div className="flex justify-end">
-        <button
-          onClick={() => setMenuOpen(false)}
-          className="text-slate-300 hover:text-blue-400"
-        >
-          <X className="w-6 h-6" />
-        </button>
-      </div>
-
-      {/* Mobile Menu Content */}
-      <div className="space-y-4">
-         <NavigationMenu>
-              <NavigationMenuLink
-                onClick={()=>{router.push("/"),setMenuOpen(false)}}
-              className="block cursor-pointer  py-2 text-sm text-slate-200  hover:text-blue-300   rounded-lg transition-all duration-300  relative group">
-                <span className="relative z-10">Home</span>
-              </NavigationMenuLink>
-            </NavigationMenu>
- 
-            
-            <NavigationMenu>
-              <NavigationMenuLink
-                onClick={()=>{router.push("/About"),setMenuOpen(false)}}
-              className="block cursor-pointer py-2 text-sm text-slate-200  hover:text-blue-300   rounded-lg transition-all duration-300  relative group">
-                <span className="relative z-10">About</span>
-              </NavigationMenuLink>
-            </NavigationMenu>
-
-             
-            {/* About */}
-            <NavigationMenu>
-              <NavigationMenuLink 
-                    onClick={()=>{router.push("/Servicepage"),setMenuOpen(false)}}
-              className="block cursor-pointer  py-2 text-sm text-slate-200 hover:text-blue-300 rounded-lg transition-all duration-300   relative group">
-                <span className="relative z-10">Services</span>
-              </NavigationMenuLink>
-            </NavigationMenu>
-
-<NavigationMenu>
-<NavigationMenuLink
-                      onClick={()=>{router.push("/Blog"),setMenuOpen(false) } }
-                    className="block cursor-pointer  py-2 text-sm text-slate-200   hover:text-blue-300 rounded-lg transition-all duration-300 relative group">
-                     Blog
-                    </NavigationMenuLink>
-   </NavigationMenu>
-           
-             
-           
-            
-      </div>
-
-      {/* Auth Section */}
-      <div className="flex items-center gap-4 pt-4 border-t border-blue-500/20">
-        <div className="relative">
-          <div className="absolute -top-2 -right-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
-            {totalItems}
-          </div>
-          <ShoppingCart
-            onClick={() => {
-              router.push("/cart");
-              setMenuOpen(false);
-            }}
-            className="text-slate-200 w-6 h-6 cursor-pointer"
+      {/* Mobile Menu Drawer */}
+      {menuOpen && (
+        <div className="fixed inset-0 z-50 sm:hidden">
+          {/* Overlay */}
+          <div
+            className="absolute inset-0    transition-opacity duration-300"
+            onClick={() => setMenuOpen(false)}
           />
+
+          {/* Right Drawer */}
+          <div className="absolute top-0 right-0 h-full w-[75vw] max-w-xs bg-[linear-gradient(135deg,_#d1fae5_0%,_#a7f3d0_50%,_#6ee7b7_100%)] backdrop-blur-md border-l border-blue-500/30 px-6 py-6 space-y-6 shadow-2xl transform transition-transform duration-300 translate-x-0">
+            {/* Close Button */}
+            <div className="flex justify-end">
+              <button
+                onClick={() => setMenuOpen(false)}
+                className="text-black text-3xl font-bold hover:text-blue-400"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Mobile Menu Content */}
+            <div className="space-y-4">
+              <NavigationMenu>
+                <NavigationMenuLink
+                  onClick={() => {
+                    (router.push("/"), setMenuOpen(false));
+                  }}
+                  className="block cursor-pointer  py-2 -mt-3 text-xl text-black font-bold   hover:text-blue-300   rounded-lg transition-all duration-300  relative group"
+                >
+                  <span className="relative z-10">Home</span>
+                </NavigationMenuLink>
+              </NavigationMenu>
+
+              <NavigationMenu>
+                <NavigationMenuLink
+                  onClick={() => {
+                    (router.push("/About"), setMenuOpen(false));
+                  }}
+                  className="block cursor-pointer py-2 text-xl font-bold text-black   hover:text-blue-300   rounded-lg transition-all duration-300  relative group"
+                >
+                  <span className="relative z-10">About</span>
+                </NavigationMenuLink>
+              </NavigationMenu>
+
+              {/* About */}
+              <NavigationMenu>
+                <NavigationMenuLink
+                  onClick={() => {
+                    (router.push("/Servicepage"), setMenuOpen(false));
+                  }}
+                  className="block cursor-pointer  py-2 text-xl font-bold text-black  hover:text-blue-300 rounded-lg transition-all duration-300   relative group"
+                >
+                   <span className="relative z-10">Services</span>
+                </NavigationMenuLink>
+              </NavigationMenu>
+
+              <NavigationMenu>
+                <NavigationMenuLink
+                  onClick={() => {
+                    (router.push("/Blog"), setMenuOpen(false));
+                  }}
+                  className="block cursor-pointer  py-2 text-xl text-black  font-bold   hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
+                >
+                  Blog
+                </NavigationMenuLink>
+              </NavigationMenu>
+            </div>
+
+            {/* Auth Section */}
+            <div className="flex items-center gap-4 pt-4 border-t border-blue-500/20" style={{ fontFamily: "'Poppins', sans-serif" }}>
+              <div className="relative">
+                <div className="absolute -top-2 -right-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                  {totalItems}
+                </div>
+                <ShoppingCart
+                  onClick={() => {
+                    router.push("/cart");
+                    setMenuOpen(false);
+                  }}
+                  className="text-black w-6 ml-2.5 h-6 cursor-pointer"
+                />
+              </div>
+
+              {user ? (
+                <NavigationMenu>
+                  <NavigationMenuList>
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger className="!bg-transparent cursor-pointer p-0 border-none shadow-none hover:bg-transparent">
+                        <div className="flex items-center gap-2">
+                          <img
+                            src={user?.image || "images/avatar.png"}
+                            alt="User"
+                            className="w-8 h-8 rounded-full border-2 border-blue-400/50"
+                          />
+                          <p className="text-sm text-slate-200">
+                            Hi,{" "}
+                            {user?.name ||
+                              `${user?.firstName} ${user?.lastName}`}
+                          </p>
+                        </div>
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent className="min-w-[140px] py-2 bg-slate-700/95 backdrop-blur-md border border-blue-500/20 rounded-xl">
+                        <NavigationMenuLink
+                          onClick={() => {
+                            router.push("/dashboard");
+                            setMenuOpen(false);
+                          }}
+                          className="block cursor-pointer px-4 py-3 text-sm text-slate-200 hover:bg-blue-700/30 hover:text-blue-300 rounded-lg transition-all duration-300 mx-2"
+                        >
+                          Dashboard
+                        </NavigationMenuLink>
+                        <NavigationMenuLink
+                          onClick={() => {
+                            router.push("/cart");
+                            setMenuOpen(false);
+                          }}
+                          className="block cursor-pointer px-4 py-3 text-sm text-slate-200 hover:bg-blue-700/30 hover:text-blue-300 rounded-lg transition-all duration-300 mx-2"
+                        >
+                          My Cart
+                        </NavigationMenuLink>
+                        <NavigationMenuLink
+                          onClick={handleLogout}
+                          className="block cursor-pointer px-4 py-3 text-sm text-slate-200 hover:bg-blue-700/30 hover:text-blue-300 rounded-lg transition-all duration-300 mx-2"
+                        >
+                          Logout
+                        </NavigationMenuLink>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  </NavigationMenuList>
+                </NavigationMenu>
+              ) : (
+                <button
+                  onClick={() => {
+                    router.push("/authpage");
+                    setMenuOpen(false);
+                  }}
+                  className="px-6 py-2 bg-gradient-to-r from-blue-600 to-cyan-600  text-white rounded-lg font-medium"
+                >
+                  Account
+                </button>
+              )}
+            </div>
+          </div>
         </div>
-
-        {user ? (
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="!bg-transparent cursor-pointer p-0 border-none shadow-none hover:bg-transparent">
-                  <div className="flex items-center gap-2">
-                    <img
-                      src={user?.image || "images/avatar.png"}
-                      alt="User"
-                      className="w-8 h-8 rounded-full border-2 border-blue-400/50"
-                    />
-                    <p className="text-sm text-slate-200">Hi, {user?.name || `${user?.firstName} ${user?.lastName}`}</p>
-                  </div>
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="min-w-[140px] py-2 bg-slate-700/95 backdrop-blur-md border border-blue-500/20 rounded-xl">
-                  <NavigationMenuLink
-                    onClick={() => {
-                      router.push("/dashboard");
-                      setMenuOpen(false);
-                    }}
-                    className="block cursor-pointer px-4 py-3 text-sm text-slate-200 hover:bg-blue-700/30 hover:text-blue-300 rounded-lg transition-all duration-300 mx-2"
-                  >
-                    Dashboard
-                  </NavigationMenuLink>
-                  <NavigationMenuLink
-                    onClick={() => {
-                      router.push("/cart");
-                      setMenuOpen(false);
-                    }}
-                    className="block cursor-pointer px-4 py-3 text-sm text-slate-200 hover:bg-blue-700/30 hover:text-blue-300 rounded-lg transition-all duration-300 mx-2"
-                  >
-                    My Cart
-                  </NavigationMenuLink>
-                  <NavigationMenuLink
-                    onClick={handleLogout}
-                    className="block cursor-pointer px-4 py-3 text-sm text-slate-200 hover:bg-blue-700/30 hover:text-blue-300 rounded-lg transition-all duration-300 mx-2"
-                  >
-                    Logout
-                  </NavigationMenuLink>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-        ) : (
-          <button
-            onClick={() => {
-              router.push("/authpage");
-              setMenuOpen(false);
-            }}
-            className="px-6 py-2 bg-gradient-to-r from-blue-600 to-cyan-600  text-white rounded-lg font-medium"
-          >
-            Account
-          </button>
-        )}
-      </div>
-    </div>
-  </div>
-)}
-
-  
+      )}
     </>
   );
 }

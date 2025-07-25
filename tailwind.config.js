@@ -1,10 +1,14 @@
 // tailwind.config.js
 module.exports = {
   content: [
-    './src/**/*.{js,ts,jsx,tsx}', // adjust if your files are elsewhere
+    './src/**/*.{js,ts,jsx,tsx}', // Adjust this path to match your project structure
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 };

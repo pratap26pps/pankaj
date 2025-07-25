@@ -25,7 +25,7 @@ const Index = () => {
         />
       </Head>
 
-      <div className="h-full w-full " style={{ fontFamily: 'Inter, sans-serif' }}>
+      <div className="h-full w-full" style={{ fontFamily: 'Inter, sans-serif' }}>
         {/* ✅ Hero Image Section - Full Width/Height */}
         <div className="w-full flex items-start justify-center   lg:mt-6  sm:pt-1 md:pt-10">
           <div className="w-full">
@@ -53,7 +53,7 @@ const Index = () => {
             <h1
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight"
               style={{
-                fontFamily: 'Playfair Display, serif',
+                fontFamily: 'inter,san-serif, serif',
                 letterSpacing: '-0.02em'
               }}
             >
@@ -67,7 +67,7 @@ const Index = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
               className="text-xl sm:text-2xl md:text-3xl text-gray-700 font-medium leading-relaxed max-w-5xl mx-auto"
-              style={{ fontFamily: 'Inter, sans-serif' }}
+              style={{ fontFamily: 'sans-serif' }}
             >
               India's clean-tech solution for silent battery backup systems and trusted electric vehicle servicing,
              designed for reliability
@@ -102,7 +102,7 @@ const Index = () => {
       </div>
 
       {/* ✅ Professional Features Section */}
-      <div className="w-full bg-green-50 py-20">
+      <div className="w-full bg-green-50 py-2">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -113,13 +113,13 @@ const Index = () => {
           >
             <h2
               className="text-4xl sm:text-5xl md:text-6xl font-bold text-green-600 mb-6"
-              style={{ fontFamily: 'Playfair Display, serif', letterSpacing: '-0.01em' }}
+              style={{ fontFamily: 'poppins, serif', letterSpacing: '-0.01em' }}
             >
               Powering India's <span className="text-blue-600">Electric Future</span>
             </h2>
             <p
               className="text-xl sm:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed"
-              style={{ fontFamily: 'Inter, sans-serif' }}
+              style={{ fontFamily: 'poppins, sans-serif' }}
             >
               Leading the charge with innovative solutions and unmatched expertise
             </p>

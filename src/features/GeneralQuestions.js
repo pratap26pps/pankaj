@@ -50,10 +50,10 @@ const GeneralQuestions = () => {
         className="w-full md:w-1/2"
       >
         <div className="text-left">
-          <h2 className="text-4xl font-extrabold mb-4 bg-gradient-to-r from-blue-600 via-green-600 to-emerald-600 bg-clip-text text-transparent" style={{ fontFamily: 'Playfair Display, serif', letterSpacing: '-0.02em' }}>
+          <h2 className="text-4xl font-extrabold mb-4 bg-gradient-to-r from-blue-600 via-green-600 to-emerald-600 bg-clip-text text-transparent" style={{ fontFamily: 'poppins, serif', letterSpacing: '-0.02em' }}>
             Frequently Asked Questions
           </h2>
-          <p className="text-gray-700 mb-10 text-lg" style={{ fontFamily: 'Inter, sans-serif' }}>
+          <p className="text-gray-700 mb-10 text-lg" style={{ fontFamily: 'poppins, sans-serif' }}>
             Here are some common questions about our EV services at GNB.
           </p>
 
@@ -71,7 +71,7 @@ const GeneralQuestions = () => {
                   className="w-full px-6 py-4 flex justify-between items-center text-left"
                   onClick={() => toggleFAQ(index)}
                 >
-                  <span className="text-green-700 font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>{faq.question}</span>
+                  <span className="text-green-700 font-medium" style={{ fontFamily: 'poppins, sans-serif' }}>{faq.question}</span>
                   {openIndex === index ? (
                     <ChevronUp className="text-green-600" />
                   ) : (
@@ -79,7 +79,7 @@ const GeneralQuestions = () => {
                   )}
                 </button>
                 {openIndex === index && (
-                  <div className="px-6 pb-4 text-gray-700 transition-all" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  <div className="px-6 pb-4 text-gray-700 transition-all" style={{ fontFamily: 'poppins, sans-serif' }}>
                     {faq.answer}
                   </div>
                 )}

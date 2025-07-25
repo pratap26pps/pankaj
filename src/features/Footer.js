@@ -12,7 +12,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50  playfair-style" >
+    <footer className="relative bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50  playfair-style1" >
         {/* Decorative Wave Pattern */}
         <div className="absolute top-0 left-0 w-full h-20 " />
 
@@ -25,17 +25,18 @@ const Footer = () => {
   whileInView={{ y: 0, opacity: 1 }}
   transition={{ duration: 0.8 }}
   className="text-center mb-16 px-4 sm:px-6 lg:px-8"
+   style={{ fontFamily: 'poppins, serif', letterSpacing: '-0.02em' }}
 >
   <h1
-    className="text-3xl sm:text-5xl lg:text-6xl font-black text-emerald-700 mb-4 sm:mb-6"
-    style={{ fontFamily: 'Playfair Display, serif', letterSpacing: '-0.02em' }}
+    className="text-3xl sm:text-5xl lg:text-6xl font-black text-emerald-700 mb-4 sm:mb-6 font-family:' sans-serif'"
+   
   >
     GridaNeo Bharat
   </h1>
 
   <div className="w-24 sm:w-32 h-2 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full mx-auto mb-6 sm:mb-8" />
 
-  <p className="text-base sm:text-xl text-gray-700 mb-10 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
+  <p className="text-base sm:text-xl text-gray-700 mb-10 sm:mb-12 max-w-3xl mx-auto leading-relaxed  font-family:'poppins, sans-serif'">
     Leading the future of electric vehicle services with innovative solutions and exceptional customer care.
   </p>
 
@@ -138,7 +139,7 @@ const Footer = () => {
                       <Link key={index} href={link.href}>
                         <motion.div
                           whileHover={{ x: 5, color: '#059669' }}
-                          className="text-gray-700 hover:text-emerald-600 transition-all duration-300 cursor-pointer font-medium text-lg"
+                          className="text-gray-700 hover:text-emerald-600 transition-all duration-300 cursor-pointer font-medium text-lg font-family:'poppins, sans-serif'"
                         >
                           {link.label}
                         </motion.div>
@@ -243,7 +244,7 @@ const Footer = () => {
               <div className="bg-white/50 backdrop-blur-lg rounded-2xl p-8 shadow-xl border border-emerald-100">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                   <div>
-                    <h4 className="text-xl font-bold text-emerald-700 mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                    <h4 className="text-xl font-bold text-emerald-700 mb-4" style={{ fontFamily: 'sans-serif ,poppins' }}>
                       Service Areas
                     </h4>
                     <div className="flex flex-wrap gap-2 justify-center md:justify-start">

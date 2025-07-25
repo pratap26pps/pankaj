@@ -8,13 +8,17 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   background: #fff;
-    font-family: 'Playfair Display', serif;
+    font-family: 'san-serif', serif;
   letter-spacing: 0.02em;
 }
 
+.playfair-style1{
+  font-family: 'poppins, Playfair Display', serif;
+  letter-spacing: -0.02em;
+}
 
 .playfair-style {
-  font-family: 'Playfair Display', serif;
+  font-family: "san-serif";
   letter-spacing: -0.02em;
 }
 
