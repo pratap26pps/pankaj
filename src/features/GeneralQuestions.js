@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import Lottie from 'lottie-react';
 import faqAnimation from '../../public/Animations/faq1.json';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const faqs = [
   {
@@ -29,7 +29,7 @@ const faqs = [
   {
     question: "How long does a typical service take?",
     answer:
-      "Most basic services are completed within 1-2 hours. Complex repairs may take longer depending on parts availability.",
+      "Most basic services are completed within 1–2 hours. Complex repairs may take longer depending on parts availability.",
   },
 ];
 
@@ -41,19 +41,19 @@ const GeneralQuestions = () => {
   };
 
   return (
-    <section className=" bg-green-50 w-full min-h-[600px] py-10 px-4 sm:px-6 md:px-12 flex flex-col md:flex-row items-center justify-center gap-10" style={{ fontFamily: 'Inter, sans-serif' }}>
+    <section className="bg-green-50 w-full min-h-[600px] py-10 px-4 sm:px-6 md:px-12 flex flex-col md:flex-row items-center justify-center gap-1" style={{ fontFamily: 'Inter, sans-serif' }}>
       {/* FAQ Left Side */}
       <motion.div
         initial={{ x: -50, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="w-full md:w-1/2"
+        className="w-full 2xl:ml-16 md:w-1/2"
       >
         <div className="text-left">
-          <h2 className="text-4xl font-extrabold mb-4 bg-gradient-to-r from-blue-600 via-green-600 to-emerald-600 bg-clip-text text-transparent" style={{ fontFamily: 'poppins, serif', letterSpacing: '-0.02em' }}>
+          <h2 className="text-4xl font-extrabold mb-4 bg-gradient-to-r from-blue-600 via-green-600 to-emerald-600 bg-clip-text text-transparent" style={{ fontFamily: 'Poppins, sans-serif', letterSpacing: '-0.02em' }}>
             Frequently Asked Questions
           </h2>
-          <p className="text-gray-700 mb-10 text-lg" style={{ fontFamily: 'poppins, sans-serif' }}>
+          <p className="text-gray-700 mb-10 text-lg" style={{ fontFamily: 'Poppins, sans-serif' }}>
             Here are some common questions about our EV services at GNB.
           </p>
 
@@ -68,26 +68,40 @@ const GeneralQuestions = () => {
                 className="bg-white border border-green-100 rounded-xl shadow-md transition-all w-full"
               >
                 <button
-                  className="w-full px-6 py-4 flex justify-between items-center text-left"
+                  className="w-full px-6 py-4 flex justify-between items-center text-left focus:outline-none"
                   onClick={() => toggleFAQ(index)}
                 >
-                  <span className="text-green-700 font-medium" style={{ fontFamily: 'poppins, sans-serif' }}>{faq.question}</span>
+                  <span className="text-green-700 font-medium text-base sm:text-lg" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                    {faq.question}
+                  </span>
                   {openIndex === index ? (
                     <ChevronUp className="text-green-600" />
                   ) : (
                     <ChevronDown className="text-green-600" />
                   )}
                 </button>
-                {openIndex === index && (
-                  <div className="px-6 pb-4 text-gray-700 transition-all" style={{ fontFamily: 'poppins, sans-serif' }}>
-                    {faq.answer}
-                  </div>
-                )}
+
+                <AnimatePresence initial={false}>
+                  {openIndex === index && (
+                    <motion.div
+                      key="content"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden px-6 pb-4 text-gray-700"
+                      style={{ fontFamily: 'Poppins, sans-serif' }}
+                    >
+                      {faq.answer}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             ))}
           </div>
         </div>
       </motion.div>
+
       {/* Animation Right Side */}
       <motion.div
         initial={{ x: 50, opacity: 0 }}

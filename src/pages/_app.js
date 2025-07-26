@@ -1,6 +1,8 @@
 "use client";
 import "../styles/globals.css";
 import React from "react";
+import CircularSpinner from "./CircularSpinner";
+import { motion } from "framer-motion";
 import Footer from "../features/Footer";
 import { Toaster } from "sonner";
 import GeneralQuestions from "../features/GeneralQuestions";
@@ -236,6 +238,7 @@ function MyApp({ Component, pageProps: { session: sessionProp, ...pageProps }  }
               },
             }}
           />
+          <CircularSpinner />
       <GeneralQuestions />
       <Testimonial/>
       <ScrollToTopButton />

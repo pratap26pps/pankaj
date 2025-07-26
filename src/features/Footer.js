@@ -41,7 +41,7 @@ const Footer = () => {
   </p>
 
   {/* App Download & Social Section */}
-  <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-emerald-100 p-6 sm:p-8">
+  <div className="bg-white/80  max-w-12xl backdrop-blur-lg rounded-3xl shadow-2xl border border-emerald-100 p-2 sm:p-8">
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-12 items-center text-center">
       
       {/* Logo */}
@@ -117,9 +117,9 @@ const Footer = () => {
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="bg-white/70 backdrop-blur-lg rounded-3xl p-3 sm:p-12 shadow-2xl border border-emerald-100"
+              className="bg-white/70 backdrop-blur-lg rounded-3xl  sm:p-12 shadow-2xl border border-emerald-100"
             >
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 ">
                 {/* Company Info */}
                 <div className="text-center lg:text-left">
                   <h3
@@ -129,8 +129,7 @@ const Footer = () => {
                     <span className="text-3xl text-emerald-500">{/* User/Company SVG */}<svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" fill="#34d399"/><rect x="4" y="16" width="16" height="6" rx="3" fill="#10b981"/></svg></span>
                     Company
                   </h3>
-                  <div className=" w-20 h-1 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full mb-6 mx-auto lg:mx-0" />
-                  <div className="space-y-4">
+                  <div className="space-y-4 ml-10">
                     {[
                       { label: 'About Us', href: '/About' },
                       { label: 'Our Services', href: '/Servicepage' },
@@ -157,8 +156,7 @@ const Footer = () => {
                     <span className="text-3xl text-emerald-500">{/* Bolt SVG */}<svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" fill="#facc15" stroke="#f59e42" strokeWidth="1.5"/></svg></span>
                     Services
                   </h3>
-                  <div className="w-16 h-1 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full mb-6 mx-auto lg:mx-0" />
-                  <div className="space-y-4">
+                  <div className="space-y-4 ml-10">
                     {[
                       { label: 'EV Service', href: '/Servicepage' },
                       { label: 'Battery Backup', href: '/Servicepage' },
@@ -186,8 +184,7 @@ const Footer = () => {
                     <span className="text-3xl text-emerald-500">{/* Tools/Wrench SVG */}<svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M21 19.5l-6.5-6.5M17 7a5 5 0 11-7.07 7.07A5 5 0 0117 7z" stroke="#10b981" strokeWidth="2" fill="#d1fae5"/></svg></span>
                     Support
                   </h3>
-                  <div className="w-16 h-1 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full mb-6 mx-auto lg:mx-0" />
-                  <div className="space-y-4">
+                  <div className="space-y-4 ml-10">
                     {[
                       { label: 'Help Center', href: '/' },
                       { label: 'Contact Support', href: '/' },
@@ -215,7 +212,6 @@ const Footer = () => {
                     <span className="text-3xl text-emerald-500">{/* Phone SVG */}<svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21 11.36 11.36 0 003.54.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.54 1 1 0 01-.21 1.11l-2.2 2.2z" fill="#10b981"/></svg></span>
                     Contact
                   </h3>
-                  <div className="w-16 h-1 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full mb-6 mx-auto lg:mx-0" />
                   <div className="space-y-4">
                     <div className="flex items-center justify-center lg:justify-start gap-3">
                       <span className="text-emerald-500">{/* Phone SVG */}<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21 11.36 11.36 0 003.54.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.54 1 1 0 01-.21 1.11l-2.2 2.2z" fill="#10b981"/></svg></span>

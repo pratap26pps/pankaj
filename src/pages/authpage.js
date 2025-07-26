@@ -229,14 +229,14 @@ export default function AuthPage() {
   };
 
   return (
-<div className="min-h-screen bg-green-50 mt-15 py-24 relative flex items-center justify-center p-4 font-inter">
+<div className="min-h-screen bg-green-50 mt-15 py-24 relative flex items-center justify-center p-4 ">
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="relative z-10 w-full max-w-xl"
       >
-<Card className="backdrop-blur-xl bg-blue-900 border-white/20 shadow-2xl">
+            <Card className="backdrop-blur-xl bg-blue-900 border-white/20 shadow-2xl">
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-extrabold  bg-clip-text text-white font-poppins">
               GridaNeo Bharat
