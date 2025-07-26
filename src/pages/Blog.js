@@ -39,7 +39,7 @@ const staticBlogPosts = [
     category: "Success Stories",
     tags: ["Cost Reduction", "Fleet Management", "Case Study", "ROI"],
     author: "Priya Sharma",
-    authorRole: "admin",
+    authorRole: "admin"  ,
     authorAvatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
     views: 1890,
     likes: 156,
