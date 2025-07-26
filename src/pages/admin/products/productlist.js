@@ -37,7 +37,8 @@ export default function ProductHistory() {
     const dispatch = useDispatch();
     const products = useSelector((state) => state.product.products);
     const categories = useSelector((state) => state.category.categories)
-
+console.log("products",products)
+console.log("categories",categories)
     const user = useSelector((state) => state.auth.user);
     
     const [searchTerm, setSearchTerm] = useState("");
@@ -48,6 +49,14 @@ export default function ProductHistory() {
     const [selectedImageIdx, setSelectedImageIdx] = useState(null);
  console.log("product",products)
  
+ const uniqueCategories = Array.from(
+    new Map(
+      categories
+        .flat() // flatten in case of nested arrays
+        .map(cat => [cat._id, cat]) // use _id as key for uniqueness
+    ).values()
+  );
+console.log("uniqueCategories",uniqueCategories)
       // Fetch all categories from backend on mount
       useEffect(() => {
         async function fetchCategories() {
@@ -126,7 +135,7 @@ export default function ProductHistory() {
 
     return (
         <div className="w-full px-1 sm:px-4    min-h-screen transition-colors duration-300">
-            <div className="w-full max-w-7xl mx-auto bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 shadow-lg rounded-xl p-2 sm:p-6 md:p-10 border border-gray-200 dark:border-gray-800">
+            <div className="w-full max-w-7xl mx-auto  ">
                 {/* Search */}
                 <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row justify-center items-center gap-2">
                     <Input
@@ -134,30 +143,30 @@ export default function ProductHistory() {
                         placeholder="Search by product or category..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="max-w-md h-10 border border-gray-300 dark:border-gray-700 w-full focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white"
+                        className="max-w-md h-10 border border-gray-300 dark:border-gray-700 w-full focus:ring-2 focus:ring-blue-400   "
                     />
                 </div>
 
                 {/* Table */}
-                <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
+                <div className="overflow-x-auto rounded-lg border border-gray-200  ">
                     <div className="min-w-full">
                         <div className="lg:h-[500px] overflow-y-auto">
                             <Table>
-                                <TableHeader className="sticky top-0 bg-white dark:bg-gray-900 z-10">
-                                    <TableRow>
-                                        <TableHead className="min-w-[80px] text-gray-900 dark:text-cyan-200 border-b border-gray-200 dark:border-gray-700">Image</TableHead>
-                                        <TableHead className="min-w-[150px] text-gray-900 dark:text-cyan-200 border-b border-gray-200 dark:border-gray-700">Product</TableHead>
-                                        <TableHead className="min-w-[140px] text-gray-900 dark:text-cyan-200 border-b border-gray-200 dark:border-gray-700">Category</TableHead>
-                                        <TableHead className="min-w-[100px] text-gray-900 dark:text-cyan-200 border-b border-gray-200 dark:border-gray-700">Price</TableHead>
-                                        <TableHead className="min-w-[80px] text-gray-900 dark:text-cyan-200 border-b border-gray-200 dark:border-gray-700">Quantity</TableHead>
-                                        <TableHead className="min-w-[130px] text-gray-900 dark:text-cyan-200 border-b border-gray-200 dark:border-gray-700">Date Added</TableHead>
-                                        <TableHead className="text-center text-gray-900 dark:text-cyan-200 min-w-[180px] border-b border-gray-200 dark:border-gray-700">Actions</TableHead>
+                                <TableHeader className="sticky top-0   z-10">
+                                    <TableRow >
+                                        <TableHead className="min-w-[80px] text-gray-900 border-b border-gray-200 dark:border-gray-700">Image</TableHead>
+                                        <TableHead className="min-w-[150px] text-gray-900  border-b border-gray-200 dark:border-gray-700">Product</TableHead>
+                                        <TableHead className="min-w-[140px] text-gray-900  border-b border-gray-200 dark:border-gray-700">Category</TableHead>
+                                        <TableHead className="min-w-[100px] text-gray-900  border-b border-gray-200 dark:border-gray-700">Duration</TableHead>
+                                        <TableHead className="min-w-[80px] text-gray-900  border-b border-gray-200 dark:border-gray-700">Warranty</TableHead>
+                                        <TableHead className="min-w-[130px] text-gray-900  border-b border-gray-200 dark:border-gray-700">Date Added</TableHead>
+                                        <TableHead className="text-center text-gray-900  min-w-[180px] border-b border-gray-200 dark:border-gray-700">Actions</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {filteredProducts?.length > 0 ? (
                                         filteredProducts?.map((product) => (
-                                            <TableRow key={product.id} className="hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors">
+                                            <TableRow key={product.id} className="hover:bg-blue-50  transition-colors">
                                                 <TableCell className="border-b border-gray-100 dark:border-gray-800">
                                                     <img
                                                         src={product?.images[0]}
@@ -167,29 +176,13 @@ export default function ProductHistory() {
                                                 </TableCell>
                                                 <TableCell className="border-b border-gray-100 dark:border-gray-800">{product?.name}</TableCell>
                                                 <TableCell className="border-b border-gray-100 dark:border-gray-800">{product?.category?.name || product?.category || ""}</TableCell>
-                                                <TableCell className="border-b border-gray-100 dark:border-gray-800">₹{product?.price}</TableCell>
-                                                <TableCell className="border-b border-gray-100 dark:border-gray-800">{product?.quantity}</TableCell>
+                                                <TableCell className="border-b border-gray-100 dark:border-gray-800">{product?.duration}</TableCell>
+                                                <TableCell className="border-b border-gray-100 dark:border-gray-800">{product?.warranty}</TableCell>
                                                 <TableCell className="border-b border-gray-100 dark:border-gray-800">{new Date(product?.updatedAt).toLocaleDateString('en-GB')}</TableCell>
                                                 <TableCell className="border-b border-gray-100 dark:border-gray-800 text-center">
                                                     <div className="flex justify-center gap-2">
                                                     
-                                                   {product.quantity === 0 ? (
-                                                        <Button
-                                                        size="sm"
-                                                        variant="outline"
-                                                        className="flex items-center gap-1 border border-red-400 text-red-400 bg-white cursor-pointer"
-                                                        disabled
-                                                        >
-                                                         Out of Stock
-                                                        </Button>
-                                                        ) : <Button
-                                                        size="sm"
-                                                        variant="outline"
-                                                        className="flex items-center gap-1 border border-green-400 text-green-500 bg-white"
-                                                        
-                                                    >
-                                                        In Stock
-                                                    </Button>}
+                                                   
 
                                                         {/* edit conformation dialog */}
                                                         <Button
@@ -275,50 +268,38 @@ export default function ProductHistory() {
                                                                             onValueChange={(value) => setEditProduct({ ...editProduct, category: value })}
                                                                         >
                                                                             <SelectTrigger className="w-[100%]  ">
-                                                                                <SelectValue className=" text-black" placeholder="Select category"  />
+                                                                                <SelectValue className=" text-black " placeholder="Select category"  />
                                                                             </SelectTrigger>
                                                                             <SelectContent>
-                                                                                {categories.map((cat) => (
+                                                                                {uniqueCategories.map((cat) => (
                                                                                 
-                                                                                    <SelectItem key={cat?._id} value={cat?._id}>
-                                                                                        {cat.name}
+                                                                                    <SelectItem className=" text-black bg-green-50 w-[110%]" key={cat?._id} value={cat?._id}>
+                                                                                        <div className="flex items-center gap-2 hover:bg-green-100">
+                                                                                            <img src={cat?.catImage} alt={cat?.name} className="w-8 h-8 rounded-full" />
+                                                                                            <span>{cat.name}</span>
+                                                                                        </div>
                                                                                     </SelectItem>
                                                                                 ))}
                                                                             </SelectContent>
                                                                         </Select>
                                                                     </div>
                                                                     <div>
-                                                                        <Label className="mb-1 text-gray-800">Price (₹)</Label>
-                                                                        <Input
-                                                                            type="number"
-                                                                            value={editProduct?.price || ""}
-                                                                            onChange={(e) => setEditProduct({ ...editProduct, price: e.target.value })}
-                                                                        />
-                                                                    </div>
-                                                                    <div>
-                                                                        <Label className="mb-1 text-gray-800">Quantity</Label>
-                                                                        <Input
-                                                                            type="number"
-                                                                            value={editProduct?.quantity || ""}
-                                                                            onChange={(e) => setEditProduct({ ...editProduct, quantity: e.target.value })}
-                                                                        />
-                                                                    </div>
-                                                                    <div>
-                                                                        <Label className="mb-1 text-gray-800">flipkartLink</Label>
+                                                                        <Label className="mb-1 text-gray-800">warranty</Label>
                                                                         <Input
                                                                             type="text"
-                                                                            value={editProduct?.flipkartLink || ""}
-                                                                            onChange={(e) => setEditProduct({ ...editProduct, flipkartLink: e.target.value })}
+                                                                            value={editProduct?.warranty  || ""}
+                                                                            onChange={(e) => setEditProduct({ ...editProduct, warranty: e.target.value })}
                                                                         />
                                                                     </div>
                                                                     <div>
-                                                                        <Label className="mb-1 text-gray-800">amazonLink</Label>
+                                                                        <Label className="mb-1 text-gray-800">duration</Label>
                                                                         <Input
                                                                             type="text"
-                                                                            value={editProduct?.amazonLink || ""}
-                                                                            onChange={(e) => setEditProduct({ ...editProduct, amazonLink: e.target.value })}
+                                                                            value={editProduct?.duration || ""}
+                                                                            onChange={(e) => setEditProduct({ ...editProduct, duration: e.target.value })}
                                                                         />
                                                                     </div>
+                                                                    
                                                                     <div className="flex  justify-end gap-2 mt-6">
                                                                         <Button className="cursor-pointer" onClick={() => setIsDialogOpen(false)}>
                                                                             Cancel
@@ -333,7 +314,7 @@ export default function ProductHistory() {
                                                      
                                                         
                                                         {/* delete confirmation dialog */}
-                                                        {user?.role !== 'microadmin' && (
+                                                        {user?.accountType !== 'Admin' && (
                                                         <AlertDialog>
                                                             <AlertDialogTrigger asChild>
                                                                 <Button
@@ -347,8 +328,8 @@ export default function ProductHistory() {
                                                             </AlertDialogTrigger>
                                                             <AlertDialogContent className="bg-white border border-gray-200  ">
                                                                 <AlertDialogHeader>
-                                                                    <AlertDialogTitle className="text-gray-900 dark:text-cyan-200">Delete Product</AlertDialogTitle>
-                                                                    <AlertDialogDescription className="text-gray-600 dark:text-gray-300">
+                                                                    <AlertDialogTitle className="text-gray-900 ">Delete Product</AlertDialogTitle>
+                                                                    <AlertDialogDescription className="text-gray-600 ">
                                                                         Are you sure you want to delete <b>{product.name}</b>? This action cannot be undone.
                                                                     </AlertDialogDescription>
                                                                 </AlertDialogHeader>

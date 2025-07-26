@@ -14,6 +14,7 @@ import {
 
 export default function OrderHistory() {
   const { orders } = useSelector((state) => state.order);
+  console.log("orders", orders);
   const user = useSelector((state) => state.auth.user);
 
   const [selectedOrder, setSelectedOrder] = useState(null);

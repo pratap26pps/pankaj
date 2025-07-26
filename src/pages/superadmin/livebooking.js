@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaExclamationTriangle,FaEye, FaSpinner, FaSyncAlt, FaShoppingCart, FaUser, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 // Simple component replacements
 const Card = ({ children, className = "" }) => (
@@ -59,6 +60,17 @@ export default function LiveBookingPage() {
     const [pagination, setPagination] = useState(null);
     const [statusFilter, setStatusFilter] = useState('');
     const [refreshing, setRefreshing] = useState(false);
+    const [updatingStatus, setUpdatingStatus] = useState(null);
+
+    // Status options for dropdown
+    const statusOptions = [
+        { value: 'pending', label: 'Pending' },
+        { value: 'confirmed', label: 'Confirmed' },
+        { value: 'processing', label: 'Processing' },
+        { value: 'shipped', label: 'Shipped' },
+        { value: 'delivered', label: 'Delivered' },
+        { value: 'cancelled', label: 'Cancelled' }
+    ];
 
     useEffect(() => {
         fetchOrders();
@@ -98,8 +110,15 @@ export default function LiveBookingPage() {
 
     const updateOrderStatus = async (orderId, newStatus) => {
         try {
-            const response = await fetch(`/api/orders?orderId=${orderId}`, {
-                method: 'PUT',
+            console.log('Updating order status:', { orderId, newStatus });
+            setUpdatingStatus(orderId);
+            
+            if (!orderId) {
+                throw new Error('Order ID is required');
+            }
+            
+            const response = await fetch(`/api/orders/${orderId}`, {
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -109,14 +128,24 @@ export default function LiveBookingPage() {
             const data = await response.json();
             
             if (data.success) {
-                // Refresh orders to show updated status
-                await fetchOrders();
+                // Update the specific order in the state
+                setOrders(prev => 
+                    prev.map(order => 
+                        order._id === orderId 
+                            ? { ...order, status: newStatus } 
+                            : order
+                    )
+                );
+                
+                toast.success(`Order status updated to ${newStatus}`);
             } else {
-                alert(data.message || 'Failed to update order status');
+                throw new Error(data.message || 'Failed to update order status');
             }
         } catch (error) {
             console.error('Error updating order status:', error);
-            alert('Failed to update order status');
+            toast.error('Failed to update order status');
+        } finally {
+            setUpdatingStatus(null);
         }
     };
 
@@ -185,7 +214,7 @@ export default function LiveBookingPage() {
         >
             {/* Header with filters */}
             <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-gray-800">Live Orders & Management</h2>
+                <h2 className="text-2xl font-bold text-gray-800">Orders & Management</h2>
                 <div className="flex gap-4 items-center">
                     <select
                         value={statusFilter}
@@ -350,52 +379,95 @@ export default function LiveBookingPage() {
                                     </div>
 
                                     {/* Action Buttons */}
-                                    <div className="flex gap-2 pt-3 border-t">
-                                        {order.status === 'pending' && (
-                                            <Button 
-                                                size="sm" 
-                                                onClick={() => updateOrderStatus(order.orderId, 'confirmed')}
-                                                className="bg-emerald-600 hover:bg-emerald-700"
-                                            >
-                                                Confirm Order
-                                            </Button>
-                                        )}
-                                        {order.status === 'confirmed' && (
-                                            <Button 
-                                                size="sm" 
-                                                onClick={() => updateOrderStatus(order.orderId, 'processing')}
-                                                className="bg-blue-600 hover:bg-blue-700"
-                                            >
-                                                Start Processing
-                                            </Button>
-                                        )}
-                                        {order.status === 'processing' && (
-                                            <Button 
-                                                size="sm" 
-                                                onClick={() => updateOrderStatus(order.orderId, 'shipped')}
-                                                className="bg-purple-600 hover:bg-purple-700"
-                                            >
-                                                Mark as Shipped
-                                            </Button>
-                                        )}
-                                        {order.status === 'shipped' && (
-                                            <Button 
-                                                size="sm" 
-                                                onClick={() => updateOrderStatus(order.orderId, 'delivered')}
-                                                className="bg-green-600 hover:bg-green-700"
-                                            >
-                                                Mark as Delivered
-                                            </Button>
-                                        )}
-                                        {order.dispute && (
-                                            <Button 
-                                                size="sm" 
-                                                className="bg-red-500 hover:bg-red-600"
-                                            >
-                                                <FaEye className="mr-2" />
-                                                Resolve Dispute
-                                            </Button>
-                                        )}
+                                    <div className="flex justify-between items-center pt-3 border-t">
+                                        <div className="flex gap-2">
+                                            {order.status === 'pending' && (
+                                                <Button 
+                                                    size="sm" 
+                                                    onClick={() => {
+                                                        console.log('Order object:', order);
+                                                        updateOrderStatus(order._id, 'confirmed');
+                                                    }}
+                                                    className="bg-emerald-600 hover:bg-emerald-700"
+                                                    disabled={updatingStatus === order._id}
+                                                >
+                                                    Confirm Order
+                                                </Button>
+                                            )}
+                                            {order.status === 'confirmed' && (
+                                                <Button 
+                                                    size="sm" 
+                                                    onClick={() => updateOrderStatus(order._id, 'processing')}
+                                                    className="bg-blue-600 hover:bg-blue-700"
+                                                    disabled={updatingStatus === order._id}
+                                                >
+                                                    Start Processing
+                                                </Button>
+                                            )}
+                                            {order.status === 'processing' && (
+                                                <Button 
+                                                    size="sm" 
+                                                    onClick={() => updateOrderStatus(order._id, 'shipped')}
+                                                    className="bg-purple-600 hover:bg-purple-700"
+                                                    disabled={updatingStatus === order._id}
+                                                >
+                                                    Mark as Shipped
+                                                </Button>
+                                            )}
+                                            {order.status === 'shipped' && (
+                                                <Button 
+                                                    size="sm" 
+                                                    onClick={() => updateOrderStatus(order._id, 'delivered')}
+                                                    className="bg-green-600 hover:bg-green-700"
+                                                    disabled={updatingStatus === order._id}
+                                                >
+                                                    Mark as Delivered
+                                                </Button>
+                                            )}
+                                            {order.dispute && (
+                                                <Button 
+                                                    size="sm" 
+                                                    className="bg-red-500 hover:bg-red-600"
+                                                >
+                                                    <FaEye className="mr-2" />
+                                                    Resolve Dispute
+                                                </Button>
+                                            )}
+                                        </div>
+                                        
+                                        {/* Status Change Dropdown */}
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-xs text-gray-500 font-medium">Change Status:</span>
+                                            <div className="relative">
+                                                <select
+                                                    value={order.status}
+                                                    onChange={(e) => {
+                                                        console.log('Dropdown order object:', order);
+                                                        updateOrderStatus(order._id, e.target.value);
+                                                    }}
+                                                    disabled={updatingStatus === order._id}
+                                                    className={`text-xs border rounded-md px-3 py-1.5 pr-8 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 ${
+                                                        updatingStatus === order._id 
+                                                            ? 'bg-gray-100 cursor-not-allowed border-gray-300' 
+                                                            : 'bg-white border-gray-300 hover:border-gray-400 cursor-pointer'
+                                                    }`}
+                                                >
+                                                    {statusOptions.map((option) => (
+                                                        <option key={option.value} value={option.value}>
+                                                            {option.label}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                                {updatingStatus === order._id && (
+                                                    <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
+                                                        <svg className="animate-spin h-3 w-3 text-emerald-500" fill="none" viewBox="0 0 24 24">
+                                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                        </svg>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
                                     </div>
                                 </motion.div>
                             ))}

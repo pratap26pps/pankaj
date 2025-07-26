@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { useSelector, useDispatch } from "react-redux";
 import { setCategories } from "@/redux/slices/categorySlice";
 import { addProduct } from "@/redux/slices/productSlice";
+import { FaSyncAlt } from "react-icons/fa";
 
 import toast from "react-hot-toast";
 import {
@@ -59,6 +60,7 @@ export default function AddCategoryProduct() {
   const [editCategoryDesc, setEditCategoryDesc] = useState("");
   const [editCategoryImg, setEditCategoryImg] = useState("");
   const [editUploading, setEditUploading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
  
 
@@ -321,11 +323,16 @@ export default function AddCategoryProduct() {
     setLoading(false);
   };
 
+  console.log("catProducts",catProducts)
+
+  const refreshOrders = () => {
+    
+   window.location.reload();
+};
+
   return (
     <>
-    
-    
-   
+ 
  <div className="w-full px-2 sm:px-6 transition-colors duration-300">
 
       <div className="max-w-4xl mx-auto">
@@ -333,13 +340,20 @@ export default function AddCategoryProduct() {
         {message.text && (
           <div className={`mb-6 p-4 rounded-lg ${
             message.type === 'success' 
-              ? 'bg-green-100 border border-green-400 text-green-700 dark:bg-green-900/20 dark:border-green-700 dark:text-green-300' 
-              : 'bg-red-100 border border-red-400 text-red-700 dark:bg-red-900/20 dark:border-red-700 dark:text-red-300'
+              ? 'bg-green-100 border border-green-400 text-green-700  ' 
+              : 'bg-red-100 border border-red-400 text-red-700 ' 
           }`}>
             {message.text}
           </div>
         )}
-
+                           <Button 
+                              onClick={refreshOrders} 
+                              disabled={refreshing}
+                              className="flex items-center border mb-3"
+                          >
+                              <FaSyncAlt className={`mr-2 ${refreshing ? 'animate-spin' : ''}`} />
+                              Refresh
+                          </Button>
 <Card className="mb-10 p-6 sm:p-8 bg-green-50  border border-blue-100 dark:border-gray-700 shadow-2xl rounded-2xl transition-colors">
   <div className="flex flex-col lg:flex-row gap-8 w-full">
     
@@ -533,9 +547,7 @@ export default function AddCategoryProduct() {
               </div>
               {/* Product Form for this category */}
                
-      <div className="flex flex-col lg:flex-row lg:gap-5">
-     
-      </div>
+       
       <form onSubmit={handleAddProduct} className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 p-4 rounded-xl border border-blue-100 dark:border-gray-700 relative">
  
       <div className="flex items-center space-x-2">
@@ -676,32 +688,31 @@ export default function AddCategoryProduct() {
                 </div>
               )}
               {/* List products for this category */}
-
             {catProducts?.filter(p => p.category === selectedCategory)?.length > 0 && (
               <div className="mt-6 space-y-4">
+               
                 <h4 className="text-lg font-semibold text-blue-600 dark:text-cyan-300">Products for this Category:</h4>
                 {catProducts
                   .filter(p => p?.category === selectedCategory)
                   .map((product, idx) => (
                     <div
                       key={idx}
-                      className="p-4 border border-blue-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 shadow-sm"
+                      className="p-4 border border-blue-200 dark:border-gray-600 rounded-lg bg-green-50  shadow-sm"
                     >
                       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
                         <div>
-                          <h5 className="text-md font-bold text-gray-800 dark:text-white">{product?.name}</h5>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">₹ {product?.price} &bull; Qty: {product?.quantity}</p>
+                          <h5 className="text-md font-bold text-gray-800">{product?.name}</h5>
                           {product?.description && (
                             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{product?.description}</p>
                           )}
-                          <div className="flex gap-2 mt-2">
-                            {product?.flipkartLink && (
-                              <a href={product?.flipkartLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline text-sm">Flipkart</a>
-                            )}
-                            {product?.amazonLink && (
-                              <a href={product?.amazonLink} target="_blank" rel="noopener noreferrer" className="text-yellow-600 underline text-sm">Amazon</a>
-                            )}
-                          </div>
+                          <p>warranty: {product?.warranty}</p>
+                          <p>duration: {product?.duration}</p>
+                          <p>recommended: {product?.recommended}</p>
+                        
+                          <p>problems: {product?.problems}</p>
+                         
+                     
+                         
                         </div>
                         {product?.images && product?.images?.length > 0 && (
                           <div className="flex gap-2 mt-2 sm:mt-0 flex-wrap">

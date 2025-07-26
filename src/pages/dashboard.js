@@ -9,9 +9,12 @@ import { signOut } from 'next-auth/react';
 import { clearUser } from '../redux/slices/authSlice';
 import ProductHistory from './admin/products/productlist';
 import AddCategoryProduct from './admin/products/addcategoryproduct';
+import ProductList from './admin/products/productlist';
 import CustomerManagement from './admin/userlist';
 import OrderManagement from './admin/order/orderlist';
+import BookingFormHistory from './superadmin/bookingformhistory';
  import MicroBookings from './microadmin/booking';
+ import MicroAdminOverview from './microadmin/overview';
 import { 
   BarChart3, 
   ShoppingCart, 
@@ -122,9 +125,12 @@ const Dashboard = () => {
     { key: 'manage-users', label:'ManageUsers&Centers', icon: <Users className="w-5 h-5" /> },
     { key: 'verify-partners', label: 'Verify Partners', icon: <Users className="w-5 h-5" /> },
     { key: 'Total Users', label: 'Total Users', icon: <Users className="w-5 h-5" /> },
-    { key: 'live-bookings', label: 'LiveBookings&Disputes', icon: <Users className="w-5 h-5" /> },r
+    { key: 'live-bookings', label: 'ServiceBookings', icon: <Users className="w-5 h-5" /> },
+    { key: 'Booking Order List', label: 'Booking Order List', icon: <Users className="w-5 h-5" /> },
+    { key: 'Add Blog', label: ' Add Blog', icon: <Users className="w-5 h-5" /> },
     { key: 'AddReview', label: 'AddReview', icon: <Users className="w-5 h-5" /> },
     { key: 'Battery Inventory', label: 'Battery Inventory', icon:< Users className="w-5 h-5" />  },
+    { key: 'Product list', label: 'Product list', icon:< Users className="w-5 h-5" />  },
    
   ];
 
@@ -140,9 +146,8 @@ const Dashboard = () => {
      const AdminItems = [
     { key: 'overview', label: 'Overview', icon: <BarChart3 className="w-5 h-5" /> },
     { key: 'orders', label: 'Orders', icon: <ShoppingCart className="w-5 h-5" /> },
+    { key: 'Booking Services', label: 'Booking Form', icon: <Plus className="w-5 h-5" /> },
     { key: 'customers', label: 'Customers', icon: <Users className="w-5 h-5" /> },
-    { key: 'Add Review', label: 'Add Review', icon: <Plus className="w-5 h-5" /> },
-    { key: 'Product-History', label: 'Product-History', icon: <Package className="w-5 h-5" /> },
    
   ];
 
@@ -346,7 +351,15 @@ const handleChange = (e) => {
         );
       case 'live-bookings':
         return (
+          <BookingFormHistory/>
+        );
+         case 'Booking Order List':
+        return (
           <LiveBookingPage/>
+        );
+        case 'Add Blog':
+        return (
+          <AddReview/>
         );
          case 'AddReview':
         return (
@@ -357,6 +370,10 @@ const handleChange = (e) => {
         return (
                <AddCategoryProduct/>      
         );
+        case 'Product list':
+          return (
+                 <ProductList/>      
+          );
  
       default:
         return <Overview />;
@@ -389,31 +406,26 @@ const handleChange = (e) => {
  
       default:
         return <Overview />;
-    }
- 
-    }
+    }  }
 
    if (user?.accountType === "Admin"){
     switch (selectedMenuItem) {
       case 'overview':
-        return <MicroBookings />;
+        return <MicroAdminOverview />;
       case 'orders':
         return (
-         <MicroBookings/>
+          <LiveBookingPage/>
         );
       case 'customers':
         return (
-          <MicroBookings/>
+          <MicroAdminManagement/>
         );
          
-         case 'Add Review':
+         case 'Booking Services':
         return (
-          <MicroBookings/>
+          <BookingFormHistory/>
         );
-      case 'Product-History':
-        return (
-            <MicroBookings/>        
-        );
+  
      
       default:
         return <MicroBookings />;

@@ -94,7 +94,7 @@ const ServicePage = () => {
   }, []);
 
   const filteredServices = categories.filter((service) =>
-    service.name.toLowerCase().includes(search.toLowerCase())
+    service?.name?.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleCardClick = (serviceName) => {
