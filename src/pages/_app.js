@@ -238,12 +238,13 @@ function MyApp({ Component, pageProps: { session: sessionProp, ...pageProps }  }
               },
             }}
           />
-          <CircularSpinner />
+        <CircularSpinner />
       <GeneralQuestions />
       <Testimonial/>
       <ScrollToTopButton />
       <FloatingContactButtons />  
       <Footer />
+      
       </AuthSyncWrapper>
     </Provider>
     </SessionProvider>

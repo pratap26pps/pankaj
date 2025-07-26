@@ -46,8 +46,8 @@ const CircularSpinner = () => {
         transition={{ duration: 0.8 }}
         className="absolute top-8 left-1/2 transform -translate-x-1/2 text-center z-20"
       >
-        <div className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-green-600  ">
-          Our Process
+        <div className="text-4xl  sm:text-5xl lg:text-6xl font-extrabold text-green-600">
+          Our Process....
         </div>
       </motion.div>
 
@@ -61,7 +61,7 @@ const CircularSpinner = () => {
         <ArrowUp size={20} /> Prev
       </motion.button>
 
-      <div className="relative w-full max-w-[380px] sm:max-w-[720px] aspect-square flex items-center justify-center">
+      <div className="relative w-full mt-10 max-w-[380px] sm:max-w-[720px] aspect-square flex items-center justify-center">
 
         {/* Outer Blue Shell with gradient */}
         <motion.div 
@@ -193,6 +193,7 @@ const CircularSpinner = () => {
       >
         <ArrowDown size={20} /> Next
       </motion.button>
+        
     </div>
   );
 };

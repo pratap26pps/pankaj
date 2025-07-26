@@ -49,9 +49,9 @@ import Bookings from './partner/bookings';
 const Dashboard = () => {
 
   const allOrders = useSelector(state => state.order.orders);
-    const user = useSelector((state) => state.auth.user);
-    console.log("User in Dashboard:", user);
-    const router = useRouter();
+  const user = useSelector((state) => state.auth.user);
+  console.log("User in Dashboard:", user);
+  const router = useRouter();
   const [confirm, setConfirm] = useState("");
   const [collapsed, setCollapsed] = useState(false);
   const [profileModalVisible, setProfileModalVisible] = useState(false);
@@ -122,7 +122,7 @@ const Dashboard = () => {
     { key: 'manage-users', label:'ManageUsers&Centers', icon: <Users className="w-5 h-5" /> },
     { key: 'verify-partners', label: 'Verify Partners', icon: <Users className="w-5 h-5" /> },
     { key: 'Total Users', label: 'Total Users', icon: <Users className="w-5 h-5" /> },
-    { key: 'live-bookings', label: 'LiveBookings&Disputes', icon: <Users className="w-5 h-5" /> },
+    { key: 'live-bookings', label: 'LiveBookings&Disputes', icon: <Users className="w-5 h-5" /> },r
     { key: 'AddReview', label: 'AddReview', icon: <Users className="w-5 h-5" /> },
     { key: 'Battery Inventory', label: 'Battery Inventory', icon:< Users className="w-5 h-5" />  },
    
