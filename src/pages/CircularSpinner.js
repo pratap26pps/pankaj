@@ -1,46 +1,74 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const CircularSpinner = () => {
   const [angle, setAngle] = useState(0);
 
-    const steps = [
-      { label: "Collect Waste", icon: "🗑️", text: <>Waste is collected<br/>from various locations.</> },
-      { label: "Sort Waste", icon: "🔍", text: <>Waste is sorted into<br/>recyclables and non-recyclables.</> },
-      { label: "Shred Waste", icon: "🧨", text: <>Sorted waste is<br/>shredded for processing.</> },
-      { label: "Burn Waste", icon: "🔥", text: <>Waste is incinerated<br/>at high temperatures.</> },
-      { label: "Collect Ash", icon: "🪨", text: <>Incinerator bottom ash<br/>(IBAA) is collected.</> },
-      { label: "Process Ash", icon: "⚙️", text: <>IBAA is processed<br/>to remove impurities.</> },
-      { label: "Sell IBAA", icon: "🏢", text: <>IBAA is sold as low<br/>carbon cement additive.</> },
-      { label: "Concrete Products", icon: "🧱", text: <>IBAA is used in<br/>concrete manufacturing.</> },
-    ];
+  const steps = [
+    { label: "Collect Waste", icon: "🗑️", text: <>Waste is collected<br />from various locations.</> },
+    { label: "Sort Waste", icon: "🔍", text: <>Waste is sorted into<br />recyclables and non-recyclables.</> },
+    { label: "Shred Waste", icon: "🧨", text: <>Sorted waste is<br />shredded for processing.</> },
+    { label: "Burn Waste", icon: "🔥", text: <>Waste is incinerated<br />at high temperatures.</> },
+    { label: "Collect Ash", icon: "🪨", text: <>Incinerator bottom ash<br />(IBAA) is collected.</> },
+    { label: "Process Ash", icon: "⚙️", text: <>IBAA is processed<br />to remove impurities.</> },
+    { label: "Sell IBAA", icon: "🏢", text: <>IBAA is sold as low<br />carbon cement additive.</> },
+    { label: "Concrete Products", icon: "🧱", text: <>IBAA is used in<br />concrete manufacturing.</> },
+  ];
 
   const currentStep = ((angle / 45) % 8 + 8) % 8;
-  const radius = 110;
+  const radius = 130;
 
   const handleNext = () => setAngle(prev => (prev + 45) % 360);
   const handlePrev = () => setAngle(prev => (prev - 45 + 360) % 360);
 
   return (
-    <div className="min-h-screen bg-green-50 flex flex-col items-center justify-center px-4 py-6 2xl-my-40 sm:py-10 space-y-2">
+    <div className="min-h-screen bg-green-50 font-[Poppins] flex flex-col items-center justify-center px-4 py-10 relative">
+      
+      {/* Heading */}
+      <h1 className="absolute top-6 left-6 text-[40px] sm:text-4xl font-extrabold text-green-600">
+        Our Process
+      </h1>
 
-      {/* Top Button for Mobile */}
+      {/* Top Button (Mobile) */}
       <button
         onClick={handlePrev}
-        className="sm:hidden mb-2 px-4 py-2 rounded-full border-2 border-white text-white text-xl font-bold bg-blue-700 hover:bg-white hover:text-blue-700 shadow transition"
+        className="sm:hidden mb-4 px-4 py-2 rounded-full border-2 border-white text-white text-xl font-bold bg-blue-700 hover:bg-white hover:text-blue-700 shadow transition"
       >
         ⬆ Prev
       </button>
 
-      <div className="relative w-full max-w-[370px] sm:max-w-[700px] aspect-square flex items-center justify-center">
+      <div className="relative w-full max-w-[380px] sm:max-w-[720px] aspect-square flex items-center justify-center">
 
-        {/* Background Shell Opposite Rotating */}
+        {/* Outer Blue Shell */}
+        <div className="absolute w-[65%] h-[65%] rounded-full bg-blue-700 border-4 border-black shadow-lg z-0"></div>
+
+        {/* Overlapping Green Shell */}
         <div
-          className="absolute w-[92%] h-[92%] bg-green-600 rounded-full border-[10px] border-black opacity-30"
+          className="absolute w-[88%] h-[88%] rounded-full bg-green-600 border-4 border-black opacity-30 z-0"
           style={{ transform: `rotate(${-angle}deg)` }}
         ></div>
 
-        {/* Decorative Inner Ring */}
-        <div className="absolute w-[60%] h-[60%] rounded-full border-2 bg-blue-600 border-green-800"></div>
+        {/* Inner White Shell with AnimatePresence for smooth transition */}
+        <div className="z-10 absolute w-[28%] h-[28%] rounded-full bg-white flex flex-col items-center justify-center text-center p-1 sm:p-2 shadow">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStep}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4 }}
+              className="flex flex-col items-center justify-center w-full h-full"
+            >
+              <h2 className="text-[12px] sm:text-[14px] font-bold text-blue-700 mb-1 leading-tight">
+                {steps[currentStep].label}
+              </h2>
+              <p className="text-[8px] sm:text-[10px] text-black leading-tight">
+                {steps[currentStep].text}
+              </p>
+              <div className="text-xl sm:text-lg mt-1">{steps[currentStep].icon}</div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
         {/* Icon Dots */}
         {steps.map((_, index) => {
@@ -59,7 +87,7 @@ const CircularSpinner = () => {
           );
         })}
 
-        {/* Rotating Spinner Icons */}
+        {/* Rotating Icons */}
         <div
           className="absolute w-full h-full rounded-full transition-transform duration-700 ease-in-out"
           style={{ transform: `rotate(${angle}deg)` }}
@@ -71,7 +99,7 @@ const CircularSpinner = () => {
             return (
               <div
                 key={index}
-                className={`absolute w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full text-white font-bold text-lg sm:text-xl
+                className={`absolute w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full text-white text-xl sm:text-2xl font-bold
                 ${currentStep === index ? 'bg-blue-600 scale-125 ring-4 ring-white shadow-lg' : 'bg-blue-400 shadow'}`}
                 style={{
                   left: `calc(50% + ${x}px - 1.5rem)`,
@@ -85,17 +113,7 @@ const CircularSpinner = () => {
           })}
         </div>
 
-        {/* Center Description */}
-        <div className="z-10 text-center text-white max-w-[85%] px-3 sm:px-6">
-          <h2 className="text-sm sm:text-xl font-bold mb-1 sm:mb-3">
-            {steps[currentStep].label}
-          </h2>
-          <p className="text-xs sm:text-base leading-relaxed font-medium opacity-90">
-            {steps[currentStep].text}
-          </p>
-        </div>
-
-        {/* Left/Right Buttons for Desktop */}
+        {/* Side Buttons (Only large screens) */}
         <button
           onClick={handlePrev}
           className="hidden sm:flex absolute -left-16 top-1/2 -translate-y-1/2 px-4 py-4 rounded-full border-4 border-white text-white text-2xl font-bold bg-blue-700 hover:bg-white hover:text-blue-700 shadow-md transition"
@@ -110,10 +128,10 @@ const CircularSpinner = () => {
         </button>
       </div>
 
-      {/* Bottom Button for Mobile */}
+      {/* Bottom Button (Mobile) */}
       <button
         onClick={handleNext}
-        className="sm:hidden mt-2 px-4 py-2 rounded-full border-2 border-white text-white text-xl font-bold bg-blue-700 hover:bg-white hover:text-blue-700 shadow transition"
+        className="sm:hidden mt-4 px-4 py-2 rounded-full border-2 border-white text-white text-xl font-bold bg-blue-700 hover:bg-white hover:text-blue-700 shadow transition"
       >
         ⬇ Next
       </button>
