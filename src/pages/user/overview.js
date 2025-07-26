@@ -27,22 +27,21 @@ export default function UserOverview() {
                         <div>
                             <h3 className="text-lg font-semibold text-gray-700 mb-4">Personal Details</h3>
                             <div className="space-y-3">
-                                <div className="flex justify-between">
-                                    <span className="text-gray-600">Name:</span>
-                                    <span className="font-medium">{userData?.name || userData?.firstName + " " + userData?.lastName}</span>
-                                </div>
-                                <div className="flex justify-between">
+                                
+                            <div className="flex justify-between">
                                     <span className="text-gray-600">Email:</span>
                                     <span className="font-medium">{userData?.email}</span>
                                 </div>
                                 <div className="flex justify-between">
+                                    <span className="text-gray-600">Name:</span>
+                                    <span className="font-medium">{userData?.name || userData?.firstName + " " + userData?.lastName}</span>
+                                </div>
+                             
+                                <div className="flex justify-between">
                                     <span className="text-gray-600">Phone:</span>
                                     <span className="font-medium">{userData?.mobile}</span>
                                 </div>
-                                <div className="flex justify-between">
-                                    <span className="text-gray-600">Address:</span>
-                                    <span className="font-medium">{userData?.address}</span>
-                                </div>
+                              
                             </div>
                         </div>
                         <div>
@@ -56,9 +55,14 @@ export default function UserOverview() {
                                     <span className="text-gray-600">Battery:</span>
                                     <span className="font-medium">{userData?.evDetails?.batteryCapacity}</span>
                                 </div> */}
+                                
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Vehicle Registration Number:</span>
                                     <span className="font-medium">{userData?.vehicalRegistrationNumber}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-gray-600">Address:</span>
+                                    <span className="font-medium">{userData?.address}</span>
                                 </div>
                                 {/* <div className="flex justify-between">
                                     <span className="text-gray-600">Color:</span>

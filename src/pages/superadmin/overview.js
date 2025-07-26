@@ -26,7 +26,7 @@ const Overview = () => {
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex">
       {/* Main Content */}
       <div className="flex-1 px-6 py-8 transition-all duration-300 max-w-full">
         {/* Welcome Section */}
@@ -34,21 +34,25 @@ const Overview = () => {
           <div className="flex justify-between items-start flex-wrap mb-4">
             <div>
               <h1 className="text-2xl font-bold text-gray-800 mb-2">
-                Welcome {user?.name || user?.firstname || 'Admin'} 👋
+                Welcome {user?.name || user?.firstName + " " + user?.lastName} 👋
               </h1>
-              <p className="text-gray-600">Manage your EV service platform</p>
+              <h4>Email:{user?.email}</h4>
+              <h4>Mobile:{user?.mobile}</h4>
             </div>
             <div className="text-right">
               <button
-                className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-emerald-500 hover:bg-emerald-700 flex cursor-pointer  text-white font-bold py-2 px-4 rounded"
                 onClick={() => setShowBlogForm(true)}
               >
-                <FaPlus className="mr-2" /> Add Blog
+                <FaPlus className="mr-2 mt-1" /> <p>Add Blog</p>
               </button>
               <div className="text-sm text-gray-500">Current Time</div>
               <div className="text-lg font-mono font-bold text-emerald-600">{currentTime}</div>
             </div>
           </div>
+
+          <p className="text-gray-600 text-2xl text-center">Manage your EV service platform</p>
+          
 
           {/* Stats Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-8">

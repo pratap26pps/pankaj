@@ -2,7 +2,7 @@
 
 import { useEffect,useState } from "react";
 import { useSearchParams } from "next/navigation";
- 
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,6 +12,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { CreditCard, Banknote, Wallet } from "lucide-react";
+import RazorpayPayment from "@/components/RazorpayPayment";
 
 export default function CheckoutPage() {
 
@@ -59,6 +60,10 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
   const [postalCode, setPostalCode] = useState("");
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const [errors, setErrors] = useState({});
+  const [paymentMethod, setPaymentMethod] = useState("cod");
+  const [showRazorpay, setShowRazorpay] = useState(false);
+  const [currentOrder, setCurrentOrder] = useState(null);
+  const router = useRouter();
 
   const validate = () => {
     const newErrors = {};
@@ -73,21 +78,75 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
 
   const checkouthandler = async () => {
     if (!validate()) return;
+    
+    // If online payment is selected, show Razorpay modal
+    if (paymentMethod === "online") {
+      setIsPlacingOrder(true);
+      try {
+        const itemsToOrder = recentproduct.map((item) => ({
+          product: item.packageId || item._id,
+          quantity: item.quantity,
+          price: item.finalPrice || item.price || 0,
+          packageId: item.packageId,
+          packageName: item.packageName,
+          selectedProblems: item.selectedProblems,
+          carBrand: item.carBrand,
+          carModel: item.carModel,
+          warranty: item.warranty,
+          duration: item.duration,
+          serviceSlug: item.serviceSlug
+        }));
+
+        // Create order first with pending payment status
+        const res = await fetch("/api/customer/placeorder", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user: user?._id || user?.id,
+            items: itemsToOrder,
+            totalAmount: total,
+            shippingAddress: {
+              address,
+              city,
+              postalCode,
+              country,
+            },
+            paymentMethod: "online",
+            paymentStatus: "pending",
+          }),
+        });
+        
+        const data = await res.json();
+        if (res.ok) {
+          setCurrentOrder(data.order);
+          setShowRazorpay(true);
+        } else {
+          toast.error(data.message || "Failed to create order");
+        }
+      } catch (err) {
+        toast.error("Server error");
+      } finally {
+        setIsPlacingOrder(false);
+      }
+      return;
+    }
+
+    // Handle COD payment
     setIsPlacingOrder(true);
     try {
-      const itemsToOrder =recentproduct.map((item) => ({
-            product: item.packageId || item._id, // Use packageId for service packages, fallback to _id for regular products
-            quantity: item.quantity,
-            price: item.finalPrice || item.price || 0,
-            packageId: item.packageId,
-            packageName: item.packageName,
-            selectedProblems: item.selectedProblems,
-            carBrand: item.carBrand,
-            carModel: item.carModel,
-            warranty: item.warranty,
-            duration: item.duration,
-            serviceSlug: item.serviceSlug
-          }));
+      const itemsToOrder = recentproduct.map((item) => ({
+        product: item.packageId || item._id,
+        quantity: item.quantity,
+        price: item.finalPrice || item.price || 0,
+        packageId: item.packageId,
+        packageName: item.packageName,
+        selectedProblems: item.selectedProblems,
+        carBrand: item.carBrand,
+        carModel: item.carModel,
+        warranty: item.warranty,
+        duration: item.duration,
+        serviceSlug: item.serviceSlug
+      }));
 
       const res = await fetch("/api/customer/placeorder", {
         method: "POST",
@@ -108,7 +167,7 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
       const data = await res.json();
       if (res.ok) {
         toast.success("Order placed successfully!");
-        router.push("/customer/orderhistory");
+        router.push("/dashboard");
       } else {
         toast.error(data.message || "Failed to place order");
       }
@@ -117,6 +176,18 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
     } finally {
       setIsPlacingOrder(false);
     }
+  };
+
+  const handlePaymentSuccess = (paymentData) => {
+    toast.success("Payment completed successfully!");
+    setShowRazorpay(false);
+    router.push("/customer/orderhistory");
+  };
+
+  const handlePaymentFailure = (error) => {
+    console.error("Payment failed:", error);
+    setShowRazorpay(false);
+    toast.error("Payment failed. Please try again.");
   };
 
   const isFormValid = country && address && city && postalCode && recentproduct && recentproduct.length > 0;
@@ -250,17 +321,17 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
             </div>
 
             {/* Payment Methods */}
-            <RadioGroup value="cod" className="space-y-4 mt-6">
+            <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod} className="space-y-4 mt-6">
               <div className="flex items-center gap-2 opacity-50 pointer-events-none">
                 <RadioGroupItem value="bank" disabled />
                 <span className="flex items-center gap-2"><Banknote className="w-5 h-5 text-blue-600" /> Direct bank transfer</span>
               </div>
-              <div className="flex items-center gap-2 opacity-50 pointer-events-none">
-                <RadioGroupItem value="check" disabled />
-                <span className="flex items-center gap-2"><CreditCard className="w-5 h-5 text-blue-600" /> Check payments</span>
+              <div className="flex items-center gap-2">
+                <RadioGroupItem value="online" />
+                <span className="flex items-center gap-2"><CreditCard className="w-5 h-5 text-blue-600" /> Online payments</span>
               </div>
               <div className="flex items-center gap-2">
-                <RadioGroupItem value="cod" checked readOnly />
+                <RadioGroupItem value="cod" />
                 <span className="flex items-center gap-2"><Wallet className="w-5 h-5 text-blue-600" /> Cash on delivery</span>
               </div>
             </RadioGroup>
@@ -269,11 +340,32 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
                onClick={checkouthandler}
                disabled={isPlacingOrder || !isFormValid}
             className="w-full mt-6 text-white bg-blue-600 hover:bg-blue-700 py-3 text-lg font-semibold rounded-xl shadow">
-              {isPlacingOrder ? "Placing order..." : "Place order"}
+              {isPlacingOrder ? "Processing..." : (paymentMethod === "online" ? "Proceed to Payment" : "Place Order")}
             </Button>
           </CardContent>
         </Card>
       </div>
+
+      {/* Razorpay Payment Modal */}
+      {showRazorpay && currentOrder && (
+        <RazorpayPayment
+          amount={total}
+          orderData={{
+            orderId: currentOrder.orderId,
+            _id: currentOrder._id,
+            id: currentOrder._id
+          }}
+          customerInfo={{
+            name: user?.name || user?.firstName + ' ' + user?.lastName,
+            email: user?.email,
+            mobile: user?.mobile || user?.phone,
+            id: user?._id || user?.id
+          }}
+          onSuccess={handlePaymentSuccess}
+          onFailure={handlePaymentFailure}
+          onClose={() => setShowRazorpay(false)}
+        />
+      )}
     </div>
   );
 }

@@ -127,8 +127,7 @@ const Dashboard = () => {
     { key: 'Total Users', label: 'Total Users', icon: <Users className="w-5 h-5" /> },
     { key: 'live-bookings', label: 'ServiceBookings', icon: <Users className="w-5 h-5" /> },
     { key: 'Booking Order List', label: 'Booking Order List', icon: <Users className="w-5 h-5" /> },
-    { key: 'Add Blog', label: ' Add Blog', icon: <Users className="w-5 h-5" /> },
-    { key: 'AddReview', label: 'AddReview', icon: <Users className="w-5 h-5" /> },
+        { key: 'AddReview', label: 'AddReview', icon: <Users className="w-5 h-5" /> },
     { key: 'Battery Inventory', label: 'Battery Inventory', icon:< Users className="w-5 h-5" />  },
     { key: 'Product list', label: 'Product list', icon:< Users className="w-5 h-5" />  },
    
@@ -336,7 +335,7 @@ const handleChange = (e) => {
 
     switch (selectedMenuItem) {
       case 'overview':
-        return <div className='pt-4'><Overview /> <div className='pt-11'> < ManageUserPage/> </div></div>;
+        return  <Overview />  
       case 'manage-users':
         return (
          < ManageUserPage/>
@@ -357,10 +356,7 @@ const handleChange = (e) => {
         return (
           <LiveBookingPage/>
         );
-        case 'Add Blog':
-        return (
-          <AddReview/>
-        );
+ 
          case 'AddReview':
         return (
           <AddReview/>

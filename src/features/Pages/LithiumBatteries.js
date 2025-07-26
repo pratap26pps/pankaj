@@ -10,7 +10,7 @@ import clsx from 'clsx'
 const batteries = [
   {
     id: 1,
-    name: 'Amaron   Lithium Pro+',
+    name: 'Amaron Lithium Pro+',
     description: 'Advanced 60Ah lithium-ion battery for long-lasting performance and eco-efficiency. 5-year warranty included.',
     price: '₹7,999',
     image: '/images/battry/image.png',

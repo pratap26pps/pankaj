@@ -1,6 +1,6 @@
 // pages/api/blogs/add.js
-import dbConnect from "@/lib/dbConnect"; // your MongoDB connection file
-import Blog from "@/models/Blog";
+import dbConnect from "@/lib/dbConnect";  
+import Blog from "@/models/blogSchema";
 
 export default async function handler(req, res) {
   await dbConnect();

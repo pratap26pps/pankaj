@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Head from 'next/head';
 
@@ -11,138 +11,8 @@ const formatDate = (dateString) => {
   const year = date.getFullYear();
   return `${month} ${day}, ${year}`;
 };
-
-// Static example blog posts from admin and superadmin
-const staticBlogPosts = [
-  {
-    id: 1,
-    title: "GridaNeo Bharat: Leading the EV Revolution in India",
-    excerpt: "Discover how GridaNeo Bharat is transforming the electric vehicle landscape across India with cutting-edge technology, exceptional service, and sustainable solutions.",
-    content: "As India moves towards a sustainable future, GridaNeo Bharat stands at the forefront of the electric vehicle revolution...",
-    image: "https://images.unsplash.com/photo-1593941707882-a5bac6861d75?w=800&h=400&fit=crop",
-    category: "Company News",
-    tags: ["EV Revolution", "Sustainability", "Innovation", "India"],
-    author: "Rajesh Kumar",
-    authorRole: "superadmin",
-    authorAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-    views: 2450,
-    likes: 189,
-    readTime: "5 min read",
-    createdAt: "2024-01-20"
-  },
-  {
-    id: 2,
-    title: "Customer Success: 40% Cost Reduction with EV Fleet Transition",
-    excerpt: "Learn how our enterprise client achieved remarkable cost savings and improved operational efficiency by transitioning their entire fleet to electric vehicles.",
-    content: "When a major logistics company approached us with the challenge of reducing operational costs while maintaining service quality...",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=400&fit=crop",
-    category: "Success Stories",
-    tags: ["Cost Reduction", "Fleet Management", "Case Study", "ROI"],
-    author: "Priya Sharma",
-    authorRole: "admin"  ,
-    authorAvatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
-    views: 1890,
-    likes: 156,
-    readTime: "7 min read",
-    createdAt: "2024-01-18"
-  },
-  {
-    id: 3,
-    title: "Advanced EV Maintenance: Best Practices for Optimal Performance",
-    excerpt: "Essential maintenance guidelines and advanced techniques from our expert technicians to ensure your electric vehicle delivers peak performance and longevity.",
-    content: "Electric vehicles require specialized maintenance approaches that differ significantly from traditional combustion engines...",
-    image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&h=400&fit=crop",
-    category: "Maintenance Tips",
-    tags: ["Maintenance", "Best Practices", "Performance", "Technical"],
-    author: "Dr. Amit Patel",
-    authorRole: "admin",
-    authorAvatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
-    views: 3200,
-    likes: 287,
-    readTime: "6 min read",
-    createdAt: "2024-01-15"
-  },
-  {
-    id: 4,
-    title: "Expanding Horizons: 50 New Service Centers Across India",
-    excerpt: "GridaNeo Bharat announces massive expansion with 50 new service centers, bringing world-class EV maintenance and support closer to customers nationwide.",
-    content: "We're thrilled to announce our largest expansion yet, with 50 new service centers opening across India...",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=400&fit=crop",
-    category: "Company News",
-    tags: ["Expansion", "Service Centers", "Growth", "Nationwide"],
-    author: "Anita Desai",
-    authorRole: "superadmin",
-    authorAvatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
-    views: 4100,
-    likes: 342,
-    readTime: "4 min read",
-    createdAt: "2024-01-12"
-  },
-  {
-    id: 5,
-    title: "EV Charging Infrastructure: Complete Guide to Fast Charging",
-    excerpt: "Comprehensive guide to understanding EV charging infrastructure, from home charging solutions to ultra-fast DC charging networks across India.",
-    content: "Understanding the evolving landscape of EV charging infrastructure is crucial for both current and prospective EV owners...",
-    image: "https://images.unsplash.com/photo-1593941707874-ef2d9e8e3d5d?w=800&h=400&fit=crop",
-    category: "Education",
-    tags: ["Charging", "Infrastructure", "Fast Charging", "Guide"],
-    author: "Vikram Singh",
-    authorRole: "admin",
-    authorAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-    views: 2780,
-    likes: 234,
-    readTime: "8 min read",
-    createdAt: "2024-01-10"
-  },
-  {
-    id: 6,
-    title: "Client Testimonial: Achieving 99.9% Vehicle Uptime",
-    excerpt: "Hear from our valued enterprise client about how GridaNeo Bharat's comprehensive maintenance services helped them achieve industry-leading vehicle uptime.",
-    content: "We've been partnering with GridaNeo Bharat for over three years, and the results have been exceptional...",
-    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&h=400&fit=crop",
-    category: "Testimonials",
-    tags: ["Testimonial", "Uptime", "Reliability", "Partnership"],
-    author: "Sunita Reddy",
-    authorRole: "admin",
-    authorAvatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
-    views: 1650,
-    likes: 128,
-    readTime: "5 min read",
-    createdAt: "2024-01-08"
-  },
-  {
-    id: 7,
-    title: "Future of Electric Mobility: AI-Powered Predictive Maintenance",
-    excerpt: "Explore how GridaNeo Bharat is leveraging artificial intelligence and IoT technology to revolutionize electric vehicle maintenance through predictive analytics.",
-    content: "The future of electric vehicle maintenance lies in predictive analytics and AI-powered solutions...",
-    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=400&fit=crop",
-    category: "EV Technology",
-    tags: ["AI", "Predictive Maintenance", "IoT", "Future Tech"],
-    author: "Dr. Kiran Mehta",
-    authorRole: "superadmin",
-    authorAvatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop&crop=face",
-    views: 3850,
-    likes: 298,
-    readTime: "9 min read",
-    createdAt: "2024-01-05"
-  },
-  {
-    id: 8,
-    title: "Sustainable Transportation: Environmental Impact Report 2024",
-    excerpt: "GridaNeo Bharat's comprehensive environmental impact report showcasing how our services contribute to reducing carbon emissions and promoting sustainable transportation.",
-    content: "Our commitment to sustainability goes beyond just maintaining electric vehicles...",
-    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=400&fit=crop",
-    category: "Sustainability",
-    tags: ["Environment", "Sustainability", "Carbon Reduction", "Report"],
-    author: "Arjun Gupta",
-    authorRole: "admin",
-    authorAvatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop&crop=face",
-    views: 2100,
-    likes: 175,
-    readTime: "6 min read",
-    createdAt: "2024-01-03"
-  }
-];
+ 
+ 
 
 const categoryColors = {
   "EV Technology": "#1890ff",
@@ -156,20 +26,54 @@ const categoryColors = {
 };
 
 const Blog = () => {
-  const [filteredPosts, setFilteredPosts] = useState(staticBlogPosts);
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [likedPosts, setLikedPosts] = useState(new Set());
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [categories, setCategories] = useState(['All']);
+  const [pagination, setPagination] = useState(null);
 
-  // Get unique categories from static posts
-  const categories = ['All', ...new Set(staticBlogPosts.map(post => post.category))];
-  const totalPosts = staticBlogPosts.length;
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  const fetchBlogs = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/blog');
+      const data = await response.json();
+      
+      if (data.success) {
+        setBlogPosts(data.data);
+        setFilteredPosts(data.data);
+        setPagination(data.pagination);
+        
+        // Set categories from API response
+        const uniqueCategories = ['All', ...data.filters.categories];
+        setCategories(uniqueCategories);
+        
+        setError(null);
+      } else {
+        setError(data.message || 'Failed to fetch blogs');
+      }
+    } catch (err) {
+      console.error('Error fetching blogs:', err);
+      setError('Failed to load blogs');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const totalPosts = blogPosts.length;
 
   const handleCategoryFilter = (category) => {
     setSelectedCategory(category);
     if (category === 'All') {
-      setFilteredPosts(staticBlogPosts);
+      setFilteredPosts(blogPosts);
     } else {
-      setFilteredPosts(staticBlogPosts.filter(post => post.category === category));
+      setFilteredPosts(blogPosts.filter(post => post.category === category));
     }
   };
 
@@ -226,7 +130,37 @@ const Blog = () => {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header Section */}
+          {/* Loading State */}
+          {loading && (
+            <div className="flex justify-center items-center min-h-[400px]">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500 mx-auto mb-4"></div>
+                <p className="text-gray-600">Loading blogs...</p>
+              </div>
+            </div>
+          )}
+
+          {/* Error State */}
+          {error && (
+            <div className="flex justify-center items-center min-h-[400px]">
+              <div className="text-center">
+                <div className="text-red-500 text-6xl mb-4">⚠️</div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">Error Loading Blogs</h3>
+                <p className="text-gray-600 mb-4">{error}</p>
+                <button 
+                  onClick={fetchBlogs}
+                  className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-lg transition-colors"
+                >
+                  Try Again
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Main Content - Only show when not loading and no error */}
+          {!loading && !error && (
+            <>
+              {/* Header Section */}
           <motion.div
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -365,13 +299,13 @@ const Blog = () => {
               <div className="flex items-center gap-2">
                 <span className="text-purple-500">👑</span>
                 <span className="text-sm">
-                  {staticBlogPosts.filter(post => post.authorRole === 'superadmin').length} SuperAdmin
+                  {blogPosts.filter(post => post.authorRole === 'superadmin').length} SuperAdmin
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-blue-500">⭐</span>
                 <span className="text-sm">
-                  {staticBlogPosts.filter(post => post.authorRole === 'admin').length} Admin
+                  {blogPosts.filter(post => post.authorRole === 'admin').length} Admin
                 </span>
               </div>
             </div>
@@ -393,7 +327,7 @@ const Blog = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredPosts.map((post, index) => (
                   <motion.div 
-                    key={post.id || index}
+                    key={post._id || index}
                     variants={cardVariants}
                     layout
                     initial={{ opacity: 0, y: 20 }}
@@ -499,15 +433,15 @@ const Blog = () => {
                               <span className="text-sm">{post.views || 0}</span>
                             </div>
                             <button
-                              onClick={() => handleLike(post.id)}
-                              className={`flex items-center gap-1 transition-colors duration-300 ${
-                                likedPosts.has(post.id) 
-                                  ? 'text-red-500' 
-                                  : 'text-gray-500 hover:text-red-500'
+                              onClick={() => handleLike(post._id)}
+                              className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-all duration-300 ${
+                                likedPosts.has(post._id)
+                                  ? 'bg-red-100 text-red-600 hover:bg-red-200'
+                                  : 'bg-gray-100 text-gray-600 hover:bg-red-100 hover:text-red-600'
                               }`}
                             >
-                              <span>{likedPosts.has(post.id) ? '❤️' : '🤍'}</span>
-                              <span className="text-sm">{(post.likes || 0) + (likedPosts.has(post.id) ? 1 : 0)}</span>
+                              <span>{likedPosts.has(post._id) ? '❤️' : '🤍'}</span>
+                              <span className="text-sm">{(post.likes || 0) + (likedPosts.has(post._id) ? 1 : 0)}</span>
                             </button>
                             <button className="flex items-center gap-1 text-gray-500 hover:text-blue-500 transition-colors duration-300">
                               <span>📤</span>
@@ -522,6 +456,8 @@ const Blog = () => {
               </div>
             </motion.div>
           </AnimatePresence>
+            </>
+          )}
         </div>
       </div>
     </>
