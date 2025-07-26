@@ -4,21 +4,10 @@ import { ClipboardCheck, Loader, PackageCheck, CheckCircle } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card";
 import { useSelector } from "react-redux";
 
-const userData = {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phone: "+91 9876543210",
-    address: "123, Main Street, City, Country",
-    evDetails: {
-        model: "Tesla Model 3",
-        batteryCapacity: "75 kWh",
-        registrationNumber: "AB12CD3456",
-        color: "Red",
-    },
-};
-
+ 
 export default function UserOverview() {
     const userData = useSelector((state) => state.auth.user);
+    console.log(userData);
     return (
         <div
             className="space-y-6"
@@ -28,7 +17,7 @@ export default function UserOverview() {
                 transition: "opacity 0.5s, transform 0.5s",
             }}
         >
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
+            <Card className=" bg-green-50 ">
                 <CardContent className="p-6">
                     <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                         <FaUser className="mr-3 text-emerald-600" />
@@ -40,7 +29,7 @@ export default function UserOverview() {
                             <div className="space-y-3">
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Name:</span>
-                                    <span className="font-medium">{userData?.firstName}</span>
+                                    <span className="font-medium">{userData?.name || userData?.firstName + " " + userData?.lastName}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Email:</span>
@@ -59,22 +48,22 @@ export default function UserOverview() {
                         <div>
                             <h3 className="text-lg font-semibold text-gray-700 mb-4">EV Details</h3>
                             <div className="space-y-3">
-                                <div className="flex justify-between">
+                                {/* <div className="flex justify-between">
                                     <span className="text-gray-600">Model:</span>
                                     <span className="font-medium">{userData?.evDetails?.model}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Battery:</span>
                                     <span className="font-medium">{userData?.evDetails?.batteryCapacity}</span>
-                                </div>
+                                </div> */}
                                 <div className="flex justify-between">
-                                    <span className="text-gray-600">Reg. No:</span>
-                                    <span className="font-medium">{userData?.evDetails?.registrationNumber}</span>
+                                    <span className="text-gray-600">Vehicle Registration Number:</span>
+                                    <span className="font-medium">{userData?.vehicalRegistrationNumber}</span>
                                 </div>
-                                <div className="flex justify-between">
+                                {/* <div className="flex justify-between">
                                     <span className="text-gray-600">Color:</span>
                                     <span className="font-medium">{userData?.evDetails?.color}</span>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -89,7 +78,7 @@ export default function UserOverview() {
                     </h3>
                 </div>
 
-                <div className="bg-white p-6 rounded-2xl border border-blue-100 shadow-inner">
+                <div className="bg-green-50 p-6 rounded-2xl border border-blue-100 shadow-inner">
                     <div className="space-y-6">
                         <div className="flex items-start space-x-4">
                             <div className="flex-shrink-0">

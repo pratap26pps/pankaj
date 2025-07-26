@@ -153,13 +153,13 @@ const ServicePage = () => {
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => handleCardClick(service.name)}
-              className="group cursor-pointer bg-white border-2 border-gray-200 group-hover:text-blue-600  text-gray-800 font-medium rounded-3xl shadow-lg hover:shadow-2xl flex flex-col items-center justify-center text-center p-8 w-full h-56 sm:h-60 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-green-200"
+              className="group cursor-pointer bg-white border-2 border-gray-200 group-hover:text-blue-600   font-medium rounded-3xl flex flex-col items-center justify-center text-center p-8 w-full h-56 sm:h-60 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-green-200"
             >
-              <div className="text-green-600 group-hover:text-blue-600 ">
-                  <img src={service.catImage} alt={service.name} height={50} width={50}/>
-              </div>
+              
+                  <img src={service.catImage} alt={service.name} height={50} width={50} className="text-green-600 group-hover:text-blue-600 "/>
+           
               <h3 
-                className="text-lg sm:text-xl font-bold text-green-600 group-hover:text-blue-600 transition-colors duration-300 mb-2"
+                className="text-lg sm:text-xl font-bold text-black group-hover:text-blue-600 transition-colors duration-300 mb-2"
                 style={{ fontFamily: 'Poppins, sans-serif' }}
               >
                 {service.name}

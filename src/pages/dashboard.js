@@ -458,7 +458,7 @@ const handleChange = (e) => {
           );
            case 'buy-battery':
           return ( 
-             router.push('/ServiceSelector?service=suraj')
+             router.push('/ServiceSelector?service=lithium-batteries')
           );
  
         default:
@@ -477,12 +477,12 @@ const handleChange = (e) => {
   );
 
   return (
-    <div className='min-h-screen w-full bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-50 pb-24 pt-6 relative'>
+    <div className='min-h-screen w-full bg-green-50 pb-24 pt-7 relative'>
       {(orderModalOpen || trackModalOpen || profileModalVisible || deleteModalVisible) && (
         <div className="fixed inset-0 z-50  bg-white/10 backdrop-blur-sm transition-all"></div>
       )}
 
-      <div className="flex h-screen relative top-20 z-10">
+      <div className="flex h-screen relative  top-20 z-10">
         {/* Sidebar */}
         <div className={`lg:relative  h-[88%] fixed inset-y-0 left-0 z-50  backdrop-blur-sm border-r border-gray-200 dark:border-gray-700 shadow-lg transition-all duration-300 transform ${
           collapsed ? 'w-20' : 'w-64'
@@ -1000,6 +1000,18 @@ const handleChange = (e) => {
 
           {/* User-specific fields */}
           {user?.accountType === "User" && (
+            <>
+              <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Address (Optional)</label>
+              <input
+                type="text"
+                name="address"
+                value={profileForm.address}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                placeholder="Enter address"
+              />
+            </div> 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Vehicle Registration Number (Optional)</label>
               <input
@@ -1011,6 +1023,8 @@ const handleChange = (e) => {
                 placeholder="Enter vehicle registration number"
               />
             </div>
+            </>
+        
           )}
 
           <div className="flex justify-end space-x-3 pt-4">

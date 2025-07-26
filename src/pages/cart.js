@@ -63,8 +63,8 @@ const MyShoppingCart = () => {
  
 
   const theme = {
-    bg: "bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-50",
-    card: "bg-white text-black",
+    bg: "bg-green-50 ",
+    card: " text-black",
     text: "text-black",
     accent: "text-blue-600",
   };
@@ -120,7 +120,7 @@ const MyShoppingCart = () => {
   return (
     <div className={`min-h-screen ${theme.bg} pt-28 px-4`}>
       <div className="max-w-7xl mx-auto space-y-8">
-        <div className="flex justify-between items-center p-6 rounded-xl bg-white shadow">
+        <div className="flex justify-between items-center p-6 rounded-xl  shadow">
           <div className="flex items-center gap-4">
             <div className="bg-blue-600 p-3 rounded-full">
               <ShoppingCartIcon className="h-6 w-6 text-white" />
@@ -152,7 +152,7 @@ const MyShoppingCart = () => {
                 displayItems.map((item) => (
                   <div
                     key={item._id}
-                    className="flex flex-col gap-4 p-6 rounded-lg mb-5 bg-gray-50 border border-gray-200"
+                    className="flex flex-col gap-4 p-6 rounded-lg mb-5  border border-gray-200"
                   >
                     {/* Header Section with Image and Basic Info */}
                     <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
@@ -228,7 +228,7 @@ const MyShoppingCart = () => {
 
                     {/* Car Selection Details */}
                     {item.carBrand && item.carModel && (
-                      <div className="bg-white p-4 rounded-lg border">
+                      <div className=" p-4 rounded-lg border">
                         <h5 className="font-semibold text-gray-800 mb-2">Vehicle Details</h5>
                         <div className="flex items-center gap-4">
                           {item.carBrandImage && (
@@ -248,7 +248,7 @@ const MyShoppingCart = () => {
 
                     {/* Selected Problems/Services Checklist */}
                     {item.selectedProblems && item.selectedProblems.length > 0 && (
-                      <div className="bg-white p-4 rounded-lg border">
+                      <div className="p-4 rounded-lg border">
                         <h5 className="font-semibold text-gray-800 mb-3">Selected Services</h5>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                           {item.selectedProblems.map((problem, index) => (

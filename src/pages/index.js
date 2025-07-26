@@ -34,7 +34,7 @@ const Index = () => {
                 src="/images/banner/1.jpg"
                 alt="Hero Banner"
                 fill
-                className="object-fill mt-8 w-full h-full"
+                className="object-fill mt-5 w-full h-full"
                 priority
               />
             </div>

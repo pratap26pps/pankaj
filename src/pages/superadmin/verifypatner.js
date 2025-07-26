@@ -26,7 +26,7 @@ export default function VerifyPartner() {
         const [selectedUser, setSelectedUser] = useState(null);
         const [isModalOpen, setIsModalOpen] = useState(false);
     
-        const partner = User.filter((u) => (u.accountType === "Partner" || u.accountType === "Admin" ) || u.status === "Pending");
+        const partner = User.filter((u) => (u.accountType === "Partner" || u.accountType === "Admin" ) && (u.status === "Rejected" || u.status === "Pending"));
         console.log("partner",partner)
       
     
@@ -45,6 +45,21 @@ export default function VerifyPartner() {
                       email: u.email,
                       mobile: u.mobile,
                       accountType: u.accountType,
+                      status: u.status,
+                      vehicalRegistrationNumber: u.vehicalRegistrationNumber,
+                      address: u.address,
+                      adharNumber: u.adharNumber,
+                      panNumber: u.panNumber,
+                      emergencyContact: u.emergencyContact,
+                      alternatecontact: u.alternatecontact,
+                      bankaccountnumber: u.bankaccountnumber,
+                      ifsc: u.ifsc,
+                      bankname: u.bankname,
+                      typeOfEntity: u.typeOfEntity,
+                      yearofexperience: u.yearofexperience,
+                      bloodgroup: u.bloodgroup,
+                      pincode: u.pincode,
+                      typeOfEntity: u.typeOfEntity,
                       orders: [],  
                     }))
                   );

@@ -68,10 +68,10 @@ export default function PremiumNavigation() {
 
   return (
     <>
-      <nav className="fixed bg-white top-0 py-3.5 w-full z-50  box-shadow-xl   font-bold text-2xl"  style={{ fontFamily: "'Poppins', sans-serif" }}>
+      <nav className="fixed bg-green-50 top-0 border-b-1 py-4 w-full z-50  box-shadow-xl   font-bold text-2xl"  style={{ fontFamily: "'Poppins', sans-serif" }}>
         <div className="relative flex justify-between lg:justify-around items-center">
           {/* Logo */}
-          <div className="bg-blac   -my-16">
+          <div className="bg-blac z-10   -my-16">
             <Image
               src="/images/logo (3).png"
               alt="EV Repair"

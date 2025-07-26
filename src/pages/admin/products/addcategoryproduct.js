@@ -21,12 +21,15 @@ export default function AddCategoryProduct() {
 
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.categories);
+  console.log("categories",categories)
   const [categoryName, setCategoryName] = useState("");
   const [categoryDesc, setCategoryDesc] = useState("");
   const [categoryImg, setCategoryImg] = useState([]);
+
   
   const user = useSelector((state) => state.auth.user);
  
+  const [loading, setLoading] = useState(false);
 
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [productForm, setProductForm] = useState({
@@ -44,8 +47,7 @@ export default function AddCategoryProduct() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
-
-  const [allCategories, setAllCategories] = useState([]);
+  
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const dropdownRef = useRef(null);
@@ -99,7 +101,6 @@ export default function AddCategoryProduct() {
 
     const data = await res.json();
     if (data.success) {
-      setAllCategories(data.categories);
       dispatch(setCategories(data.categories));
       setCategoryName("");
       setCategoryDesc("");
@@ -247,11 +248,12 @@ export default function AddCategoryProduct() {
   const handleEditImageChange = async (e) => {
     const files = Array.from(e.target.files);
     if (!files.length) return;
-    setEditUploading(true);
+    setUploading2(true);
     const formData = new FormData();
     files.forEach(file => formData.append('image', file));
+   
     try {
-      const response = await fetch('/api/uploadproductimages', {
+      const response = await fetch('/api/upload', {
         method: 'POST',
         body: formData,
       });
@@ -264,6 +266,8 @@ export default function AddCategoryProduct() {
     } finally {
       setEditUploading(false);
     }
+    
+ 
   };
   const handleEditCategorySave = async () => {
     if (!editCategoryName.trim()) return;
@@ -273,8 +277,9 @@ export default function AddCategoryProduct() {
       description: editCategoryDesc,
       catImage: editCategoryImg,
     };
+    console.log("updatedCategory",updatedCategory)
     // Backend or local update
-    if (allCategories.some(c => c._id === editCategory._id)) {
+    if (categories.some(c => c._id === editCategory._id)) {
       // Backend update
       try {
         const res = await fetch(`/api/admin/${editCategory._id}`, {
@@ -284,7 +289,7 @@ export default function AddCategoryProduct() {
         });
         const data = await res.json();
         if (res.ok && data.success) {
-          setAllCategories(prev => prev.map(c => c._id === editCategory._id ? updatedCategory : c));
+          dispatch(setCategories(categories.map(c => c._id === editCategory._id ? updatedCategory : c)));
           toast.success('Category updated');
         }
       } catch (err) {
@@ -296,6 +301,24 @@ export default function AddCategoryProduct() {
       toast.success('Category updated');
     }
     setEditModalOpen(false);
+  };
+  const handleDeleteCategory = async (categoryId) => {
+   
+    try {
+      setLoading(true);
+      const res = await fetch(`/api/admin/${categoryId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        dispatch(setCategories(categories.filter(c => c._id !== categoryId)));
+        toast.success('Category deleted');
+      }
+    } catch (err) {
+      toast.error('Delete failed');
+    }
+    setLoading(false);
   };
 
   return (
@@ -317,12 +340,12 @@ export default function AddCategoryProduct() {
           </div>
         )}
 
-<Card className="mb-10 p-6 sm:p-8 bg-white/90 dark:bg-gray-800 border border-blue-100 dark:border-gray-700 shadow-2xl rounded-2xl transition-colors">
+<Card className="mb-10 p-6 sm:p-8 bg-green-50  border border-blue-100 dark:border-gray-700 shadow-2xl rounded-2xl transition-colors">
   <div className="flex flex-col lg:flex-row gap-8 w-full">
     
     {/* Category Form */}
     <form onSubmit={handleAddCategory} className="flex flex-col gap-4 w-full lg:w-3/5">
-      <h3 className="text-xl font-bold text-blue-600 dark:text-cyan-300">Add New Category</h3>
+      <h3 className="text-xl font-bold text-blue-600  ">Add New Category</h3>
  
     
       {/* Image Input */}
@@ -335,7 +358,7 @@ export default function AddCategoryProduct() {
           multiple
           required
           onChange={handleImageChangeforcategory}
-          className="block w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          className="block w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2   text-gray-900  focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
         />
         {uploading2 ? (
           <p className="text-sm text-gray-500 mt-2">Uploading... please wait</p>
@@ -356,7 +379,7 @@ export default function AddCategoryProduct() {
           value={categoryName}
           onChange={(e) => setCategoryName(e.target.value)}
           placeholder="e.g. RO Purifier"
-          className="mt-1 border-blue-200 dark:border-gray-700 focus:ring-blue-400 dark:bg-gray-900 dark:text-white"
+          className="mt-1 border-gray-300 dark:border-gray-600 text-gray-900"
           required
         />
       </div>
@@ -368,7 +391,7 @@ export default function AddCategoryProduct() {
           id="categoryDesc"
           value={categoryDesc}
           onChange={e => setCategoryDesc(e.target.value)}
-          className="block w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          className="block w-full border border-gray-300 rounded-lg px-3 py-2 dark:border-gray-600  text-gray-900"
           placeholder="Optional description"
         />
       </div>
@@ -384,11 +407,11 @@ export default function AddCategoryProduct() {
 
     {/* Existing Categories Dropdown */}
     <div className="w-full lg:w-2/5">
-      <h3 className="text-xl font-bold text-blue-600 dark:text-cyan-300 mb-2">Select Existing Category</h3>
+      <h3 className="text-xl font-bold text-blue-600   mb-2">Select Existing Category</h3>
     
       <div className="relative w-full max-w-xs" ref={dropdownRef}>
         <div
-          className="p-2 border border-blue-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer select-none flex justify-between items-center"
+          className="p-2 border border-blue-200 dark:border-gray-700 rounded-lg     text-gray-900  focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer select-none flex justify-between items-center"
           onClick={() => setDropdownOpen((open) => !open)}
         >
           <span>
@@ -403,12 +426,12 @@ export default function AddCategoryProduct() {
 
         {/* Dropdown Items */}
         {dropdownOpen && (
-          <ul className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-900 border border-blue-200 dark:border-gray-700 rounded-lg shadow-lg max-h-60 overflow-auto">
+          <ul className="absolute z-10 mt-1 w-full   border border-blue-200 dark:border-gray-700 rounded-lg shadow-lg max-h-60 overflow-auto">
         
           
               {
                 categories?.map(cat =>(
-                  <li key={cat._id} className="flex items-center justify-between px-3 py-2 hover:bg-blue-50 dark:hover:bg-gray-800 cursor-pointer border-b border-blue-50 dark:border-gray-700 last:border-b-0">
+                  <li key={cat._id} className="flex items-center justify-between px-3 py-2 hover:bg-blue-50 dark:hover:bg-gray-500 cursor-pointer border-b border-blue-50 dark:border-gray-700 last:border-b-0">
                     <span
                       className={`flex-1 ${selectedCategory === cat._id ? 'font-semibold text-blue-700 dark:text-cyan-300' : ''}`}
                       onClick={() => { setSelectedCategory(cat._id); setDropdownOpen(false); }}
@@ -418,7 +441,7 @@ export default function AddCategoryProduct() {
                      <Button
                       size="sm"
            
-                      className="ml-2 px-2 py-1 text-xs"
+                      className="ml-2 px-2 border-1 hover:bg-white hover:cursor-pointer py-1 text-xs"
                       onClick={e => {
                         e.stopPropagation();
                         openEditModal(cat);
@@ -426,17 +449,20 @@ export default function AddCategoryProduct() {
                     >
                       Edit
                     </Button>
-                    {user?.role !== 'microadmin' && (
+                    {user?.accountType !== 'Admin' && (
                     <Button
                       size="sm"
-                      variant="destructive"
-                      className="ml-2 px-2 py-1 text-xs"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        dispatch(setCategories(categories.filter(c => c._id !== cat._id)));
-                        if (selectedCategory === cat._id) setSelectedCategory(null);
-                      }}
-                    >Delete</Button>
+                     
+                      className="ml-2 px-2 border-1 hover:bg-white hover:cursor-pointer  py-1 text-xs"
+                      onClick={(e) => handleDeleteCategory(cat._id)}
+                    >
+                      {loading ? (
+                        <span className="animate-spin"></span>
+                      ) : (
+                        "Delete"
+                      )}
+                      
+                      </Button>
                     )}
                   </li>
                 ))
@@ -451,7 +477,7 @@ export default function AddCategoryProduct() {
 
 {/* Edit Category Modal */}
 <Dialog open={editModalOpen} onOpenChange={setEditModalOpen}>
-  <DialogContent className="bg-white text-black">
+  <DialogContent className="bg-green-50 text-black">
     <DialogHeader>
       <DialogTitle>Edit Category</DialogTitle>
     </DialogHeader>
@@ -479,12 +505,12 @@ export default function AddCategoryProduct() {
 
         {selectedCategory && (() => {
           // Find selected category in backend or local
-          const cat = allCategories.find(c => c._id === selectedCategory) || categories.find(c => c._id === selectedCategory);
+          const cat = categories.find(c => c._id === selectedCategory);
           if (!cat) return null;
           console.log("cat",cat)
      
           return (
-            <Card key={cat._id} className="p-6 sm:p-8 bg-white/95 dark:bg-gray-800 border border-blue-100 dark:border-gray-700 shadow-xl rounded-2xl transition-all hover:shadow-2xl mb-10">
+            <Card key={cat._id} className="p-6 sm:p-8   border border-blue-100 dark:border-gray-700 shadow-xl rounded-2xl transition-all hover:shadow-2xl mb-10">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 border-b border-blue-50 dark:border-gray-700 pb-4">
                 <div>
                   {
@@ -497,12 +523,11 @@ export default function AddCategoryProduct() {
                      )
                   }
                  
-                  <h3 className="text-xl font-bold text-blue-700 dark:text-cyan-300 flex items-center gap-2">
-                    <span className="inline-block w-2 h-2 bg-blue-400 dark:bg-cyan-400 rounded-full"></span>
+                  <h3 className="text-xl font-bold text-blue-700  flex items-center gap-2">
                     {cat?.name}
                   </h3>
                  
-                  <p className="text-gray-500 dark:text-gray-300 text-sm mt-1">Description: {cat?.description}</p>
+                  <p className="text-gray-500   text-sm mt-1">Description: {cat?.description}</p>
 
                 </div>
               </div>
@@ -511,7 +536,7 @@ export default function AddCategoryProduct() {
       <div className="flex flex-col lg:flex-row lg:gap-5">
      
       </div>
-      <form onSubmit={handleAddProduct} className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 bg-blue-50/40 dark:bg-gray-900/60 p-4 rounded-xl border border-blue-100 dark:border-gray-700 relative">
+      <form onSubmit={handleAddProduct} className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 p-4 rounded-xl border border-blue-100 dark:border-gray-700 relative">
  
       <div className="flex items-center space-x-2">
   <Input
@@ -569,31 +594,6 @@ export default function AddCategoryProduct() {
   />
 </div>
 
-<div className="col-span-full">
-  <Label className="font-semibold">Problems / Included Services</Label>
-  {productForm?.problems?.map((item, idx) => (
-    <Input
-      key={idx}
-      value={item}
-      onChange={(e) => {
-        const updated = [...productForm.problems];
-        updated[idx] = e.target.value;
-        setProductForm(prev => ({ ...prev, problems: updated }));
-      }}
-      placeholder={`Service ${idx + 1}`}
-      className="mt-1 mb-2"
-      required
-    />
-  ))}
-  <Button
-    type="button"
-    onClick={() => setProductForm(prev => ({ ...prev, problems: [...prev.problems, ""] }))}
-    className="text-sm mt-1"
-  >
-    + Add More
-  </Button>
-</div>
-
 <div>
   <Label className="font-semibold">Images</Label>
   <Input
@@ -619,18 +619,45 @@ export default function AddCategoryProduct() {
 </div>
 
 <div className="col-span-full">
+  <Label className="font-semibold">Problems / Included Services</Label>
+  {productForm?.problems?.map((item, idx) => (
+    <Input
+      key={idx}
+      value={item}
+      onChange={(e) => {
+        const updated = [...productForm.problems];
+        updated[idx] = e.target.value;
+        setProductForm(prev => ({ ...prev, problems: updated }));
+      }}
+      placeholder={`Service ${idx + 1}`}
+      className="mt-1 mb-2"
+      required
+    />
+  ))}
+  <Button
+    type="button"
+    onClick={() => setProductForm(prev => ({ ...prev, problems: [...prev.problems, ""] }))}
+    className="text-sm mt-1 border-1"
+  >
+    + Add More
+  </Button>
+</div>
+
+
+
+<div className="col-span-full">
   <Label className="font-semibold">Description</Label>
   <textarea
     value={productForm?.description}
     onChange={(e) => setProductForm(prev => ({ ...prev, description: e.target.value }))}
     placeholder="Short description"
-    className="block w-full rounded-lg px-3 py-2"
+    className="block w-full border-1 rounded-lg px-3 py-2"
   />
 </div>
 
  
 
-<div className="col-span-full mt-4">
+<div className="col-span-full border-1 flex items-center justify-center cursor-pointer bg-blue-500 hover:bg-blue-600 text-white rounded-lg mt-4">
   <Button type="submit">Create Service</Button>
 </div>
 </form>

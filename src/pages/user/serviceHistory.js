@@ -121,7 +121,7 @@ const ServiceHistory = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
     >
-        <Card className="border-0 py-24 shadow-lg bg-gradient-to-br from-white to-gray-50">
+        <Card className="border-0 py-24    ">
             <CardContent className="p-6">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                     <FaHistory className="mr-3 text-emerald-600" />
@@ -139,7 +139,7 @@ const ServiceHistory = () => {
                       <motion.div
                         key={booking._id}
                         whileHover={{ scale: 1.02 }}
-                        className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-all duration-200 bg-white"
+                        className=" border   rounded-lg p-6 hover:shadow-md transition-all duration-200 "
                       >
                         <div className="flex justify-between items-start mb-4">
                           <div className="flex-1">

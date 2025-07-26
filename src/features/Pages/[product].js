@@ -152,7 +152,7 @@ export default function ServiceSelectorProduct() {
                 <img
                   src={pkg.images[0]}
                   alt={pkg.name}
-                  className="rounded-2xl w-full h-full object-contain"
+                  className="rounded-2xl w-full h-40 object-contain"
                 />
               </div>
 

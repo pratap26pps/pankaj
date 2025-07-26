@@ -8,13 +8,13 @@ export default async function handler(req, res) {
 
   if (req.method === 'PUT') {
     try {
-      const { name, description, catImage, categoryType } = req.body;
-      if (!name || !categoryType) {
-        return res.status(400).json({ success: false, message: 'Name and categoryType are required' });
+      const { name, description, catImage } = req.body;
+      if (!name || !catImage) {
+        return res.status(400).json({ success: false, message: 'Name and catImage are required' });
       }
       const updated = await Category.findByIdAndUpdate(
         categoryId,
-        { name, description, catImage, categoryType },
+        { name, description, catImage },
         { new: true }
       );
       if (!updated) {

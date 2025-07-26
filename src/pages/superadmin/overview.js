@@ -45,22 +45,22 @@ const Overview = () => {
                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-8">
                   <div className="bg-white shadow rounded-lg p-6 flex flex-col items-center">
                     <FaUserCheck className="text-3xl text-blue-500 mb-2" />
-                    <div className="text-xl font-bold">12</div>
+                    <div className="text-xl font-bold"> 3</div>
                     <div className="text-gray-500">Total Admins</div>
                   </div>
                   <div className="bg-white shadow rounded-lg p-6 flex flex-col items-center">
                     <FaUserCheck className="text-3xl text-green-500 mb-2" />
-                    <div className="text-xl font-bold">34</div>
+                    <div className="text-xl font-bold">2</div>
                     <div className="text-gray-500">Total Partners</div>
                   </div>
                   <div className="bg-white shadow rounded-lg p-6 flex flex-col items-center">
                     <span className="text-3xl text-emerald-500 mb-2">₹</span>
-                    <div className="text-xl font-bold">1,20,000</div>
+                    <div className="text-xl font-bold">0.00</div>
                     <div className="text-gray-500">Total Earnings</div>
                   </div>
                   <div className="bg-white shadow rounded-lg p-6 flex flex-col items-center">
                     <FaExclamationTriangle className="text-3xl text-red-500 mb-2" />
-                    <div className="text-xl font-bold">₹15,000</div>
+                    <div className="text-xl font-bold">₹0.00</div>
                     <div className="text-gray-500">Total Dues</div>
                   </div>
                 </div>
