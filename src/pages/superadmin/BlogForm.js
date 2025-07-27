@@ -101,7 +101,7 @@ const BlogForm = ({ onClose }) => {
 
   return (
     <motion.div
-      className="w-full max-w-xl mx-auto bg-white shadow-lg rounded-2xl p-4 md:p-6 border border-gray-100 relative"
+      className="w-full max-w-xl mx-auto bg-white shadow-lg mt-10 rounded-2xl p-4 md:p-6 border border-gray-100 relative"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}

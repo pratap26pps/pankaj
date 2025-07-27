@@ -292,23 +292,10 @@ const Blog = () => {
                 {totalPosts}
               </span>
               <h4 className="mb-0 text-gray-700">
-                Admin & SuperAdmin Posts
+                 SuperAdmin Posts
               </h4>
             </div>
-            <div className="flex items-center gap-4 text-gray-600">
-              <div className="flex items-center gap-2">
-                <span className="text-purple-500">👑</span>
-                <span className="text-sm">
-                  {blogPosts.filter(post => post.authorRole === 'superadmin').length} SuperAdmin
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-blue-500">⭐</span>
-                <span className="text-sm">
-                  {blogPosts.filter(post => post.authorRole === 'admin').length} Admin
-                </span>
-              </div>
-            </div>
+            
           </div>
           <div className="text-right">
             <p className="text-gray-500 text-sm">
@@ -354,16 +341,7 @@ const Blog = () => {
                         >
                           {post.category}
                         </span>
-                        <div className="absolute top-4 right-4">
-                          <span 
-                            className="px-2 py-1 rounded-full text-xs font-bold text-white"
-                            style={{ 
-                              backgroundColor: post.authorRole === 'superadmin' ? '#722ed1' : '#1890ff'
-                            }}
-                          >
-                            {post.authorRole === 'superadmin' ? 'Super' : 'Admin'}
-                          </span>
-                        </div>
+                       
                       </div>
 
                       {/* Card Content */}
@@ -443,10 +421,7 @@ const Blog = () => {
                               <span>{likedPosts.has(post._id) ? '❤️' : '🤍'}</span>
                               <span className="text-sm">{(post.likes || 0) + (likedPosts.has(post._id) ? 1 : 0)}</span>
                             </button>
-                            <button className="flex items-center gap-1 text-gray-500 hover:text-blue-500 transition-colors duration-300">
-                              <span>📤</span>
-                              <span className="text-sm">Share</span>
-                            </button>
+                           
                           </div>
                         </div>
                       </div>
