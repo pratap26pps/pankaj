@@ -50,6 +50,8 @@ export default async function handler(req, res) {
       image: userdata.image || "/images/avatar.png",
       mobile: userdata.mobile,
       role: userdata.accountType,
+      GstNo: userdata.GstNo,
+      Area: userdata.Area,
     }), {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

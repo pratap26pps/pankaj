@@ -6,6 +6,8 @@ const userSchema = new mongoose.Schema(
         lastName: { type: String, required: true },
         email: { type: String, required: true, unique: true },
         mobile: { type: String,default: ""},
+        GstNo: { type: String, default: "",  },
+        Area: { type: String, default: "" },
         emergencyContact: { type: String,default: ""},
         alternatecontact: { type: String,default: ""},
         image: { type: String, default: "/images/avatar.png" }, 

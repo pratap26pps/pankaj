@@ -36,6 +36,8 @@ const baseUserSchema = {
   bankname: z.string().optional().default(""),
   typeOfEntity: z.enum(["individual", "company", "franchise", ""]).optional().default(""),
   vehicalRegistrationNumber: z.string().optional().default(""),
+  GstNo: z.string().optional().default(""),
+  Area: z.string().optional().default(""),
 };
 
 // Main signup schema with conditional validation

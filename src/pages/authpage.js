@@ -44,6 +44,8 @@ export default function AuthPage() {
     accountType: "",
     adharNumber: "",
     panNumber: "",
+    GstNo: "",
+    Area: "",
     bloodgroup: "",
     yearofexperience: "",
     bankaccountnumber: "",
@@ -62,7 +64,7 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+ console.log(formData);
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -100,7 +102,7 @@ export default function AuthPage() {
     const pincodeRegex = /^[0-9]{6}$/;
     const ifscRegex = /^[A-Z]{4}0[A-Z0-9]{6}$/;
     const bankAccountRegex = /^[0-9]{9,18}$/;
-
+const gstRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/;
     const newErrors = {};
     
     // Basic required field validation
@@ -159,6 +161,8 @@ export default function AuthPage() {
       
       if (!formData.alternatecontact.trim()) newErrors.alternatecontact = "Alternate contact is required for Partner";
       else if (!phoneRegex.test(formData.alternatecontact)) newErrors.alternatecontact = "Alternate contact must be exactly 10 digits";
+      if (!formData.GstNo.trim()) newErrors.GstNo = "GST No  is required for Partner";
+       else if (!gstRegex.test(formData.GstNo)) newErrors.GstNo = "GST No format: 22AAAAA0000A1Z5";  
     }
     
     if (formData.accountType === "User") {
@@ -229,14 +233,14 @@ export default function AuthPage() {
   };
 
   return (
-<div className="min-h-screen bg-green-50 mt-15 py-24 relative flex items-center justify-center p-4 ">
+<div className="min-h-screen bg-green-50 mt-15 py-24 relative flex items-center justify-center p-4 " style={{fontFamily: "sans-serif"}}>
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="relative z-10 w-full max-w-xl"
       >
-            <Card className="backdrop-blur-xl bg-blue-900 border-white/20 shadow-2xl">
+            <Card className="backdrop-blur-xl bg-blue-600 border-white/20 shadow-2xl">
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-extrabold  bg-clip-text text-white font-poppins">
               GridaNeo Bharat
@@ -355,10 +359,10 @@ export default function AuthPage() {
                       className="mt-1 w-full bg-white/10 border-white/20 text-white placeholder:text-white/60 p-2 rounded-md"
                       required
                     >
-                      <option value="">-- Select --</option>
-                      <option value="Admin">Admin</option>
-                      <option value="Partner">Partner</option>
-                      <option value="User">User</option>
+                      <option value="" className="bg-blue-600">-- Select --</option>
+                      <option value="Admin"className="bg-blue-600">Admin</option>
+                      <option value="Partner"className="bg-blue-600">Partner</option>
+                      <option value="User"className="bg-blue-600">User</option>
                     </select>
                     {errors.accountType && (
                       <p className="text-sm text-red-400">{errors.accountType}</p>
@@ -504,13 +508,37 @@ export default function AuthPage() {
                           placeholder={`Alternate Contact`}
                           value={formData.alternatecontact}
                           onChange={handleInputChange}
-                          className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                          className="bg-white/10 border-white/20 text-white  placeholder:text-white/60"
                         />
                         {errors.alternatecontact && (
                           <p className="text-sm text-red-400 mt-1">{errors.alternatecontact}</p>
                         )}
                       </div>
+                       <div>
+                        <Input
+                          name="GstNo"
+                          placeholder={`Enter GST No`}
+                          value={formData.GstNo}
+                          onChange={handleInputChange}
+                          className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                        />
+                        {errors.GstNo && (
+                          <p className="text-sm text-red-400 mt-1">{errors.GstNo}</p>
+                        )}
+                      </div>
 
+                        <div>
+                        <Input
+                          name="Area"
+                          placeholder={`Area Available then Enter Area`}
+                          value={formData.Area}
+                          onChange={handleInputChange}
+                          className="bg-white/10 border-white/20 w-full text-white placeholder:text-white/60"
+                        />
+                        {errors.Area && (
+                          <p className="text-sm text-red-400 mt-1">{errors.Area}</p>
+                        )}
+                      </div>
                     </div>
                     <label className="block mb-1 text-white">Type of Entity</label>
                       <div className="flex flex-row gap-2  rounded-md">
