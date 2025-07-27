@@ -28,16 +28,19 @@ export default function PremiumNavigation() {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
   const [localCartCount, setLocalCartCount] = useState(0);
-
+console.log("localCartCount in nav ", localCartCount);
   useEffect(() => {
     if (
       (!cartItems || cartItems.length === 0) &&
       typeof window !== "undefined"
     ) {
       const stored = localStorage.getItem("cartItems");
+      console.log("stored in nav ", stored);
       if (stored) {
         try {
-          setLocalCartCount(JSON.parse(stored).length);
+          const parsed = JSON.parse(stored);
+          console.log("parsed in nav ", parsed);
+          setLocalCartCount(parsed.length);
         } catch {
           setLocalCartCount(0);
         }

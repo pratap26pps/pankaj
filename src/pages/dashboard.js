@@ -1010,7 +1010,7 @@ const handleChange = (e) => {
           {user?.accountType === "User" && (
             <>
               <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Address (Optional)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
               <input
                 type="text"
                 name="address"
@@ -1021,7 +1021,7 @@ const handleChange = (e) => {
               />
             </div> 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Vehicle Registration Number (Optional)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Vehicle Registration Number</label>
               <input
                 type="text"
                 name="vehicalRegistrationNumber"

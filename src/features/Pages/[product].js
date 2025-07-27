@@ -115,10 +115,14 @@ export default function ServiceSelectorProduct() {
     };
 
     dispatch(addToCart(cartItem));
-    toast.success(`${pkg.name} added to cart successfully!`);
-
-    setSelectedProblems((prev) => ({ ...prev, [pkg._id]: [] }));
-    setCarSelection((prev) => ({ ...prev, [pkg._id]: {} }));
+    localStorage.setItem('cartItems', JSON.stringify([cartItem]));
+    
+    // Optional: Show success message
+    alert(`${pkg.name} added to cart successfully!`);
+    
+    // Optional: Reset selections for this package
+    setSelectedProblems(prev => ({ ...prev, [pkg._id]: [] }));
+    setCarSelection(prev => ({ ...prev, [pkg._id]: {} }));
   };
 
   useEffect(() => {

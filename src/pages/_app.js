@@ -165,8 +165,20 @@ function FloatingContactButtons() {
     </div>
   );
 }
+ 
+function MyApp({ Component, pageProps: { session: sessionProp, ...pageProps }  }) {
 
-function MyApp({ Component, pageProps: { session: sessionProp, ...pageProps } }) {
+  const { requiredRole, requireAuth } = Component;
+ 
+  let content = <Component {...pageProps} />;
+  if (requireAuth || requiredRole) {
+    content = (
+      <RouteProtector requiredRole={requiredRole} requireAuth={requireAuth}>
+        {content}
+      </RouteProtector>
+    );
+  }
+  
   return (
     <SessionProvider session={sessionProp}>
       <Provider store={store}>

@@ -40,6 +40,7 @@ export default function AddCategoryProduct() {
     duration: "",
     warranty: "",
     recommended: "",
+    quantity: 0,
     problems: [""],
     isTopSeller: false
   });
@@ -413,7 +414,7 @@ export default function AddCategoryProduct() {
       {/* Submit */}
       <Button
         type="submit"
-        className="h-12 w-full cursor-pointer sm:w-auto bg-gradient-to-r from-blue-500 to-cyan-500 dark:from-cyan-700 dark:to-blue-800 text-white font-bold shadow-md hover:from-blue-600 hover:to-cyan-600"
+        className="h-12 w-full cursor-pointer  sm:w-auto bg-gradient-to-r from-blue-500 to-cyan-500 dark:from-cyan-700 dark:to-blue-800 text-white font-bold shadow-md hover:from-blue-600 hover:to-cyan-600"
       >
         Add Category
       </Button>
@@ -440,14 +441,14 @@ export default function AddCategoryProduct() {
 
         {/* Dropdown Items */}
         {dropdownOpen && (
-          <ul className="absolute z-10 mt-1 w-full   border border-blue-200 dark:border-gray-700 rounded-lg shadow-lg max-h-60 overflow-auto">
+          <ul className="absolute z-10 mt-1 w-full bg-green-50  border border-blue-200 dark:border-gray-700 rounded-lg shadow-lg max-h-60 overflow-auto">
         
           
               {
                 categories?.map(cat =>(
-                  <li key={cat._id} className="flex items-center justify-between px-3 py-2 hover:bg-blue-50 dark:hover:bg-gray-500 cursor-pointer border-b border-blue-50 dark:border-gray-700 last:border-b-0">
+                  <li key={cat._id} className="flex items-center justify-between px-3 py-2 hover:bg-blue-50 dark:hover:bg-green-100 cursor-pointer border-b border-blue-50 dark:border-gray-700 last:border-b-0">
                     <span
-                      className={`flex-1 ${selectedCategory === cat._id ? 'font-semibold text-blue-700 dark:text-cyan-300' : ''}`}
+                      className={`flex-1 ${selectedCategory === cat._id ? 'font-semibold text-blue-700  ' : ''}`}
                       onClick={() => { setSelectedCategory(cat._id); setDropdownOpen(false); }}
                     >
                       {cat.name}
@@ -667,7 +668,16 @@ export default function AddCategoryProduct() {
   />
 </div>
 
- 
+<div className="col-span-full">
+  <Label className="font-semibold">Quantity</Label>
+  <Input
+    type="number"
+    value={productForm?.quantity}
+    onChange={(e) => setProductForm(prev => ({ ...prev, quantity: e.target.value }))}
+    placeholder="Quantity"
+    className="block w-full border-1 rounded-lg px-3 py-2"
+  />
+</div>
 
 <div className="col-span-full border-1 flex items-center justify-center cursor-pointer bg-blue-500 hover:bg-blue-600 text-white rounded-lg mt-4">
   <Button type="submit">Create Service</Button>
@@ -708,11 +718,8 @@ export default function AddCategoryProduct() {
                           <p>warranty: {product?.warranty}</p>
                           <p>duration: {product?.duration}</p>
                           <p>recommended: {product?.recommended}</p>
-                        
+                          <p>quantity: {product?.quantity}</p>
                           <p>problems: {product?.problems}</p>
-                         
-                     
-                         
                         </div>
                         {product?.images && product?.images?.length > 0 && (
                           <div className="flex gap-2 mt-2 sm:mt-0 flex-wrap">

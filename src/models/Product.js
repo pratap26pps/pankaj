@@ -28,6 +28,10 @@ const ProductSchema = new mongoose.Schema({
           type: String,
           required: true,
         },
+        quantity: {
+          type: Number,
+          default: 1,
+        },
     recommended: {
           type: String,
           required: true,
@@ -52,8 +56,7 @@ const ProductSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    
-    
+   
 }, { 
     timestamps: true 
 });

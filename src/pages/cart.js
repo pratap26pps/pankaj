@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState ,useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,7 +6,6 @@ import {
   TrashIcon,
   CreditCardIcon,
   ShieldCheckIcon,
-  TruckIcon,
   MinusIcon,
   PlusIcon,
 } from "@heroicons/react/24/outline";
@@ -44,9 +42,11 @@ const MyShoppingCart = () => {
       }
     }
   }, [cartItems]);
+  console.log("cartItems",cartItems)
+  console.log("localCart",localCart)
 
   const displayCartItems = (cartItems && cartItems.length > 0) ? cartItems : localCart;
-
+  console.log("displayCartItems",displayCartItems)
   const router = useRouter();
   const searchParams = useSearchParams();
   const skuid = searchParams.get("skuid");
@@ -69,34 +69,44 @@ const MyShoppingCart = () => {
     accent: "text-blue-600",
   };
 
-  const subtotal = displayItems.reduce(
-    (acc, item) => acc + (item.finalPrice || item.price || 0) * (item.quantity || 1),
+  const subtotal = displayItems?.reduce(
+    (acc, item) => acc + (item?.finalPrice || item?.price || 0) * (item?.quantity || 1),
     0
   );
-  const savings = displayItems.reduce(
+  const savings = displayItems?.reduce(
     (acc, item) => {
-      const originalPrice = item.originalPrice || item.price || 0;
-      const finalPrice = item.finalPrice || item.price || 0;
-      return acc + (originalPrice - finalPrice) * (item.quantity || 1);
+      const originalPrice = item?.originalPrice || item?.price || 0;
+      const finalPrice = item?.finalPrice || item?.price || 0;
+      return acc + (originalPrice - finalPrice) * (item?.quantity || 1);
     },
     0
   );
+
+ 
+  
+  
+
+
   const shipping = subtotal > 100 ? 0 : 0.00;
   const tax = subtotal * 0.08;
  
   const total = subtotal + shipping + tax;
 
   const handleRemove = (id) => {
+    console.log("id",id)
     dispatch(removeFromCart(id));
     // Remove from localStorage as well
     if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('cartItems');
-      if (stored) {
-        try {
-          const arr = JSON.parse(stored).filter((item) => item._id !== id);
-          localStorage.setItem('cartItems', JSON.stringify(arr));
-          setLocalCart(arr);
-        } catch {}
+      try {
+        const stored = localStorage.getItem('cartItems');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          const updated = parsed.filter((item) => item._id !== id);
+          localStorage.setItem('cartItems', JSON.stringify(updated));
+          setLocalCart(updated); // Optional: if you are tracking cart locally too
+        }
+      } catch (error) {
+        console.error("Failed to update localStorage:", error);
       }
     }
     toast.success("Item removed from cart");
@@ -143,7 +153,7 @@ const MyShoppingCart = () => {
                                 <h4 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">Your cart is empty</h4>
                                 <p className="text-gray-500 dark:text-gray-400 mb-6">Start shopping to add items to your cart</p>
                                 <button
-                                 onClick={() => router.push("/shop")}
+                                 onClick={() => router.push("/Servicepage")}
                                  className="bg-blue-600 text-white px-6 py-3 cursor-pointer rounded-lg hover:bg-blue-700 transition-colors">
                                   Browse Products
                                 </button>
@@ -222,6 +232,7 @@ const MyShoppingCart = () => {
                     {!skuid && (
                       <button onClick={() => handleRemove(item._id)}>
                         <TrashIcon className="h-5 w-5 cursor-pointer text-red-500" />
+                        
                       </button>
                     )}
                     </div>
@@ -350,6 +361,6 @@ const MyShoppingCart = () => {
   );
 };
 
-MyShoppingCart.requireAuth = true;
+ 
 
 export default MyShoppingCart;
