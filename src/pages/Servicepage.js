@@ -92,10 +92,12 @@ const ServicePage = () => {
       setLocation("Delhi");
     }
   }, []);
+  const reorderedCategories = [...categories].reverse();
 
-  const filteredServices = categories.filter((service) =>
+  const filteredServices = reorderedCategories.filter((service) =>
     service?.name?.toLowerCase().includes(search.toLowerCase())
   );
+  
 
   const handleCardClick = (serviceName) => {
     const slug = serviceName.toLowerCase().replace(/\s+/g, '-');

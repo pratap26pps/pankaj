@@ -49,7 +49,7 @@ const GeneralQuestions = () => {
         transition={{ duration: 0.8 }}
         className="w-full 2xl:ml-16 md:w-1/2"
       >
-        <div className="text-left ml-16">
+        <div className="text-left lg:ml-16">
           <h2 className="text-4xl font-extrabold mb-4 bg-gradient-to-r from-blue-600 via-green-600 to-emerald-600 bg-clip-text text-transparent" style={{ fontFamily: 'Poppins, sans-serif', letterSpacing: '-0.02em' }}>
             Frequently Asked Questions
           </h2>

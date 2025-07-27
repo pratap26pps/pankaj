@@ -127,8 +127,8 @@ const Dashboard = () => {
     { key: 'Total Users', label: 'Total Users', icon: <Users className="w-5 h-5" /> },
     { key: 'live-bookings', label: 'ServiceBookings', icon: <Users className="w-5 h-5" /> },
     { key: 'Booking Order List', label: 'Booking Order List', icon: <Users className="w-5 h-5" /> },
-        { key: 'AddReview', label: 'AddReview', icon: <Users className="w-5 h-5" /> },
-    { key: 'Battery Inventory', label: 'Battery Inventory', icon:< Users className="w-5 h-5" />  },
+    { key: 'AddReview', label: 'AddReview', icon: <Users className="w-5 h-5" /> },
+    { key: 'Add Inventory', label: 'Add Inventory', icon:< Users className="w-5 h-5" />  },
     { key: 'Product list', label: 'Product list', icon:< Users className="w-5 h-5" />  },
    
   ];
@@ -362,7 +362,7 @@ const handleChange = (e) => {
           <AddReview/>
         );
      
-          case 'Battery Inventory':
+          case 'Add Inventory':
         return (
                <AddCategoryProduct/>      
         );
@@ -492,7 +492,7 @@ const handleChange = (e) => {
 
       <div className="flex h-screen relative  top-20 z-10">
         {/* Sidebar */}
-        <div className={`lg:relative  h-[88%] fixed inset-y-0 left-0 z-50  backdrop-blur-sm border-r border-gray-200 dark:border-gray-700 shadow-lg transition-all duration-300 transform ${
+        <div className={`lg:relative  h-[88%] fixed inset-y-0 left-0 z-50  backdrop-blur-sm border-gray-200 dark:border-gray-700 shadow-lg transition-all duration-300 transform ${
           collapsed ? 'w-20' : 'w-64'
         } ${
           sidebarOpen ? 'translate-x-0 top-20' : '-translate-x-full lg:translate-x-0 lg:top-0'

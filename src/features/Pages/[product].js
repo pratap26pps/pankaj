@@ -12,6 +12,7 @@ import { addToCart } from "@/redux/slices/cartSlice";
 export default function ServiceSelectorProduct() {
   const searchParams = useSearchParams();
   const serviceSlug = searchParams.get("service"); // "erickshaw"
+  console.log("serviceSlug",serviceSlug)
   const categories = useSelector((state) => state.category.categories); // Ensure correct path
   const dispatch = useDispatch();
   const [selectedProblems, setSelectedProblems] = useState({});
@@ -159,16 +160,21 @@ export default function ServiceSelectorProduct() {
               <div className="flex-1">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                   <h3 className="text-xl font-bold">{pkg.name}</h3>
-                  <div className="flex gap-2 flex-wrap">
-                    <Button variant="outline" onClick={() => setActiveModelModal(pkg._id)}>
-                      {carSelection[pkg._id]?.model?.name || "Select Brand"}
-                    </Button>
-                    {carSelection[pkg._id]?.model && (
-                      <Button variant="outline" onClick={() => setActiveSubmodelModal(pkg._id)}>
-                        {carSelection[pkg._id]?.submodel || "Select Model"}
+                  {
+                    serviceSlug === "electric-bike" || serviceSlug === "erickshaw" && (
+                      <div className="flex gap-2 flex-wrap">
+                      <Button variant="outline" onClick={() => setActiveModelModal(pkg._id)}>
+                        {carSelection[pkg._id]?.model?.name || "Select Brand"}
                       </Button>
-                    )}
-                  </div>
+                      {carSelection[pkg._id]?.model && (
+                        <Button variant="outline" onClick={() => setActiveSubmodelModal(pkg._id)}>
+                          {carSelection[pkg._id]?.submodel || "Select Model"}
+                        </Button>
+                      )}
+                    </div>
+                    )
+                  }
+              
                 </div>
                 <p className="text-sm text-gray-500">
                   {pkg.warranty} • {pkg.recommended}

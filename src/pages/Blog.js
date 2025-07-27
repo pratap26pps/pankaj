@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Head from 'next/head';
-
+import { useSelector } from 'react-redux';
 // Utility function to format dates consistently for SSR
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -34,6 +34,12 @@ const Blog = () => {
   const [error, setError] = useState(null);
   const [categories, setCategories] = useState(['All']);
   const [pagination, setPagination] = useState(null);
+  const user = useSelector((state) => state.auth.user);
+
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+const [selectedPost, setSelectedPost] = useState(null);
+console.log("blogPosts:", blogPosts);
 
   useEffect(() => {
     fetchBlogs();
@@ -109,6 +115,46 @@ const Blog = () => {
       }
     }
   };
+
+  const handleUpdatePost = async () => {
+    try {
+      const res = await fetch(`/api/blog/${selectedPost._id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(selectedPost)
+      });
+      const data = await res.json();
+  
+      if (data.success) {
+        // Update UI
+        const updated = blogPosts.map((p) => (p._id === selectedPost._id ? selectedPost : p));
+        setBlogPosts(updated);
+        setFilteredPosts(updated);
+        setIsEditModalOpen(false);
+      }
+    } catch (err) {
+      console.error("Error updating post", err);
+    }
+  };
+  
+  const handleDeletePost = async () => {
+    try {
+      const res = await fetch(`/api/blog/${selectedPost._id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+  
+      if (data.success) {
+        const updated = blogPosts.filter((p) => p._id !== selectedPost._id);
+        setBlogPosts(updated);
+        setFilteredPosts(updated);
+        setIsDeleteModalOpen(false);
+      }
+    } catch (err) {
+      console.error("Error deleting post", err);
+    }
+  };
+  
 
   return (
     <>
@@ -270,7 +316,7 @@ const Blog = () => {
                         color: 'black'
                       }} 
                     >
-                      {category === 'All' ? totalPosts : staticBlogPosts.filter(post => post.category === category).length}
+                      {category === 'All' ? totalPosts : blogPosts.filter(post => post.category === category).length}
                     </span>
                   )}
                 </button>
@@ -357,7 +403,7 @@ const Blog = () => {
                               }}
                             />
                             <div>
-                              <p className="font-semibold text-sm" style={{ fontFamily: 'Poppins, sans-serif' }}>{post.author}</p>
+                              <p className="font-semibold text-sm" style={{ fontFamily: 'Poppins, sans-serif' }}>{post.author.toUpperCase()}</p>
                               <div className="flex items-center text-gray-500 text-xs">
                                 <span className="mr-1">📅</span>
                                 {formatDate(post.createdAt)}
@@ -421,7 +467,36 @@ const Blog = () => {
                               <span>{likedPosts.has(post._id) ? '❤️' : '🤍'}</span>
                               <span className="text-sm">{(post.likes || 0) + (likedPosts.has(post._id) ? 1 : 0)}</span>
                             </button>
-                           
+                            <div className="flex items-center gap-2">
+                              {
+                                user?.accountType === 'SuperAdmin' && (
+                                  <>
+                                                <button
+                                  className="text-blue-500 text-sm hover:underline"
+                                  onClick={() => {
+                                    setSelectedPost(post);
+                                    setIsEditModalOpen(true);
+                                  }}
+                                >
+                                  Edit
+                                </button>
+                                <button
+                                  className="text-red-500 text-sm hover:underline"
+                                  onClick={() => {
+                                    setSelectedPost(post);
+                                    setIsDeleteModalOpen(true);
+                                  }}
+                                >
+                                  Delete
+                                </button>
+                                  </>
+                    
+                                )
+                              }
+
+                                 </div>
+
+                            
                           </div>
                         </div>
                       </div>
@@ -429,6 +504,161 @@ const Blog = () => {
                   </motion.div>
                 ))}
               </div>
+              {/* Edit Blog Modal */}
+{/* Full Edit Blog Modal */}
+{isEditModalOpen && selectedPost && (
+  <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+    <div className="bg-white p-6 rounded-xl w-full max-w-2xl space-y-4 overflow-y-auto max-h-[90vh]">
+      <h2 className="text-xl font-semibold text-gray-800">Edit Blog Post</h2>
+
+      {/* Title */}
+      <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
+      <input
+        type="text"
+        className="w-full border rounded p-2"
+        placeholder="Title"
+        value={selectedPost.title}
+        onChange={(e) => setSelectedPost({ ...selectedPost, title: e.target.value })}
+      />
+
+      {/* Excerpt */}
+      <label htmlFor="excerpt" className="block text-sm font-medium text-gray-700">Excerpt</label>
+        <textarea
+        className="w-full border rounded p-2"
+        placeholder="Excerpt"
+        rows={2}
+        value={selectedPost.excerpt}
+        onChange={(e) => setSelectedPost({ ...selectedPost, excerpt: e.target.value })}
+      />
+
+      {/* Content */}
+      <label htmlFor="content" className="block text-sm font-medium text-gray-700">Content</label>
+      <textarea
+        className="w-full border rounded p-2"
+        placeholder="Content"
+        rows={4}
+        value={selectedPost.content}
+        onChange={(e) => setSelectedPost({ ...selectedPost, content: e.target.value })}
+      />
+
+      {/* Image URL */}
+      <label htmlFor="image" className="block text-sm font-medium text-gray-700">Image URL</label>
+      <input
+        type="text"
+        className="w-full border rounded p-2"
+        placeholder="Image URL"
+        value={selectedPost.image}
+        onChange={(e) => setSelectedPost({ ...selectedPost, image: e.target.value })}
+      />
+
+      {/* Category */}
+      <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
+        <input
+        type="text"
+        className="w-full border rounded p-2"
+        placeholder="Category"
+        value={selectedPost.category}
+        onChange={(e) => setSelectedPost({ ...selectedPost, category: e.target.value })}
+      />
+
+      {/* Tags */}
+      <label htmlFor="tags" className="block text-sm font-medium text-gray-700">Tags</label>
+      <input
+        type="text"
+        className="w-full border rounded p-2"
+        placeholder="Comma-separated tags"
+        value={selectedPost.tags.join(', ')}
+        onChange={(e) =>
+          setSelectedPost({ ...selectedPost, tags: e.target.value.split(',').map(tag => tag.trim()) })
+        }
+      />
+
+      {/* Author */}
+      <label htmlFor="author" className="block text-sm font-medium text-gray-700">Author</label>
+        <input
+        type="text"
+        className="w-full border rounded p-2"
+        placeholder="Author Name"
+        value={selectedPost.author}
+        onChange={(e) => setSelectedPost({ ...selectedPost, author: e.target.value })}
+      />
+
+      {/* Author Avatar */}
+      <label htmlFor="authorAvatar" className="block text-sm font-medium text-gray-700">Author Avatar</label>
+      <input
+        type="text"
+        className="w-full border rounded p-2"
+        placeholder="Author Avatar URL"
+        value={selectedPost.authorAvatar}
+        onChange={(e) => setSelectedPost({ ...selectedPost, authorAvatar: e.target.value })}
+      />
+
+      {/* Author Role */}
+      <label htmlFor="authorRole" className="block text-sm font-medium text-gray-700">Author Role</label>
+        <select
+        className="w-full border rounded p-2"
+        value={selectedPost.authorRole}
+        onChange={(e) => setSelectedPost({ ...selectedPost, authorRole: e.target.value })}
+      >
+        <option value="admin">Admin</option>
+        <option value="superadmin">Superadmin</option>
+        <option value="guest">Guest</option>
+      </select>
+
+      {/* Read Time */}
+      <label htmlFor="readTime" className="block text-sm font-medium text-gray-700">Read Time</label>
+      <input
+        type="text"
+        className="w-full border rounded p-2"
+        placeholder="Read Time (e.g. '5 min read')"
+        value={selectedPost.readTime}
+        onChange={(e) => setSelectedPost({ ...selectedPost, readTime: e.target.value })}
+      />
+
+      {/* Actions */}
+      <div className="flex justify-end gap-4 pt-4">
+        <button
+          onClick={() => setIsEditModalOpen(false)}
+          className="px-4 py-2 bg-gray-200 rounded"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={handleUpdatePost}
+          className="px-4 py-2 bg-emerald-600 text-white rounded"
+        >
+          Update
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+
+{/* Delete Confirmation Modal */}
+{isDeleteModalOpen && selectedPost && (
+  <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+    <div className="bg-white p-6 rounded-xl w-full max-w-md text-center space-y-4">
+      <h2 className="text-xl font-semibold">Delete Blog Post</h2>
+      <p>Are you sure you want to delete <strong>{selectedPost.title}</strong>?</p>
+      <div className="flex justify-center gap-4">
+        <button
+          onClick={() => setIsDeleteModalOpen(false)}
+          className="px-4 py-2 bg-gray-200 rounded"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={handleDeletePost}
+          className="px-4 py-2 bg-red-600 text-white rounded"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
             </motion.div>
           </AnimatePresence>
             </>

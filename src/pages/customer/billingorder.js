@@ -75,7 +75,7 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
+  console.log("currentOrder",currentOrder)
   const checkouthandler = async () => {
     if (!validate()) return;
     
@@ -94,8 +94,10 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
           carModel: item.carModel,
           warranty: item.warranty,
           duration: item.duration,
-          serviceSlug: item.serviceSlug
+          serviceSlug: item.serviceSlug,
+          orderId: currentOrder?._orderId
         }));
+        console.log("itemsToOrder",itemsToOrder)
 
         // Create order first with pending payment status
         const res = await fetch("/api/customer/placeorder", {
@@ -145,7 +147,8 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
         carModel: item.carModel,
         warranty: item.warranty,
         duration: item.duration,
-        serviceSlug: item.serviceSlug
+        serviceSlug: item.serviceSlug,
+        orderId: currentOrder?._orderId
       }));
 
       const res = await fetch("/api/customer/placeorder", {
@@ -181,7 +184,7 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
   const handlePaymentSuccess = (paymentData) => {
     toast.success("Payment completed successfully!");
     setShowRazorpay(false);
-    router.push("/customer/orderhistory");
+    router.push("/dashboard");
   };
 
   const handlePaymentFailure = (error) => {
@@ -351,9 +354,9 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
         <RazorpayPayment
           amount={total}
           orderData={{
-            orderId: currentOrder.orderId,
-            _id: currentOrder._id,
-            id: currentOrder._id
+            orderId: currentOrder?._orderId,
+            _id: currentOrder?._id,
+            id: currentOrder?._id
           }}
           customerInfo={{
             name: user?.name || user?.firstName + ' ' + user?.lastName,

@@ -27,6 +27,7 @@ export default function ServiceSelector() {
   const selectedSlug = searchParams.get('service');
   const router = useRouter(); // ✅ Add router hook
   const categories = useSelector((state) => state.category.categories);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     if (selectedSlug) {
@@ -39,6 +40,11 @@ export default function ServiceSelector() {
       }
     }
   }, [selectedSlug, categories]);
+  const reorderedCategories = [...categories].reverse();
+
+  const filteredServices = reorderedCategories.filter((service) =>
+    service?.name?.toLowerCase().includes(search.toLowerCase())
+  );
 
   const handleCardClick = (service) => {
     setSelectedService(service);
@@ -66,8 +72,8 @@ export default function ServiceSelector() {
             initial="hidden"
             animate="visible"
           >
-            {Array.isArray(categories) &&
-              categories?.map((service, index) => (
+            {Array.isArray(filteredServices) &&
+              filteredServices?.map((service, index) => (
                 <motion.button
                   key={index}
                   variants={itemVariants}
