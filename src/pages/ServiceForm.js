@@ -6,7 +6,7 @@ import Image from 'next/image';
 import BookingStepOneForm from '@/features/BookingStepOneForm';
 import { updateFormField, setStep, toggleService, resetBookingForm } from '@/redux/slices/bookingSlice';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { useRouter } from 'next/navigation';
 const serviceOptions = [
   'General Check-Up',
   'Brake Inspection / Repair',
@@ -27,7 +27,7 @@ export default function EVBookingForm() {
   const form = useSelector((state) => state.booking.form);
   const step = useSelector((state) => state.booking.step);
   const [showServiceDropdown, setShowServiceDropdown] = useState(false);
-
+const router = useRouter();
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
