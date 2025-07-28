@@ -79,7 +79,7 @@ const About = () => {
                           className="mb-6"
                         >
                           <p
-                            className="text-sm text-gray-900 max-w-2xl mx-auto font-normal leading-snug"
+                            className="text-md text-gray-900 max-w-2xl mx-auto font-normal leading-snug"
                             style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}
                           >
                             Leading India's clean energy revolution with smart, sustainable solutions
@@ -110,7 +110,7 @@ const About = () => {
                       className="text-center mt-8"
                     >
                       <p
-                        className="text-sm text-gray-900 max-w-4xl mx-auto  mb-10 font-normal leading-snug"
+                        className="text-md text-gray-900 max-w-4xl mx-auto  mb-10 font-normal leading-snug"
                         style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.5' }}
                       >
                         A purpose-driven Indian clean-tech company committed to transforming India's energy landscape through two revolutionary missions:
@@ -225,7 +225,7 @@ const About = () => {
                     >
                       <div className="relative p-8 rounded-2xl bg-gradient-to-r from-gray-50 to-blue-50 border border-gray-200/50">
                         <p
-                          className="text-lg sm:text-xl text-gray-900 leading-relaxed mb-0 font-medium"
+                          className="text-md  text-gray-900 leading-relaxed mb-0 font-medium"
                           style={{
                             fontFamily: 'Inter, sans-serif',
                             lineHeight: '1.7'
@@ -259,7 +259,7 @@ const About = () => {
                   transition={{ duration: 1, delay: 1.4 }}
                 >
                   <h1
-                    className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black bg-gradient-to-r from-blue-600 via-emerald-600 to-indigo-600 bg-clip-text text-transparent mb-6 leading-tight"
+                    className="text-3xl sm:text-xl lg:text-6xl xl:text-5xl font-black bg-gradient-to-r from-blue-600 via-emerald-600 to-indigo-600 bg-clip-text text-transparent mb-6 leading-tight"
                     style={{
                       fontFamily: 'Playfair Display, serif',
                       textShadow: '0 4px 20px rgba(59, 130, 246, 0.15)',
@@ -304,7 +304,7 @@ const About = () => {
                   className="mt-8"
                 >
                   <p
-                    className="text-xl sm:text-2xl text-gray-900 max-w-4xl mx-auto font-medium leading-relaxed"
+                    className="text-xl text-gray-900 max-w-4xl mx-auto font-medium leading-relaxed"
                     style={{
                       fontFamily: 'Inter, sans-serif',
                       lineHeight: '1.7'

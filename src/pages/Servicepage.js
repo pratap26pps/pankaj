@@ -118,7 +118,7 @@ const ServicePage = () => {
         />
       </Head>
       
-      <section className="min-h-screen bg-green-50 px-4  sm:px-6 md:px-10 py-28" style={{ fontFamily: 'poppins, sans-serif' }}>
+      <section className="min-h-screen bg-green-50 px-4  sm:px-6 md:px-10 py-28" style={{ fontFamily: 'poppins, sans-serif' }} >
         <div className="max-w-7xl mx-auto space-y-12">
           {/* Heading */}
           <div className="text-center">
@@ -155,7 +155,7 @@ const ServicePage = () => {
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => handleCardClick(service.name)}
-              className="group cursor-pointer bg-white border-2 border-gray-200 group-hover:text-blue-600   font-medium rounded-3xl flex flex-col items-center justify-center text-center p-8 w-full h-56 sm:h-60 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-green-200"
+              className="group cursor-pointer bg-white  border-gray-200 group-hover:text-blue-600  hover:border-blue-600 border-2  font-medium rounded-3xl flex flex-col items-center justify-center text-center p-8 w-full h-56 sm:h-60 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-green-200"
             >
               
                   <img src={service.catImage} alt={service.name} height={50} width={50} className="text-green-600 group-hover:text-blue-600 "/>

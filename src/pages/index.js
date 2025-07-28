@@ -25,7 +25,7 @@ const Index = () => {
         />
       </Head>
 
-      <div className="h-full w-full" style={{ fontFamily: 'Inter, sans-serif' }}>
+      <div className="h-full w-full " style={{ fontFamily: 'Inter, sans-serif' }}>
         {/* ✅ Hero Image Section - Full Width/Height */}
         <div className="w-full flex items-start justify-center   lg:mt-6  sm:pt-1 md:pt-10">
           <div className="w-full">
