@@ -8,7 +8,6 @@ import { Toaster } from "sonner";
 import AOS from "aos";
 import axios from "axios";
 import RouteProtector from "@/components/RouteProtector"; // ✅ adjust path as needed
-import { SessionProvider } from "next-auth/react"; // if using next-auth
 import { store } from "../redux/store";
 import { setUser } from "../redux/slices/authSlice";
 import { setCategories } from "../redux/slices/categorySlice";
@@ -180,11 +179,11 @@ function MyApp({ Component, pageProps: { session: sessionProp, ...pageProps } })
   }
   
   return (
-    <SessionProvider session={sessionProp}>
+      <SessionProvider session={sessionProp}>
       <Provider store={store}>
         <AuthSyncWrapper>
           <PremiumNavigation />
-          <Component {...pageProps} />
+          {content}
           <Toaster
             position="top-center"
             toastOptions={{
