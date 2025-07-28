@@ -7,7 +7,8 @@ import { useRouter } from "next/navigation";
 import { Toaster } from "sonner";
 import AOS from "aos";
 import axios from "axios";
-
+import RouteProtector from "@/components/RouteProtector"; // ✅ adjust path as needed
+import { SessionProvider } from "next-auth/react"; // if using next-auth
 import { store } from "../redux/store";
 import { setUser } from "../redux/slices/authSlice";
 import { setCategories } from "../redux/slices/categorySlice";
@@ -166,10 +167,9 @@ function FloatingContactButtons() {
   );
 }
  
-function MyApp({ Component, pageProps: { session: sessionProp, ...pageProps }  }) {
-
+function MyApp({ Component, pageProps: { session: sessionProp, ...pageProps } }) {
   const { requiredRole, requireAuth } = Component;
- 
+
   let content = <Component {...pageProps} />;
   if (requireAuth || requiredRole) {
     content = (
