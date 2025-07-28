@@ -28,7 +28,7 @@ const ServiceBookingSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
-
+ 
   // Vehicle Information
   vehicleType: {
     type: String,
@@ -64,7 +64,7 @@ const ServiceBookingSchema = new mongoose.Schema({
   }],
   servicesOther: {
     type: String,
-    trim: true
+   default: "",
   },
   plan: {
     type: String,
@@ -87,15 +87,10 @@ const ServiceBookingSchema = new mongoose.Schema({
   },
   notes: {
     type: String,
-    trim: true
+   default: "",
   },
 
-  // Payment
-  payment: {
-    type: String,
-    enum: ['Pay Now (UPI/Card/NetBanking)', 'Pay on Completion', 'Prepaid Plan']
-  },
-
+ 
   // Agreements
   agreeTerms: {
     type: Boolean,

@@ -458,12 +458,7 @@ const handleChange = (e) => {
             <EVBookingForm/>
             </div>
           );
-           case 'service-history':
-          return ( 
-            <div className='-mt-24 -ml-6'>
-            <MyShoppingCart/>
-            </div>
-          );
+           
            case 'buy-battery':
           return ( 
              router.push('/ServiceSelector?service=lithium-batteries')

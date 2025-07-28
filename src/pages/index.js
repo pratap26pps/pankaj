@@ -3,16 +3,23 @@
 import * as React from 'react';
  
 import ServicePage from './Servicepage';
-import { useRouter } from 'next/navigation';
+ 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Head from 'next/head';
+import BookingStepOneForm from '@/features/BookingStepOneForm';
+import { useRouter } from 'next/navigation'; 
+import { useDispatch, useSelector } from 'react-redux';
 
 const Index = () => {
-  const router = useRouter();
-  const handleClick = () => {
-    router.push('/ServiceForm');
-  };
+const router = useRouter(); 
+ 
+const form = useSelector((state) => state.booking.form);
+const step = useSelector((state) => state.booking.step);
+
+ const handleClick = () => {
+   router.push('/ServiceForm');
+ }
 
   return (
     <>
@@ -37,6 +44,12 @@ const Index = () => {
                 className="object-fill mt-5 w-full h-full"
                 priority
               />
+            </div>
+            <div className='absolute bottom-0 right-15 w-4/12  p-4'>
+             
+            <BookingStepOneForm form={form} step={step} />
+              
+    
             </div>
           </div>
         </div>

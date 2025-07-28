@@ -40,11 +40,7 @@ const   BookingFormHistory = () => {
     try {
       setLoading(true);
       let url = '/api/service-booking';
-      
-      // If user is logged in and has phone number, filter by phone
-      if (user?.phone) {
-        url += `?phone=${user.phone}`;
-      }
+  
       
       const response = await fetch(url);
       const data = await response.json();

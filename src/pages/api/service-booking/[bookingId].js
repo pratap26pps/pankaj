@@ -4,7 +4,7 @@ import ServiceBooking from '@/models/ServiceBooking';
 export default async function handler(req, res) {
   await connectDB();
 
-  const { id } = req.query;
+  const {bookingId } = req.query;
 
   if (req.method === 'PATCH') {
     try {
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 
       // Find and update the booking
       const updatedBooking = await ServiceBooking.findByIdAndUpdate(
-        id,
+        bookingId,
         { 
           status,
           updatedAt: new Date()
@@ -59,7 +59,7 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
       // Get single booking by ID
-      const booking = await ServiceBooking.findById(id).select('-__v');
+      const booking = await ServiceBooking.find().select('-__v');
 
       if (!booking) {
         return res.status(404).json({
