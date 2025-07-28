@@ -12,7 +12,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50  playfair-style1" >
+    <footer className="relative bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50  -z-0 playfair-style1" >
         {/* Decorative Wave Pattern */}
         <div className="absolute top-0 left-0 w-full h-20 " />
 

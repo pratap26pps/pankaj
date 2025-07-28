@@ -71,7 +71,7 @@ const CircularSpinner = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-green-50 font-[Poppins] flex flex-col items-center justify-center px-4 py-10 relative overflow-hidden">
+    <div className="min-h-screen z-0 bg-green-50 font-[Poppins] flex flex-col items-center justify-center px-4 py-10 relative overflow-hidden">
       {/* Heading */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}

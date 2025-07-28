@@ -20,7 +20,9 @@ const step = useSelector((state) => state.booking.step);
  const handleClick = () => {
    router.push('/ServiceForm');
  }
-
+ const Serviceclick = () => {
+   router.push('/Servicepage');
+ }
   return (
     <>
       <Head>
@@ -64,7 +66,7 @@ const step = useSelector((state) => state.booking.step);
             className="text-center space-y-8"
           >
             <h1
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight"
+              className="text-5xl sm:text-6xl md:text-5xl lg:text-6xl font-black leading-tight"
               style={{
                 fontFamily: 'inter,san-serif, serif',
                 letterSpacing: '-0.02em'
@@ -79,7 +81,7 @@ const step = useSelector((state) => state.booking.step);
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
-              className="text-xl sm:text-2xl md:text-3xl text-gray-700 font-medium leading-relaxed max-w-5xl mx-auto"
+              className="text-lg   sm:text-xl md:text-2xl text-gray-700 font-medium leading-relaxed max-w-5xl mx-auto"
               style={{ fontFamily: 'sans-serif' }}
             >
               India's clean-tech solution for silent battery backup systems and trusted electric vehicle servicing,
@@ -96,9 +98,10 @@ const step = useSelector((state) => state.booking.step);
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
+                onClick={ Serviceclick }
                 className="bg-green-600 hover:bg-green-700 text-white px-10 py-5 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-2xl min-w-[250px]"
               >
-                Explore Power Solutions
+                Explore Service Solutions
               </motion.button>
 
               <motion.button
@@ -125,13 +128,13 @@ const step = useSelector((state) => state.booking.step);
             className="text-center mb-16"
           >
             <h2
-              className="text-4xl sm:text-5xl md:text-6xl font-bold text-green-600 mb-6"
+              className="text-4xl sm:text-4xl md:text-5xl font-bold text-green-600 mb-6"
               style={{ fontFamily: 'poppins, serif', letterSpacing: '-0.01em' }}
             >
               Powering India's <span className="text-blue-600">Electric Future</span>
             </h2>
             <p
-              className="text-xl sm:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed"
+              className="text-xl sm:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed"
               style={{ fontFamily: 'poppins, sans-serif' }}
             >
               Leading the charge with innovative solutions and unmatched expertise
