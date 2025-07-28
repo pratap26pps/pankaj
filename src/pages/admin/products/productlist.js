@@ -48,7 +48,7 @@ console.log("categories",categories)
     const [loading, setloading] = useState(false);
     const [selectedImageIdx, setSelectedImageIdx] = useState(null);
  console.log("product",products)
- 
+ console.log("editProduct",editProduct)
  const uniqueCategories = Array.from(
     new Map(
       categories
@@ -298,6 +298,35 @@ console.log("uniqueCategories",uniqueCategories)
                                                                             value={editProduct?.duration || ""}
                                                                             onChange={(e) => setEditProduct({ ...editProduct, duration: e.target.value })}
                                                                         />
+                                                                    </div>
+                                                                    <div>
+                                                                        <Label className="mb-1 text-gray-800">recommended</Label>
+                                                                        <Input
+                                                                            type="text"
+                                                                            value={editProduct?.recommended || ""}
+                                                                            onChange={(e) => setEditProduct({ ...editProduct, recommended: e.target.value })}
+                                                                        />
+                                                                    </div>
+                                                                    <div>
+                                                                    <Label className="mb-1 text-gray-800">Quantity</Label>
+                                                                    <Input
+                                                                        type="number"
+                                                                        value={editProduct?.quantity || ""}
+                                                                        onChange={(e) => setEditProduct({ ...editProduct, quantity: parseInt(e.target.value) || 0 })}
+                                                                    />
+                                                                    </div>
+                                                                    <div>
+                                                                    <Label className="mb-1 text-gray-800">Problems (comma-separated)</Label>
+                                                                    <Input
+                                                                        type="text"
+                                                                        value={(editProduct?.problems || []).join(", ")}
+                                                                        onChange={(e) =>
+                                                                        setEditProduct({
+                                                                            ...editProduct,
+                                                                            problems: e.target.value.split(",").map((item) => item.trim()),
+                                                                        })
+                                                                        }
+                                                                    />
                                                                     </div>
                                                                     
                                                                     <div className="flex  justify-end gap-2 mt-6">

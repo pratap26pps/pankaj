@@ -1,12 +1,13 @@
 "use client";
 import "../styles/globals.css";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector, Provider } from "react-redux";
+import { useDispatch,  Provider } from "react-redux";
 import { useSession, SessionProvider } from "next-auth/react";
-import { useRouter } from "next/navigation";
+ 
 import { Toaster } from "sonner";
 import AOS from "aos";
 import axios from "axios";
+import RouteProtector from "../components/RouteProtector";
 import { store } from "../redux/store";
 import { setUser } from "../redux/slices/authSlice";
 import { setCategories } from "../redux/slices/categorySlice";
@@ -19,6 +20,7 @@ import GeneralQuestions from "../features/GeneralQuestions";
 import Footer from "../features/Footer";
 import Testimonial from "../features/Testimonial";
 import { Phone } from "lucide-react";
+ 
 
 function AuthSyncWrapper({ children }) {
   const { data: sessionData, status } = useSession();

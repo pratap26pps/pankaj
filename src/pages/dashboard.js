@@ -1098,5 +1098,8 @@ const handleChange = (e) => {
       </div>
   )
 }
+Dashboard.requiredRole = ["SuperAdmin", "Partner", "User", "Admin"];
+Dashboard.requireAuth = true;
+
   export default Dashboard;
 

@@ -64,38 +64,41 @@ export default function ServiceSelectorProduct() {
   };
 
   const getOfferPrice = (pkgId) => {
-    const count = selectedProblems[pkgId]?.length || 0;
-
-    if (pkgId === products[0]?._id) {
-      if (count === 6) return 2599;
-      if (count === 3) return 1499;
-      if (count === 2) return 1099;
+    const selected = selectedProblems[pkgId] || [];
+    const count = selected.length;
+    const totalPrice = getTotalPrice(pkgId);
+  
+    if (serviceSlug === "erickshaw" || serviceSlug === "electric-bike") {
+      if (count >= 4) return Math.round(totalPrice * 0.85); 
+      if (count === 3) return Math.round(totalPrice * 0.90); 
+      if (count === 2) return Math.round(totalPrice * 0.92); 
     }
-
-    if (pkgId === products[1]?._id) {
-      if (count === 12) return 2999;
-      if (count === 5) return 1499;
-      if (count === 4) return 1299;
-      if (count === 2) return 349;
-    }
-
-    return null;
+  
+    return null; 
   };
+
+
 
   const handleAddToCart = (pkg) => {
     const selectedItems = selectedProblems[pkg._id] || [];
-    const carInfo = carSelection[pkg._id];
 
+    const carInfo = carSelection[pkg._id] || {};
+    console.log("carInfo",carInfo)
     if (serviceSlug === "erickshaw" || serviceSlug === "electric-bike") {
+   
       if (selectedItems.length === 0) return toast.error("Please select at least one problem.");
       if (!carInfo?.model) return toast.error("Please select a car brand.");
       if (!carInfo?.submodel) return toast.error("Please select a car model.");
     }
 
+
+
     const totalPrice = getTotalPrice(pkg._id);
     const offerPrice = getOfferPrice(pkg._id);
     const finalPrice = offerPrice || totalPrice;
 
+
+    
     const cartItem = {
       _id: `${pkg._id}_${Date.now()}`,
       packageId: pkg._id,
@@ -105,20 +108,21 @@ export default function ServiceSelectorProduct() {
       duration: pkg.duration,
       recommended: pkg.recommended,
       selectedProblems: selectedItems,
-      carBrand: carInfo.model.name,
-      carModel: carInfo.submodel,
-      carBrandImage: carInfo.model.image,
+      carBrand: carInfo?.model?.name || "",
+      carModel: carInfo?.submodel || "",
+      carBrandImage: carInfo?.model?.image || "",
       originalPrice: totalPrice,
       offerPrice: offerPrice,
       finalPrice,
       serviceSlug,
+      quantity: pkg.quantity,
     };
 
     dispatch(addToCart(cartItem));
     localStorage.setItem('cartItems', JSON.stringify([cartItem]));
     
     // Optional: Show success message
-    alert(`${pkg.name} added to cart successfully!`);
+    toast.success(`${pkg.name} added to cart`);
     
     // Optional: Reset selections for this package
     setSelectedProblems(prev => ({ ...prev, [pkg._id]: [] }));
@@ -192,9 +196,9 @@ export default function ServiceSelectorProduct() {
                     const total = getTotalPrice(pkg._id);
                     return offer ? (
                       <>
-                        <span className="text-green-600 font-bold">Offer Price:</span>{" "}
+                        <span className="text-blue-600 font-bold">Offer Price:</span>{" "}
                         <span className="line-through text-red-500 mr-2">₹{total}</span>
-                        <span className="text-green-600 font-bold">₹{offer}</span>
+                        <span className="text-blue-600 font-bold">₹{offer}</span>
                       </>
                     ) : (
                       <>Final Price: ₹{total}</>
