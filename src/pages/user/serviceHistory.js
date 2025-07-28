@@ -65,13 +65,14 @@ console.log("serviceBookings",serviceBookings)
     });
 
     const data = await response.json();
+    console.log("data",data)
 
-    if (response.ok) {
-      toast.success(`Service booked successfully! Booking ID: ${data.booking.bookingId}`);
+    if (data?.success) {
+      toast.success(`Service booked successfully! Booking ID: ${data?.data?.newBooking?.bookingId}`);
      
     } else {
-      toast.error(data.message || 'Failed to book service');
-      if (data.errors) {
+      toast.error(data?.message || 'Failed to book service');
+      if (data?.errors) {
         data.errors.forEach(error => toast.error(error));
       }
     }
@@ -81,33 +82,33 @@ console.log("serviceBookings",serviceBookings)
   }
 };
 
-  const fetchServiceHistory = async () => {
-    try {
-      setLoading(true);
-      let url = "/api/user-service-booking";
+const fetchServiceHistory = async (page = 1, limit = 10) => {
+  try {
+    setLoading(true);
+    let url = `/api/user-service-booking?page=${page}&limit=${limit}`;
 
-   
-      if (user?.email) {
-        url += `?email=${user.email}`;
-      }
-
-      const response = await fetch(url);
-      const data = await response.json();
-console.log("data",data)
-      if (data.success) {
-        setServiceBookings( data.data);
-        setPagination(data.pagination);
-        setShowModal(false);
-        setSelectedBooking(null);
-      } else {
-        setError(data.message || "Failed to fetch service history");
-      }
-    } catch (err) {
-      setError("Failed to load service history");
-    } finally {
-      setLoading(false);
+    if (user?.email) {
+      url += `&email=${user.email}`;
     }
-  };
+
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log("data", data);
+
+    if (data?.success) {
+      setServiceBookings(data?.data);
+      setPagination(data?.pagination);
+      setShowModal(false);
+      setSelectedBooking(null);
+    } else {
+      setError(data?.message || "Failed to fetch service history");
+    }
+  } catch (err) {
+    setError("Failed to load service history");
+  } finally {
+    setLoading(false);
+  }
+};
 
  
 
