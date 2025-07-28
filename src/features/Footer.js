@@ -8,7 +8,7 @@ const Footer = () => {
   const cities = [
     'Delhi', 'Mumbai', 'Bangalore', 'Hyderabad', 'Chennai', 'Kolkata',
     'Pune', 'Ahmedabad', 'Jaipur', 'Lucknow', 'Kanpur', 'Nagpur',
-    'Indore', 'Thane', 'Bhopal', 'Visakhapatnam', 'Pimpri', 'Patna',
+    'Indore', 'Thane', ' Bhopal', 'Visakhapatnam', 'Pimpri', 'Patna',
   ];
 
   return (
