@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { Toaster } from "sonner";
 import AOS from "aos";
 import axios from "axios";
-import RouteProtector from "@/components/RouteProtector"; // ✅ adjust path as needed
 import { store } from "../redux/store";
 import { setUser } from "../redux/slices/authSlice";
 import { setCategories } from "../redux/slices/categorySlice";
