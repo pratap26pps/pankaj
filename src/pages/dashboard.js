@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { setUser } from '../redux/slices/authSlice';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 import { signOut } from 'next-auth/react';
 import { clearUser } from '../redux/slices/authSlice';
 import ProductHistory from './admin/products/productlist';

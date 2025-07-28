@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CreditCard, Shield, CheckCircle, XCircle, Loader } from 'lucide-react';
-import toast from 'react-hot-toast';
+import toast from 'sonner';
 
 const RazorpayPayment = ({ 
   amount, 

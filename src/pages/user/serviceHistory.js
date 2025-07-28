@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 
 // Card wrappers (could be replaced with actual component libs)
 const Card = ({ children, className }) => (

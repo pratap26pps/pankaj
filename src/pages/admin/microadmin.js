@@ -12,8 +12,7 @@ import {
 } from "@/components/ui/table";
  
 import { Input } from "@/components/ui/input";
- 
-import { toast } from "react-hot-toast";
+import { toast } from 'sonner';
 
 export default function MicroAdminManagement() {
   const [customers, setCustomers] = useState([]);

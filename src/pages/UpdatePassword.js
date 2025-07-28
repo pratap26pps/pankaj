@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import toast from "react-hot-toast";
+import { toast } from 'sonner';
 import { Eye, EyeOff } from "lucide-react";
 import { useSession } from "next-auth/react";
 const UpdatePassword = () => {

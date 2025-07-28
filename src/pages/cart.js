@@ -10,7 +10,7 @@ import {
   PlusIcon,
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import { toast } from 'sonner';
 import {
   removeFromCart,
   increaseQty,

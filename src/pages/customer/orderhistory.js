@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from 'sonner';
 import {
   Dialog,
   DialogTrigger,

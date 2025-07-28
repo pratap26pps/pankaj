@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { BiArrowFromRight } from "react-icons/bi";
 import Link from "next/link";
-import toast from "react-hot-toast";
+import { toast } from 'sonner';
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 

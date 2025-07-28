@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaHistory, FaSpinner, FaClock, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import toast from "react-hot-toast";
+import { toast } from 'sonner';
 
 // Dummy Card and CardContent components
 const Card = ({ children, className }) => (

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState,useEffect } from "react";
 import { Eye, EyeOff, Lock, Sun, Moon, Shield, CheckCircle } from "lucide-react";
-import toast from "react-hot-toast";
+import { toast } from 'sonner';
 import { useRouter } from "next/router";
 export default function ResetPasswordPage() {
   

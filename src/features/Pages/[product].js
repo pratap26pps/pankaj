@@ -9,7 +9,7 @@ import { Clock } from "lucide-react";
 import { bikemodels } from "../Data";
 import { models } from "../Data";
 import { addToCart } from "@/redux/slices/cartSlice";
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 
 export default function ServiceSelectorProduct() {
   const searchParams = useSearchParams();

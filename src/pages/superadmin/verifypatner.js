@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaCheck, FaUserTimes } from "react-icons/fa";
 import { useEffect } from "react";
-import toast from "react-hot-toast";
+import { toast } from 'sonner';
 
 // Dummy Card and Button components (replace with your UI library if needed)
 const Card = ({ children, className }) => (

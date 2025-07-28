@@ -8,7 +8,7 @@ import { setCategories } from "@/redux/slices/categorySlice";
 import { addProduct } from "@/redux/slices/productSlice";
 import { FaSyncAlt } from "react-icons/fa";
 
-import toast from "react-hot-toast";
+import { toast } from 'sonner';
 import {
   Dialog,
   DialogContent,

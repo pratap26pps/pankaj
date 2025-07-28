@@ -8,7 +8,7 @@ import { signIn } from "next-auth/react";
 import { setUser } from "../redux/slices/authSlice";
 import { Chrome, Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 
-import toast from "react-hot-toast";
+import { toast } from 'sonner';
 
 // ShadCN UI
 import {

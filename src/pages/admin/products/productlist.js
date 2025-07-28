@@ -29,7 +29,7 @@ import { addCategory } from "@/redux/slices/categorySlice";
  
 import { Label } from "@/components/ui/label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import toast from "react-hot-toast";
+import { toast } from 'sonner';
 
 
 

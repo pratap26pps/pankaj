@@ -12,7 +12,7 @@ import {
 import { Table, TableHead, TableBody, TableRow, TableCell, TableHeader } from "@/components/ui/table";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { toast } from "react-hot-toast";
+import { toast } from 'sonner';
 import { useSelector } from 'react-redux';
  
 

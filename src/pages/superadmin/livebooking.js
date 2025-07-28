@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaExclamationTriangle,FaEye, FaSpinner, FaSyncAlt, FaShoppingCart, FaUser, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
-import toast from "react-hot-toast";
+import { toast } from 'sonner';
 
 // Simple component replacements
 const Card = ({ children, className = "" }) => (
