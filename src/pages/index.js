@@ -3,7 +3,6 @@
 import * as React from 'react';
  
 import ServicePage from './Servicepage';
- import Loader from '@/components/ui/Loader';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Head from 'next/head';

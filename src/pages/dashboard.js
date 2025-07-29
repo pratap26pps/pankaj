@@ -15,7 +15,6 @@ import OrderManagement from './admin/order/orderlist';
 import BookingFormHistory from './superadmin/bookingformhistory';
  import MicroBookings from './microadmin/booking';
  import MicroAdminOverview from './microadmin/overview';
- import Loader from '@/components/ui/Loader';
 import { 
   BarChart3, 
   ShoppingCart, 
@@ -54,7 +53,6 @@ const Dashboard = () => {
 
   const allOrders = useSelector(state => state.order.orders);
   const user = useSelector((state) => state.auth.user);
-  console.log("User in Dashboard:", user);
   const router = useRouter();
   const [confirm, setConfirm] = useState("");
   const [collapsed, setCollapsed] = useState(false);
