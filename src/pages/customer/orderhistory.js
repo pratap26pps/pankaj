@@ -63,12 +63,12 @@ export default function OrderHistory() {
           <tbody className="divide-y divide-gray-200">
             {orders.map((order) => (
               <tr
-                key={order._id}
+                key={order?.orderId || order?.id }
                 className="border-b border-gray-200 hover:bg-gray-100 transition-colors"
               >
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className="font-medium text-black">
-                    {order.orderId || order._id}
+                    {order?.orderId || order?.id}
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-black">
@@ -120,7 +120,7 @@ export default function OrderHistory() {
                   <div className="flex space-x-2">
                     {/* View Dialog */}
                     <Dialog
-                      open={selectedOrder?._id === order._id}
+                      open={selectedOrder?._id === (order?._id || order?.orderId)}
                       onOpenChange={(open) =>
                         setSelectedOrder(open ? order : null)
                       }
@@ -142,16 +142,16 @@ export default function OrderHistory() {
                         </DialogHeader>
                         <div className="space-y-2 text-black">
                           <div>
-                            <b>Order ID:</b> {order.orderId || order._id}
+                            <b>Order ID:</b> {order?.orderId || order?.id}
                           </div>
                           <div>
-                            <b>Status:</b> {order.status}
+                            <b>Status:</b> {order?.status}
                           </div>
                           <div>
-                            <b>Payment Method:</b> {order.paymentMethod}
+                            <b>Payment Method:</b> {order?.paymentMethod}
                           </div>
                           <div>
-                            <b>Total:</b> ₹{order.totalAmount}
+                            <b>Total:</b> ₹{order?.totalAmount}
                           </div>
                           <div>
                             <b>Date:</b>{" "}
@@ -207,7 +207,7 @@ export default function OrderHistory() {
 
                     {/* Track Order Dialog */}
                     <Dialog
-                      open={trackOrder?._id === order._id}
+                      open={trackOrder?._id === (order?._id || order?.orderId)}
                       onOpenChange={(open) =>
                         setTrackOrder(open ? order : null)
                       }
@@ -236,12 +236,12 @@ export default function OrderHistory() {
                             {order.shippingAddress?.postalCode}
                           </div>
                           <div>
-                            <b>Status:</b> {order.status}
+                            <b>Status:</b> {order?.status}
                           </div>
                           <div>
                             <b>Date:</b>{" "}
-                            {order.createdAt
-                              ? new Date(order.createdAt).toLocaleString()
+                            {order?.createdAt
+                              ? new Date(order?.createdAt).toLocaleString()
                               : ""}
                           </div>
                         </div>

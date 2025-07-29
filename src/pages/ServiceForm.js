@@ -118,7 +118,7 @@ const router = useRouter();
         <Image src="/images/Appointment.webp" alt="Service Banner" width={400} height={410} className="rounded-2xl object-contain shadow-none" priority />
       </div>
 
-      <div className="max-w-xl bg-white mx-auto p-6 rounded-3xl shadow">
+      <div className="max-w-xl  bg-gradient-to-br from-green-50 via-green-100  to-green-300 mx-auto p-6 rounded-3xl shadow">
         <h2 className="text-3xl font-bold text-green-700 mb-4 text-center">GreenNature Bharat – EV Servicing</h2>
 
         <form onSubmit={submitForm} className="space-y-2">

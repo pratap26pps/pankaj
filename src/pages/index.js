@@ -50,7 +50,7 @@ const [loading, setLoading] = useState(true);
         {/* ✅ Hero Image Section - Full Width/Height */}
        <div className="w-full  flex flex-col lg:flex-row items-start justify-center">
   {/* Hero Banner - Hidden on small screens */}
-  <div className="hidden sm:block w-full  lg:w-8/12 relative h-[calc(100vh-1rem)]">
+  <div className="hidden sm:block w-full    relative h-[calc(100vh-1rem)]">
      <Image
         src="/images/hero-banner01.png  " // ✅ relative to /public folder
         alt="Hero Banner"
@@ -68,7 +68,7 @@ const [loading, setLoading] = useState(true);
   </div>
 
   {/* Booking Form */}
-  <div className="w-full sm:absolute sm:bottom-0 sm:right-0 sm:w-4/12 p-4 sm:p-6 md:p-8">
+  <div className="lg:w-[40%] sm:absolute sm:bottom-0 sm:right-0 lg:right-14 lg:bottom-14 sm:w-4/12 p-4 sm:p-6 md:p-8">
     <BookingStepOneForm form={form} step={step} />
   </div>
 
