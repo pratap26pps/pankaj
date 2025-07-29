@@ -1,59 +1,65 @@
 "use client";
-import "../styles/globals.css";
+
+import "@/styles/globals.css";
 import React, { useEffect, useState } from "react";
-import { useDispatch, Provider } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { useSession, SessionProvider } from "next-auth/react";
 import { Toaster } from "sonner";
 import AOS from "aos";
 import axios from "axios";
-import RouteProtector from "../components/RouteProtector";
-import { store } from "../redux/store";
-import { setUser } from "../redux/slices/authSlice";
-import { setCategories } from "../redux/slices/categorySlice";
-import { setProducts } from "../redux/slices/productSlice";
-import { setOrders } from "../redux/slices/orderSlice";
-import { setCartFromLocalStorage } from "../redux/slices/cartSlice";
-import CircularSpinner from "./CircularSpinner";
-import PremiumNavigation from "../features/Navbar";
-import GeneralQuestions from "../features/GeneralQuestions";
-import Footer from "../features/Footer";
-import Testimonial from "../features/Testimonial";
+import Lottie from "lottie-react";
+import loadingAnimation from "../../public/Animations/Gearsanimation.json";
+
+import { store } from "@/redux/store";
+import { setUser } from "@/redux/slices/authSlice";
+import { setCategories } from "@/redux/slices/categorySlice";
+import { setProducts } from "@/redux/slices/productSlice";
+import { setOrders } from "@/redux/slices/orderSlice";
+import { setCartFromLocalStorage } from "@/redux/slices/cartSlice";
+
+import RouteProtector from "@/components/RouteProtector";
+import CircularSpinner from "@/pages/CircularSpinner";
+import PremiumNavigation from "@/features/Navbar";
+import GeneralQuestions from "@/features/GeneralQuestions";
+import Testimonial from "@/features/Testimonial";
+import Footer from "@/features/Footer";
 import { Phone } from "lucide-react";
-import { useSelector } from "react-redux";
- 
 
 function AuthSyncWrapper({ children }) {
+  const [loading, setLoading] = useState(true);
   const { data: sessionData, status } = useSession();
   const dispatch = useDispatch();
-
   const cartItems = useSelector((state) => state.cart.cartItems);
- 
+
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedCart = JSON.parse(localStorage.getItem("cartItems")) || [];
-      dispatch(setCartFromLocalStorage(savedCart));
-    }
+    const timer = setTimeout(() => setLoading(false), 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
+  useEffect(() => {
+    const savedCart = JSON.parse(localStorage.getItem("cartItems") || "[]");
+    dispatch(setCartFromLocalStorage(savedCart));
   }, [dispatch]);
-  
-  
+
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
   useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
-
     const fetchUser = async () => {
       try {
         const res = await axios.get("/api/auth/me", { withCredentials: true });
         dispatch(setUser(res.data.user));
-      } catch (err) {
+      } catch {
         dispatch(setUser(null));
       }
     };
-
     fetchUser();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (status === "authenticated" && sessionData?.user) {
@@ -61,12 +67,12 @@ function AuthSyncWrapper({ children }) {
     } else if (status === "unauthenticated") {
       dispatch(setUser(null));
     }
-  }, [status, sessionData]);
+  }, [status, sessionData, dispatch]);
 
   useEffect(() => {
-    async function fetchProducts() {
+    const fetchProducts = async () => {
       try {
-        const res = await fetch('/api/products');
+        const res = await fetch("/api/products");
         const data = await res.json();
         if (data.success && Array.isArray(data.products)) {
           dispatch(setProducts(data.products));
@@ -74,14 +80,14 @@ function AuthSyncWrapper({ children }) {
       } catch (err) {
         console.error("Error fetching products:", err);
       }
-    }
+    };
     fetchProducts();
   }, [dispatch]);
 
   useEffect(() => {
-    async function fetchCategories() {
+    const fetchCategories = async () => {
       try {
-        const res = await fetch('/api/categories');
+        const res = await fetch("/api/categories");
         const data = await res.json();
         if (data.success && Array.isArray(data.categories)) {
           dispatch(setCategories(data.categories));
@@ -89,14 +95,14 @@ function AuthSyncWrapper({ children }) {
       } catch (err) {
         console.error("Error fetching categories:", err);
       }
-    }
+    };
     fetchCategories();
   }, [dispatch]);
 
   useEffect(() => {
-    async function fetchOrders() {
+    const fetchOrders = async () => {
       try {
-        const res = await fetch('/api/customer/getorders');
+        const res = await fetch("/api/customer/getorders");
         const data = await res.json();
         if (Array.isArray(data.orders)) {
           dispatch(setOrders(data.orders));
@@ -104,9 +110,22 @@ function AuthSyncWrapper({ children }) {
       } catch (err) {
         console.error("Error fetching orders:", err);
       }
-    }
+    };
     fetchOrders();
   }, [dispatch]);
+ <PremiumNavigation />
+  if (loading) {
+    return (
+      <>
+       
+        <div className="w-screen h-screen flex items-center justify-center bg-white fixed top-0 left-0 z-[9999]">
+          <div className="w-[90vw] max-w-[300px] min-w-[120px]">
+            <Lottie animationData={loadingAnimation} loop autoplay />
+          </div>
+        </div>
+      </>
+    );
+  }
 
   return children;
 }
@@ -115,9 +134,9 @@ function ScrollToTopButton() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setVisible(window.scrollY > 200);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setVisible(window.scrollY > 200);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
@@ -128,7 +147,12 @@ function ScrollToTopButton() {
       }`}
       aria-label="Scroll to top"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        className="w-6 h-6"
+      >
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
       </svg>
     </button>
@@ -150,11 +174,11 @@ function FloatingContactButtons() {
         </svg>
       </a>
       <a
-        href="tel: 7982737801"
+        href="tel:7982737801"
         className="p-3 rounded-full bg-blue-500 text-white shadow-lg hover:bg-blue-700 transition"
         aria-label="Call us"
       >
-        <Phone className="w-5 h-5 text-white" />
+        <Phone className="w-5 h-5" />
       </a>
     </div>
   );
@@ -162,41 +186,37 @@ function FloatingContactButtons() {
 
 function MyApp({ Component, pageProps: { session: sessionProp, ...pageProps } }) {
   const { requiredRole, requireAuth } = Component;
-
-  let content = <Component {...pageProps} />;
-  if (requireAuth || requiredRole) {
-    content = (
-      <RouteProtector requiredRole={requiredRole} requireAuth={requireAuth}>
-        {content}
-      </RouteProtector>
-    );
-  }
+  const content = (requireAuth || requiredRole) ? (
+    <RouteProtector requiredRole={requiredRole} requireAuth={requireAuth}>
+      <Component {...pageProps} />
+    </RouteProtector>
+  ) : (
+    <Component {...pageProps} />
+  );
 
   return (
     <SessionProvider session={sessionProp}>
       <Provider store={store}>
-        <AppLoaderWrapper>
-          <AuthSyncWrapper>
-            <PremiumNavigation />
-            {content}
-            <Toaster
-              position="top-center"
-              toastOptions={{
-                style: {
-                  background: "#4CAF50",
-                  color: "#fff",
-                  fontSize: "16px",
-                },
-              }}
-            />
-            <CircularSpinner />
-            <GeneralQuestions />
-            <Testimonial />
-            <ScrollToTopButton />
-            <FloatingContactButtons />
-            <Footer />
-          </AuthSyncWrapper>
-        </AppLoaderWrapper>
+        <AuthSyncWrapper>
+          <PremiumNavigation />
+          {content}
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              style: {
+                background: "#4CAF50",
+                color: "#fff",
+                fontSize: "16px",
+              },
+            }}
+          />
+          <CircularSpinner />
+          <GeneralQuestions />
+          <Testimonial />
+          <ScrollToTopButton />
+          <FloatingContactButtons />
+          <Footer />
+        </AuthSyncWrapper>
       </Provider>
     </SessionProvider>
   );
