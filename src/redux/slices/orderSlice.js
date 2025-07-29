@@ -2,6 +2,8 @@
 
 const initialState = {
   orders: [],
+  currentOrder: null,
+  showRazorpay: false,
 };
 
 const orderSlice = createSlice({
@@ -29,8 +31,14 @@ const orderSlice = createSlice({
     setOrders(state, action) {
       state.orders = action.payload;
     },
-  },
+    setCurrentOrder(state, action) {
+      state.currentOrder = action.payload;
+    },
+    setShowRazorpay(state, action) {
+      state.showRazorpay = action.payload;
+    },
+  },  
 });
 
-export const { placeOrder, updateOrderStatus, setOrders } = orderSlice.actions;
+export const { placeOrder, updateOrderStatus, setOrders, setCurrentOrder, setShowRazorpay } = orderSlice.actions;
 export default orderSlice.reducer;

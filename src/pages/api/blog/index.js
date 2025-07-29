@@ -94,6 +94,7 @@ export default async function handler(req, res) {
     try {
       const blogData = req.body;
       
+      
       // Validate required fields
       const requiredFields = ['title', 'excerpt', 'content', 'category', 'author'];
       for (const field of requiredFields) {

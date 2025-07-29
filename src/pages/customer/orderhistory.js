@@ -1,7 +1,9 @@
 "use client";
 import { useSelector } from "react-redux";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useDispatch } from "react-redux";
+import { setCurrentOrder } from "@/redux/slices/orderSlice";
+import { setShowRazorpay } from "@/redux/slices/orderSlice";
 import { useState } from "react";
 import { toast } from 'sonner';
 import {
@@ -11,14 +13,31 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import RazorpayPayment from "@/components/RazorpayPayment";
 
 export default function OrderHistory() {
+  const dispatch = useDispatch();
   const { orders } = useSelector((state) => state.order);
   console.log("orders", orders);
   const user = useSelector((state) => state.auth.user);
+  const showRazorpay = useSelector((state) => state.order.showRazorpay);
+  const currentOrder = useSelector((state) => state.order.currentOrder);
 
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [trackOrder, setTrackOrder] = useState(null);
+
+  const handlePaymentSuccess = (data) => {
+    console.log("Payment success:", data);
+    toast.success("Payment successful!");
+    dispatch(setShowRazorpay(false));
+    dispatch(setCurrentOrder(null));
+  };
+
+  const handlePaymentFailure = (error) => {
+    console.error("Payment failed:", error);
+    toast.error("Payment failed. Please try again.");
+    dispatch(setShowRazorpay(false));
+  };
 
   return (
     <div className="text-black">
@@ -29,7 +48,7 @@ export default function OrderHistory() {
         <table className="min-w-full divide-y divide-gray-200">
           <thead>
             <tr>
-              {["Order ID", "Product", "Amount", "Status", "Date", "Actions"].map(
+              {["Order ID", "Product", "Amount", "Status","Payment Method", "Date", "Actions"].map(
                 (head) => (
                   <th
                     key={head}
@@ -69,6 +88,25 @@ export default function OrderHistory() {
                     {order.status?.toUpperCase()}
                   </span>
                 </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="inline-flex items-center px-2.5 py-0.5 text-black  text-xs font-medium ">
+                    {order?.paymentMethod}
+                  </span>/
+                  {
+                    order?.paymentMethod === "online" && (
+                      <span className="inline-flex items-center px-2.5 py-0.5 text-black  text-xs font-medium ">
+                        unpaid
+                      </span>
+                    )
+                  }
+                  {
+                    order?.paymentMethod === "razorpay" && (
+                      <span className="inline-flex items-center px-2.5 py-0.5 text-black  text-xs font-medium ">
+                        paid
+                      </span>
+                    )
+                  }
+                </td>
                 <td className="px-6 py-4 whitespace-nowrap text-black">
                   {order.createdAt
                     ? new Date(order.createdAt).toLocaleDateString()
@@ -104,6 +142,9 @@ export default function OrderHistory() {
                           </div>
                           <div>
                             <b>Status:</b> {order.status}
+                          </div>
+                          <div>
+                            <b>Payment Method:</b> {order.paymentMethod}
                           </div>
                           <div>
                             <b>Total:</b> ₹{order.totalAmount}
@@ -149,6 +190,13 @@ export default function OrderHistory() {
                               ))}
                             </ul>
                           </div>
+                          {
+                            order?.paymentMethod ==="online" && (
+                              <div onClick={()=>{dispatch(setCurrentOrder(order)); dispatch(setShowRazorpay(true)),setSelectedOrder(null)}}>
+                                <Button variant="outline" className="border-blue-400 cursor-pointer text-blue-700">Pay Now</Button> 
+                              </div>
+                            )
+                          }
                         </div>
                       </DialogContent>
                     </Dialog>
@@ -202,6 +250,25 @@ export default function OrderHistory() {
           </tbody>
         </table>
       </div>
+       {/* Razorpay Payment Modal */}
+       {showRazorpay && currentOrder && (
+        <RazorpayPayment
+          amount={currentOrder?.totalAmount}
+          orderData={{
+            orderId: currentOrder?.orderId,
+            id: currentOrder?._id
+          }}
+          customerInfo={{
+            name: user?.name || user?.firstName + ' ' + user?.lastName,
+            email: user?.email,
+            mobile: user?.mobile || user?.phone,
+            id: user?._id || user?.id
+          }}
+          onSuccess={handlePaymentSuccess}
+          onFailure={handlePaymentFailure}
+          onClose={() => dispatch(setShowRazorpay(false))}
+        />
+      )}
     </div>
   );
 }
