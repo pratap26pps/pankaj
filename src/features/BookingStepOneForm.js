@@ -90,7 +90,7 @@ export default function BookingStepOneForm() {
   };
 
   return (
-    <div className="space-y-4 bg-gradient-to-br from-green-50 via-green-100  to-green-300 p-10   rounded-3xl  ">
+    <div className="space-y-4 shadow-2xl p-10   rounded-3xl  ">
       <h3 className="text-xl font-semibold text-gray-700 mb-2">Book EV Service</h3>
 
       <label htmlFor="fullName">Full Name</label>

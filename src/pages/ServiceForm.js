@@ -116,7 +116,7 @@ const router = useRouter();
     <div className="min-h-screen bg-green-50 w-full flex flex-col md:flex-row-reverse items-center justify-between py-10 px-6 md:px-20 lg:px-32 xl:px-48 mt-16 bg-no-repeat bg-center bg-cover transition-all duration-500 ease-in-out sm:bg-none">
       
 
-      <div className="max-w-xl  bg-gradient-to-br from-green-50 via-green-100  to-green-300 mx-auto p-6 rounded-3xl shadow">
+      <div className="max-w-xl  bg-gradient-to-br bg-white mx-auto p-6 rounded-3xl shadow">
         <h2 className="text-3xl font-bold text-green-700 mb-4 text-center">GreenNature Bharat – EV Servicing</h2>
 
         <form onSubmit={submitForm} className="space-y-2">

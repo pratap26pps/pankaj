@@ -68,7 +68,7 @@ const [loading, setLoading] = useState(true);
   </div>
 
   {/* Booking Form */}
-  <div className="lg:w-[40%] sm:absolute sm:bottom-0 sm:right-0 lg:right-14 lg:bottom-14 sm:w-4/12 p-4 sm:p-6 md:p-8">
+  <div className="lg:w-[40%] sm:absolute sm:bottom-0 sm:right-0 md:right-14 lg:bottom-0 md:bottom-14 sm:w-4/12 p-4 sm:p-6 md:p-8">
     <BookingStepOneForm form={form} step={step} />
   </div>
 
