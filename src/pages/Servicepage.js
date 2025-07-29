@@ -43,7 +43,8 @@ const ServicePage = () => {
               {
                 signal: controller.signal,
                 headers: {
-                  'User-Agent': 'GridaNeo-Bharat-App/1.0'
+                  'User-Agent': 'GridaNeo-Bharat-App/1.0',
+                  'Accept-Language': 'en' 
                 }
               }
             );

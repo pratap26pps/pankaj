@@ -3,14 +3,14 @@
 import * as React from 'react';
  
 import ServicePage from './Servicepage';
- 
+ import Loader from '@/components/ui/Loader';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Head from 'next/head';
 import BookingStepOneForm from '@/features/BookingStepOneForm';
 import { useRouter } from 'next/navigation'; 
 import { useDispatch, useSelector } from 'react-redux';
-
+import { useEffect, useState } from 'react';
 const Index = () => {
 const router = useRouter(); 
  
@@ -23,6 +23,19 @@ const step = useSelector((state) => state.booking.step);
  const Serviceclick = () => {
    router.push('/Servicepage');
  }
+
+
+const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading for 2 seconds (you can skip this if using real API)
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <Head>

@@ -15,6 +15,7 @@ import OrderManagement from './admin/order/orderlist';
 import BookingFormHistory from './superadmin/bookingformhistory';
  import MicroBookings from './microadmin/booking';
  import MicroAdminOverview from './microadmin/overview';
+ import Loader from '@/components/ui/Loader';
 import { 
   BarChart3, 
   ShoppingCart, 
@@ -61,7 +62,7 @@ const Dashboard = () => {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [selectedMenuItem, setSelectedMenuItem] = useState('overview');
   const [sidebarOpen, setSidebarOpen] = useState(false);
- 
+
    const [profileForm, setProfileForm] = useState({
     firstName: "",
     lastName: "",
@@ -83,7 +84,6 @@ const Dashboard = () => {
     typeOfEntity: "",
     vehicalRegistrationNumber: ""
   });
-  const [loading2, setLoading2] = useState(false);
   const [loading, setLoading] = useState(false);
   const [approvalModalVisible, setApprovalModalVisible] = useState(false);
   const dispatch = useDispatch();
@@ -236,7 +236,7 @@ const Modal = ({ isOpen, onClose, title, children, modalClassName }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="dash relative -mt-[45%] inset-0 flex items-center justify-center px-4  z-50">
+<div className="dash relative lg:-mt-[45%] md:-mt-[45%] -mt-[190%] inset-0 flex items-center justify-center px-4 z-50">
       <div
         className="  rounded-xl shadow-2xl bg-gray-50 w-full max-w-lg transform transition-all overflow-hidden focus:outline-none"
         role="dialog"
@@ -281,7 +281,7 @@ const handleChange = (e) => {
     uploadForm.append("image", file);
 
     try {
-      setLoading2(true);
+      setLoading(true);
       const res = await axios.post("/api/upload", uploadForm);
       const imageUrl = res.data.url;
       console.log("Image uploaded successfully:", imageUrl);
@@ -296,7 +296,7 @@ const handleChange = (e) => {
       console.error("Image upload failed:", err);
     
     } finally {
-      setLoading2(false);
+      setLoading(false);
     }
   };
 
@@ -487,7 +487,7 @@ const handleChange = (e) => {
 
       <div className="flex h-screen relative  top-20 z-10">
         {/* Sidebar */}
-        <div className={`lg:relative  h-[88%] fixed inset-y-0 left-0 z-50  backdrop-blur-sm border-gray-200 dark:border-gray-700 shadow-lg transition-all duration-300 transform ${
+        <div className={`lg:relative  h-[92%] fixed inset-y-0 top-0 left-0 z-50 bg-white backdrop-blur-sm border-gray-200 dark:border-gray-700 shadow-lg transition-all duration-300 transform ${
           collapsed ? 'w-20' : 'w-64'
         } ${
           sidebarOpen ? 'translate-x-0 top-20' : '-translate-x-full lg:translate-x-0 lg:top-0'
@@ -524,7 +524,7 @@ const handleChange = (e) => {
 
             {/* Navigation */}
         {/* Navigation */}
-<nav className="flex-1 p-4 overflow-y-auto">
+<nav className="flex-1 p-4 -pt-20 overflow-y-auto">
   {user?.accountType === "SuperAdmin" ? (
     <ul className="space-y-2">
       {SuperAdminItems?.map((item) => (
@@ -680,9 +680,11 @@ const handleChange = (e) => {
                 {collapsed ? <X className="w-5 lg:hidden  cursor-pointer h-5" /> : <ChevronRight className="w-5 lg:hidden mt-6 ml-3 font-bold cursor-pointer h-5" />}
               </button> 
           {/* Content */}
-          <main className="flex-1 overflow-y-auto p-6">
-            {renderContent()}
-          </main>
+        <div className="min-h-screen w-full mx-auto bg-[#f4fef7]">
+  <main className="flex-1 overflow-y-auto p-6">
+    {renderContent()}
+  </main>
+</div> 
         </div>
       </div>
 
@@ -728,9 +730,9 @@ const handleChange = (e) => {
         isOpen={profileModalVisible}
         onClose={() => setProfileModalVisible(false)}
         title="Edit Profile"
-        modalClassName="z-[120]"
+        modalClassName="z-[120]   sm:mt-0 mt-[-80px]"
       >
-        <div className="space-y-4">
+        <div className="space-y-4  px-4 sm:px-6 max-h-[180vh] ">
            <div>
             <label className="block text-sm font-medium mb-1">Profile Picture</label>
             <input
@@ -740,7 +742,7 @@ const handleChange = (e) => {
               accept="image/*"
               className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
             />
-            {loading2 && (
+            {loading && (
               <div className="mt-2 text-blue-600">Uploading image...</div>
             )}
             {profileForm.image && typeof profileForm.image === "string" && (
@@ -760,7 +762,7 @@ const handleChange = (e) => {
               name="firstName"
               value={profileForm.firstName}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+              className="w-full  text-sm   px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
               placeholder={user?.firstName || ""}
             />
           </div>
@@ -773,7 +775,7 @@ const handleChange = (e) => {
               name="lastName"
               value={profileForm.lastName}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+              className="w-full  text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
             placeholder={user?.lastName || ""}
             />
           </div>
@@ -785,7 +787,7 @@ const handleChange = (e) => {
               name="mobile"
               value={profileForm.mobile}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+              className="w-full text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
               placeholder={user?.mobile || ""}
             />
           </div>
@@ -801,7 +803,7 @@ const handleChange = (e) => {
                     name="adharNumber"
                     value={profileForm.adharNumber}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    className="w-full   px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                     placeholder="Enter Aadhaar number"
                   />
                 </div>
@@ -812,7 +814,7 @@ const handleChange = (e) => {
                     name="panNumber"
                     value={profileForm.panNumber}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    className="w-full px-3 py-2  text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                     placeholder="Enter PAN number"
                   />
                 </div>
@@ -826,7 +828,7 @@ const handleChange = (e) => {
                     name="bloodgroup"
                     value={profileForm.bloodgroup}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    className="w-full  text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                     placeholder="Enter blood group"
                   />
                 </div>
@@ -837,7 +839,7 @@ const handleChange = (e) => {
                     name="yearofexperience"
                     value={profileForm.yearofexperience}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    className="w-full  text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                     placeholder="Enter years of experience"
                   />
                 </div>
@@ -851,7 +853,7 @@ const handleChange = (e) => {
                     name="alternatecontact"
                     value={profileForm.alternatecontact}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    className="w-full  text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                     placeholder="Enter alternate contact"
                   />
                 </div>
@@ -862,7 +864,7 @@ const handleChange = (e) => {
                     name="emergencyContact"
                     value={profileForm.emergencyContact}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    className="w-full px-3 py-2 border  text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                     placeholder="Enter emergency contact"
                   />
                 </div>
@@ -875,7 +877,7 @@ const handleChange = (e) => {
                   value={profileForm.address}
                   onChange={handleChange}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                  className="w-full px-3 py-2  text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                   placeholder="Enter address"
                 />
               </div>
@@ -887,7 +889,7 @@ const handleChange = (e) => {
                   name="pincode"
                   value={profileForm.pincode}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                  className="w-full px-3 py-2  text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                   placeholder="Enter pincode"
                 />
               </div>
@@ -900,7 +902,7 @@ const handleChange = (e) => {
                     name="bankname"
                     value={profileForm.bankname}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    className="w-full px-3 py-2  text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                     placeholder="Enter bank name"
                   />
                 </div>
@@ -911,7 +913,7 @@ const handleChange = (e) => {
                     name="bankaccountnumber"
                     value={profileForm.bankaccountnumber}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    className="w-full px-3 py-2 border  text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                     placeholder="Enter bank account number"
                   />
                 </div>
@@ -924,7 +926,7 @@ const handleChange = (e) => {
                   name="ifsc"
                   value={profileForm.ifsc}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                  className="w-full px-3 py-2 border  text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                   placeholder="Enter IFSC code"
                 />
               </div>
@@ -942,7 +944,7 @@ const handleChange = (e) => {
                     name="adharNumber"
                     value={profileForm.adharNumber}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    className="w-full text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                     placeholder="Enter Aadhaar number"
                   />
                 </div>
@@ -953,7 +955,7 @@ const handleChange = (e) => {
                     name="alternatecontact"
                     value={profileForm.alternatecontact}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    className="w-full px-3  text-sm py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                     placeholder="Enter alternate contact"
                   />
                 </div>
@@ -966,7 +968,7 @@ const handleChange = (e) => {
                   value={profileForm.address}
                   onChange={handleChange}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                  className="w-full px-3  text-sm py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                   placeholder="Enter address"
                 />
               </div>
@@ -978,7 +980,7 @@ const handleChange = (e) => {
                   name="pincode"
                   value={profileForm.pincode}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                  className="w-full px-3 py-2  text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                   placeholder="Enter pincode"
                 />
               </div>
@@ -989,7 +991,7 @@ const handleChange = (e) => {
                   name="typeOfEntity"
                   value={profileForm.typeOfEntity}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                  className="w-full px-3 py-2  text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                 >
                   <option value="">Select entity type</option>
                   <option value="individual">Individual</option>
@@ -1011,7 +1013,7 @@ const handleChange = (e) => {
                 name="address"
                 value={profileForm.address}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                className="w-full px-3 py-2  text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                 placeholder="Enter address"
               />
             </div> 
@@ -1022,7 +1024,7 @@ const handleChange = (e) => {
                 name="vehicalRegistrationNumber"
                 value={profileForm.vehicalRegistrationNumber}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                className="w-full px-3 py-2  text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                 placeholder="Enter vehicle registration number"
               />
             </div>
@@ -1033,16 +1035,16 @@ const handleChange = (e) => {
           <div className="flex justify-end space-x-3 pt-4">
             <button
               onClick={() => setProfileModalVisible(false)}
-              className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+              className="px-4 py-2  text-sm text-gray-600 hover:text-gray-800 transition-colors"
             >
               Cancel
             </button>
             <button
               onClick={handleProfileUpdate}
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              className="px-4 py-2  text-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
               disabled={loading}
             >
-            {loading ? "Updating...":"Update Profile"}  
+            {loading ? <Loader/>:"Update Profile"}  
             </button>
           </div>
         </div>
@@ -1057,8 +1059,8 @@ const handleChange = (e) => {
       >
         <div className="text-center space-y-4">
           <div className="text-6xl text-yellow-500"><AlertTriangle className="w-24 h-24 mx-auto" /></div>
-          <h3 className="text-lg font-semibold text-gray-900">Are you absolutely sure?</h3>
-          <p className="text-gray-600">
+          <h3 className="text-md font-semibold text-gray-900">Are you absolutely sure?</h3>
+          <p className="text-gray-600  text-sm">
             This action cannot be undone. This will permanently delete your account
             and remove all associated data from our servers.
           </p>
@@ -1071,20 +1073,20 @@ const handleChange = (e) => {
                 type="text"
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                className="w-full px-3 py-2  text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                 placeholder="DELETE"
               />
             </div>
             <div className="flex justify-center space-x-3">
               <button
                 onClick={() => setDeleteModalVisible(false)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+                className="px-4 py-2  text-sm text-gray-600 hover:text-gray-800 transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={handleDeleteAccount}
-                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                className="px-4 py-2  text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
                 disabled={confirm !== "DELETE"}
               >
                 Delete Account

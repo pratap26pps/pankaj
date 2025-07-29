@@ -294,7 +294,7 @@ console.log("localCartCount in nav ", localCartCount);
                             alt="User"
                             className="w-8 h-8 rounded-full border-2 border-blue-400/50"
                           />
-                          <p className="text-sm text-slate-200">
+                          <p className="text-sm text-black">
                             Hi,{" "}
                             {user?.name ||
                               `${user?.firstName} ${user?.lastName}`}

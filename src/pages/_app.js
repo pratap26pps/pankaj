@@ -1,9 +1,8 @@
 "use client";
 import "../styles/globals.css";
 import React, { useEffect, useState } from "react";
-import { useDispatch,  Provider } from "react-redux";
+import { useDispatch, Provider } from "react-redux";
 import { useSession, SessionProvider } from "next-auth/react";
- 
 import { Toaster } from "sonner";
 import AOS from "aos";
 import axios from "axios";
@@ -13,14 +12,30 @@ import { setUser } from "../redux/slices/authSlice";
 import { setCategories } from "../redux/slices/categorySlice";
 import { setProducts } from "../redux/slices/productSlice";
 import { setOrders } from "../redux/slices/orderSlice";
-
+import Loader from "@/components/ui/Loader";
 import CircularSpinner from "./CircularSpinner";
 import PremiumNavigation from "../features/Navbar";
 import GeneralQuestions from "../features/GeneralQuestions";
 import Footer from "../features/Footer";
 import Testimonial from "../features/Testimonial";
 import { Phone } from "lucide-react";
- 
+
+function AppLoaderWrapper({ children }) {
+  const [appLoading, setAppLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setAppLoading(false), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (appLoading) {
+    return (
+        <Loader size="100px" />
+    );
+  }
+
+  return children;
+}
 
 function AuthSyncWrapper({ children }) {
   const { data: sessionData, status } = useSession();
@@ -43,28 +58,7 @@ function AuthSyncWrapper({ children }) {
 
   useEffect(() => {
     if (status === "authenticated" && sessionData?.user) {
-      dispatch(setUser({
-        name: sessionData.user.name,
-        email: sessionData.user.email,
-        image: sessionData.user.image,
-        accountType: sessionData.user.accountType,
-        mobile: sessionData.user.mobile,
-        emergencyContact: sessionData.user.emergencyContact,
-        alternatecontact: sessionData.user.alternatecontact,
-        address: sessionData.user.address,
-        pincode: sessionData.user.pincode,
-        yearofexperience: sessionData.user.yearofexperience,
-        bankaccountnumber: sessionData.user.bankaccountnumber,
-        ifsc: sessionData.user.ifsc,
-        bankname: sessionData.user.bankname,
-        typeOfEntity: sessionData.user.typeOfEntity,
-        vehicalRegistrationNumber: sessionData.user.vehicalRegistrationNumber,
-        adharNumber: sessionData.user.adharNumber,
-        panNumber: sessionData.user.panNumber,
-        bloodgroup: sessionData.user.bloodgroup,
-        status: sessionData.user.status,
-        id: sessionData.user.id,
-      }));
+      dispatch(setUser(sessionData.user));
     } else if (status === "unauthenticated") {
       dispatch(setUser(null));
     }
@@ -146,7 +140,7 @@ function FloatingContactButtons() {
   return (
     <div className="fixed right-2 top-1/2 z-50 flex flex-col gap-4 -translate-y-1/2">
       <a
-        href="https://wa.me/8252590019"
+        href="https://wa.me/7982737801"
         target="_blank"
         rel="noopener noreferrer"
         className="p-3 rounded-full bg-green-500 text-white shadow-lg hover:bg-green-600 transition"
@@ -157,7 +151,7 @@ function FloatingContactButtons() {
         </svg>
       </a>
       <a
-        href="tel:+8252590019"
+        href="tel: 7982737801"
         className="p-3 rounded-full bg-blue-500 text-white shadow-lg hover:bg-blue-700 transition"
         aria-label="Call us"
       >
@@ -166,7 +160,7 @@ function FloatingContactButtons() {
     </div>
   );
 }
- 
+
 function MyApp({ Component, pageProps: { session: sessionProp, ...pageProps } }) {
   const { requiredRole, requireAuth } = Component;
 
@@ -178,30 +172,32 @@ function MyApp({ Component, pageProps: { session: sessionProp, ...pageProps } })
       </RouteProtector>
     );
   }
-  
+
   return (
-      <SessionProvider session={sessionProp}>
+    <SessionProvider session={sessionProp}>
       <Provider store={store}>
-        <AuthSyncWrapper>
-          <PremiumNavigation />
-          {content}
-          <Toaster
-            position="top-center"
-            toastOptions={{
-              style: {
-                background: "#4CAF50",
-                color: "#fff",
-                fontSize: "16px",
-              },
-            }}
-          />
-          <CircularSpinner />
-          <GeneralQuestions />
-          <Testimonial />
-          <ScrollToTopButton />
-          <FloatingContactButtons />
-          <Footer />
-        </AuthSyncWrapper>
+        <AppLoaderWrapper>
+          <AuthSyncWrapper>
+            <PremiumNavigation />
+            {content}
+            <Toaster
+              position="top-center"
+              toastOptions={{
+                style: {
+                  background: "#4CAF50",
+                  color: "#fff",
+                  fontSize: "16px",
+                },
+              }}
+            />
+            <CircularSpinner />
+            <GeneralQuestions />
+            <Testimonial />
+            <ScrollToTopButton />
+            <FloatingContactButtons />
+            <Footer />
+          </AuthSyncWrapper>
+        </AppLoaderWrapper>
       </Provider>
     </SessionProvider>
   );

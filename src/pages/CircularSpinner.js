@@ -73,16 +73,20 @@ const CircularSpinner = () => {
   return (
     <div className="min-h-screen z-0 bg-green-50 font-[Poppins] flex flex-col items-center justify-center px-4 py-10 relative overflow-hidden">
       {/* Heading */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="absolute top-8 left-1/2 transform -translate-x-1/2 text-center z-20"
-      >
-        <div className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2DAA4F] mb-2">
-          Our Process....
-        </div>
-      </motion.div>
+  <motion.div
+  initial={{ opacity: 0, y: -20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+  className="absolute top-8 left-1/2 transform -translate-x-1/2 text-center z-20 px-4 sm:px-6"
+>
+  <div className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#2DAA4F] mb-4 leading-tight">
+    Our Process...
+  </div>
+  <p className="text-sm sm:text-base font-semibold lg:text-lg text-gray-700 max-w-3xl mx-auto">
+    Discover how we bring innovation to life — from idea to impact. Our streamlined process ensures speed, precision, and quality at every step. Whether you're just getting started or scaling up, we've got you covered.
+  </p>
+</motion.div>
+
 
       {/* Mobile Prev Button */}
       <motion.button
@@ -94,7 +98,7 @@ const CircularSpinner = () => {
         <ArrowUp size={20} /> Prev
       </motion.button>
 
-      <div className="relative w-full mt-10 max-w-[380px] sm:max-w-[720px] aspect-square flex items-center justify-center">
+      <div className="relative w-full  mt-40 max-w-[380px] sm:max-w-[720px] aspect-square flex items-center justify-center">
 
         {/* Blue Circle */}
         <motion.div

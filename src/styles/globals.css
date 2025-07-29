@@ -101,10 +101,11 @@ ant-steps-item-icon {
   height: 48px;
   border-radius: 50%;
   display: inline-block;
-  border-top: 3px solid #120a5f;
-  border-right: 3px solid transparent;
+  position: relative;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
+  border: 4px solid #a5f3fc; /* light cyan */
+  border-top-color: #0ea5e9; /* sky-500 */
 }
 
 @keyframes rotation {
@@ -114,4 +115,4 @@ ant-steps-item-icon {
   100% {
     transform: rotate(360deg);
   }
-} 
+}
