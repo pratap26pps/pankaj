@@ -48,25 +48,33 @@ const [loading, setLoading] = useState(true);
 
       <div className="h-full w-full " style={{ fontFamily: 'Inter, sans-serif' }}>
         {/* ✅ Hero Image Section - Full Width/Height */}
-        <div className="w-full flex items-start justify-center   lg:mt-6  sm:pt-1 md:pt-10">
-          <div className="w-full">
-            <div className="relative w-full h-[calc(100vh-5rem)]"> {/* 5rem = 80px navbar height */}
-              <Image
-                src="/public/images/hero-banner.jpg"
-                alt="Hero Banner"
-                fill
-                className="object-fill mt-5 w-full h-full"
-                priority
-              />
-            </div>
-            <div className='absolute bottom-0 right-15 w-4/12  p-4'>
-             
-            <BookingStepOneForm form={form} step={step} />
-              
-    
-            </div>
-          </div>
-        </div>
+       <div className="w-full  flex flex-col lg:flex-row items-start justify-center">
+  {/* Hero Banner - Hidden on small screens */}
+  <div className="hidden sm:block w-full  lg:w-8/12 relative h-[calc(100vh-1rem)]">
+     <Image
+        src="/images/hero-banner01.png  " // ✅ relative to /public folder
+        alt="Hero Banner"
+        fill // ✅ auto sets width + height to container size
+        className="object-cover    w-full h-full"
+        priority // ✅ Optional: improves performance on LCP (first hero image)
+      />
+  </div>
+   {/* Carousel - Only on mobile */}
+  <div className="sm:hidden w-full mt-17 px-0 py-6">
+    {/* INSERT YOUR CAROUSEL COMPONENT HERE */}
+    <div className="bg-gray-100 rounded-xl w-full h-[300px] p-4 text-center text-sm text-gray-500">
+      Company Carousel Ad Placeholder
+    </div>
+  </div>
+
+  {/* Booking Form */}
+  <div className="w-full sm:absolute sm:bottom-0 sm:right-0 sm:w-4/12 p-4 sm:p-6 md:p-8">
+    <BookingStepOneForm form={form} step={step} />
+  </div>
+
+ 
+</div>
+
 
       {/* ✅ Hero Section - Professional Redesign */}
       <div className="w-full bg-green-50 py-20 px-4">

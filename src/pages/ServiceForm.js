@@ -29,20 +29,37 @@ export default function EVBookingForm() {
   const [showServiceDropdown, setShowServiceDropdown] = useState(false);
 const router = useRouter();
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        try {
-          const { latitude, longitude } = position.coords;
-          const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
-          const data = await response.json();
-          dispatch(updateFormField({ name: 'cityState', value: `${data.address.city || data.address.town || ''}, ${data.address.state || ''}` }));
-        } catch (error) {
-          console.log("error", error);
-        }
-      });
-    }
-  }, [dispatch]);
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      try {
+        const { latitude, longitude } = position.coords;
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+        );
+        const data = await response.json();
 
+        const city =
+          data?.address?.city ||
+          data?.address?.town ||
+          data?.address?.village ||
+          data?.address?.hamlet ||
+          '';
+        const state = data?.address?.state || '';
+
+        if (city && state) {
+          dispatch(updateFormField({ name: 'cityState', value: `${city}, ${state}` }));
+        } else if (state) {
+          dispatch(updateFormField({ name: 'cityState', value: state }));
+        } else {
+          dispatch(updateFormField({ name: 'cityState', value: 'Location not found' }));
+        }
+      } catch (error) {
+        console.log('Location fetch error:', error);
+        dispatch(updateFormField({ name: 'cityState', value: 'Unable to detect location' }));
+      }
+    });
+  }
+}, [dispatch]);
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     dispatch(updateFormField({ name, value: type === 'checkbox' ? checked : value }));
@@ -136,9 +153,11 @@ const router = useRouter();
             />
               <label className="text-sm font-semibold text-gray-700">Purchase Date</label>
               <input type="date" name="purchaseDate" value={form.purchaseDate} onChange={handleChange} className="w-full p-2 border rounded required" />
-            
+                          
+                          
+              <label className="text-sm font-semibold text-gray-700">Last Service Done</label>
+
               <select name="lastService" value={form.lastService} onChange={handleChange} className="w-full p-2 border rounded required">
-                <option value="">Last Service Done</option>
                 <option>Within 1 month</option>
                 <option>3 months</option>
                 <option>6+ months</option>
