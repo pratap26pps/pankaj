@@ -85,9 +85,9 @@ export default function ServiceSelectorProduct() {
 
     const carInfo = carSelection[pkg._id] || {};
     console.log("carInfo",carInfo)
+    if (selectedItems.length === 0) return toast.error("Please select at least one problem.");
+
     if (serviceSlug === "erickshaw" || serviceSlug === "electric-bike") {
-   
-      if (selectedItems.length === 0) return toast.error("Please select at least one problem.");
       if (!carInfo?.model) return toast.error("Please select a car brand.");
       if (!carInfo?.submodel) return toast.error("Please select a car model.");
     }

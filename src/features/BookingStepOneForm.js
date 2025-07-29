@@ -43,6 +43,7 @@ export default function BookingStepOneForm() {
       </h3>
       <label htmlFor="fullName">Full Name</label>
       <input
+        type="text"
         name="fullName"
         value={form.fullName}
         onChange={handleChange}
@@ -65,6 +66,7 @@ export default function BookingStepOneForm() {
       />
       <label htmlFor="email">Email</label>
       <input
+        type="email"
         name="email"
         value={form.email}
         onChange={handleChange}

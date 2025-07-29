@@ -12,6 +12,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { clearCart } from "@/redux/slices/cartSlice";
+import { setShowRazorpay } from "@/redux/slices/orderSlice";
+import { setCurrentOrder } from "@/redux/slices/orderSlice";
 
 
 import { CreditCard, Banknote, Wallet } from "lucide-react";
@@ -26,6 +28,7 @@ export default function CheckoutPage() {
     const allProducts = useSelector((state) => state.product.products);
     console.log("User in billingorder:", user);
     console.log("cartItems in billingorder ",cartItems)
+ 
  
     const [product, setProduct] = useState(null);
     const [itemsToOrder, setItemsToOrder] = useState([]);
@@ -69,8 +72,8 @@ export default function CheckoutPage() {
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const [errors, setErrors] = useState({});
   const [paymentMethod, setPaymentMethod] = useState("cod");
-  const [showRazorpay, setShowRazorpay] = useState(false);
-  const [currentOrder, setCurrentOrder] = useState(null);
+  const showRazorpay = useSelector((state) => state.order.showRazorpay);
+  const currentOrder = useSelector((state) => state.order.currentOrder);
   const router = useRouter();
 
   const validate = () => {
@@ -130,8 +133,8 @@ export default function CheckoutPage() {
         
         const data = await res.json();
         if (res.ok) {
-          setCurrentOrder(data.order);
-          setShowRazorpay(true);
+          dispatch(setCurrentOrder(data.order));
+          dispatch(setShowRazorpay(true));
         } else {
           toast.error(data.message || "Failed to create order");
         }
@@ -229,14 +232,14 @@ export default function CheckoutPage() {
       toast.error("Error updating payment status.");
       console.error("Payment update error:", error);
     } finally {
-      setShowRazorpay(false);
+      dispatch(setShowRazorpay(false));
     }
   };
   
 
   const handlePaymentFailure = (error) => {
     console.error("Payment failed:", error);
-    setShowRazorpay(false);
+      dispatch(setShowRazorpay(false));
     toast.error("Payment failed. Please try again.");
   };
 
@@ -416,7 +419,7 @@ export default function CheckoutPage() {
           }}
           onSuccess={handlePaymentSuccess}
           onFailure={handlePaymentFailure}
-          onClose={() => setShowRazorpay(false)}
+          onClose={() => dispatch(setShowRazorpay(false))}
         />
       )}
     </div>
