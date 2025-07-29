@@ -48,7 +48,7 @@ export default function OrderHistory() {
         <table className="min-w-full divide-y divide-gray-200">
           <thead>
             <tr>
-              {["Order ID", "Product", "Amount", "Status","Payment Method", "Date", "Actions"].map(
+              {["Order ID", "Product", "Amount", "Order Status","Payment Status", "Date", "Actions"].map(
                 (head) => (
                   <th
                     key={head}
@@ -89,20 +89,24 @@ export default function OrderHistory() {
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="inline-flex items-center px-2.5 py-0.5 text-black  text-xs font-medium ">
-                    {order?.paymentMethod}
-                  </span>/
                   {
                     order?.paymentMethod === "online" && (
                       <span className="inline-flex items-center px-2.5 py-0.5 text-black  text-xs font-medium ">
-                        unpaid
+                        Unpaid
+                      </span>
+                    )
+                  }
+                  {
+                    order?.paymentMethod === "cod" && (
+                      <span className="inline-flex items-center px-2.5 py-0.5 text-black  text-xs font-medium ">
+                         Cash On Delivery
                       </span>
                     )
                   }
                   {
                     order?.paymentMethod === "razorpay" && (
                       <span className="inline-flex items-center px-2.5 py-0.5 text-black  text-xs font-medium ">
-                        paid
+                        Paid
                       </span>
                     )
                   }
