@@ -113,10 +113,8 @@ const router = useRouter();
   };
  
   return (
-    <div className="min-h-screen w-full flex flex-col md:flex-row-reverse items-center justify-between py-10 px-6 md:px-20 lg:px-32 xl:px-48 mt-16 bg-no-repeat bg-center bg-cover transition-all duration-500 ease-in-out sm:bg-none" style={{ backgroundImage: "url('/images/book.jpg')" }}>
-      <div className="hidden md:flex justify-center w-full md:w-1/2 mb-6 md:mb-0">
-        <Image src="/images/Appointment.webp" alt="Service Banner" width={400} height={410} className="rounded-2xl object-contain shadow-none" priority />
-      </div>
+    <div className="min-h-screen bg-green-50 w-full flex flex-col md:flex-row-reverse items-center justify-between py-10 px-6 md:px-20 lg:px-32 xl:px-48 mt-16 bg-no-repeat bg-center bg-cover transition-all duration-500 ease-in-out sm:bg-none">
+      
 
       <div className="max-w-xl bg-white mx-auto p-6 rounded-3xl shadow">
         <h2 className="text-3xl font-bold text-green-700 mb-4 text-center">GreenNature Bharat – EV Servicing</h2>

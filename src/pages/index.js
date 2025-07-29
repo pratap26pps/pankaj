@@ -51,13 +51,8 @@ const [loading, setLoading] = useState(true);
        <div className="w-full  flex flex-col lg:flex-row items-start justify-center">
   {/* Hero Banner - Hidden on small screens */}
   <div className="hidden sm:block w-full  lg:w-8/12 relative h-[calc(100vh-1rem)]">
-     <Image
-        src="/images/hero-banner01.png  " // ✅ relative to /public folder
-        alt="Hero Banner"
-        fill // ✅ auto sets width + height to container size
-        className="object-cover  w-full h-full"
-        priority // ✅ Optional: improves performance on LCP (first hero image)
-      />
+            <Image src="/images/Appointment.webp" alt="Service Banner" width={400} height={410} className="rounded-2xl object-contain shadow-none" priority />
+    
   </div>
    {/* Carousel - Only on mobile */}
   <div className="sm:hidden w-full mt-17 px-0 py-6">
