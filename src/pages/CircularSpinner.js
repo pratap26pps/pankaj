@@ -98,14 +98,14 @@ const CircularSpinner = () => {
 
         {/* Blue Circle */}
         <motion.div
-          className="absolute w-[60%] h-[60%] rounded-full bg-gradient-to-br from-blue-600 to-blue-800 border-4 border-white shadow-2xl z-0"
+          className="absolute w-[60%] h-[60%] rounded-full bg-[#0100fd] border-4 border-white shadow-2xl z-0"
           animate={{ rotate: angle * 0.1 }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
         />
 
         {/* Green Backdrop */}
         <motion.div
-          className="absolute w-[82%] h-[82%] rounded-full bg-[#2DAA4F] border-4 border-white/50 opacity-40 z-0 shadow-xl"
+          className="absolute w-[82%] h-[82%] rounded-full bg-[#21FC00] border-4 border-white/50 opacity-40 z-0 shadow-xl"
           style={{ transform: `rotate(${-angle}deg)` }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
         />

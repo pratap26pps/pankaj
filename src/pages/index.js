@@ -40,7 +40,7 @@ const step = useSelector((state) => state.booking.step);
           <div className="w-full">
             <div className="relative w-full h-[calc(100vh-5rem)]"> {/* 5rem = 80px navbar height */}
               <Image
-                src="/images/banner/1.jpg"
+                src="/public/images/hero-banner.jpg"
                 alt="Hero Banner"
                 fill
                 className="object-fill mt-5 w-full h-full"
