@@ -80,6 +80,7 @@ export default function ServiceSelectorProduct() {
 
 
   const handleAddToCart = (pkg) => {
+    console.log("pkg",pkg)
     const selectedItems = selectedProblems[pkg._id] || [];
 
     const carInfo = carSelection[pkg._id] || {};

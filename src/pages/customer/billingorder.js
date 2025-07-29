@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 import { CreditCard, Banknote, Wallet } from "lucide-react";
 import RazorpayPayment from "@/components/RazorpayPayment";
 
@@ -18,35 +17,36 @@ export default function CheckoutPage() {
 
     const user = useSelector((state) => state.auth.user);
     const { cartItems } = useSelector((state) => state.cart);
-    // const searchParams = useSearchParams();
-    // const skuid = searchParams.get("skuid");
-    // const allProducts = useSelector((state) => state.product.products);
+    const searchParams = useSearchParams();
+    const skuid = searchParams.get("skuid");
+    const allProducts = useSelector((state) => state.product.products);
     console.log("User in billingorder:", user);
     console.log("cartItems in billingorder ",cartItems)
  
-  //   const [product, setProduct] = useState(null);
-  //    const dispatch = useDispatch();
+    const [product, setProduct] = useState(null);
 
-  //   useEffect(() => {
-  //   const storedProduct = localStorage.getItem("specific-product");
-  //   if (storedProduct) {
-  //     try {
-  //       const parsed = JSON.parse(storedProduct);
-  //       setProduct(parsed);
-  //     } catch (error) {
-  //       console.error("Failed to parse localStorage product:", error);
-  //     }
-  //   }
-  // }, []);
+    useEffect(() => {
+    const storedProduct = localStorage.getItem("cartItems");
+    console.log("storedProduct",storedProduct)
+    if (storedProduct) {
+      try {
+        const parsed = JSON.parse(storedProduct);
+        setProduct(parsed);
+      } catch (error) {
+        console.error("Failed to parse localStorage product:", error);
+      }
+    }
+  }, []);
+  console.log("product in billingorder ",product)
   
   // If skuid is present, find the product
-  // let singleProduct = null;
-  // if (skuid) {
-  //   singleProduct = allProducts.find((p) => p.skuid === skuid);
-  // }
+  let singleProduct = null;
+  if (skuid) {
+    singleProduct = allProducts.find((p) => p.skuid === skuid);
+  }
 
   // If skuid, use that product, else use cart
-  const recentproduct =  cartItems;
+  const recentproduct =   cartItems
 const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || item.price || 0) * (item.quantity || 1), 0) || 0;
  
  
@@ -139,7 +139,7 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
       const itemsToOrder = recentproduct.map((item) => ({
         product: item.packageId || item._id,
         quantity: item.quantity,
-        price: item.finalPrice || item.price || 0,
+        price: item?.finalPrice || item?.price || 0,
         packageId: item.packageId,
         packageName: item.packageName,
         selectedProblems: item.selectedProblems,
@@ -196,10 +196,10 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
   const isFormValid = country && address && city && postalCode && recentproduct && recentproduct.length > 0;
 
   return (
-    <div className="min-h-screen bg-white relative py-24 px-4 md:px-8">
+    <div className="min-h-screen bg-green-50 relative py-28 px-4 md:px-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Billing Details */}
-        <Card className="shadow-lg bg-white border border-gray-200">
+        <Card className="shadow-lg bg-green-100 border border-gray-200">
           <CardContent className="p-8">
             <h2 className="text-2xl font-bold text-blue-700 mb-6 border-l-4 border-blue-600 pl-3">
               Billing details
@@ -243,7 +243,7 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
         </Card>
 
         {/* Order Summary */}
-        <Card className="shadow-lg bg-white border border-gray-200">
+        <Card className="shadow-lg bg-green-100 border border-gray-200">
           <CardContent className="p-8 space-y-6">
             <h2 className="text-2xl font-bold text-blue-700 mb-4 border-l-4 border-blue-600 pl-3">
               Your order
@@ -373,4 +373,4 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
   );
 }
 
-CheckoutPage.requiredRole = 'customer';
+CheckoutPage.requiredRole = 'User';

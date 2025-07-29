@@ -15,6 +15,7 @@ import {
   removeFromCart,
   increaseQty,
   decreaseQty,
+  setCartFromLocalStorage,
  
 } from "../redux/slices/cartSlice";
 import { IndianRupee ,ShoppingCart} from "lucide-react";
@@ -28,24 +29,24 @@ const MyShoppingCart = () => {
   const allProducts = useSelector((state) => state.product.products);
   const user = useSelector((state) => state.auth.user);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
-  const [localCart, setLocalCart] = useState([]);
+   
 
   useEffect(() => {
     if ((!cartItems || cartItems.length === 0) && typeof window !== 'undefined') {
       const stored = localStorage.getItem('cartItems');
       if (stored) {
         try {
-          setLocalCart(JSON.parse(stored));
-        } catch {
-          setLocalCart([]);
+          dispatch(setCartFromLocalStorage(JSON.parse(stored)));
+        } catch (err) {
+          console.error("Failed to parse cart from localStorage", err);
         }
       }
     }
-  }, [cartItems]);
+  }, [cartItems]);    
   console.log("cartItems",cartItems)
-  console.log("localCart",localCart)
+ 
 
-  const displayCartItems = (cartItems && cartItems.length > 0) ? cartItems : localCart;
+  const displayCartItems = cartItems ;
   console.log("displayCartItems",displayCartItems)
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -58,7 +59,7 @@ const MyShoppingCart = () => {
   }
   const displayItems = skuid && singleProduct ? [singleProduct] : displayCartItems;
 
-  console.log(displayItems)
+   console.log(displayItems)
    
  
 
@@ -93,7 +94,6 @@ const MyShoppingCart = () => {
   const total = subtotal + shipping + tax;
 
   const handleRemove = (id) => {
-    console.log("id",id)
     dispatch(removeFromCart(id));
     // Remove from localStorage as well
     if (typeof window !== 'undefined') {
@@ -103,7 +103,7 @@ const MyShoppingCart = () => {
           const parsed = JSON.parse(stored);
           const updated = parsed.filter((item) => item._id !== id);
           localStorage.setItem('cartItems', JSON.stringify(updated));
-          setLocalCart(updated); // Optional: if you are tracking cart locally too
+ 
         }
       } catch (error) {
         console.error("Failed to update localStorage:", error);
@@ -222,7 +222,13 @@ const MyShoppingCart = () => {
                         </button>
                         <span className="w-6 text-center">{item.quantity}</span>
                         <button
-                          onClick={() => dispatch(increaseQty(item._id))}
+                          onClick={() =>{
+                            const cartItem = cartItems.find((p) => p._id === item._id);
+                            if (cartItem?.quantity >= item.quantity) {
+                              toast.error("Cannot increase quantity beyond available stock.");
+                              return;
+                            }
+                            dispatch(increaseQty(item._id)) }}
                           className="bg-blue-100 cursor-pointer p-1 rounded"
                         >
                           <PlusIcon className="h-4 w-4 text-blue-600" />

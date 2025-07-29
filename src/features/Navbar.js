@@ -21,6 +21,7 @@ import { signOut } from "next-auth/react";
 import { clearUser } from "../redux/slices/authSlice";
 import { setUser } from "../redux/slices/authSlice";
 import Image from "next/image";
+import { toast } from "sonner";
 
 export default function PremiumNavigation() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -64,8 +65,10 @@ console.log("localCartCount in nav ", localCartCount);
       setUser(null);
       router.push("/");
       setMenuOpen(false);
+      toast.success("Logout successful");
     } catch (error) {
       console.error("Logout error", error);
+      toast.error("Logout failed");
     }
   };
 
