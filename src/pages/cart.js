@@ -15,7 +15,7 @@ import {
   removeFromCart,
   increaseQty,
   decreaseQty,
-  setCartFromLocalStorage,
+ 
  
 } from "../redux/slices/cartSlice";
 import { IndianRupee ,ShoppingCart} from "lucide-react";
@@ -29,21 +29,7 @@ const MyShoppingCart = () => {
   const allProducts = useSelector((state) => state.product.products);
   const user = useSelector((state) => state.auth.user);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
-   
-
-  useEffect(() => {
-    if ((!cartItems || cartItems.length === 0) && typeof window !== 'undefined') {
-      const stored = localStorage.getItem('cartItems');
-      if (stored) {
-        try {
-          dispatch(setCartFromLocalStorage(JSON.parse(stored)));
-        } catch (err) {
-          console.error("Failed to parse cart from localStorage", err);
-        }
-      }
-    }
-  }, [cartItems]);    
-  console.log("cartItems",cartItems)
+ 
  
 
   const displayCartItems = cartItems ;
@@ -74,19 +60,7 @@ const MyShoppingCart = () => {
     (acc, item) => acc + (item?.finalPrice || item?.price || 0) * (item?.quantity || 1),
     0
   );
-  const savings = displayItems?.reduce(
-    (acc, item) => {
-      const originalPrice = item?.originalPrice || item?.price || 0;
-      const finalPrice = item?.finalPrice || item?.price || 0;
-      return acc + (originalPrice - finalPrice) * (item?.quantity || 1);
-    },
-    0
-  );
-
  
-  
-  
-
 
   const shipping = subtotal > 100 ? 0 : 0.00;
   const tax = subtotal * 0.08;
@@ -222,13 +196,18 @@ const MyShoppingCart = () => {
                         </button>
                         <span className="w-6 text-center">{item.quantity}</span>
                         <button
-                          onClick={() =>{
+                           onClick={() => {
                             const cartItem = cartItems.find((p) => p._id === item._id);
-                            if (cartItem?.quantity >= item.quantity) {
-                              toast.error("Cannot increase quantity beyond available stock.");
+                        
+                            if (!cartItem) return;
+                        
+                            if (cartItem.quantity >= cartItem.stock) {
+                              toast.error("Quantity exceeds available stock.");
                               return;
                             }
-                            dispatch(increaseQty(item._id)) }}
+                        
+                            dispatch(increaseQty(item._id));
+                          }}
                           className="bg-blue-100 cursor-pointer p-1 rounded"
                         >
                           <PlusIcon className="h-4 w-4 text-blue-600" />
@@ -294,12 +273,9 @@ const MyShoppingCart = () => {
                 <span>Subtotal</span>
                  <span className="flex"> <IndianRupee className="w-5 h-5 mt-1" /> <p className="text-2xl">{subtotal.toFixed(2)}</p> </span>
               </div>
-              {savings > 0 && (
-                <div className="flex justify-between text-green-600">
-                  <span>You saved</span>
-                  <span className="flex"> <IndianRupee className="w-5 h-5 mt-1" /> <p className="text-2xl">{savings.toFixed(2)}</p></span>
-                </div>
-              )}
+             
+           
+           
               <div className="flex justify-between">
                 <span>Shipping</span>
                 <span className="flex"> <IndianRupee className="w-5 h-5 mt-1" /><p className="text-2xl">{shipping === 0 ? "0.00" : `${shipping.toFixed(2)}`}</p>   </span>
