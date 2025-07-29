@@ -55,7 +55,7 @@ const [loading, setLoading] = useState(true);
         src="/images/hero-banner01.png  " // ✅ relative to /public folder
         alt="Hero Banner"
         fill // ✅ auto sets width + height to container size
-        className="object-cover    w-full h-full"
+        className="object-cover  w-full h-full"
         priority // ✅ Optional: improves performance on LCP (first hero image)
       />
   </div>
