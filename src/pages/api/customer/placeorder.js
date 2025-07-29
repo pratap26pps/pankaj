@@ -66,7 +66,7 @@ export default async function handler(req, res) {
       // Add timestamp
       createdAt: new Date(),
       // Add order status
-      status: 'pending'
+      status: paymentMethod === "cod" ? 'processing' : 'pending',
     };
     
     const newOrder = await Order.create(orderData);

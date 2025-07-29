@@ -118,9 +118,10 @@ function AuthSyncWrapper({ children }) {
     return (
       <>
        
-        <div className="w-screen h-screen flex items-center justify-center bg-white fixed top-0 left-0 z-[9999]">
+        <div className="w-screen h-screen flex items-center justify-center bg-green-50 fixed top-0 left-0 z-[9999]">
           <div className="w-[90vw] max-w-[300px] min-w-[120px]">
             <Lottie animationData={loadingAnimation} loop autoplay />
+            <p className="text-center text-gray-500 text-sm mt-2">Loading...</p>
           </div>
         </div>
       </>

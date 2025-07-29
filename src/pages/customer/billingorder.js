@@ -161,7 +161,7 @@ export default function CheckoutPage() {
         warranty: item.warranty,
         duration: item.duration,
         serviceSlug: item.serviceSlug,
-        orderId: currentOrder?._orderId
+        orderId: currentOrder?.orderId
       }));
 
       const res = await fetch("/api/customer/placeorder", {
