@@ -206,4 +206,4 @@ export default function OrderHistory() {
   );
 }
 
-OrderHistory.requiredRole = "customer";
+OrderHistory.requiredRole = "User";

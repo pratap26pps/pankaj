@@ -12,34 +12,33 @@ import { setUser } from "../redux/slices/authSlice";
 import { setCategories } from "../redux/slices/categorySlice";
 import { setProducts } from "../redux/slices/productSlice";
 import { setOrders } from "../redux/slices/orderSlice";
-import Loader from "@/components/ui/Loader";
+import { setCartFromLocalStorage } from "../redux/slices/cartSlice";
 import CircularSpinner from "./CircularSpinner";
 import PremiumNavigation from "../features/Navbar";
 import GeneralQuestions from "../features/GeneralQuestions";
 import Footer from "../features/Footer";
 import Testimonial from "../features/Testimonial";
 import { Phone } from "lucide-react";
-
-function AppLoaderWrapper({ children }) {
-  const [appLoading, setAppLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setAppLoading(false), 3000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (appLoading) {
-    return (
-        <Loader size="100px" />
-    );
-  }
-
-  return children;
-}
+import { useSelector } from "react-redux";
+ 
 
 function AuthSyncWrapper({ children }) {
   const { data: sessionData, status } = useSession();
   const dispatch = useDispatch();
+
+  const cartItems = useSelector((state) => state.cart.cartItems);
+ 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedCart = JSON.parse(localStorage.getItem("cartItems")) || [];
+      dispatch(setCartFromLocalStorage(savedCart));
+    }
+  }, [dispatch]);
+  
+  
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });

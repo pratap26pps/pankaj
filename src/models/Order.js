@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    orderId: { type: String, required: true },
     items: [
         {
             product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
@@ -12,7 +13,7 @@ const orderSchema = new mongoose.Schema({
     totalAmount: { type: Number, required: true },
     status: { 
         type: String, 
-        enum: ['pending', 'processing', 'shipped', 'delivered', 'cancelled'], 
+        enum: ['pending', 'paid', 'processing', 'shipped', 'delivered', 'cancelled'], 
         default: 'pending' 
     },
     shippingAddress: {
@@ -22,6 +23,7 @@ const orderSchema = new mongoose.Schema({
         country: { type: String, required: true }
     },
     paymentMethod: { type: String, required: true },
+    paymentId: { type: String },
     paidAt: { type: Date },
     deliveredAt: { type: Date }
 }, { timestamps: true });

@@ -2,8 +2,8 @@ import Razorpay from 'razorpay';
 
 // Initialize Razorpay instance
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
+  key_id: process.env.RAZORPAY_KEY,
+  key_secret: process.env.RAZORPAY_SECRET,
 });
 
 export default async function handler(req, res) {
@@ -45,7 +45,7 @@ export default async function handler(req, res) {
         receipt: order.receipt,
         status: order.status,
         created_at: order.created_at,
-        key_id: process.env.RAZORPAY_KEY_ID, // Send key_id for frontend
+        key_id: process.env.RAZORPAY_KEY, // Send key_id for frontend
       }
     });
 

@@ -1,6 +1,6 @@
 import connectDB from '@/lib/dbConnect';
 import Order from '@/models/Order';
-import User from '@/models/users';
+ 
 
 function padOrderNumber(num) {
   return num.toString().padStart(11, '0');
@@ -79,9 +79,7 @@ export default async function handler(req, res) {
       hasServicePackages: processedItems.some(item => item.packageId)
     });
     
-    // Optionally, update user with order reference if user schema supports it
-    // await User.findByIdAndUpdate(user, { $push: { orders: newOrder._id } });
-    
+ 
     res.status(201).json({ 
       message: 'Order placed successfully', 
       order: newOrder, 

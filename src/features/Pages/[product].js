@@ -116,11 +116,15 @@ export default function ServiceSelectorProduct() {
       offerPrice: offerPrice,
       finalPrice,
       serviceSlug,
-      quantity: pkg.quantity,
+      quantity: 1, // initial quantity in cart
+      stock: pkg.quantity,
     };
 
     dispatch(addToCart(cartItem));
-    localStorage.setItem('cartItems', JSON.stringify([cartItem]));
+    const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const updatedCartItems = [...existingCartItems, cartItem];
+    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+    
     
     // Optional: Show success message
     toast.success(`${pkg.name} added to cart`);

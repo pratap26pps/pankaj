@@ -1,5 +1,5 @@
 "use client";
-
+import {placeOrder} from "@/redux/slices/orderSlice";
 import { useEffect,useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -10,11 +10,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { clearCart } from "@/redux/slices/cartSlice";
+
+
 import { CreditCard, Banknote, Wallet } from "lucide-react";
 import RazorpayPayment from "@/components/RazorpayPayment";
 
 export default function CheckoutPage() {
-
+    const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.user);
     const { cartItems } = useSelector((state) => state.cart);
     const searchParams = useSearchParams();
@@ -24,6 +28,8 @@ export default function CheckoutPage() {
     console.log("cartItems in billingorder ",cartItems)
  
     const [product, setProduct] = useState(null);
+    const [itemsToOrder, setItemsToOrder] = useState([]);
+
 
     useEffect(() => {
     const storedProduct = localStorage.getItem("cartItems");
@@ -47,12 +53,14 @@ export default function CheckoutPage() {
 
   // If skuid, use that product, else use cart
   const recentproduct =   cartItems
-const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || item.price || 0) * (item.quantity || 1), 0) || 0;
- 
- 
 
- 
- 
+  const subtotal = recentproduct?.reduce(
+    (sum, item) => sum + (item.finalPrice || item.price || 0) * (item.quantity || 1),
+    0
+  ) || 0;
+  
+  const tax = parseFloat((subtotal * 0.08).toFixed(2));
+  const total = parseFloat((subtotal + tax).toFixed(2));
 
   const [country, setCountry] = useState("");
   const [address, setAddress] = useState("");
@@ -76,6 +84,7 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
     return Object.keys(newErrors).length === 0;
   };
   console.log("currentOrder",currentOrder)
+
   const checkouthandler = async () => {
     if (!validate()) return;
     
@@ -95,9 +104,10 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
           warranty: item.warranty,
           duration: item.duration,
           serviceSlug: item.serviceSlug,
-          orderId: currentOrder?._orderId
+          orderId: currentOrder?.orderId
         }));
-        console.log("itemsToOrder",itemsToOrder)
+        console.log("itemsOrder",itemsToOrder)
+        setItemsToOrder(itemsToOrder);
 
         // Create order first with pending payment status
         const res = await fetch("/api/customer/placeorder", {
@@ -170,6 +180,12 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
       const data = await res.json();
       if (res.ok) {
         toast.success("Order placed successfully!");
+        dispatch(placeOrder({
+          items: itemsToOrder,
+          total: total,  
+        }));
+        dispatch(clearCart());
+        localStorage.removeItem("cartItems");
         router.push("/dashboard");
       } else {
         toast.error(data.message || "Failed to place order");
@@ -181,11 +197,42 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
     }
   };
 
-  const handlePaymentSuccess = (paymentData) => {
-    toast.success("Payment completed successfully!");
-    setShowRazorpay(false);
-    router.push("/dashboard");
+  const handlePaymentSuccess = async (paymentData) => {
+    console.log("paymentData",paymentData)
+    try {
+      const res = await fetch(`/api/customer/confirm-payment`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderId: paymentData.orderId,                     // Your MongoDB _id
+          razorpayOrderId: paymentData.razorpay_order_id,   // Razorpay order ID
+          paymentId: paymentData.razorpay_payment_id,       // Razorpay payment ID
+          signature: paymentData.razorpay_signature,        // Razorpay signature
+          status: "paid",
+        }),
+      });
+  
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || "Failed to confirm payment");
+      }
+  
+      toast.success("Payment completed successfully!");
+      dispatch(placeOrder({
+        items: itemsToOrder,
+        total: total,  
+      }));
+      dispatch(clearCart());
+      localStorage.removeItem("cartItems");
+      router.push("/dashboard");
+    } catch (error) {
+      toast.error("Error updating payment status.");
+      console.error("Payment update error:", error);
+    } finally {
+      setShowRazorpay(false);
+    }
   };
+  
 
   const handlePaymentFailure = (error) => {
     console.error("Payment failed:", error);
@@ -225,8 +272,8 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
                 {errors.address && <span className="text-red-500 text-xs">{errors.address}</span>}
               </div>
               <div className="sm:col-span-2 ">
-                <Label className="text-gray-700 pb-1">Apartment, suite, etc. (optional)</Label>
-                <Input placeholder="Apartment, suite, etc." className="bg-white border-gray-300 text-black" />
+                <Label className="text-gray-700 pb-1">Landmark (optional)</Label>
+                <Input placeholder="Landmark" className="bg-white border-gray-300 text-black" />
               </div>
               <div className="sm:col-span-2">
                 <Label className="text-gray-700 pb-1">City *</Label>
@@ -314,7 +361,11 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
               <hr className="my-3" />
               <div className="flex justify-between text-blue-700">
                 <span>Subtotal</span>
-                <span>₹{total}</span>
+                <span>₹{subtotal}</span>
+              </div>
+              <div className="flex justify-between text-blue-700">
+                <span>Tax</span>
+                  <span>₹{tax}</span>
               </div>
                
               <div className="flex justify-between font-bold text-blue-800 text-lg mt-2">
@@ -354,8 +405,7 @@ const total = recentproduct?.reduce((sum, item) => sum + (item.finalPrice || ite
         <RazorpayPayment
           amount={total}
           orderData={{
-            orderId: currentOrder?._orderId,
-            _id: currentOrder?._id,
+            orderId: currentOrder?.orderId,
             id: currentOrder?._id
           }}
           customerInfo={{

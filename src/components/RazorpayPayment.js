@@ -54,6 +54,7 @@ const RazorpayPayment = ({
       });
 
       const orderResult = await orderResponse.json();
+      console.log("orderResult",orderResult);
       
       if (!orderResult.success) {
         throw new Error(orderResult.message || 'Failed to create payment order');
@@ -73,7 +74,7 @@ const RazorpayPayment = ({
           contact: customerInfo.mobile || customerInfo.phone,
         },
         theme: {
-          color: '#059669', // Emerald color to match your theme
+          color: '#059669', 
         },
         handler: async function (response) {
           try {
@@ -92,6 +93,7 @@ const RazorpayPayment = ({
             });
 
             const verifyResult = await verifyResponse.json();
+            console.log("verifyResult",verifyResult);
             
             if (verifyResult.success) {
               setPaymentStatus('success');
@@ -166,7 +168,7 @@ const RazorpayPayment = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
     >
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
@@ -196,6 +198,23 @@ const RazorpayPayment = ({
               <span className="text-gray-600">Order ID:</span>
               <span className="text-sm font-mono text-gray-800">{orderData.orderId}</span>
             </div>
+            <div className="flex justify-between items-center mb-3">
+              <span className="text-gray-600">Customer ID:</span>
+              <span className="text-sm font-mono text-gray-800">{customerInfo.id}</span>
+            </div>  
+            <div className="flex justify-between items-center mb-3">
+              <span className="text-gray-600">Customer Name:</span>
+              <span className="text-sm font-mono text-gray-800">{customerInfo.name}</span>
+            </div>  
+            <div className="flex justify-between items-center mb-3">
+              <span className="text-gray-600">Customer Email:</span>
+              <span className="text-sm font-mono text-gray-800">{customerInfo.email}</span>
+            </div>  
+            <div className="flex justify-between items-center mb-3">
+              <span className="text-gray-600">Customer Phone:</span>
+              <span className="text-sm font-mono text-gray-800">{customerInfo.mobile}</span>
+            </div>  
+
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <Shield className="w-4 h-4" />
               <span>Secured by Razorpay</span>
@@ -217,7 +236,7 @@ const RazorpayPayment = ({
               <button
                 onClick={handlePayment}
                 disabled={isProcessing}
-                className="flex-1 px-4 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="flex-1 px-4 py-3 cursor-pointer bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isProcessing ? (
                   <>
@@ -237,7 +256,7 @@ const RazorpayPayment = ({
           {paymentStatus === 'success' && (
             <button
               onClick={() => onSuccess({ amount })}
-              className="w-full px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              className="w-full px-4 py-3 cursor-pointer bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
             >
               Continue
             </button>
