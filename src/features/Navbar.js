@@ -221,111 +221,114 @@ console.log("localCartCount in nav ", localCartCount);
             </div>
 
             {/* Mobile Menu Content */}
-            <div className="space-y-4v  flex flex-col items-center">
-              <NavigationMenu>
-                <NavigationMenuLink
-                  onClick={() => {
-                    (router.push("/"), setMenuOpen(false));
-                  }}
-                  className="block cursor-pointer  py-2 -mt-3 text-xl text-black font-bold   hover:text-blue-300   rounded-lg transition-all duration-300  relative group"
-                >
-                  <span className="relative z-10">Home</span>
-                </NavigationMenuLink>
-              </NavigationMenu>
+         {/* Mobile Menu Content */}
+<div className="flex flex-col items-start w-full px-4 gap-4">
+  <div className="space-y-4 flex flex-col items-start w-full">
+    <NavigationMenu>
+      <NavigationMenuLink
+        onClick={() => {
+          router.push("/");
+          setMenuOpen(false);
+        }}
+        className="block cursor-pointer py-2 -mt-3 text-xl text-black font-bold hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
+      >
+        <span className="relative z-10">Home</span>
+      </NavigationMenuLink>
+    </NavigationMenu>
 
-              <NavigationMenu>
-                <NavigationMenuLink
-                  onClick={() => {
-                    (router.push("/About"), setMenuOpen(false));
-                  }}
-                  className="block cursor-pointer py-2 text-xl font-bold text-black   hover:text-blue-300   rounded-lg transition-all duration-300  relative group"
-                >
-                  <span className="relative z-10">About</span>
-                </NavigationMenuLink>
-              </NavigationMenu>
+    <NavigationMenu>
+      <NavigationMenuLink
+        onClick={() => {
+          router.push("/About");
+          setMenuOpen(false);
+        }}
+        className="block cursor-pointer py-2 text-xl font-bold text-black hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
+      >
+        <span className="relative z-10">About</span>
+      </NavigationMenuLink>
+    </NavigationMenu>
 
-              {/* About */}
-              <NavigationMenu>
-                <NavigationMenuLink
-                  onClick={() => {
-                    (router.push("/Servicepage"), setMenuOpen(false));
-                  }}
-                  className="block cursor-pointer  py-2 text-xl font-bold text-black  hover:text-blue-300 rounded-lg transition-all duration-300   relative group"
-                >
-                   <span className="relative z-10">Services</span>
-                </NavigationMenuLink>
-              </NavigationMenu>
+    <NavigationMenu>
+      <NavigationMenuLink
+        onClick={() => {
+          router.push("/Servicepage");
+          setMenuOpen(false);
+        }}
+        className="block cursor-pointer py-2 text-xl font-bold text-black hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
+      >
+        <span className="relative z-10">Services</span>
+      </NavigationMenuLink>
+    </NavigationMenu>
 
-              <NavigationMenu>
-                <NavigationMenuLink
-                  onClick={() => {
-                    (router.push("/Blog"), setMenuOpen(false));
-                  }}
-                  className="block cursor-pointer  py-2 text-xl text-black  font-bold   hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
-                >
-                  Blog
-                </NavigationMenuLink>
-              </NavigationMenu>
-            </div>
+    <NavigationMenu>
+      <NavigationMenuLink
+        onClick={() => {
+          router.push("/Blog");
+          setMenuOpen(false);
+        }}
+        className="block cursor-pointer py-2 text-xl text-black font-bold hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
+      >
+        <span className="relative z-10">Blog</span>
+      </NavigationMenuLink>
+    </NavigationMenu>
+  </div>
 
-            {/* Auth Section */}
-            <div className="flex flex-col items-center gap-4 pt-4 border-t border-blue-500/20" style={{ fontFamily: "'Poppins', sans-serif" }}>
-              <div className="relative">
-                <div className="absolute -top-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
-                  {totalItems}
-                </div>
-                <div className="flex items-center gap-2">
-                <ShoppingCart
-                  onClick={() => {
-                    router.push("/cart");
-                    setMenuOpen(false);
-                  }}
-                  className="text-black w-6 ml-2.5 h-6 cursor-pointer"
-                />
-                  <div>Cart</div>
-                </div>  
-              </div>
-             
-              {user ? (
-              <>
-                      <div className="!bg-transparent   cursor-pointer p-0 border-none shadow-none hover:bg-transparent">
-                        <div
-                            onClick={() => {
-                              router.push("/dashboard");
-                              setMenuOpen(false);
-                            }}
-                        className="flex items-center gap-2">
-                          <img
-                            src={user?.image || "images/avatar.png"}
-                            alt="User"
-                            className="w-8 h-8 rounded-full border-2 border-blue-400/50"
-                          />
-                          <p className="text-sm text-black">
-                            Hi,{" "}
-                            {user?.name ||
-                              `${user?.firstName} ${user?.lastName}`}
-                          </p>
-                        </div>
-                      </div>
-                      <button
-                          onClick={handleLogout}
-                          className="block cursor-pointer px-4 py-3 text-sm text-slate-800 hover:text-blue-300 rounded-lg transition-all duration-300 mx-2"
-                        >
-                          Logout
-                        </button>
-                   </>
-              ) : (
-                <button
-                  onClick={() => {
-                    router.push("/authpage");
-                    setMenuOpen(false);
-                  }}
-                  className="px-6 py-2 bg-gradient-to-r from-blue-600 to-cyan-600  text-white rounded-lg font-medium"
-                >
-                  Account
-                </button>
-              )}
-            </div>
+  {/* Auth Section */}
+  <div className="flex flex-col items-start w-full gap-4 pt-4 border-t border-blue-500/20" style={{ fontFamily: "'Poppins', sans-serif" }}>
+    <div className="relative">
+      <div className="absolute -top-2 left-0 bg-gradient-to-r from-blue-500 to-cyan-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+        {totalItems}
+      </div>
+      <div className="flex items-center gap-2 cursor-pointer" onClick={() => {
+        router.push("/cart");
+        setMenuOpen(false);
+      }}>
+        <ShoppingCart className="text-black w-6 ml-2.5 font-bold text-xl h-6" />
+        <div className="text-md font-bold text-black">Cart</div>
+      </div>  
+    </div>
+
+    {user ? (
+      <>
+        <div className="!bg-transparent cursor-pointer p-0 border-none shadow-none hover:bg-transparent">
+          <div
+            onClick={() => {
+              router.push("/dashboard");
+              setMenuOpen(false);
+            }}
+            className="flex items-center gap-2"
+          >
+            <img
+              src={user?.image || "images/avatar.png"}
+              alt="User"
+              className="w-8 h-8 rounded-full border-2 border-blue-400/50"
+            />
+            <p className="text-md font-bold text-black">
+              Hi, {user?.name || `${user?.firstName} ${user?.lastName}`}
+            </p>
+          </div>
+        </div>
+        <button
+          onClick={handleLogout}
+          className="block cursor-pointer px-4 py-3 text-md font-bold text-slate-800 hover:text-blue-300 rounded-lg transition-all duration-300"
+        >
+          Logout
+        </button>
+      </>
+    ) : (
+      <button
+        onClick={() => {
+          router.push("/authpage");
+          setMenuOpen(false);
+        }}
+        className="px-6 py-2 bg-gradient-to-r text-2xl from-blue-600 to-cyan-600 text-white rounded-lg font-medium"
+      >
+        Account
+      </button>
+    )}
+  </div>
+</div>
+
           </div>
         </div>
       )}

@@ -109,7 +109,7 @@ const GeneralQuestions = () => {
         transition={{ duration: 0.8 }}
         className="w-full md:w-1/2 flex justify-center items-center"
       >
-        <div className="w-full max-w-md">
+        <div className="w-full lg:block hidden max-w-md">
           <Lottie animationData={faqAnimation} loop={true} className="w-full h-auto" />
         </div>
       </motion.div>

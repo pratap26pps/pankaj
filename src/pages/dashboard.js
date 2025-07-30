@@ -679,7 +679,7 @@ const handleChange = (e) => {
               </button> 
           {/* Content */}
         <div className="min-h-screen w-full mx-auto bg-[#f4fef7]">
-  <main className="flex-1 overflow-y-auto p-6">
+  <main className="flex flex-col overflow-y-auto p-4 sm:p-6 lg:p-8">
     {renderContent()}
   </main>
 </div> 
