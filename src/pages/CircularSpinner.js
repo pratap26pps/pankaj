@@ -94,14 +94,14 @@ const CircularSpinner = () => {
 
         {/* Blue Circle */}
         <motion.div
-          className="absolute w-[70%] h-[70%] rounded-full bg-[#0100fd] border-4 border-white shadow-2xl z-0"
+          className="absolute w-[70%] h-[70%] rounded-full  bg-[#21FC00] border-4 border-white shadow-2xl z-0"
           animate={{ rotate: angle * 0.1 }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
         />
 
         {/* Green Backdrop */}
         <motion.div
-          className="absolute w-[82%] h-[82%] rounded-full bg-[#21FC00] border-4 border-white/50 opacity-40 z-0 shadow-xl"
+          className="absolute w-[82%] h-[82%] rounded-full bg-[#0100fd]  border-4 border-white/50 opacity-40 z-0 shadow-xl"
           style={{ transform: `rotate(${-angle}deg)` }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
         />
@@ -197,15 +197,15 @@ const CircularSpinner = () => {
           whileHover={{ scale: 1.1, x: -5 }}
           whileTap={{ scale: 0.95 }}
           onClick={handlePrev}
-          className="hidden sm:flex absolute -left-16 top-1/2 -translate-y-1/2 px-4 py-4 rounded-full border-4 border-white text-white text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 hover:from-white hover:to-white hover:text-blue-700 shadow-2xl transition-all duration-300 z-10"
+          className="hidden sm:flex absolute -left-16 top-1/2 -translate-y-1/2 px-4 py-4 rounded-full border-4 border-white text-white text-2xl font-bold  bg-[#56a749]   shadow-2xl transition-all duration-300 z-10"
         >
           <ChevronLeft size={28} />
         </motion.button>
-        <motion.button
+        <motion.button 
           whileHover={{ scale: 1.1, x: 5 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleNext}
-          className="hidden sm:flex absolute -right-16 top-1/2 -translate-y-1/2 px-4 py-4 rounded-full border-4 border-white text-white text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 hover:from-white hover:to-white hover:text-blue-700 shadow-2xl transition-all duration-300 z-10"
+          className="hidden sm:flex absolute -right-16 top-1/2 -translate-y-1/2 px-4 py-4 rounded-full border-4 border-white text-white text-2xl font-bold bg-[#56a749]    shadow-2xl transition-all duration-300 z-10"
         >
           <ChevronRight size={28} />
         </motion.button>

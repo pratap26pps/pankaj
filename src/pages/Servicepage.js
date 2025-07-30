@@ -176,7 +176,11 @@ const ServicePage = () => {
          ))}
          </div>
           :
-          <div className="flex justify-center items-center "><span className='loader'></span></div>
+          <div className="flex justify-center gap-4 items-center ">
+            <span>Data Not Found</span>
+            <button onClick={() => window.location.reload()} className="bg-green-600 cursor-pointer text-white px-4 py-2 rounded-md">Retry</button>
+            
+            </div>
         }
        
         </div>
