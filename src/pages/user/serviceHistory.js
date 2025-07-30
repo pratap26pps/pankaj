@@ -201,7 +201,7 @@ const fetchServiceHistory = async (page = 1, limit = 10) => {
                 <motion.div
                   key={booking?._id}
                   whileHover={{ scale: 1.01 }}
-                  className="rounded-xl pb-16 p-8 lg:border  transition-all duration-200"
+                  className="rounded-xl pb-8 p-8 lg:border  transition-all duration-200"
                 >
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     {/* User Details */}
@@ -209,7 +209,7 @@ const fetchServiceHistory = async (page = 1, limit = 10) => {
                       <h3 className="font-semibold text-lg mb-2">
                         User Details
                       </h3>
-                      <table className="w-full h-full text-sm">
+                      <table className="w-full  text-sm">
                         <tbody>
                           <tr>
                             <td className="font-semibold px-2 py-1">Booking ID</td>
@@ -251,10 +251,10 @@ const fetchServiceHistory = async (page = 1, limit = 10) => {
 
                        {/* Booking Schedule */}
                        <div>
-                      <h3 className="font-semibold mt-16 md:mt:0 text-lg mb-2">
+                      <h3 className="font-semibold md:mt:0 text-lg mb-2">
                         Booking Schedule
                       </h3>
-                      <table className="w-full h-full text-sm">
+                      <table className="w-full   text-sm">
                         <tbody>
                           <tr>
                             <td className="font-semibold px-2 py-1">Mode</td>
@@ -289,25 +289,12 @@ const fetchServiceHistory = async (page = 1, limit = 10) => {
                         </tbody>
                  
                       </table>
-                      {booking?.status === "completed" && (
-          
-          <Button
-          className="text-center mt-2 bg-blue-600 w-40 h-10 text-white cursor-pointer hover:bg-blue-800 hover:border-blue-600 transition-all duration-200 rounded-full"
-          onClick={() => {
-            setSelectedBooking(booking);
-            setShowModal(true);
-          }}
-        >
-          Book Again
-        </Button>
-        
-              
-              )}
+
                     </div>
 
                     {/* Vehicle & Services */}
                     <div>
-                      <h3 className="font-semibold mt-16 md:mt:0 text-lg mb-2">
+                      <h3 className="font-semibold  md:mt:0 text-lg mb-2">
                         Vehicle & Services
                       </h3>
                       <table className="w-full   text-sm">
@@ -345,6 +332,20 @@ const fetchServiceHistory = async (page = 1, limit = 10) => {
                           )}
                         </tbody>
                       </table>
+                      {booking?.status === "completed" && (
+          
+                      <Button
+                      className="text-center mt-2 bg-blue-600 w-40 h-10 text-white cursor-pointer hover:bg-blue-800 hover:border-blue-600 transition-all duration-200 rounded-full"
+                      onClick={() => {
+                        setSelectedBooking(booking);
+                        setShowModal(true);
+                      }}
+                    >
+                      Book Again
+                    </Button>
+        
+              
+              )}
                     </div>
 
                  

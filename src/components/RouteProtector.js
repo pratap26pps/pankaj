@@ -9,54 +9,51 @@ export default function RouteProtector({ children, requireAuth = false, required
   const user = useSelector((state) => state.auth.user);
   const router = useRouter();
 
-  // Get the user role from session or Redux
   const userRole = session?.user?.accountType || user?.accountType;
+  const isAuthenticated = !!(session?.user || user);
+  const isLoading = status === "loading";
 
-  // Check if loading session or waiting for auth
-  const isLoading = status === "loading" || (requireAuth && !user && !session?.user);
+  const [redirected, setRedirected] = useState(false);
 
-  // Check if user is logged in
-  const isAuthenticated = (user || session?.user);
-
-  const [redirected, setRedirected] = useState(false); // Prevent multiple redirects
-
+  // Logs for debugging
   console.log("userRole in RouteProtector", userRole);
   console.log("requiredRole in RouteProtector", requiredRole);
   console.log("isAuthenticated in RouteProtector", isAuthenticated);
-
+  console.log("requireAuth in RouteProtector", requireAuth);
 
   useEffect(() => {
-    if (isLoading || redirected) return; // Skip if still loading or already redirected
+    if (redirected) return;
 
-    // If authentication is required and user not authenticated → go to homepage
-    if (requireAuth && !isAuthenticated && !userRole) {
+    // Case 1: Wait for session to load
+    if (isLoading) return;
+
+    // Case 2: Auth required but missing info → redirect home
+    if (requireAuth && (!isAuthenticated || !userRole)) {
       setRedirected(true);
       router.push("/");
       return;
     }
 
-    // If requiredRole is provided and user's role matches → go to dashboard
-    const roleMatch =
+    // Case 3: Role mismatch → redirect home
+    if (
       requiredRole &&
-      (
-        (Array.isArray(requiredRole) && requiredRole.includes(userRole)) ||
-        (!Array.isArray(requiredRole) && userRole === requiredRole)
-      );
-
-    if (requireAuth && roleMatch) {
+      (!userRole ||
+        (Array.isArray(requiredRole)
+          ? !requiredRole.includes(userRole)
+          : userRole !== requiredRole))
+    ) {
       setRedirected(true);
-      router.push("/dashboard");
+      router.push("/");
       return;
     }
 
-    // If none of the above, do nothing and allow rendering
-  }, [isLoading, isAuthenticated, requireAuth, requiredRole, userRole, router, redirected]);
+    // Case 4: All clear → allow rendering
+  }, [isLoading, isAuthenticated, userRole, requireAuth, requiredRole, redirected, router]);
 
-  // Show loader while checking session/auth
-  if (isLoading || (requireAuth && !isAuthenticated)) {
+  // Optional loader while loading session or checking roles
+  if (isLoading || (requireAuth && (!isAuthenticated || !userRole))) {
     return <div className="text-center py-10">Loading...</div>;
   }
 
-  // If all checks pass, render the protected content
   return children;
 }
