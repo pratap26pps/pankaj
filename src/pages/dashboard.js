@@ -125,6 +125,7 @@ const Dashboard = () => {
     { key: 'Total Users', label: 'Total Users', icon: <Users className="w-5 h-5" /> },
     { key: 'live-bookings', label: 'ServiceBookings', icon: <Users className="w-5 h-5" /> },
     { key: 'Booking Order List', label: 'Booking Order List', icon: <Users className="w-5 h-5" /> },
+    { key: 'AddCrousal', label: 'AddCrousal', icon: <Users className="w-5 h-5" /> },
     { key: 'AddReview', label: 'AddReview', icon: <Users className="w-5 h-5" /> },
     { key: 'Add Inventory', label: 'Add Inventory', icon:< Users className="w-5 h-5" />  },
     { key: 'Product list', label: 'Product list', icon:< Users className="w-5 h-5" />  },

@@ -25,6 +25,7 @@ import Testimonial from "@/features/Testimonial";
 import Footer from "@/features/Footer";
 import { Phone } from "lucide-react";
 
+
 function AuthSyncWrapper({ children }) {
   const [loading, setLoading] = useState(true);
   const { data: sessionData, status } = useSession();
@@ -216,6 +217,7 @@ function MyApp({ Component, pageProps: { session: sessionProp, ...pageProps } })
             }}
           />
           <CircularSpinner />
+          <addEventListener/>
           <GeneralQuestions />
           <Testimonial />
           <ScrollToTopButton />

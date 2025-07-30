@@ -2,6 +2,7 @@
 
 import * as React from 'react';
  
+import MobileCarousel from '@/features/Pages/Carousel';
 import ServicePage from './Servicepage';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -48,7 +49,7 @@ const [loading, setLoading] = useState(true);
 
       <div className="h-full w-full " style={{ fontFamily: 'Inter, sans-serif' }}>
         {/* ✅ Hero Image Section - Full Width/Height */}
-       <div className="w-full  flex flex-col lg:flex-row items-start justify-center bg-no-repeat bg-center bg-cover"      style={{ backgroundImage: "url('/images/bg-hero.jpg')" }} >
+       <div className="w-full  flex flex-col lg:flex-row items-start justify-center bg-no-repeat bg-center bg-cover"   >
   {/* Hero Banner - Hidden on small screens */}
   <div className=" w-full h-screen hidden md:block lg:block xl:block    relative ">
      <Image
@@ -61,9 +62,7 @@ const [loading, setLoading] = useState(true);
    {/* Carousel - Only on mobile */}
   <div className="sm:hidden w-full mt-17 px-0 py-6">
     {/* INSERT YOUR CAROUSEL COMPONENT HERE */}
-    <div className="bg-gray-100 rounded-xl w-full h-[300px] p-4 text-center text-sm text-gray-500">
-      Company Carousel Ad Placeholder
-    </div>
+  <MobileCarousel />
   </div>
 
   {/* Booking Form */}

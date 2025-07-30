@@ -86,7 +86,7 @@ const Footer = () => {
       {/* Social Links */}
       <div>
         <h4 className="text-emerald-600 text-xl sm:text-2xl font-bold mb-4">Follow Us</h4>
-        <div className="flex gap-4 justify-center sm:pb-2">
+        <div className="flex gap-4 justify-center pb-10">
           {[
             { src: '/icons/facebook.png', alt: 'Facebook', link: 'https://www.facebook.com/profile.php?id=61578129260222' },
             { src: '/icons/instagram.png', alt: 'Instagram', link: 'https://www.instagram.com/gridaneo_bharat/' },
@@ -117,7 +117,7 @@ const Footer = () => {
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="bg-white/70 backdrop-blur-lg rounded-3xl  sm:p-12 shadow-2xl border border-emerald-100"
+              className="bg-white/70 backdrop-blur-lg rounded-3xl py-10 shadow-2xl border border-emerald-100"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 ">
                 {/* Company Info */}
@@ -204,7 +204,7 @@ const Footer = () => {
                 </div>
 
                 {/* Contact Info */}
-                <div className="text-center lg:text-left">
+                <div className="text-center  lg:text-left">
                   <h3
                     className="text-2xl font-bold text-emerald-700 mb-4 flex items-center justify-center lg:justify-start gap-3"
                     style={{ fontFamily: 'Poppins, sans-serif' }}
