@@ -48,10 +48,14 @@ const [loading, setLoading] = useState(true);
       </Head>
 
       <div className="h-full w-full " style={{ fontFamily: 'Inter, sans-serif' }}>
-        {/* ✅ Hero Image Section - Full Width/Height */}
-       <div className="w-full  flex flex-col lg:flex-row items-start justify-center bg-no-repeat bg-center bg-cover"   >
-  {/* Hero Banner - Hidden on small screens */}
-  <div className=" w-full h-screen hidden md:block lg:block xl:block    relative ">
+{/* ✅ Hero Image Section - Full Width/Height */}
+<div className="w-full flex flex-col lg:flex-row items-start justify-center bg-no-repeat bg-center bg-cover">
+
+  {/* Carousel - Visible only on mobile and tablet */}
+  <div className="block lg:hidden w-full mt-20">
+    <MobileCarousel />
+  </div>
+<div className=" w-full h-screen hidden     lg:block xl:block    relative ">
      <Image
         src="/images/hero-banner01.png" // ✅ relative to /public folder
         alt="Hero Banner"
@@ -59,19 +63,15 @@ const [loading, setLoading] = useState(true);
         className="object-cover  w-full h-full"
       />
   </div>
-   {/* Carousel - Only on mobile */}
-  <div className="sm:hidden w-full mt-17 px-0 py-6">
-    {/* INSERT YOUR CAROUSEL COMPONENT HERE */}
-  <MobileCarousel />
-  </div>
 
   {/* Booking Form */}
-  <div className="lg:w-[40%] sm:absolute sm:bottom-0 sm:right-0 md:right-14 lg:bottom-0 md:bottom-14 sm:w-4/12 p-4 sm:p-6 md:p-8">
+  <div className=" lg:block md:hidden lg:w-[40%] sm:absolute sm:bottom-0 sm:right-0 md:right-14 lg:bottom-0 md:bottom-14 sm:w-4/12 p-4 sm:p-6 md:p-8">
     <BookingStepOneForm form={form} step={step} />
   </div>
 
- 
 </div>
+
+
 
 
       {/* ✅ Hero Section - Professional Redesign */}

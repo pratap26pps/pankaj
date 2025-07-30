@@ -50,12 +50,7 @@ const Overview = () => {
                 <FaPlus className="mr-2 mt-1" /> <p>Add Blog</p>
               </button>
 
-               <button
-                className="bg-blue-400 hover:bg-emerald-700 flex cursor-pointer  text-white font-bold py-2 px-2 mt-5 rounded"
-                onClick={() => setAddForm(true)}
-              >
-                <FaPlus className="mr-2 mt-1" /> <p>Add Crousal</p>
-              </button>
+              
               <div className="text-sm text-gray-500">Current Time</div>
               <div className="text-lg font-mono font-bold text-emerald-600">{currentTime}</div>
             </div>
@@ -116,18 +111,7 @@ const Overview = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <AnimatePresence>
-        {showAddForm && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed top-0 left-0 w-full h-full bg-gray-500 bg-opacity-75 flex justify-center items-center"
-          >
-            <admanager onClose={() => setAddForm(false)} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+     
       
     </div>
     
