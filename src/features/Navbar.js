@@ -209,7 +209,7 @@ console.log("localCartCount in nav ", localCartCount);
           />
 
           {/* Right Drawer */}
-          <div className="absolute top-0 right-0 h-full w-[75vw] max-w-xs bg-[linear-gradient(135deg,_#d1fae5_0%,_#a7f3d0_50%,_#6ee7b7_100%)] backdrop-blur-md border-l border-blue-500/30 px-6 py-6 space-y-6 shadow-2xl transform transition-transform duration-300 translate-x-0">
+          <div className="absolute top-0 right-0 h-full w-[75vw] max-w-xs bg-green-50  backdrop-blur-md border-l border-blue-500/30 px-6 py-6 space-y-6 shadow-2xl transform transition-transform duration-300 translate-x-0">
             {/* Close Button */}
             <div className="flex justify-end">
               <button
@@ -221,7 +221,7 @@ console.log("localCartCount in nav ", localCartCount);
             </div>
 
             {/* Mobile Menu Content */}
-            <div className="space-y-4">
+            <div className="space-y-4v  flex flex-col items-center">
               <NavigationMenu>
                 <NavigationMenuLink
                   onClick={() => {
@@ -269,11 +269,12 @@ console.log("localCartCount in nav ", localCartCount);
             </div>
 
             {/* Auth Section */}
-            <div className="flex items-center gap-4 pt-4 border-t border-blue-500/20" style={{ fontFamily: "'Poppins', sans-serif" }}>
+            <div className="flex flex-col items-center gap-4 pt-4 border-t border-blue-500/20" style={{ fontFamily: "'Poppins', sans-serif" }}>
               <div className="relative">
-                <div className="absolute -top-2 -right-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                <div className="absolute -top-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                   {totalItems}
                 </div>
+                <div className="flex items-center gap-2">
                 <ShoppingCart
                   onClick={() => {
                     router.push("/cart");
@@ -281,14 +282,19 @@ console.log("localCartCount in nav ", localCartCount);
                   }}
                   className="text-black w-6 ml-2.5 h-6 cursor-pointer"
                 />
+                  <div>Cart</div>
+                </div>  
               </div>
-
+             
               {user ? (
-                <NavigationMenu>
-                  <NavigationMenuList>
-                    <NavigationMenuItem>
-                      <NavigationMenuTrigger className="!bg-transparent cursor-pointer p-0 border-none shadow-none hover:bg-transparent">
-                        <div className="flex items-center gap-2">
+              <>
+                      <div className="!bg-transparent   cursor-pointer p-0 border-none shadow-none hover:bg-transparent">
+                        <div
+                            onClick={() => {
+                              router.push("/dashboard");
+                              setMenuOpen(false);
+                            }}
+                        className="flex items-center gap-2">
                           <img
                             src={user?.image || "images/avatar.png"}
                             alt="User"
@@ -300,36 +306,14 @@ console.log("localCartCount in nav ", localCartCount);
                               `${user?.firstName} ${user?.lastName}`}
                           </p>
                         </div>
-                      </NavigationMenuTrigger>
-                      <NavigationMenuContent className="min-w-[140px] py-2 bg-slate-700/95 backdrop-blur-md border border-blue-500/20 rounded-xl">
-                        <NavigationMenuLink
-                          onClick={() => {
-                            router.push("/dashboard");
-                            setMenuOpen(false);
-                          }}
-                          className="block cursor-pointer px-4 py-3 text-sm text-slate-200 hover:bg-blue-700/30 hover:text-blue-300 rounded-lg transition-all duration-300 mx-2"
-                        >
-                          Dashboard
-                        </NavigationMenuLink>
-                        <NavigationMenuLink
-                          onClick={() => {
-                            router.push("/cart");
-                            setMenuOpen(false);
-                          }}
-                          className="block cursor-pointer px-4 py-3 text-sm text-slate-200 hover:bg-blue-700/30 hover:text-blue-300 rounded-lg transition-all duration-300 mx-2"
-                        >
-                          My Cart
-                        </NavigationMenuLink>
-                        <NavigationMenuLink
+                      </div>
+                      <button
                           onClick={handleLogout}
-                          className="block cursor-pointer px-4 py-3 text-sm text-slate-200 hover:bg-blue-700/30 hover:text-blue-300 rounded-lg transition-all duration-300 mx-2"
+                          className="block cursor-pointer px-4 py-3 text-sm text-slate-800 hover:text-blue-300 rounded-lg transition-all duration-300 mx-2"
                         >
                           Logout
-                        </NavigationMenuLink>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-                  </NavigationMenuList>
-                </NavigationMenu>
+                        </button>
+                   </>
               ) : (
                 <button
                   onClick={() => {

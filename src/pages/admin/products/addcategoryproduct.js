@@ -504,7 +504,15 @@ export default function AddCategoryProduct() {
     
       <label className="font-semibold">Image</label>
       <Input type="file" accept="image/*" onChange={handleEditImageChange} />
-      {editUploading ? <span>Uploading...</span> : editCategoryImg && <img src={editCategoryImg} alt="preview" className="w-16 h-16 object-cover rounded border mt-2" />}
+      { editUploading ? (
+          <p className="text-sm text-gray-900 absolute">Uploading... please wait</p>
+        ) : (
+          editCategoryImg.length !== 0 && (
+            <div className="flex gap-2 mt-2 flex-wrap">             
+               <img src={editCategoryImg} alt="category" className="w-14 h-14 object-cover rounded border border-blue-200 dark:border-cyan-700 shadow" />
+            </div>
+          )
+        )}
     </div>
     <DialogFooter>
       <Button onClick={handleEditCategorySave} className="bg-blue-600 text-white">Save</Button>
