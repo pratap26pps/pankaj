@@ -23,7 +23,7 @@ const cardVariants = {
 const ServicePage = () => {
   const router = useRouter();
   const [location, setLocation] = useState(null);
-  const [search, setSearch] = useState('');
+  
   const categories = useSelector((state) => state.category.categories)
   console.log("categories",categories)
 
@@ -95,9 +95,7 @@ const ServicePage = () => {
   }, []);
   const reorderedCategories = [...categories].reverse();
 
-  const filteredServices = reorderedCategories.filter((service) =>
-    service?.name?.toLowerCase().includes(search.toLowerCase())
-  );
+ 
   
 
   const handleCardClick = (serviceName) => {
@@ -142,40 +140,43 @@ const ServicePage = () => {
 
         {/* Services Grid */}
         {
-          !filteredServices  ?
-         <div className="flex justify-center"><span className='loader'></span></div>
+          reorderedCategories.length !== 0  ?
+   
+         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+         
+
+         {reorderedCategories.map((service, index) => (
+           <motion.button
+             key={index}
+             custom={index}
+             initial="hidden"
+             animate="visible"
+             variants={cardVariants}
+             whileHover={{ scale: 1.05, y: -5 }}
+             whileTap={{ scale: 0.97 }}
+             onClick={() => handleCardClick(service.name)}
+             className="group cursor-pointer bg-white  border-gray-200 group-hover:text-blue-600  hover:border-blue-600 border-2  font-medium rounded-3xl flex flex-col items-center justify-center text-center p-8 w-full h-56 sm:h-60 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-green-200"
+           >
+             
+                 <img src={service.catImage} alt={service.name} height={50} width={50} className="text-green-600 group-hover:text-blue-600 "/>
+          
+             <h3 
+               className="text-lg sm:text-xl font-bold text-black group-hover:text-blue-600 transition-colors duration-300 mb-2"
+               style={{ fontFamily: 'Poppins, sans-serif' }}
+             >
+               {service.name}
+             </h3>
+             <p 
+               className="text-sm text-gray-600 group-hover:text-blue-600 transition-colors duration-300 leading-relaxed px-2"
+               style={{ fontFamily: 'Inter, sans-serif' }}
+             >
+               {service.description}
+             </p>
+           </motion.button>
+         ))}
+         </div>
           :
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredServices.map((service, index) => (
-            <motion.button
-              key={index}
-              custom={index}
-              initial="hidden"
-              animate="visible"
-              variants={cardVariants}
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => handleCardClick(service.name)}
-              className="group cursor-pointer bg-white  border-gray-200 group-hover:text-blue-600  hover:border-blue-600 border-2  font-medium rounded-3xl flex flex-col items-center justify-center text-center p-8 w-full h-56 sm:h-60 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-green-200"
-            >
-              
-                  <img src={service.catImage} alt={service.name} height={50} width={50} className="text-green-600 group-hover:text-blue-600 "/>
-           
-              <h3 
-                className="text-lg sm:text-xl font-bold text-black group-hover:text-blue-600 transition-colors duration-300 mb-2"
-                style={{ fontFamily: 'Poppins, sans-serif' }}
-              >
-                {service.name}
-              </h3>
-              <p 
-                className="text-sm text-gray-600 group-hover:text-blue-600 transition-colors duration-300 leading-relaxed px-2"
-                style={{ fontFamily: 'Inter, sans-serif' }}
-              >
-                {service.description}
-              </p>
-            </motion.button>
-          ))}
-          </div>
+          <div className="flex justify-center items-center "><span className='loader'></span></div>
         }
        
         </div>
