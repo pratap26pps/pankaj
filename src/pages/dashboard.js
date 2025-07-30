@@ -7,11 +7,10 @@ import { setUser } from '../redux/slices/authSlice';
 import { toast } from 'sonner';
 import { signOut } from 'next-auth/react';
 import { clearUser } from '../redux/slices/authSlice';
-import ProductHistory from './admin/products/productlist';
+ 
 import AddCategoryProduct from './admin/products/addcategoryproduct';
 import ProductList from './admin/products/productlist';
-import CustomerManagement from './admin/userlist';
-import OrderManagement from './admin/order/orderlist';
+ 
 import BookingFormHistory from './superadmin/bookingformhistory';
  import MicroBookings from './microadmin/booking';
  import MicroAdminOverview from './microadmin/overview';
@@ -20,16 +19,16 @@ import {
   ShoppingCart, 
   Users, 
   Plus, 
-  Package, 
+  
   ClipboardList,
   Edit,
   Trash2,
   AlertTriangle,
   Menu,
   X,
-  HelpCircle,
+ 
   ChevronRight,
-  MoreVertical,
+ 
   
 } from "lucide-react";
 import MyShoppingCart from './cart';
@@ -50,8 +49,7 @@ import Bookings from './partner/bookings';
 
 
 const Dashboard = () => {
-
-  const allOrders = useSelector(state => state.order.orders);
+ 
   const user = useSelector((state) => state.auth.user);
   const router = useRouter();
   const [confirm, setConfirm] = useState("");
@@ -83,7 +81,7 @@ const Dashboard = () => {
     vehicalRegistrationNumber: ""
   });
   const [loading, setLoading] = useState(false);
-  const [approvalModalVisible, setApprovalModalVisible] = useState(false);
+ 
   const dispatch = useDispatch();
  
   
@@ -300,14 +298,7 @@ const handleChange = (e) => {
   };
 
 
-  // Check for pending approval accounts
-  useEffect(() => {
-    if (user?.accountType === "Patner" || user?.accountType === "Admin") {
-      setApprovalModalVisible(true);
-    } else {
-      setApprovalModalVisible(false);
-    }
-  }, [user?.accountType]);
+ 
 
   const renderContent = () => {
     
@@ -467,17 +458,7 @@ const handleChange = (e) => {
           return <UserOverview/>;
       }
   };
-
  
-
-
- if (!user)
-  return (
-    <div className="min-h-screen flex items-center justify-center   relative">
-      <div className="loader"></div>
-    </div>
-  );
-
   return (
     <div className='min-h-screen w-full bg-green-50 pb-24 pt-7 relative'>
       {(orderModalOpen || trackModalOpen || profileModalVisible || deleteModalVisible) && (
@@ -1043,7 +1024,7 @@ const handleChange = (e) => {
               className="px-4 py-2  text-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
               disabled={loading}
             >
-            {loading ? <Loader/>:"Update Profile"}  
+            {loading ?  "Loading...":"Update Profile"}  
             </button>
           </div>
         </div>

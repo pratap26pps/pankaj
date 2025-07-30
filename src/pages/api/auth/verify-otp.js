@@ -15,7 +15,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: "Validation error", error: parsed.error });
     }
 
-    const { email, password } = parsed.data;
+    const { email, password,accountType } = parsed.data;
 
     const validOtp = await Otp.findOne({ email, code: code.toString() });
 
@@ -27,8 +27,29 @@ export default async function handler(req, res) {
     
    
     const image = "/images/avatar.png";
+
+
+    let userId;
+
+    if (accountType === "Admin") {
+      const adminCount = await users.countDocuments({ accountType: "Admin" });
+      const nextNumber = (adminCount + 1).toString().padStart(3, '0'); // e.g., '001', '002'
+      userId = `admin${nextNumber}`;
+    } else if (accountType === "Partner") {
+      const partnerCount = await users.countDocuments({ accountType: "Partner" });
+      const nextNumber = (partnerCount + 1).toString().padStart(3, '0'); // e.g., '001', '002'
+      userId = `partner${nextNumber}`;
+    } else if (accountType === "User") {
+      const userCount = await users.countDocuments({ accountType: "User" });
+      const nextNumber = (userCount + 1).toString().padStart(6, '0');  
+      userId = `user${nextNumber}`;
+    }
+
+
+
     console.log("Data to insert:", {
   ...parsed.data,
+      userId: userId,
   password: hashedPassword,
   image,
    
@@ -38,13 +59,14 @@ export default async function handler(req, res) {
       ...parsed.data,
       password: hashedPassword,
       image,
-     
+     userId: userId,
     });
     await Otp.deleteMany({ email });
 
      // Set cookie
     const cookie = serialize("customUser", JSON.stringify({
       id: userdata._id,
+      userId: userdata.userId,
       email: userdata.email,
       name: userdata.firstName + " " + userdata.lastName,
       image: userdata.image || "/images/avatar.png",

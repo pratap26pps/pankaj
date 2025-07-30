@@ -201,7 +201,7 @@ const fetchServiceHistory = async (page = 1, limit = 10) => {
                 <motion.div
                   key={booking?._id}
                   whileHover={{ scale: 1.01 }}
-                  className="rounded-xl pb-24 p-8 lg:border  transition-all duration-200"
+                  className="rounded-xl pb-16 p-8 lg:border  transition-all duration-200"
                 >
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     {/* User Details */}
@@ -209,7 +209,7 @@ const fetchServiceHistory = async (page = 1, limit = 10) => {
                       <h3 className="font-semibold text-lg mb-2">
                         User Details
                       </h3>
-                      <table className="w-full h-full text-sm border border-gray-200">
+                      <table className="w-full h-full text-sm">
                         <tbody>
                           <tr>
                             <td className="font-semibold px-2 py-1">Booking ID</td>
@@ -249,52 +249,12 @@ const fetchServiceHistory = async (page = 1, limit = 10) => {
                       </table>
                     </div>
 
-                    {/* Vehicle & Services */}
-                    <div>
-                      <h3 className="font-semibold text-lg mb-2">
-                        Vehicle & Services
-                      </h3>
-                      <table className="w-full h-full text-sm border border-gray-200">
-                        <tbody>
-                          <tr>
-                            <td className="font-semibold px-2 py-1">Vehicle</td>
-                            <td className="px-2 py-1">
-                              {booking?.vehicleType}{" "}
-                              {booking?.regNumber && `(${booking?.regNumber})`}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="font-semibold px-2 py-1">Services</td>
-                            <td className="px-2 py-1">
-                              {booking?.services.join(", ")}
-                              {booking?.servicesOther &&
-                                ` + ${booking?.servicesOther}`}
-                            </td>
-                          </tr>
-                          {booking?.plan && (
-                            <tr>
-                              <td className="font-semibold px-2 py-1">Plan</td>
-                              <td className="px-2 py-1">{booking?.plan}</td>
-                            </tr>
-                          )}
-                          {booking?.payment && (
-                            <tr>
-                              <td className="font-semibold px-2 py-1">
-                                Payment
-                              </td>
-                              <td className="px-2 py-1">{booking?.payment}</td>
-                            </tr>
-                          )}
-                        </tbody>
-                      </table>
-                    </div>
-
-                    {/* Booking Schedule */}
-                    <div>
-                      <h3 className="font-semibold text-lg mb-2">
+                       {/* Booking Schedule */}
+                       <div>
+                      <h3 className="font-semibold mt-16 md:mt:0 text-lg mb-2">
                         Booking Schedule
                       </h3>
-                      <table className="w-full h-full text-sm border border-gray-200">
+                      <table className="w-full h-full text-sm">
                         <tbody>
                           <tr>
                             <td className="font-semibold px-2 py-1">Mode</td>
@@ -344,6 +304,50 @@ const fetchServiceHistory = async (page = 1, limit = 10) => {
               
               )}
                     </div>
+
+                    {/* Vehicle & Services */}
+                    <div>
+                      <h3 className="font-semibold mt-16 md:mt:0 text-lg mb-2">
+                        Vehicle & Services
+                      </h3>
+                      <table className="w-full   text-sm">
+                        <tbody>
+                          <tr>
+                            <td className="font-semibold px-2 py-1">Vehicle</td>
+                            <td className="px-2 py-1">
+                              {booking?.vehicleType}{" "}
+                              {booking?.regNumber && `(${booking?.regNumber})`}
+                            </td>
+                          </tr>
+                          <tr>  
+                            <td className="font-semibold px-2 ">Services</td>
+                           
+                            <ol className="list-decimal  mt-10 mb-2 list-inside space-y-1">
+                              {booking?.services?.map((service, index) => (
+                                <li key={index}>{service}</li>
+                              ))}
+                            </ol>
+                          
+                          </tr>
+                          {booking?.plan && (
+                            <tr>
+                              <td className="font-semibold px-2 py-1">Plan</td>
+                              <td className="px-2 py-1">{booking?.plan}</td>
+                            </tr>
+                          )}
+                          {booking?.payment && (
+                            <tr>
+                              <td className="font-semibold px-2 py-1">
+                                Payment
+                              </td>
+                              <td className="px-2 py-1">{booking?.payment}</td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+
+                 
                   </div>
                 </motion.div>
               ))}
