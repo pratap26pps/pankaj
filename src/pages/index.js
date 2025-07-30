@@ -50,7 +50,7 @@ const [loading, setLoading] = useState(true);
         {/* ✅ Hero Image Section - Full Width/Height */}
        <div className="w-full  flex flex-col lg:flex-row items-start justify-center">
   {/* Hero Banner - Hidden on small screens */}
-  <div className="hidden sm:block w-full    relative h-[calc(100vh-1rem)]">
+  <div className=" w-full h-screen hidden md:block lg:block xl:block    relative ">
      <Image
         src="/images/hero-banner01.png  " // ✅ relative to /public folder
         alt="Hero Banner"

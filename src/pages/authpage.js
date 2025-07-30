@@ -240,7 +240,7 @@ const gstRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/;
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="relative z-10 w-full max-w-xl"
       >
-            <Card className="backdrop-blur-xl bg-blue-600 border-white/20 shadow-2xl">
+            <Card className="backdrop-blur-xl bg-blue-800 border-white/20 shadow-2xl">
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-extrabold  bg-clip-text text-white font-poppins">
               GridaNeo Bharat
