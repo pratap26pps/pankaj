@@ -305,7 +305,7 @@ const handleChange = (e) => {
     if ((user?.accountType === "Partner"  || user?.accountType === "Admin") && (user?.status === "Pending" || user?.status === "Rejected"))  {
       return (
         
-        <div className="flex items-center justify-center min-h-screen z-50 bg-gray-50">
+        <div className="flex items-center justify-center z-50 bg-gray-50">
           <div className="text-center p-8">
             <div className="mb-4">
               <AlertTriangle className="mx-auto h-16 w-16 text-yellow-500" />
@@ -467,7 +467,7 @@ const handleChange = (e) => {
 
       <div className="flex h-screen relative  top-20 z-10">
         {/* Sidebar */}
-        <div className={`lg:relative  h-[92%] fixed inset-y-0 top-0 left-0 z-50 bg-white backdrop-blur-sm border-gray-200 dark:border-gray-700 shadow-lg transition-all duration-300 transform ${
+        <div className={`lg:relative  h-[87%] fixed inset-y-0 top-0 left-0 z-50 bg-white backdrop-blur-sm border-gray-200 dark:border-gray-700 shadow-lg transition-all duration-300 transform ${
           collapsed ? 'w-20' : 'w-64'
         } ${
           sidebarOpen ? 'translate-x-0 top-20' : '-translate-x-full lg:translate-x-0 lg:top-0'
