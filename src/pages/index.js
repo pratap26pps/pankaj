@@ -48,15 +48,14 @@ const [loading, setLoading] = useState(true);
 
       <div className="h-full w-full " style={{ fontFamily: 'Inter, sans-serif' }}>
         {/* ✅ Hero Image Section - Full Width/Height */}
-       <div className="w-full  flex flex-col lg:flex-row items-start justify-center">
+       <div className="w-full  flex flex-col lg:flex-row items-start justify-center bg-no-repeat bg-center bg-cover"      style={{ backgroundImage: "url('/images/bg-hero.jpg')" }} >
   {/* Hero Banner - Hidden on small screens */}
   <div className=" w-full h-screen hidden md:block lg:block xl:block    relative ">
      <Image
-        src="/images/hero-banner01.png  " // ✅ relative to /public folder
+        src="/images/hero-banner01.png" // ✅ relative to /public folder
         alt="Hero Banner"
         fill // ✅ auto sets width + height to container size
         className="object-cover  w-full h-full"
-        priority // ✅ Optional: improves performance on LCP (first hero image)
       />
   </div>
    {/* Carousel - Only on mobile */}

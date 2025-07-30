@@ -77,7 +77,7 @@ const CircularSpinner = () => {
   initial={{ opacity: 0, y: -20 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.8 }}
-  className="absolute top-8 left-1/2 transform -translate-x-1/2 text-center z-20 px-4 sm:px-6"
+  className="absolute top-8 w-full left-1/2 transform -translate-x-1/2 text-center z-20 px-4 sm:px-6"
 >
   <div className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#2DAA4F] mb-4 leading-tight">
     Our Process...
@@ -88,21 +88,13 @@ const CircularSpinner = () => {
 </motion.div>
 
 
-      {/* Mobile Prev Button */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={handlePrev}
-        className="sm:hidden mb-4 px-6 py-3 rounded-full border-2 text-white text-lg font-bold transition-all duration-300 flex items-center gap-2 z-10"
-      >
-        <ArrowUp size={20} /> Prev
-      </motion.button>
+   
 
       <div className="relative w-full  mt-40 max-w-[380px] sm:max-w-[720px] aspect-square flex items-center justify-center">
 
         {/* Blue Circle */}
         <motion.div
-          className="absolute w-[60%] h-[60%] rounded-full bg-[#0100fd] border-4 border-white shadow-2xl z-0"
+          className="absolute w-[70%] h-[70%] rounded-full bg-[#0100fd] border-4 border-white shadow-2xl z-0"
           animate={{ rotate: angle * 0.1 }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
         />
@@ -116,7 +108,7 @@ const CircularSpinner = () => {
 
         {/* Center White Info Circle */}
         <motion.div
-          className="z-10 absolute w-[28%] h-[28%] sm:w-[24%] sm:h-[24%] rounded-full bg-gradient-to-br from-white to-gray-50 flex flex-col items-center justify-center text-center p-1 sm:p-2 shadow-2xl border-4 border-white"
+          className="z-10 absolute w-[38%] h-[38%] sm:w-[24%] sm:h-[24%] rounded-full bg-gradient-to-br from-white to-gray-50 flex flex-col items-center justify-center text-center p-1 sm:p-2 shadow-2xl border-4 border-white"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.3 }}
         >
@@ -219,15 +211,6 @@ const CircularSpinner = () => {
         </motion.button>
       </div>
 
-      {/* Mobile Next Button */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={handleNext}
-        className="sm:hidden mt-4 px-6 py-3 rounded-full border-2 border-white text-white text-lg font-bold bg-gradient-to-r from-blue-600 to-blue-700 hover:from-white hover:to-white hover:text-blue-700 shadow-lg transition-all duration-300 flex items-center gap-2 z-10"
-      >
-        <ArrowDown size={20} /> Next
-      </motion.button>
     </div>
   );
 };
