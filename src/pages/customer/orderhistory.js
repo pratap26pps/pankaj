@@ -6,6 +6,7 @@ import { setCurrentOrder } from "@/redux/slices/orderSlice";
 import { setShowRazorpay } from "@/redux/slices/orderSlice";
 import { useState } from "react";
 import { toast } from 'sonner';
+
 import {
   Dialog,
   DialogTrigger,
@@ -14,6 +15,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import RazorpayPayment from "@/components/RazorpayPayment";
+import { useRouter } from "next/navigation";
+import { placeOrder } from "@/redux/slices/orderSlice";
+ 
 
 export default function OrderHistory() {
   const dispatch = useDispatch();
@@ -22,16 +26,45 @@ export default function OrderHistory() {
   const user = useSelector((state) => state.auth.user);
   const showRazorpay = useSelector((state) => state.order.showRazorpay);
   const currentOrder = useSelector((state) => state.order.currentOrder);
-
+  const router = useRouter();
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [trackOrder, setTrackOrder] = useState(null);
-
-  const handlePaymentSuccess = (data) => {
-    console.log("Payment success:", data);
-    toast.success("Payment successful!");
-    dispatch(setShowRazorpay(false));
-    dispatch(setCurrentOrder(null));
+console.log(selectedOrder,"selectedOrder")
+const handlePaymentSuccess = async (paymentData) => {
+    console.log("paymentData",paymentData)
+    try {
+      const res = await fetch(`/api/customer/confirm-payment`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderId: paymentData.orderId,                     // Your MongoDB _id
+          razorpayOrderId: paymentData.razorpay_order_id,   // Razorpay order ID
+          paymentId: paymentData.razorpay_payment_id,       // Razorpay payment ID
+          signature: paymentData.razorpay_signature,        // Razorpay signature
+          status: "paid",
+        }),
+      });
+  
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || "Failed to confirm payment");
+      }
+  
+      toast.success("Payment completed successfully!");
+      dispatch(placeOrder({
+        items: selectedOrder?.items,
+        total: selectedOrder?.totalAmount,  
+      }));
+  
+      router.refresh();
+    } catch (error) {
+      toast.error("Error updating payment status.");
+      console.error("Payment update error:", error);
+    } finally {
+      dispatch(setShowRazorpay(false));
+    }
   };
+  
 
   const handlePaymentFailure = (error) => {
     console.error("Payment failed:", error);
@@ -41,8 +74,12 @@ export default function OrderHistory() {
 
   return (
     <div className="text-black">
-      <div className="px-6 py-4 border-b border-gray-200">
-        <h3 className="text-lg font-semibold text-black">My Orders</h3>
+      
+      <div className="px-6 flex   py-4 border-b border-gray-200">
+      <button onClick={() => router.refresh()} className="text-lg border border-black rounded-lg px-4 font-semibold text-black">Refresh</button>
+
+        <div className="text-lg  lg:ml-96 ml-16 font-semibold text-black">My Orders</div>
+        
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">

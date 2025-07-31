@@ -227,6 +227,8 @@ export default function CheckoutPage() {
       }));
       dispatch(clearCart());
       localStorage.removeItem("cartItems");
+    
+      router.refresh();
       router.push("/dashboard");
     } catch (error) {
       toast.error("Error updating payment status.");
