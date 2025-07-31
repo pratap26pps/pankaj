@@ -123,12 +123,12 @@ const Dashboard = () => {
   
   const SuperAdminItems = [
     { key: 'overview', label: 'Overview', icon: <BarChart3 className="w-5 h-5" /> },
-    { key: 'manage-users', label:'ManageUsers&Centers', icon: <Users className="w-5 h-5" /> },
+    { key: 'manage-users', label:'Manage Users & Centers', icon: <Users className="w-5 h-5" /> },
     { key: 'verify-partners', label: 'Verify Partners', icon: <Users className="w-5 h-5" /> },
     { key: 'Total Users', label: 'Total Users', icon: <Users className="w-5 h-5" /> },
-    { key: 'live-bookings', label: 'ServiceBookings', icon: <NotebookPenIcon className="w-5 h-5" /> },
+    { key: 'live-bookings', label: 'Service Bookings', icon: <NotebookPenIcon className="w-5 h-5" /> },
     { key: 'Booking Order List', label: 'Booking Order List', icon: <List className="w-5 h-5" /> },
-    { key: 'AddReview', label: 'AddReview', icon: <FolderPlus className="w-5 h-5" /> },
+    { key: 'Add Review', label: 'Add Review', icon: <FolderPlus className="w-5 h-5" /> },
     { key: 'Add Inventory', label: 'Add Inventory', icon:< PackagePlus className="w-5 h-5" />  },
     { key: 'Product list', label: 'Product list', icon:<AlignJustify className="w-5 h-5" />  },
    
