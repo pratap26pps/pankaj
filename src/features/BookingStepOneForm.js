@@ -91,7 +91,7 @@ export default function BookingStepOneForm() {
 
   return (
     <div className="space-y-4 shadow-2xl p-10  bg-white  rounded-3xl  ">
-      <h3 className="text-xl font-semibold text-gray-700 mb-2">Book EV Service</h3>
+      <h3 className="text-xl font-semibold text-gray-700 mb-2">Book Your EV Service Now</h3>
 
       <label htmlFor="fullName">Full Name</label>
       <input
