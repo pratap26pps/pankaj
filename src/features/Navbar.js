@@ -230,7 +230,7 @@ console.log("localCartCount in nav ", localCartCount);
           router.push("/");
           setMenuOpen(false);
         }}
-        className="block cursor-pointer py-2 -mt-3 text-xl text-black font-bold hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
+        className="block cursor-pointer py-2 -mt-3 text-md text-black font-bold hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
       >
         <span className="relative z-10">Home</span>
       </NavigationMenuLink>
@@ -242,7 +242,7 @@ console.log("localCartCount in nav ", localCartCount);
           router.push("/About");
           setMenuOpen(false);
         }}
-        className="block cursor-pointer py-2 text-xl font-bold text-black hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
+        className="block cursor-pointer py-2 text-md font-bold text-black hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
       >
         <span className="relative z-10">About</span>
       </NavigationMenuLink>
@@ -254,7 +254,7 @@ console.log("localCartCount in nav ", localCartCount);
           router.push("/Servicepage");
           setMenuOpen(false);
         }}
-        className="block cursor-pointer py-2 text-xl font-bold text-black hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
+        className="block cursor-pointer py-2 text-md font-bold text-black hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
       >
         <span className="relative z-10">Services</span>
       </NavigationMenuLink>
@@ -266,7 +266,7 @@ console.log("localCartCount in nav ", localCartCount);
           router.push("/Blog");
           setMenuOpen(false);
         }}
-        className="block cursor-pointer py-2 text-xl text-black font-bold hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
+        className="block cursor-pointer py-2 text-md text-black font-bold hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
       >
         <span className="relative z-10">Blog</span>
       </NavigationMenuLink>
@@ -276,15 +276,15 @@ console.log("localCartCount in nav ", localCartCount);
   {/* Auth Section */}
   <div className="flex flex-col items-start w-full gap-4 pt-4 border-t border-blue-500/20" style={{ fontFamily: "'Poppins', sans-serif" }}>
     <div className="relative">
-      <div className="absolute -top-2 left-0 bg-gradient-to-r from-blue-500 to-cyan-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+      <div className="absolute -top-2 left-0 bg-gradient-to-r from-blue-500 to-cyan-500 text-black text-md rounded-full w-5 h-5 flex items-center justify-center font-bold">
         {totalItems}
       </div>
       <div className="flex items-center gap-2 cursor-pointer" onClick={() => {
         router.push("/cart");
         setMenuOpen(false);
       }}>
-        <ShoppingCart className="text-black w-6 ml-2.5 font-bold text-xl h-6" />
-        <div className="text-md font-bold text-black">Cart</div>
+        <ShoppingCart className="text-black w-6 ml-2.5 font-bold text-md h-6" />
+        <div className="text-sm font-bold text-black">Cart</div>
       </div>  
     </div>
 
@@ -303,7 +303,7 @@ console.log("localCartCount in nav ", localCartCount);
               alt="User"
               className="w-8 h-8 rounded-full border-2 border-blue-400/50"
             />
-            <p className="text-md font-bold text-black">
+            <p className="text-sm font-bold text-black">
               Hi, {user?.name || `${user?.firstName} ${user?.lastName}`}
             </p>
           </div>
