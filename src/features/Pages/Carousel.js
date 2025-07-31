@@ -38,7 +38,7 @@ const MobileCarousel = () => {
         {ads.flatMap((ad, index) =>
           (ad.imageUrl || []).map((url, i) => (
             <SwiperSlide key={`${index}-${i}`}>
-              <div className="w-full  h-[300px] relative overflow-hidden ">
+              <div className="w-full h-[300px] relative overflow-hidden ">
                 <Image
                   src={url}
                   alt={`Ad ${index + 1}`}

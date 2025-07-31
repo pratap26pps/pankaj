@@ -167,7 +167,7 @@ console.log("blogPosts:", blogPosts);
         />
       </Head>
       
-      <div className="min-h-screen bg-green-50 pt-24 pb-16" style={{ fontFamily: 'Inter, sans-serif' }}>
+      <div className="min-h-screen bg-green-50 pt-24 pb-16" style={{ fontFamily: 'poppins, sans-serif' }}>
         {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl animate-pulse" />
@@ -215,10 +215,10 @@ console.log("blogPosts:", blogPosts);
           >
             <div className="relative inline-block">
               <h1 
-                className="text-4xl sm:text-3xl md:text-4xl font-normal text-gray-900 mb-4 mt-10 leading-tight"
+                className="text-4xl sm:text-3xl md:text-4xl  font-semibold text-gray-900 mb-4 mt-10 leading-tight"
                 style={{ 
-                  fontFamily: 'Playfair Display, serif',
-                  letterSpacing: '-0.02em'
+                  fontFamily: 'poppins, serif',
+                  letterSpacing: '0.02em'
                 }}
               >
                 Our Blog
@@ -239,8 +239,7 @@ console.log("blogPosts:", blogPosts);
             >
               <p 
                 className="text-sm sm:text-xl text-black max-w-5xl mx-auto leading-relaxed"
-                style={{ fontFamily: 'Inter, sans-serif' }}
-              >
+style={{ fontFamily: 'Poppins, sans-serif' }}              >
                 Discover insights, success stories, and the latest developments in electric vehicle technology and sustainable transportation solutions.
               </p>
               
@@ -273,11 +272,10 @@ console.log("blogPosts:", blogPosts);
           <div className="text-center mb-8">
             <h3 
               className="text-2xl font-semibold text-gray-800 mb-2"
-              style={{ fontFamily: 'Playfair Display, serif' }}
-            >
+style={{ fontFamily: 'Poppins, sans-serif' }}            >
               Explore by Category
             </h3>
-            <p className="text-gray-500" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <p className="text-gray-500" style={{ fontFamily: 'Poppins, sans-serif' }}>
               Filter posts to find exactly what you're looking for
             </p>
           </div>
@@ -337,7 +335,7 @@ console.log("blogPosts:", blogPosts);
               <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-sm font-bold">
                 {totalPosts}
               </span>
-              <h4 className="mb-0 text-gray-700">
+              <h4 className="mb-0 text-gray-700 " style={{ fontFamily: 'Poppins, sans-serif' }}>
                  SuperAdmin Posts
               </h4>
             </div>
@@ -393,7 +391,7 @@ console.log("blogPosts:", blogPosts);
                       {/* Card Content */}
                       <div className="p-6">
                         <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center gap-3">
+                          <div className="flex items-center gap-3" style={{ fontFamily: 'Poppins, sans-serif' }}>
                             <img
                               src={post.authorAvatar}
                               alt={post.author}
@@ -412,7 +410,7 @@ console.log("blogPosts:", blogPosts);
                           </div>
                           <div className="flex items-center text-gray-500 text-xs">
                             <span className="mr-1">📖</span>
-                            <span className="text-xs">{post.readTime}</span>
+                            <span className="text-xs"style={{ fontFamily: 'Poppins, sans-serif' }}>{post.readTime}</span>
                           </div>
                         </div>
                         
@@ -425,7 +423,7 @@ console.log("blogPosts:", blogPosts);
                         
                         <p 
                           className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3"
-                          style={{ fontFamily: 'Inter, sans-serif' }}
+                          style={{ fontFamily: 'poppins, sans-serif' }}
                         >
                           {post.excerpt}
                         </p>
@@ -437,7 +435,7 @@ console.log("blogPosts:", blogPosts);
                                 key={`${tag}-${tagIndex}`} 
                                 className="text-xs rounded-full font-medium px-2 py-1"
                                 style={{ 
-                                  fontFamily: 'Inter, sans-serif',
+                                  fontFamily: 'poppins, sans-serif',
                                   backgroundColor: `${categoryColors[post.category] || categoryColors.General}20`,
                                   color: categoryColors[post.category] || categoryColors.General,
                                   border: `1px solid ${categoryColors[post.category] || categoryColors.General}40`

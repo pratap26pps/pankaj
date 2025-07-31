@@ -83,10 +83,10 @@ const CircularSpinner = () => {
         transition={{ duration: 0.8 }}
         className="absolute top-8 w-full left-1/2 transform -translate-x-1/2 text-center z-20 px-4 sm:px-6"
       >
-        <div className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#2DAA4F] mb-4 leading-tight">
+        <div className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#2DAA4F] mb-4 leading-tight" style={{ fontFamily: 'Poppins, sans-serif' }}>
           Our Process...
         </div>
-        <p className="text-sm sm:text-base font-semibold lg:text-lg text-gray-700 max-w-3xl mx-auto">
+        <p className="text-sm sm:text-base font-semibold lg:text-lg text-gray-700 max-w-3xl mx-auto" style={{ fontFamily: 'Poppins, sans-serif' }}>
           Discover how we bring innovation to life — from idea to impact. Our streamlined process ensures speed, precision, and quality at every step. Whether you're just getting started or scaling up, we've got you covered.
         </p>
       </motion.div>

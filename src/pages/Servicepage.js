@@ -123,17 +123,13 @@ const ServicePage = () => {
           <div className="text-center">
             <h1 
               className="text-4xl sm:text-5xl md:text-6xl font-bold text-green-600 mb-4"
-              style={{ 
-                fontFamily: 'Playfair Display, serif',
-                letterSpacing: '-0.02em'
-              }}
+             style={{ fontFamily: 'Poppins, sans-serif' }}
             >
               Our Services in {location}
             </h1>
             <p 
               className="text-xl text-gray-700 font-medium"
-              style={{ fontFamily: 'Inter, sans-serif' }}
-            >
+style={{ fontFamily: 'Poppins, sans-serif' }}            >
               Select the service you're looking for
             </p>
           </div>
@@ -168,8 +164,7 @@ const ServicePage = () => {
              </h3>
              <p 
                className="text-sm text-gray-600 group-hover:text-blue-600 transition-colors duration-300 leading-relaxed px-2"
-               style={{ fontFamily: 'Inter, sans-serif' }}
-             >
+style={{ fontFamily: 'Poppins, sans-serif' }}             >
                {service.description}
              </p>
            </motion.button>
