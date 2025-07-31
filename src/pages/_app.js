@@ -7,8 +7,6 @@ import { useSession, SessionProvider } from "next-auth/react";
 import { Toaster } from "sonner";
 import AOS from "aos";
 import axios from "axios";
-import Lottie from "lottie-react";
-import loadingAnimation from "../../public/Animations/Gearsanimation.json";
 
 import { store } from "@/redux/store";
 import { setUser } from "@/redux/slices/authSlice";
@@ -116,7 +114,6 @@ function AuthSyncWrapper({ children }) {
   }, [dispatch]);
 
   
- <PremiumNavigation />
   if (loading) {
     return (
       <>
@@ -124,9 +121,14 @@ function AuthSyncWrapper({ children }) {
         <div className="w-screen h-screen flex items-center justify-center bg-green-50 fixed top-0 left-0 z-[9999]">
             
  <PremiumNavigation />
-          <div className="w-[90vw] max-w-[300px] min-w-[120px]">
-            <Lottie animationData={loadingAnimation} loop autoplay />
-            <p className="text-center text-gray-500 text-sm mt-2">Loading...</p>
+          <div className="w-[90vw] max-w-[300px] min-w-[120px] ">
+    <div className="loader-wrapper flex flex-col items-center justify-center gap-10">
+      <div className="loader">
+        <span></span>
+      </div>
+      <p className="text-center text-gray-500 text-sm mt-2">Loading...</p>
+    </div>
+            
           </div>
         </div>
       </>
