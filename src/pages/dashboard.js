@@ -459,12 +459,12 @@ const handleChange = (e) => {
   };
  
   return (
-    <div className='min-h-screen w-full bg-green-50 pb-24 pt-7 relative'>
+    <div className='h-full w-full bg-green-50 pb-24 pt-7 relative'>
       {(orderModalOpen || trackModalOpen || profileModalVisible || deleteModalVisible) && (
         <div className="fixed inset-0 z-50  bg-white/10 backdrop-blur-sm transition-all"></div>
       )}
 
-      <div className="flex h-screen relative  top-20 z-10">
+      <div className="flex h-full relative  top-20 z-10">
         {/* Sidebar */}
         <div className={`lg:relative  h-[87%] fixed inset-y-0 top-0 left-0 z-50 bg-white backdrop-blur-sm border-gray-200 dark:border-gray-700 shadow-lg transition-all duration-300 transform ${
           collapsed ? 'w-20' : 'w-64'
