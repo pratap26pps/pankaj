@@ -76,7 +76,7 @@ export default function ModernTestimonials() {
                 {error}
               </div>
             ) : testimonials.length === 0 ? (
-              <div className="col-span-full text-center text-gray-400 py-10 w-full">
+              <div className="col-span-full text-center text-gray-400 py-10 w-full" style={{ fontFamily: 'Poppins, sans-serif' }}>
                 No testimonials yet.
               </div>
             ) : (
@@ -103,7 +103,7 @@ export default function ModernTestimonials() {
                     </div>
 
                     {/* Quote Text */}
-                    <div className="text-sm text-gray-700 leading-relaxed mt-2 italic flex-1 ">
+                    <div className="text-sm text-gray-700 leading-relaxed mt-2  flex-1 " style={{ fontFamily: 'Poppins, sans-serif' }}>
                       “{t.description}”
                     </div>
 

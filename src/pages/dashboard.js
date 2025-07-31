@@ -19,7 +19,7 @@ import {
   ShoppingCart, 
   Users, 
   Plus, 
-  
+  NotebookPenIcon,
   ClipboardList,
   Edit,
   Trash2,
@@ -28,6 +28,11 @@ import {
   X,
  
   ChevronRight,
+  List,
+  FolderPlus,
+  PackagePlus,
+  AlignJustify,
+  BookCheck,
  
   
 } from "lucide-react";
@@ -121,11 +126,11 @@ const Dashboard = () => {
     { key: 'manage-users', label:'ManageUsers&Centers', icon: <Users className="w-5 h-5" /> },
     { key: 'verify-partners', label: 'Verify Partners', icon: <Users className="w-5 h-5" /> },
     { key: 'Total Users', label: 'Total Users', icon: <Users className="w-5 h-5" /> },
-    { key: 'live-bookings', label: 'ServiceBookings', icon: <Users className="w-5 h-5" /> },
-    { key: 'Booking Order List', label: 'Booking Order List', icon: <Users className="w-5 h-5" /> },
-    { key: 'AddReview', label: 'AddReview', icon: <Users className="w-5 h-5" /> },
-    { key: 'Add Inventory', label: 'Add Inventory', icon:< Users className="w-5 h-5" />  },
-    { key: 'Product list', label: 'Product list', icon:< Users className="w-5 h-5" />  },
+    { key: 'live-bookings', label: 'ServiceBookings', icon: <NotebookPenIcon className="w-5 h-5" /> },
+    { key: 'Booking Order List', label: 'Booking Order List', icon: <List className="w-5 h-5" /> },
+    { key: 'AddReview', label: 'AddReview', icon: <FolderPlus className="w-5 h-5" /> },
+    { key: 'Add Inventory', label: 'Add Inventory', icon:< PackagePlus className="w-5 h-5" />  },
+    { key: 'Product list', label: 'Product list', icon:<AlignJustify className="w-5 h-5" />  },
    
   ];
 
@@ -141,7 +146,7 @@ const Dashboard = () => {
      const AdminItems = [
     { key: 'overview', label: 'Overview', icon: <BarChart3 className="w-5 h-5" /> },
     { key: 'orders', label: 'Orders', icon: <ShoppingCart className="w-5 h-5" /> },
-    { key: 'Booking Services', label: 'Booking Form', icon: <Plus className="w-5 h-5" /> },
+    { key: 'Booking Services', label: 'Booking Form', icon: <BookCheck className="w-5 h-5" /> },
     { key: 'customers', label: 'Customers', icon: <Users className="w-5 h-5" /> },
    
   ];
@@ -151,9 +156,9 @@ const Dashboard = () => {
     { key: 'orders', label: 'My Orders', icon: <ClipboardList className="w-5 h-5" /> },
     { key: 'cart', label: 'My Cart', icon: <ShoppingCart className="w-5 h-5" /> },
    
-      { key: 'service-history', label: 'Service History', icon: <ClipboardList className="w-5 h-5" />  },
-      { key: 'book-service', label: 'Book Service', icon: <ClipboardList className="w-5 h-5" />  },
-      { key: 'buy-battery', label: 'Buy Battery',icon: <ClipboardList className="w-5 h-5" /> },
+      { key: 'service-history', label: 'Service History', icon: <NotebookPenIcon className="w-5 h-5" />  },
+      { key: 'book-service', label: 'Book Service', icon: <BookCheck className="w-5 h-5" />  },
+      { key: 'buy-battery', label: 'Buy Battery',icon: <PackagePlus className="w-5 h-5" /> },
   ];
  
  
@@ -305,11 +310,11 @@ const handleChange = (e) => {
       return (
         
         <div className="flex items-center justify-center z-50 bg-gray-50">
-          <div className="text-center p-8">
+          <div className="text-center p-8" style={{ fontFamily: 'Poppins, sans-serif' }}>
             <div className="mb-4">
               <AlertTriangle className="mx-auto h-16 w-16 text-yellow-500" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">Account Pending Approval,It will take 24 hours to approve your account.</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2"style={{ fontFamily: 'Poppins, sans-serif' }}>Account Pending Approval,It will take 24 hours to approve your account.</h2>
             <div className="text-2xl font-bold text-gray-800 mb-2">Current Status: {user?.status}</div>
 
             <p className="text-gray-600">Please contact SuperAdmin for approval to access your dashboard.</p>
@@ -482,8 +487,8 @@ const handleChange = (e) => {
                 />
                 {!collapsed && (
                   <div>
-                    <h3 className="font-semibold text-gray-800 ">{ user?.name || `${user?.firstName} ${user?.lastName}` }</h3>
-                    <p className="text-sm text-gray-700">{user?.accountType}</p>
+                    <h3 className="font-semibold text-gray-800 " style={{ fontFamily: 'Poppins, sans-serif' }}>{ user?.name || `${user?.firstName} ${user?.lastName}` }</h3>
+                    <p className="text-sm text-gray-700"style={{ fontFamily: 'Poppins, sans-serif' }}>{user?.accountType}</p>
                   </div>
                 )}
               </div>
@@ -519,7 +524,7 @@ const handleChange = (e) => {
                 : "text-black hover:bg-gray-700 hover:text-white cursor-pointer hover:translate-x-1"
 
             }`}
-          >
+         style={{ fontFamily: 'Poppins, sans-serif' }} >
             <span className="text-xl">{item.icon}</span>
             {!collapsed && <span className="font-medium">{item.label}</span>}
           </button>
@@ -541,7 +546,7 @@ const handleChange = (e) => {
                 : "text-black hover:bg-gray-700 hover:text-white cursor-pointer hover:translate-x-1"
 
             }`}
-          >
+         style={{ fontFamily: 'Poppins, sans-serif' }} >
             <span className="text-xl">{item.icon}</span>
             {!collapsed && <span className="font-medium">{item.label}</span>}
           </button>
@@ -584,7 +589,7 @@ const handleChange = (e) => {
                 : "text-black hover:bg-gray-700 hover:text-white cursor-pointer hover:translate-x-1"
 
             }`}
-          >
+          style={{ fontFamily: 'Poppins, sans-serif' }}>
             <span className="text-xl">{item.icon}</span>
             {!collapsed && <span className="font-medium">{item.label}</span>}
           </button>
@@ -602,7 +607,7 @@ const handleChange = (e) => {
                 <button
                   onClick={() => setProfileModalVisible(true)}
                   className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-                >
+                style={{ fontFamily: 'Poppins, sans-serif' }}>
                   <Edit className="w-4 h-4" />
                   <span>Edit Profile</span>
                 </button>
@@ -720,7 +725,7 @@ const handleChange = (e) => {
               onChange={handleFileChange}
               accept="image/*"
               className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-            />
+           style={{ fontFamily: 'Poppins, sans-serif' }} />
             {loading && (
               <div className="mt-2 text-blue-600">Uploading image...</div>
             )}
@@ -1038,14 +1043,14 @@ const handleChange = (e) => {
       >
         <div className="text-center space-y-4">
           <div className="text-6xl text-yellow-500"><AlertTriangle className="w-24 h-24 mx-auto" /></div>
-          <h3 className="text-md font-semibold text-gray-900">Are you absolutely sure?</h3>
-          <p className="text-gray-600  text-sm">
+          <h3 className="text-md font-semibold text-gray-900" style={{ fontFamily: 'Poppins, sans-serif' }}>Are you absolutely sure?</h3>
+          <p className="text-gray-600  text-sm" style={{ fontFamily: 'Poppins, sans-serif' }}>
             This action cannot be undone. This will permanently delete your account
             and remove all associated data from our servers.
           </p>
           <div className="space-y-3">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1" style={{ fontFamily: 'Poppins, sans-serif' }}>
                 Type 'DELETE' to confirm:
               </label>
               <input
@@ -1067,7 +1072,7 @@ const handleChange = (e) => {
                 onClick={handleDeleteAccount}
                 className="px-4 py-2  text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
                 disabled={confirm !== "DELETE"}
-              >
+              style={{ fontFamily: 'Poppins, sans-serif' }}>
                 Delete Account
                   </button>
                 </div> 
