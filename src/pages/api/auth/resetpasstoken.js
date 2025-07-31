@@ -32,7 +32,7 @@ export default async function handler(req, res) {
     });
 
  
-    const resetUrl = `${process.env.PORT_NO}/reset-password?token=${token}&email=${email}`;
+    const resetUrl = `https://gridaneobharat.com/reset-password?token=${token}&email=${email}`;
     await sendResetEmail(email, resetUrl);
 
     return res.status(200).json({ message: "Reset email sent successfully" });
