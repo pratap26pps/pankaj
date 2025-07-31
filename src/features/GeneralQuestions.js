@@ -41,7 +41,7 @@ const GeneralQuestions = () => {
   };
 
   return (
-    <section className="bg-green-50 w-full min-h-[600px] py-10 px-4 sm:px-6 md:px-12 flex flex-col md:flex-row items-center justify-center gap-1" style={{ fontFamily: 'Inter, sans-serif' }}>
+    <section className="bg-green-50 w-full min-h-[600px] py-10 px-4 sm:px-6 md:px-12 flex flex-col md:flex-row items-center justify-center gap-1" style={{ fontFamily: 'poppins, sans-serif' }}>
       {/* FAQ Left Side */}
       <motion.div
         initial={{ x: -50, opacity: 0 }}
@@ -50,7 +50,7 @@ const GeneralQuestions = () => {
         className="w-full 2xl:ml-16 md:w-1/2"
       >
         <div className="text-left lg:ml-16">
-          <h2 className="text-4xl font-extrabold mb-4 bg-gradient-to-r from-blue-600 via-green-600 to-emerald-600 bg-clip-text text-transparent" style={{ fontFamily: 'Poppins, sans-serif', letterSpacing: '-0.02em' }}>
+          <h2 className="text-4xl font-extrabold mb-4 bg-gradient-to-r from-blue-600 via-green-600 to-emerald-600 bg-clip-text text-transparent" style={{ fontFamily: 'Poppins, sans-serif', letterSpacing: '0.02em' }}>
             Frequently Asked Questions
           </h2>
           <p className="text-gray-700 mb-10 text-lg" style={{ fontFamily: 'Poppins, sans-serif' }}>
@@ -66,6 +66,7 @@ const GeneralQuestions = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
                 className="bg-white border border-green-100 rounded-xl shadow-md transition-all w-full"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
               >
                 <button
                   className="w-full px-6 py-4 flex justify-between items-center text-left focus:outline-none"

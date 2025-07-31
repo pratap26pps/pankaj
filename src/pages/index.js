@@ -86,13 +86,13 @@ const [loading, setLoading] = useState(true);
             <h1
               className="text-5xl sm:text-6xl md:text-5xl lg:text-6xl font-black leading-tight"
               style={{
-                fontFamily: 'inter,san-serif, serif',
+                fontFamily: 'poppins,san-serif',
                 letterSpacing: '-0.02em'
               }}
             >
-              <span className="text-green-600">Fuel-Free Power.</span>
+              <span className="text-green-600" style={{ fontFamily: 'Poppins, sans-serif' }}>Fuel-Free Power.</span>
               <br />
-              <span className="text-blue-600">EV-Ready India.</span>
+              <span className="text-blue-600" style={{ fontFamily: 'Poppins, sans-serif' }}>EV-Ready India.</span>
             </h1>
 
             <motion.p
@@ -100,8 +100,7 @@ const [loading, setLoading] = useState(true);
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
               className="text-lg   sm:text-xl md:text-2xl text-gray-700 font-medium leading-relaxed max-w-5xl mx-auto"
-              style={{ fontFamily: 'sans-serif' }}
-            >
+style={{ fontFamily: 'Poppins, sans-serif' }}            >
               India's clean-tech solution for silent battery backup systems and trusted electric vehicle servicing,
              designed for reliability
               built for the future...
@@ -118,7 +117,7 @@ const [loading, setLoading] = useState(true);
                 whileTap={{ scale: 0.98 }}
                 onClick={ Serviceclick }
                 className="bg-green-600 hover:bg-green-700 text-white px-10 py-5 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-2xl min-w-[250px]"
-              >
+              style={{ fontFamily: 'Poppins, sans-serif' }}>
                 Explore Service Solutions
               </motion.button>
 
@@ -147,7 +146,7 @@ const [loading, setLoading] = useState(true);
           >
             <h2
               className="text-4xl sm:text-4xl md:text-5xl font-bold text-green-600 mb-6"
-              style={{ fontFamily: 'poppins, serif', letterSpacing: '-0.01em' }}
+              style={{ fontFamily: 'poppins, serif', letterSpacing: '0.01em' }}
             >
               Powering India's <span className="text-blue-600">Electric Future</span>
             </h2>
@@ -182,7 +181,7 @@ const [loading, setLoading] = useState(true);
               </h3>
               <p
                 className="text-gray-600 text-center leading-relaxed"
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                style={{ fontFamily: 'poppins, sans-serif' }}
               >
                 Rapid service delivery with cutting-edge diagnostic tools and streamlined processes.
               </p>
@@ -210,7 +209,7 @@ const [loading, setLoading] = useState(true);
               </h3>
               <p
                 className="text-gray-600 text-center leading-relaxed"
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                style={{ fontFamily: 'poppins, sans-serif' }}
               >
                 Industry-certified technicians with specialized EV training and proven expertise.
               </p>
@@ -238,7 +237,7 @@ const [loading, setLoading] = useState(true);
               </h3>
               <p
                 className="text-gray-600 text-center leading-relaxed"
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                style={{ fontFamily: 'poppins, sans-serif' }}
               >
                 Transparent, competitive rates starting at ₹199 with no hidden charges.
               </p>
@@ -266,7 +265,7 @@ const [loading, setLoading] = useState(true);
               </h3>
               <p
                 className="text-gray-600 text-center leading-relaxed"
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                style={{ fontFamily: 'poppins, sans-serif' }}
               >
                 Advanced technology solutions designed for tomorrow's electric mobility needs.
               </p>
