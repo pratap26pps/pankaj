@@ -110,30 +110,15 @@ export default function ResetPasswordPage() {
   const passwordStrength = getPasswordStrength();
 
   return (
-    <div className={`min-h-screen transition-all duration-500 relative py-16 overflow-hidden ${
-      isDark ? 'bg-gray-900' : 'bg-gray-50'
-    }`}>
-      {/* Static Grid Background */}
-      <div className={`absolute inset-0 transition-opacity duration-500 ${
-        isDark ? 'opacity-20' : 'opacity-10'
-      }`}>
-        <div className="absolute inset-0" style={{
-          backgroundImage: `
-            linear-gradient(${isDark ? '#374151' : '#6b7280'} 1px, transparent 1px),
-            linear-gradient(90deg, ${isDark ? '#374151' : '#6b7280'} 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px'
-        }} />
-      </div>
+    <div className="min-h-screen transition-all duration-500 relative bg-green-50 py-16 overflow-hidden" style={{ fontFamily: "'Poppins', sans-serif" }}>
+     
 
       {/* Floating Orbs */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(5)].map((_, i) => (
           <div
             key={i}
-            className={`absolute rounded-full blur-xl animate-pulse ${
-              isDark ? 'bg-blue-500' : 'bg-purple-500'
-            }`}
+            className={`absolute rounded-full blur-xl  `}
             style={{
               width: Math.random() * 200 + 100,
               height: Math.random() * 200 + 100,
@@ -165,7 +150,7 @@ export default function ResetPasswordPage() {
       <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
         <div
           className={`w-full max-w-md transition-all duration-500 transform ${
-            isDark ? 'bg-gray-800/90' : 'bg-white/90'
+            isDark ? 'bg-white text-black' : 'bg-white/90'
           } backdrop-blur-xl rounded-3xl shadow-2xl border ${
             isDark ? 'border-gray-700' : 'border-gray-200'
           } hover:shadow-3xl`}
@@ -175,18 +160,18 @@ export default function ResetPasswordPage() {
           <div className="text-center p-8 pb-6">
             <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-6 ${
               isDark ? 'bg-blue-600' : 'bg-purple-600'
-            } animate-pulse`}>
+            }`}>
               <Lock className="w-8 h-8 text-white" />
             </div>
             
             <h1 className={`text-3xl font-bold mb-2 ${
-              isDark ? 'text-white' : 'text-gray-800'
+              isDark ? 'text-black' : 'text-gray-800'
             }`}>
               Reset Password
             </h1>
             
             <p className={`${
-              isDark ? 'text-gray-300' : 'text-gray-600'
+              isDark ? 'text-gray-900' : 'text-gray-100'
             } text-sm`}>
               Create a new secure password for your account
             </p>
@@ -308,11 +293,11 @@ export default function ResetPasswordPage() {
           </form>
 
           {/* Footer */}
-          <div className={`text-center p-6 border-t ${
-            isDark ? 'border-gray-700' : 'border-gray-200'
+          <div className={`text-center p-6 border-t mt-3 ${
+            isDark ? 'border-gray-700' : 'border-gray-100'
           }`}>
             <p className={`text-sm ${
-              isDark ? 'text-gray-400' : 'text-gray-500'
+              isDark ? 'text-gray-800' : 'text-gray-100'
             }`}>
               Remember your password?{' '}
               <button

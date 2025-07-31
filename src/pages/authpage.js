@@ -473,7 +473,7 @@ const gstRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/;
                     <>
                       <div className="grid grid-cols-2 gap-2">
                       <Input
-                        name="Aadhar Number"
+                        name="adharNumber"
                         placeholder={`Adhar Number`}
                         value={formData.adharNumber}
                         onChange={handleInputChange}
@@ -517,7 +517,7 @@ const gstRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/;
                        <div>
                         <Input
                           name="GstNo"
-                          placeholder={`Enter GST No`}
+                          placeholder={`Enter GST No.`}
                           value={formData.GstNo}
                           onChange={handleInputChange}
                           className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
