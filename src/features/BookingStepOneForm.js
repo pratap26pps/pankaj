@@ -91,20 +91,24 @@ export default function BookingStepOneForm() {
 
   return (
     <div className="space-y-4 shadow-2xl p-10  bg-white  rounded-3xl  ">
-      <h3 className="text-xl font-semibold text-gray-700 mb-2">Book Your EV Service Now</h3>
+<h3 className="text-2xl sm:text-4xl lg:text-4xl font-extrabold text-blue-600 drop-shadow-lg mb-2">
+  Book Your EV Service Now ...
+</h3>
 
-      <label htmlFor="fullName">Full Name</label>
+
+
+      <label Full htmlFor="fullName" className="font-bold text-shadow-2xs font-poppins">Full Name</label>
       <input
         type="text"
         name="fullName"
         value={form.fullName}
         onChange={handleChange}
-        placeholder="Full Name"
-        className="w-full p-2 border rounded"
+        placeholder="Enter Full Name"
+        className="w-full p-2 font-bold border rounded"
         required
       />
 
-      <label htmlFor="phone">Mobile Number</label>
+      <label htmlFor="phone"  className="font-bold text-shadow-2xs font-poppins">Mobile Number</label>
       <input
         type="tel"
         name="phone"
@@ -112,34 +116,34 @@ export default function BookingStepOneForm() {
         minLength={10}
         value={form.phone}
         onChange={handleChange}
-        placeholder="Mobile Number"
-        className="w-full p-2 border rounded"
+        placeholder=" Enter Mobile Number"
+        className="w-full p-2 font-bold border rounded"
         pattern="[0-9]{10}"
         required
       />
 
-      <label htmlFor="email">Email</label>
+      <label htmlFor="email"  className="font-bold text-shadow-2xs font-poppins">Email</label>
       <input
         type="email"
         name="email"
         value={form.email}
         onChange={handleChange}
-        placeholder="Email"
-        className="w-full p-2 border rounded"
+        placeholder="email@gmail.com"
+        className="w-full p-2 font-bold border rounded"
         required
       />
 
-      <label htmlFor="address">Pickup/Drop Address</label>
+      <label htmlFor="address"  className="font-bold text-shadow-2xs font-poppins">Pickup/Drop Address</label>
       <input
         name="address"
         value={form.address}
         onChange={handleChange}
         placeholder="Pickup/Drop Address"
-        className="w-full p-2 border rounded"
+        className="w-full p-2 font-bold border rounded"
         required
       />
 
-      <label htmlFor="cityState">City & State</label>
+      <label htmlFor="cityState"  className="font-bold text-shadow-2xs font-poppins">City & State</label>
       <input
         name="cityState"
         value={form.cityState}
@@ -147,7 +151,7 @@ export default function BookingStepOneForm() {
         placeholder={
           locationLoading ? "Detecting your location..." : "City, State"
         }
-        className="w-full p-2 border rounded"
+        className="w-full p-2 font-bold border rounded"
         required
       />
 
@@ -155,7 +159,7 @@ export default function BookingStepOneForm() {
         <button
           type="button"
           onClick={nextStep}
-          className="mt-4 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition"
+          className="mt-4 bg-green-600 font-bold hover:bg-green-700 text-white px-4 py-2 rounded transition"
         >
           Continue Booking
         </button>
