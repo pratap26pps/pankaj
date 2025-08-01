@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   }
 
   const { email, token, password } = req.body;
-
+// check if all required fields are present
   if (!email || !token || !password) {
     return res.status(400).json({ message: "Missing fields" });
   }
