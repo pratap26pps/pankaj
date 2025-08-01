@@ -102,19 +102,19 @@ console.log("localCartCount in nav ", localCartCount);
             <NavigationMenu>
               <NavigationMenuLink
                 onClick={() => router.push("/")}
-                className="block cursor-pointer  py-2  text-slate-900 text-xl hover:text-blue-300   rounded-lg transition-all duration-300  relative group"
+                className="block cursor-pointer  py-2  text-slate-900 text-lg hover:text-blue-300   rounded-lg transition-all duration-300  relative group"
                   style={{ fontFamily: "'Poppins', sans-serif" }}
               >
-                <span className="relative text-xl  z-10">Home</span>
+                <span className="relative  z-10">Home</span>
               </NavigationMenuLink>
             </NavigationMenu>
 
             <NavigationMenu>
               <NavigationMenuLink
                 onClick={() => router.push("/About")}
-                className="block cursor-pointer py-2 text-sm text-slate-900  hover:text-blue-300   rounded-lg transition-all duration-300  relative group"
+                className="block cursor-pointer py-2 text-lg text-slate-900  hover:text-blue-300   rounded-lg transition-all duration-300  relative group"
               >
-                <span className="relative text-xl z-10">About</span>
+                <span className="relative text-lg z-10">About</span>
               </NavigationMenuLink>
             </NavigationMenu>
 
@@ -124,17 +124,19 @@ console.log("localCartCount in nav ", localCartCount);
                 onClick={() => router.push("/Servicepage")}
                 className="block cursor-pointer  py-2 text-sm text-slate-900 hover:text-blue-300 rounded-lg transition-all duration-300   relative group"
               >
-                <span className="relative text-xl z-10">Services</span>
+                <span className="relative text-lg z-10">Services</span>
               </NavigationMenuLink>
             </NavigationMenu>
 
             <NavigationMenu>
               <NavigationMenuLink
                 onClick={() => router.push("/Blog")}
-                className="block cursor-pointer text-xl  py-2   text-slate-900   hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
+                className="block cursor-pointer text-sm  py-2   text-slate-900   hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
 
               >
+                <span className="relative text-lg z-10">
                 Blog
+                </span>
               </NavigationMenuLink>
             </NavigationMenu>
           </div>
@@ -190,7 +192,7 @@ console.log("localCartCount in nav ", localCartCount);
             ) : (
               <button
                 onClick={() => router.push("/authpage")}
-                className="px-6 py-2 bg-blue-600 cursor-pointer text-white rounded-lg font-medium "
+                className="px-3 py-1 bg-blue-600 cursor-pointer text-lg text-white rounded-lg font-medium "
               >
                 Account
               </button>
@@ -230,7 +232,7 @@ console.log("localCartCount in nav ", localCartCount);
           router.push("/");
           setMenuOpen(false);
         }}
-        className="block cursor-pointer py-2 -mt-3 text-md text-black font-bold hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
+        className="block cursor-pointer py-2 -mt-3 text-sm text-black font-bold hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
       >
         <span className="relative z-10">Home</span>
       </NavigationMenuLink>
@@ -242,9 +244,9 @@ console.log("localCartCount in nav ", localCartCount);
           router.push("/About");
           setMenuOpen(false);
         }}
-        className="block cursor-pointer py-2 text-md font-bold text-black hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
+        className="block cursor-pointer py-2 text-sm font-bold text-black hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
       >
-        <span className="relative z-10">About</span>
+        <span className="relative  z-10">About</span>
       </NavigationMenuLink>
     </NavigationMenu>
 
@@ -254,7 +256,7 @@ console.log("localCartCount in nav ", localCartCount);
           router.push("/Servicepage");
           setMenuOpen(false);
         }}
-        className="block cursor-pointer py-2 text-md font-bold text-black hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
+        className="block cursor-pointer py-2 text-sm font-bold text-black hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
       >
         <span className="relative z-10">Services</span>
       </NavigationMenuLink>
@@ -266,7 +268,7 @@ console.log("localCartCount in nav ", localCartCount);
           router.push("/Blog");
           setMenuOpen(false);
         }}
-        className="block cursor-pointer py-2 text-md text-black font-bold hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
+        className="block cursor-pointer py-2 text-sm text-black font-bold hover:text-blue-300 rounded-lg transition-all duration-300 relative group"
       >
         <span className="relative z-10">Blog</span>
       </NavigationMenuLink>
@@ -276,7 +278,7 @@ console.log("localCartCount in nav ", localCartCount);
   {/* Auth Section */}
   <div className="flex flex-col items-start w-full gap-4 pt-4 border-t border-blue-500/20" style={{ fontFamily: "'Poppins', sans-serif" }}>
     <div className="relative">
-      <div className="absolute -top-2 left-0 bg-gradient-to-r from-blue-500 to-cyan-500 text-black text-md rounded-full w-5 h-5 flex items-center justify-center font-bold">
+      <div className="absolute -top-2 left-0 bg-gradient-to-r from-blue-500 to-cyan-500 text-black text-sm rounded-full w-5 h-5 flex items-center justify-center font-bold">
         {totalItems}
       </div>
       <div className="flex items-center gap-2 cursor-pointer" onClick={() => {
@@ -321,7 +323,7 @@ console.log("localCartCount in nav ", localCartCount);
           router.push("/authpage");
           setMenuOpen(false);
         }}
-        className="px-6 py-2 bg-gradient-to-r text-2xl from-blue-600 to-cyan-600 text-white rounded-lg font-medium"
+        className="px-3  py-1 bg-gradient-to-r text-lg from-blue-600 to-cyan-600 text-white rounded-lg font-medium"
       >
         Account
       </button>

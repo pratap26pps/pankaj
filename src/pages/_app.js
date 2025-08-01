@@ -16,7 +16,7 @@ import { setOrders } from "@/redux/slices/orderSlice";
 import { setCartFromLocalStorage } from "@/redux/slices/cartSlice";
 
 import RouteProtector from "@/components/RouteProtector";
-import CircularSpinner from "@/pages/CircularSpinner";
+// import CircularSpinner from "@/pages/CircularSpinner";
 import PremiumNavigation from "@/features/Navbar";
 import GeneralQuestions from "@/features/GeneralQuestions";
 import Testimonial from "@/features/Testimonial";
@@ -218,7 +218,7 @@ function MyApp({ Component, pageProps: { session: sessionProp, ...pageProps } })
               },
             }}
           />
-          <CircularSpinner />
+          {/* <CircularSpinner /> */}
           <addEventListener/>
           <GeneralQuestions />
           <Testimonial />
