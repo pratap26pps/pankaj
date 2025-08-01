@@ -98,26 +98,7 @@ const OTPPage = () => {
       </div>
 
       {/* Floating Orbs */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(5)].map((_, i) => (
-          <div
-            key={i}
-            className={`absolute rounded-full blur-xl animate-pulse ${
-              isDark ? 'bg-blue-500' : 'bg-purple-400'
-            }`}
-            style={{
-              width: Math.random() * 200 + 100,
-              height: Math.random() * 200 + 100,
-              left: Math.random() * 100 + '%',
-              top: Math.random() * 100 + '%',
-              opacity: 0.1,
-              animationDelay: `${i * 2}s`,
-              animationDuration: `${8 + i * 2}s`
-            }}
-          />
-        ))}
-      </div>
-
+     
       {/* Theme Toggle */}
       <div className="absolute top-6 right-6 z-40">
         <button
