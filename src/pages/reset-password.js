@@ -85,7 +85,8 @@ export default function ResetPasswordPage() {
         toast.success("Password reset successful. Please log in.");
         router.push("/authpage");
       } else {
-        toast.error(data.message || "Reset failed.");
+        toast.error(data || "Reset failed.");
+        
       }
     } catch (err) {
       console.error("Network or server error:", err);
