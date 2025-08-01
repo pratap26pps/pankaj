@@ -81,7 +81,7 @@ export default function ResetPasswordPage() {
         console.error("Failed to parse JSON:", jsonErr);
       }
     
-      if (res.ok) {
+      if (data.message) {
         toast.success("Password reset successful. Please log in.");
         router.push("/authpage");
       } else {
