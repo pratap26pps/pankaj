@@ -76,16 +76,13 @@ export default function ResetPasswordPage() {
       
       console.log("response log", res);
       
-      let data = {};
-      
-      if (res.ok) {
-        data = await res.json();
+      const data = await res.json();
+      console.log("data",data);
+      if (data.message) {
         toast.success("Password reset successful. Please log in.");
         router.push("/authpage");
       } else {
-        const errMessage = await res.text(); // try to read raw response
-        toast.error("Reset failed: " + errMessage);
-        console.log("data", errMessage);
+        toast.error("Reset failed.");
       }
       
     } catch (err) {
