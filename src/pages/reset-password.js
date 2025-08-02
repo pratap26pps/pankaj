@@ -73,6 +73,8 @@ export default function ResetPasswordPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, token, password }),
       });
+
+      console.log("response log",res);
     
       let data = {};
       try {
