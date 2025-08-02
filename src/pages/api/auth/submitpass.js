@@ -1,7 +1,8 @@
 import dbConnect from "../../../lib/dbConnect";
 import User from "../../../models/users";
 import ResetToken from "../../../models/ResetToken";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
+
 
 export default async function handler(req, res) {
   await dbConnect();
