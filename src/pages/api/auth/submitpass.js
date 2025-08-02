@@ -7,7 +7,7 @@ import bcrypt from "bcryptjs";
 export default async function handler(req, res) {
   await dbConnect();
 
-  if (req.method !== "POST") return res.status(405).json({ message: "Method not allowed" });
+  if (req.method.toUpperCase() !== "POST") return res.status(405).json({ message: "Method not allowed" });
 
   const { email, token, password } = req.body;
   if (!email || !token || !password) return res.status(400).json({ message: "Missing fields" });
