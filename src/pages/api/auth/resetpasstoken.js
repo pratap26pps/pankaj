@@ -30,9 +30,9 @@ export default async function handler(req, res) {
       token,
       expiresAt: Date.now() + 60 * 60 * 1000,  
     });
-
+  
  
-    const resetUrl = `${process.env.PORT_NO}/reset-password?token=${token}&email=${email}`;
+    const resetUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/reset-password?token=${token}&email=${email}`;
     await sendResetEmail(email, resetUrl);
 
     return res.status(200).json({ message: "Reset email sent successfully" });
