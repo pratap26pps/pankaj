@@ -73,24 +73,21 @@ export default function ResetPasswordPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, token, password }),
       });
-
-      console.log("response log",res);
-    
+      
+      console.log("response log", res);
+      
       let data = {};
-      try {
+      
+      if (res.ok) {
         data = await res.json();
-      } catch (jsonErr) {
-        console.error("Failed to parse JSON:", jsonErr);
-      }
-    
-      if (data.message) {
         toast.success("Password reset successful. Please log in.");
         router.push("/authpage");
       } else {
-        toast.error("Reset failed.");
-        console.log("data",data)
-        
+        const errMessage = await res.text(); // try to read raw response
+        toast.error("Reset failed: " + errMessage);
+        console.log("data", errMessage);
       }
+      
     } catch (err) {
       console.error("Network or server error:", err);
       toast.error("Something went wrong. Please try again.");

@@ -5,12 +5,14 @@ import bcrypt from "bcrypt";
 
 export default async function handler(req, res) {
   await dbConnect();
-  
+  console.log("Reset Password API hit with method:", req.method);
+
   if (req.method !== "POST") {
     res.setHeader("Allow", ["POST"]);
     return res.status(405).json({ message: "Method not allowed" });
   }
-  
+  console.log("METHOD RECEIVED:", req.method, "BODY:", req.body);
+
 
   const { email, token, password } = req.body;
 // check if all required fields are present
