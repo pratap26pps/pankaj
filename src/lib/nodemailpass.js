@@ -17,7 +17,7 @@ export async function sendResetEmail(email, resetLink) {
     subject: "Password Reset",
     html: `
       <p>You requested a password reset.</p>
-      <p>Click <a href="${resetLink}">here</a> to reset your password.</p>
+      <p>Click Here <a href="${resetLink}">${resetLink}</a> to reset your password.</p>
       <p>This link expires in 1 hour.</p>
     `,
   });
