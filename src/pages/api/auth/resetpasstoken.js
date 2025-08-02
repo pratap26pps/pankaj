@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
   await ResetToken.create({ email, token, expiresAt });
 
-  const resetUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/reset-password?token=${token}&email=${email}`;
+  const resetUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/reset-password?token=${token}&email=${email}`;
   await sendResetEmail(email, resetUrl);
 
   return res.status(200).json({ message: "Reset email sent successfully" });
