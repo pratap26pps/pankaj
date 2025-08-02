@@ -68,6 +68,10 @@ export default function ResetPasswordPage() {
 
     setLoading(true);
     try {
+      console.log("email", email);
+      console.log("token", token);
+      console.log("password", password);
+      
       const res = await fetch("/api/auth/submitpassword", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
